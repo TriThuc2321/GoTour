@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.HomeView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             NavigationPage.HasNavigationBar="false"
+             >
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,5,0,0" Padding="20" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Orientation="Horizontal">
+                <Frame                                         
+                   HorizontalOptions="End"                   
+                   HasShadow="False"
+                   CornerRadius="8"
+                   Margin="0, 0, 0, 0"
+                   Padding="0"
+                    VerticalOptions="Center"
+                    >
+                    <ImageButton                        
+                        Source="thuc.jpg"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"                        
+                    />
+                </Frame>
+                <Label Text="Hello,&#x0a;Thuc Tran" TextColor="Black" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <ImageButton
+                HeightRequest="40"
+                WidthRequest="40"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Source="menuIcon.png"
+                Margin="0, -10, 0, 0"
+                Grid.Column="1"
+                BackgroundColor="White"
+                Command="{Binding MenuCommand}"
+            />
+
+        </Grid>
+
+        <Label
+            x:Name="testLb"
+            Text="Discover&#x0a;world with us!"
+            TextColor="Black"
+            FontSize="30"
+            FontAttributes="Bold"
+            Margin="20, 5,0,0"
+            Grid.Row="1"
+            />
+
+        <Frame Grid.Row="2" CornerRadius="20" Margin="20" Padding="5" HasShadow="False" BackgroundColor="#efefef" VerticalOptions="Center" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Entry                    
+                    Placeholder="Search something..."
+                    PlaceholderColor="#C0C0C0"
+                    FontSize="15"
+                    Margin="15,0,0,0"
+                    TextColor="Black"                    
+                />
+                <Frame Grid.Column="1"
+                       BackgroundColor="#f4707c"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        VerticalOptions="Center"
+                       Padding="0"
+                       CornerRadius="15">
+                    <Image 
+                        Margin="10"
+                        Source="searchIcon.ong"
+                        />
+                </Frame>
+
+            </Grid>
+
+        </Frame>
+
+        <Grid Grid.Row="3" Margin="15,0,15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Column="0" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#f4707c" >
+                <Image 
+                    Margin="10"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Source="planeIcon.png"
+                       />
+            </Frame>
+            <Frame Grid.Column="1" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#fde8eb" >
+                <Image 
+                    Margin="10"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       />
+            </Frame>
+            <Frame Grid.Column="2" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#fde8eb" >
+                <Image 
+                        Margin="10"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       />
+            </Frame>
+            <Frame Grid.Column="3" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#fde8eb" >
+                <Image 
+                    Margin="10"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       />
+            </Frame>
+
+
+        </Grid>
+
+        <StackLayout Grid.Row="4" Margin="0,0,0,5">
+            <StackLayout Orientation="Horizontal" >
+                <Label 
+                       Text="New"
+                       TextColor="Black"
+                       Margin="30,0,0,0"
+                 />
+                <Label Grid.Column="1"
+                       Text="Most viewed"
+                       TextColor="#f4707c"
+                       Margin="30,0,0,0"
+                />
+                <Label Text="Hot tours"
+                       TextColor="Black"
+                       Margin="30,0,0,0"
+                />
+                <Label Text="All"
+                       TextColor="Black"
+                       Margin="30,0,0,0"
+                />
+            </StackLayout>
+            <CarouselView ItemsSource="{Binding Places}"  PeekAreaInsets="100" >
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame
+                            HeightRequest="280" WidthRequest="180"
+                            BackgroundColor="White"
+                            HasShadow="True"
+                            Margin="10"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            Padding="0"
+                        >
+                                <Grid>
+                                    <StackLayout
+                                BackgroundColor="Black">
+                                        <Image Source="{Binding imgSourse}"
+                                    HeightRequest="350"
+                                    Aspect="AspectFill"                           
+                           />
+                                    </StackLayout>
+                                    <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
+                                    <StackLayout>
+                                        <Label
+                                    Text="{Binding title}"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="13,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                        />
+                                        <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
+                                            <Image 
+                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                        />
+                                            <Label
+                                        Text="{Binding country}"
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </StackLayout>
+    </Grid>
+</ContentPage>
