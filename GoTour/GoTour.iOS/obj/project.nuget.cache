@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NoZAKXCWQG5jJUvmuS/p4bHRt/JbHmZc0WwCjnrk0kilHnZUOz0uWN1SBfpcNstp7WHhFLp6ZYr/Eh2rmSnaBQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\trith\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
+  ],
+  "logs": []
+}
