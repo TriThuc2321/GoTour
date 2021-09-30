@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JPxHyicdNyh9RG6j2Id66071u0T43JpueMeQ6nY2iAX8JluqOjU9WgTMh7px14o59GgmVaOXKojkYRqtFi7Yfg==",
+  "dgSpecHash": "Vk4mStbRK1onOOGInRl5b7s9c6M48P9buqagiB9i18ZX29DliBBg0iSuXVtnckGXXAjrkpYEPdUFlQNfBhG1kg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
+  "projectFilePath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\trith\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.androidx.activity\\1.1.0.5\\xamarin.androidx.activity.1.1.0.5.nupkg.sha512",

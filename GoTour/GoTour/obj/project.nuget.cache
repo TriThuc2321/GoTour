@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3gc7qSnk36oVuwaFJieAhSi3aSulIbQSzOn5Ve0dBeYJd9oUYnVYvd03ASFnpuA4T4QNIJd2PdDyj7Xxj4bExQ==",
+  "dgSpecHash": "z238fjy8NlPGaAeVtFYZc5MkUKC3SIDWOv4Ba9yq7Ircz8Fkp4dTEPkLFaJvpu0vfk26jCeJLPLXa6KS3Z/7gg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour\\GoTour.csproj",
+  "projectFilePath": "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\trith\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\trith\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

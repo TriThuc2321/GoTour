@@ -2148,11 +2148,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
+      "projectUniqueName": "D:\\GitHub\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
       "projectName": "GoTour.Android",
-      "projectPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
+      "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.Android\\GoTour.Android.csproj",
       "packagesPath": "C:\\Users\\trith\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.Android\\obj\\",
+      "outputPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -2173,8 +2173,8 @@
       "frameworks": {
         "monoandroid11.0": {
           "projectReferences": {
-            "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
-              "projectPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
+            "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
+              "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
             }
           }
         }

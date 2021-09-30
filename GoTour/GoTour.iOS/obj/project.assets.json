@@ -997,11 +997,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
+      "projectUniqueName": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
       "projectName": "GoTour.iOS",
-      "projectPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
+      "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
       "packagesPath": "C:\\Users\\trith\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour.iOS\\obj\\",
+      "outputPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1022,8 +1022,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
-              "projectPath": "C:\\Users\\trith\\source\\repos\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
+            "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
+              "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
             }
           }
         }
