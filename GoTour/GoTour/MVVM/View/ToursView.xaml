@@ -10,10 +10,129 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to tours"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.Column="0" >
+                <CarouselView ItemsSource="{Binding Places2}"  PeekAreaInsets="100" >
+
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame
+                            HeightRequest="280" WidthRequest="180"
+                            BackgroundColor="White"
+                            HasShadow="True"
+                            Margin="10"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            Padding="0"
+                        >
+                                    <Grid>
+                                        <StackLayout
+                                BackgroundColor="Black">
+                                            <Image Source="{Binding imgSourse}"
+                                    HeightRequest="350"
+                                    Aspect="AspectFill"                           
+                           />
+                                        </StackLayout>
+                                        <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
+                                        <StackLayout>
+                                            <Label
+                                    Text="{Binding title}"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="13,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                        />
+                                            <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
+                                                <Image 
+                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                        />
+                                                <Label
+                                        Text="{Binding country}"
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </StackLayout>
+            <StackLayout Grid.Column="1" >
+                <CarouselView ItemsSource="{Binding Places}"  PeekAreaInsets="100" >
+
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame
+                            HeightRequest="280" WidthRequest="180"
+                            BackgroundColor="White"
+                            HasShadow="True"
+                            Margin="10"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            Padding="0"
+                        >
+                                    <Grid>
+                                        <StackLayout
+                                BackgroundColor="Black">
+                                            <Image Source="{Binding imgSourse}"
+                                    HeightRequest="350"
+                                    Aspect="AspectFill"                           
+                           />
+                                        </StackLayout>
+                                        <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
+                                        <StackLayout>
+                                            <Label
+                                    Text="{Binding title}"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="13,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                        />
+                                            <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
+                                                <Image 
+                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                        />
+                                                <Label
+                                        Text="{Binding country}"
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
