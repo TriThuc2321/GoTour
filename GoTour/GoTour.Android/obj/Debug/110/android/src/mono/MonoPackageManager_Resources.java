@@ -4,10 +4,12 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "GoTour.Android.dll" comes first in this list. */
 		"GoTour.Android.dll",
 		"Firebase.dll",
+		"Firebase.Storage.dll",
 		"FormsViewGroup.dll",
 		"GoTour.dll",
 		"LiteDB.dll",
 		"Newtonsoft.Json.dll",
+		"Plugin.Media.dll",
 		"System.Reactive.dll",
 		"Xamarin.AndroidX.Activity.dll",
 		"Xamarin.AndroidX.Annotation.dll",

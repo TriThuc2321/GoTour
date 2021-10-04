@@ -1,6 +1,9 @@
 GoTour.Droid.MainActivity, GoTour.Android;crc64403193b284588fcb.MainActivity
 GoTour.Droid.MainActivity;crc64403193b284588fcb.MainActivity
 gotour.droid.MainActivity;crc64403193b284588fcb.MainActivity
+Plugin.Media.MediaPickerActivity, Plugin.Media;crc646957603ea1820544.MediaPickerActivity
+Plugin.Media.MediaPickerActivity;crc646957603ea1820544.MediaPickerActivity
+plugin.media.MediaPickerActivity;crc646957603ea1820544.MediaPickerActivity
 AndroidX.Activity.IOnBackPressedDispatcherOwner, Xamarin.AndroidX.Activity;androidx.activity.OnBackPressedDispatcherOwner
 AndroidX.Activity.IOnBackPressedDispatcherOwner;androidx.activity.OnBackPressedDispatcherOwner
 androidx.activity.OnBackPressedDispatcherOwner;androidx.activity.OnBackPressedDispatcherOwner
