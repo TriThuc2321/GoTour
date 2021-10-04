@@ -3,5 +3,6 @@
   <PropertyGroup>
     <SelectedDevice>realme RMX2001</SelectedDevice>
     <ActiveDebugProfile>realme RMX2001</ActiveDebugProfile>
+    <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
   </PropertyGroup>
 </Project>
