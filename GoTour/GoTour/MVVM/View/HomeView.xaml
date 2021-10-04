@@ -192,7 +192,7 @@
                                 <Grid>
                                     <StackLayout
                                 BackgroundColor="Black">
-                                        <Image Source="{Binding imgSourse}"
+                                        <Image Source="{Binding imgSource}"
                                     HeightRequest="350"
                                     Aspect="AspectFill"                           
                            />

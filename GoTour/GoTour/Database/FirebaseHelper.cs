@@ -25,7 +25,7 @@ namespace GoTour.Database
                   id = item.Object.id,
                   country = item.Object.country,
                   title = item.Object.title,
-                  imgSourse = item.Object.imgSourse
+                  imgSource = item.Object.imgSource
               }).ToList();
         }
         public async Task AddPlace(string id, string country, string title, string imgSource)
@@ -37,7 +37,7 @@ namespace GoTour.Database
                   id = id,
                   country = country,
                   title = title,
-                  imgSourse = imgSource
+                  imgSource = imgSource
               }); ;
         }
     }

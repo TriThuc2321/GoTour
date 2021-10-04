@@ -17,12 +17,10 @@
             </Grid.ColumnDefinitions>
 
             <StackLayout Grid.Column="0" >
-                <CarouselView ItemsSource="{Binding Places2}"  PeekAreaInsets="100" >
+                <CollectionView ItemsSource="{Binding Places2}"  >
 
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" />
-                    </CarouselView.ItemsLayout>
-                    <CarouselView.ItemTemplate>
+                   
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
                                 <Frame
@@ -37,7 +35,7 @@
                                     <Grid>
                                         <StackLayout
                                 BackgroundColor="Black">
-                                            <Image Source="{Binding imgSourse}"
+                                            <Image Source="{Binding imgSource}"
                                     HeightRequest="350"
                                     Aspect="AspectFill"                           
                            />
@@ -71,20 +69,18 @@
                             </StackLayout>
 
                         </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
             <StackLayout Grid.Column="1" >
-                <CarouselView ItemsSource="{Binding Places}"  PeekAreaInsets="100" >
+                <CollectionView ItemsSource="{Binding Places}"  >
 
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" />
-                    </CarouselView.ItemsLayout>
-                    <CarouselView.ItemTemplate>
+
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
                                 <Frame
-                            HeightRequest="280" WidthRequest="180"
+                            HeightRequest="200" WidthRequest="180"
                             BackgroundColor="White"
                             HasShadow="True"
                             Margin="10"
@@ -95,7 +91,7 @@
                                     <Grid>
                                         <StackLayout
                                 BackgroundColor="Black">
-                                            <Image Source="{Binding imgSourse}"
+                                            <Image Source="{Binding imgSource}"
                                     HeightRequest="350"
                                     Aspect="AspectFill"                           
                            />
@@ -129,8 +125,8 @@
                             </StackLayout>
 
                         </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </StackLayout>
         </Grid>

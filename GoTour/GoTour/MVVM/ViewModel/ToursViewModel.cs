@@ -29,16 +29,18 @@ namespace GoTour.MVVM.ViewModel
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
             List<Place> temp = await firebaseHelper.GetAllPlaces();
-
+            int count = 0;
             foreach (Place p in temp)
             {
+                count++;
                 Places.Add(p);
+                if (count == temp.Count/2) break;
             }
-            foreach (Place p in temp)
+            
+            for (int i = temp.Count/2; i<= temp.Count; i++)
             {
-                Places2.Add(p);
+                Places2.Add(temp[i]);
             }
-            int a = 5;
         }
 
         private ObservableCollection<Place> _places2;

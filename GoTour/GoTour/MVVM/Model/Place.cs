@@ -9,7 +9,7 @@ namespace GoTour.MVVM.Model
         public string id { get; set; }
         public string country { get; set; }
         public string title { get; set; }
-        public string imgSourse { get; set; }
+        public string imgSource { get; set; }
 
     }
 }
