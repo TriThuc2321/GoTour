@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System.Linq;
+using System.IO;
+using Firebase.Storage;
 
 namespace GoTour.Database
 {
     class FirebaseHelper
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        FirebaseStorage storage = new FirebaseStorage("gs://gotour-98c79.appspot.com");
+
         public FirebaseHelper()
         {
 
@@ -39,6 +43,16 @@ namespace GoTour.Database
                   title = title,
                   imgSource = imgSource
               }); 
+        }
+
+        async public Task<string> saveImage(Stream imgStream)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("ProfilePic")
+                .Child("test.png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
         }
     }
 }
