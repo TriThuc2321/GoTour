@@ -19,23 +19,20 @@ namespace GoTour.Database
             }
             set { _ins = value; }
         }
-        FirebaseHelper firebaseHelper;
-        public PlacesServices PlacesServices { get; set; }
-        public UsersServices PsersServices { get; set; }
+        
         private DataManager()
         {
             PlacesServices = new PlacesServices();
-            PsersServices = new UsersServices();
+            UsersServices = new UsersServices();
             ListPlace = new ObservableCollection<Place>();
-            firebaseHelper = new FirebaseHelper();
 
-            getAsync();
+            getAllList();
         }
-        async Task getAsync()
+        async Task getAllList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
-            List<Place> temp = await firebaseHelper.GetAllPlaces();
+            List<Place> temp = await PlacesServices.GetAllPlaces();
             foreach (Place p in temp)
             {
                 ListPlace.Add(p);
@@ -43,6 +40,25 @@ namespace GoTour.Database
 
         }
 
+        private PlacesServices placesServices;
+        public PlacesServices PlacesServices
+        {
+            get
+            {
+                return placesServices;
+            }
+            set { placesServices = value; }
+        }
+        private UsersServices usersServices;
+        public UsersServices UsersServices
+        {
+            get
+            {
+                return usersServices;
+            }
+            set { usersServices = value; }
+        }
+       
         private ObservableCollection<Place> _places;
         public ObservableCollection<Place> ListPlace
         {

@@ -15,10 +15,7 @@ namespace GoTour.Database
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
 
         public List<Place> places;
-        public  PlacesServices()
-        {
-            
-        }
+        public  PlacesServices(){}
         public async Task<List<Place>> GetAllPlaces()
         {
             return (await firebase

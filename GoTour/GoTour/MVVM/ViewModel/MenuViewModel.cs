@@ -14,8 +14,6 @@ namespace GoTour.MVVM.ViewModel
     class MenuViewModel : ObservableObject
     {
         INavigation navigation;
-        FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        UsersServices usersServices;
 
         public Command AddImageCommand { get; }
         public MenuViewModel(){}
@@ -24,7 +22,6 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
 
             AddImageCommand = new Command(_addImg);
-            usersServices = new UsersServices();
         }
 
         async void _addImg(object sender)
@@ -34,12 +31,13 @@ namespace GoTour.MVVM.ViewModel
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
 
-            string url = await usersServices.saveImage(imgData.GetStream());
+            string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream());
 
             ImgSource = ImageSource.FromStream(imgData.GetStream);
 
             User temp = new User("01", "Thien", "078382112", "3/10", "234222222", url);
-            usersServices.addUser(temp);
+
+            await DataManager.Ins.UsersServices.addUser(temp);
         }
 
         private ImageSource imgSource;
