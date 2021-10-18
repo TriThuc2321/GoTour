@@ -14,7 +14,6 @@ namespace GoTour.MVVM.ViewModel
     class HomeViewModel: ObservableObject
     {       
         INavigation navigation;
-        FirebaseHelper firebaseHelper;
 
         public Command MenuCommand { get; }
         public Command NotificaitonCommand { get; }
@@ -26,17 +25,14 @@ namespace GoTour.MVVM.ViewModel
         public HomeViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            firebaseHelper = new FirebaseHelper();
 
             MenuCommand = new Command(openMenu);
             NotificaitonCommand = new Command(openNotifi);
             ToursCommand = new Command(openTours);
             FavoriteCommand = new Command(openFavorite);
-            MyTourCommand = new Command(openMyTour);
+            MyTourCommand = new Command(openMyTour);        
 
-            Places = new ObservableCollection<Place>();
-
-            getPlacesAsync();
+            Places = DataManager.Ins.ListPlace;
         }
         #region open view
         private void openMenu(object obj)
@@ -60,18 +56,7 @@ namespace GoTour.MVVM.ViewModel
             navigation.PushAsync(new MyTourView());
         }
         #endregion
-        async Task getPlacesAsync()
-        {
-            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
-
-            List<Place> temp = await firebaseHelper.GetAllPlaces();
-
-            foreach(Place p in temp)
-            {
-                Places.Add(p);
-            }
-
-        }
+        
 
         private ObservableCollection<Place> _places;
         public ObservableCollection<Place> Places

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    class Place
+    public class Place
     {
         public string id { get; set; }
         public string country { get; set; }

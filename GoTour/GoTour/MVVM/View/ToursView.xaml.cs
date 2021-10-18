@@ -1,4 +1,4 @@
-﻿using GoTour.MVVM.ViewModel;
+using GoTour.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,6 @@ namespace GoTour.MVVM.View
         {
             InitializeComponent();
             this.BindingContext = new ToursViewModel(Navigation);
-
         }
     }
 }
