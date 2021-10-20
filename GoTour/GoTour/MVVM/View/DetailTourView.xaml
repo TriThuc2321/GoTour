@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.DetailTourView" 
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame
+                            BackgroundColor="White"
+                            HasShadow="True"
+                            Margin="10"
+                            CornerRadius="10"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            Padding="0"
+                        >
+                <Grid>
+                    <StackLayout
+                                BackgroundColor="Black">
+                        <Image Source="https://en.nhandan.vn/cdn/en/media/k2/items/src/689/369d889fc76acc3372d1303abe17e522.jpg"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                                   Aspect="AspectFill"                           
+                           />
+                    </StackLayout>
+                    <StackLayout VerticalOptions="EndAndExpand"
+                                 HorizontalOptions="CenterAndExpand"
+                                 HeightRequest="60"
+                                 BackgroundColor="Aqua" 
+                                 Margin="0, 0,0 ,30"
+                                 Padding="10,10,10,10"
+                                 >
+                        <Label
+                                    Text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="0,0,0,0"
+                                    HorizontalOptions="CenterAndExpand"
+                        />
+                        <StackLayout
+                            Orientation="Horizontal" 
+                            Margin="0,0,5,10"
+                            HorizontalOptions="CenterAndExpand">
+                            <Image 
+                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                        />
+                            <Label
+                                        Text="ccccccccccccccccccccccc"
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>

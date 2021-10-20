@@ -3,6 +3,7 @@ using Firebase.Database.Query;
 using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace GoTour.MVVM.ViewModel
         List<string> temp1 = new List<string>();
         public async void pushData(object sender)
         {
-            temp1.Add("11");
+            /*temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
@@ -45,7 +46,10 @@ namespace GoTour.MVVM.ViewModel
                  cmnd = "11123343",
                  profilePic = "1111",
                  temp = temp1,
-             }) ;
+             }) ;*/
+
+            navigation.PushAsync(new DetailTourView());
+
         }
 
         
