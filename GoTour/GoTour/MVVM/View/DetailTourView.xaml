@@ -8,52 +8,111 @@
             <Frame
                             BackgroundColor="White"
                             HasShadow="True"
-                            Margin="10"
+                            Margin="5"
                             CornerRadius="10"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand"
                             Padding="0"
                         >
                 <Grid>
+                    
                     <StackLayout
                                 BackgroundColor="Black">
+                        
                         <Image Source="https://en.nhandan.vn/cdn/en/media/k2/items/src/689/369d889fc76acc3372d1303abe17e522.jpg"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
                            />
                     </StackLayout>
+                    
                     <StackLayout VerticalOptions="EndAndExpand"
-                                 HorizontalOptions="CenterAndExpand"
-                                 HeightRequest="60"
-                                 BackgroundColor="Aqua" 
-                                 Margin="0, 0,0 ,30"
-                                 Padding="10,10,10,10"
+                                 HorizontalOptions="CenterAndExpand"                            
+                                 BackgroundColor="DimGray" 
+                                 Opacity="0.8"
+                                 Margin="0, 0, 0 ,30"
+                                 Padding="0,10,10,10"
+                                 Orientation="Horizontal"
+                                 HeightRequest="150"
+                                 
                                  >
-                        <Label
-                                    Text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                       
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                        <StackLayout  Grid.Column="0" VerticalOptions="CenterAndExpand">
+                            <StackLayout>
+                            <Label
+                                    Text="Hoi An Acient Street"
                                     TextColor="White"
                                     FontSize="18"
                                     FontAttributes="Bold"
                                     Margin="0,0,0,0"
                                     HorizontalOptions="CenterAndExpand"
                         />
-                        <StackLayout
+                            <StackLayout
                             Orientation="Horizontal" 
                             Margin="0,0,5,10"
                             HorizontalOptions="CenterAndExpand">
-                            <Image 
+                                <Image 
                                         Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
                                         Aspect="AspectFill"
                                         HeightRequest="20"
                                         Margin="10, 0, 0, 0"
                         />
-                            <Label
-                                        Text="ccccccccccccccccccccccc"
+                                <Label
+                                        Text="27 Hồ Hiểu, Hội An, Quảng Nam "
                                         TextColor="White"
                                         FontSize="14"                            
                                         Margin="-5, 0, 0, 0"/>
+                                   
+                            </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                    <Label 
+                                     Text="$220"
+                                    TextColor="White"
+                                    FontSize="25"
+                                    FontAttributes="Bold"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="StartAndExpand"></Label>
+                                    <Label 
+                                     Text="3 days 2 nights"
+                                    TextColor="White"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    Margin="30,0,0,0"
+                                    VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"></Label>
+                                </StackLayout>
+                               
+                            </StackLayout>
                         </StackLayout>
+                        <StackLayout Grid.Column="2" 
+                                     VerticalOptions="CenterAndExpand"
+                                     >
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    Text="5"
+                                    TextColor="Gold"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="0,0,0,0"
+                                    
+                        />
+                                <Image Source="https://cdn3.vectorstock.com/i/1000x1000/31/77/star-icon-isolated-on-background-modern-simple-sp-vector-21073177.jpg"
+                                       HeightRequest="30"
+                                       WidthRequest="30"></Image>
+                            </StackLayout>
+                           
+                            <Button Text="Đặt ngay"
+                                    Opacity="1"
+                                    BackgroundColor="WhiteSmoke"
+                                    VerticalOptions="CenterAndExpand"></Button>
+                        </StackLayout>
+                        
                     </StackLayout>
                 </Grid>
             </Frame>
