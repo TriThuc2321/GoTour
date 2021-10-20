@@ -46,7 +46,7 @@
                         <StackLayout  Grid.Column="0" VerticalOptions="CenterAndExpand">
                             <StackLayout>
                             <Label
-                                    Text="Hoi An Acient Street"
+                                    Text="Hội An Phố Cổ"
                                     TextColor="White"
                                     FontSize="18"
                                     FontAttributes="Bold"
@@ -79,7 +79,7 @@
                                     Margin="30,0,0,0"
                                     HorizontalOptions="StartAndExpand"></Label>
                                     <Label 
-                                     Text="3 days 2 nights"
+                                     Text="3 ngày 2 đêm"
                                     TextColor="White"
                                     FontSize="15"
                                     FontAttributes="Bold"
@@ -93,13 +93,14 @@
                         <StackLayout Grid.Column="2" 
                                      VerticalOptions="CenterAndExpand"
                                      >
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                                 <Label
                                     Text="5"
                                     TextColor="Gold"
-                                    FontSize="18"
+                                    FontSize="20"
                                     FontAttributes="Bold"
                                     Margin="0,0,0,0"
+                                    
                                     
                         />
                                 <Image Source="https://cdn3.vectorstock.com/i/1000x1000/31/77/star-icon-isolated-on-background-modern-simple-sp-vector-21073177.jpg"
@@ -108,12 +109,22 @@
                             </StackLayout>
                            
                             <Button Text="Đặt ngay"
+                                    TextTransform="Uppercase"
                                     Opacity="1"
-                                    BackgroundColor="WhiteSmoke"
-                                    VerticalOptions="CenterAndExpand"></Button>
+                                    TextColor="White"
+                                    BackgroundColor="Black"
+                                    VerticalOptions="CenterAndExpand"
+                                    Margin="0,10,0,0"
+                                    CornerRadius="10"></Button>
                         </StackLayout>
                         
                     </StackLayout>
+                    <Image Source="C:\Users\Modern 15\Documents\GitHub\GoTour\GoTour\GoTour\SourceImage\icons8-heart-100.png"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           HorizontalOptions="EndAndExpand"
+                           VerticalOptions="StartAndExpand"
+                           Background="Transparent"></Image>
                 </Grid>
             </Frame>
         </StackLayout>
