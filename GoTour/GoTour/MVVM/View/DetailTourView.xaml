@@ -18,8 +18,8 @@
                     
                     <StackLayout
                                 BackgroundColor="Black">
-                        
-                        <Image Source="https://en.nhandan.vn/cdn/en/media/k2/items/src/689/369d889fc76acc3372d1303abe17e522.jpg"
+
+                        <Image Source="https://www.pandotrip.com/wp-content/uploads/2015/02/Alberobello-980x735.jpg"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
@@ -47,12 +47,15 @@
                             <StackLayout>
                             <Label
                                     Text="Hội An Phố Cổ"
-                                    TextColor="White"
-                                    FontSize="18"
+                                    TextColor="NavajoWhite"
+                                    FontSize="25"
                                     FontAttributes="Bold"
                                     Margin="0,0,0,0"
                                     HorizontalOptions="CenterAndExpand"
                         />
+                                <Line HeightRequest="3"
+                                      Margin="20,0,20,10"
+                                      BackgroundColor="White"></Line>
                             <StackLayout
                             Orientation="Horizontal" 
                             Margin="0,0,5,10"
@@ -112,19 +115,28 @@
                                     TextTransform="Uppercase"
                                     Opacity="1"
                                     TextColor="White"
-                                    BackgroundColor="Black"
+                                    BackgroundColor="Goldenrod"
                                     VerticalOptions="CenterAndExpand"
                                     Margin="0,10,0,0"
+                                    CornerRadius="10"></Button>
+                            <Button Text="Xem chi tiết"
+                                    TextTransform="Uppercase"
+                                    Opacity="1"
+                                    TextColor="White"
+                                    BackgroundColor="Black"
+                                    VerticalOptions="CenterAndExpand"
+                                    Margin="0,5,0,0"
                                     CornerRadius="10"></Button>
                         </StackLayout>
                         
                     </StackLayout>
-                    <Image Source="C:\Users\Modern 15\Documents\GitHub\GoTour\GoTour\GoTour\SourceImage\icons8-heart-100.png"
+                    <Image Source="heartIcon.png"
+                           
                            HeightRequest="50"
                            WidthRequest="50"
                            HorizontalOptions="EndAndExpand"
                            VerticalOptions="StartAndExpand"
-                           Background="Transparent"></Image>
+                           ></Image>
                 </Grid>
             </Frame>
         </StackLayout>

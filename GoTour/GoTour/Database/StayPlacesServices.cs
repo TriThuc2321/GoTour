@@ -9,33 +9,37 @@ using System.Threading.Tasks;
 
 namespace GoTour.Database
 {
-    public class PlacesServices
+    public class StayPlacesServices
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
 
-        public List<Place> places;
-        public  PlacesServices(){}
-        public async Task<List<Place>> GetAllPlaces()
+        public List<StayPlace> places;
+        public StayPlacesServices() { }
+        public async Task<List<StayPlace>> GetAllStayPlaces()
         {
             return (await firebase
-              .Child("Places")
-              .OnceAsync<Place>()).Select(item => new Place
+              .Child("StayPlaces")
+              .OnceAsync<StayPlace>()).Select(item => new StayPlace
               {
                   id = item.Object.id,
                   name = item.Object.name,
+                  address = item.Object.address,
+                  placeId = item.Object.placeId,
                   imgSource = item.Object.imgSource,
                   description = item.Object.description,
               }).ToList();
         }
-        public async Task AddPlace(string id, string name, List<string> imgSource, string description)
+        public async Task AddPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
         {
             await firebase
-              .Child("Places")
-              .PostAsync(new Place()
+              .Child("StayPlaces")
+              .PostAsync(new StayPlace()
               {
                   id = id,
                   name = name,
+                  address = address,
+                  placeId = placeId,
                   imgSource = imgSource,
                   description = description,
               });

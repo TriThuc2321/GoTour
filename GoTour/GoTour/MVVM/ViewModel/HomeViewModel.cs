@@ -32,7 +32,8 @@ namespace GoTour.MVVM.ViewModel
             FavoriteCommand = new Command(openFavorite);
             MyTourCommand = new Command(openMyTour);        
 
-            Places = DataManager.Ins.ListPlace;
+            StayPlaces = DataManager.Ins.ListStayPlace;
+            int a = 5;
         }
         #region open view
         private void openMenu(object obj)
@@ -66,6 +67,16 @@ namespace GoTour.MVVM.ViewModel
             {
                 _places = value;
                 OnPropertyChanged("Places");
+            }
+        }
+        private ObservableCollection<StayPlace> _stayPlaces;
+        public ObservableCollection<StayPlace> StayPlaces
+        {
+            get { return _stayPlaces; }
+            set
+            {
+                _stayPlaces = value;
+                OnPropertyChanged("StayPlaces");
             }
         }
     }

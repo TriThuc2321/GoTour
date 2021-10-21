@@ -20,8 +20,9 @@ namespace GoTour.Database
         }
         async public Task<string> saveImage(Stream imgStream)
         {
+            string a = "clmm";
             var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
-                .Child("ProfilePic")
+                .Child("ProfilePic").Child(a)
                 .Child("test.png")
                 .PutAsync(imgStream);
             var imgurl = stroageImage;

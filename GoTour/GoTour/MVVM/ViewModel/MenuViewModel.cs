@@ -31,24 +31,25 @@ namespace GoTour.MVVM.ViewModel
         List<string> temp1 = new List<string>();
         public async void pushData(object sender)
         {
-            /*temp1.Add("11");
+            temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
             await firebase
-             .Child("Thuckhungfa")
-             .PostAsync(new Class1()
+             .Child("StayPlaces")
+             .PostAsync(new StayPlace()
              {
-                 id = "001",
-                 name = "Thuc khung fa",
-                 birthday = "1/1/1223",
-                 contact = "0919123",
-                 cmnd = "11123343",
-                 profilePic = "1111",
-                 temp = temp1,
-             }) ;*/
+                 id = "SP001",
+                 name = "",
+                 imgSource = temp1,
+                 address = "Thuc love duc",
+                 placeId = "NT",
+                 description = "aaaa",
 
-            navigation.PushAsync(new DetailTourView());
+
+             });
+
+            /*  navigation.PushAsync(new DetailTourView());*/
 
         }
 

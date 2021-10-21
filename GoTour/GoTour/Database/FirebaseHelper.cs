@@ -27,20 +27,20 @@ namespace GoTour.Database
               .OnceAsync<Place>()).Select(item => new Place
               {
                   id = item.Object.id,
-                  country = item.Object.country,
-                  title = item.Object.title,
+                  name = item.Object.name,
+                  description = item.Object.description,
                   imgSource = item.Object.imgSource
               }).ToList();
         }
-        public async Task AddPlace(string id, string country, string title, string imgSource)
+        public async Task AddPlace(string id, string name, string description, List<string> imgSource)
         {
             await firebase
               .Child("Places")
               .PostAsync(new Place()
               {
                   id = id,
-                  country = country,
-                  title = title,
+                  name = name,
+                  description = description,
                   imgSource = imgSource
               }); 
         }
