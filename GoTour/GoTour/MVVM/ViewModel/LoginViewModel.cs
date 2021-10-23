@@ -2,7 +2,10 @@
 using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -13,32 +16,105 @@ namespace GoTour.MVVM.ViewModel
         public LoginViewModel() {}
 
         public Command LoginCommand { get; }
+        public Command RegisterCommand { get; }
         public Command ForgotPasswordCommand { get; }
         public Command RememberCommand { get; }
+        public Command EyeCommand { get; }
         public LoginViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            LoginCommand = new Command(loginHandle);
-            ForgotPasswordCommand = new Command(forgotHandle);
-        }
 
-        void loginHandle(object obj)
+            LoginCommand = new Command(loginHandleAsync);
+            RegisterCommand = new Command(registerHandle);
+            ForgotPasswordCommand = new Command(forgotHandle);
+
+            EyeSource = "eyeOffIcon.png";
+            IsPassword = true;
+            EyeCommand = new Command(eyeHandle);
+        }
+        void eyeHandle(object obj)
         {
-            navigation.PushAsync(new HomeView());
+            IsPassword = !IsPassword;
+            if (!IsPassword)
+            {
+                EyeSource = "eyeIcon.png";
+            }
+            else
+            {
+                EyeSource = "eyeOffIcon.png";
+            }
+        }
+        void registerHandle(object obj)
+        {
+            navigation.PushAsync(new RegisterView());
+        }
+        async void loginHandleAsync(object obj)
+        {
+            //navigation.PushAsync(new HomeView());
+
+           
+            //await SendEmail("tuhc", "text", "trithuc23232@gmail.com");
         }
         void forgotHandle(object obj)
         {
             navigation.PushAsync(new HomeView());
         }
-
-        private string email;
-        public string Email
+        public async Task SendEmail(string subject, string body, string recipient)
         {
-            get { return email; }
+            try
+            {
+
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("flanerapplication@gmail.com");
+                mail.To.Add(recipient);
+                mail.Subject = subject;
+                mail.Body = body;
+
+                SmtpServer.Port = 587;
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("flanerapplication@gmail.com", "flanerflaner");
+
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+               
+            }
+        }
+
+
+        private string eyeSource;
+        public string EyeSource
+        {
+            get { return eyeSource; }
             set
             {
-                email = value;
-                OnPropertyChanged("Email");
+                eyeSource = value;
+                OnPropertyChanged("EyeSource");
+            }
+        }
+        private bool isPassword;
+        public bool IsPassword
+        {
+            get { return isPassword; }
+            set
+            {
+                isPassword = value;
+                OnPropertyChanged("IsPassword");
+            }
+        }
+        private string account;
+        public string Account
+        {
+            get { return account; }
+            set
+            {
+                account = value;
+                OnPropertyChanged("Account");
             }
         }
         private string password;
