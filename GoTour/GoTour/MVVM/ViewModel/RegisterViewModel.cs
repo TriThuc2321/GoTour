@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
         public Command EyeCommand { get; }
         public Command EyeConfirmCommand { get; }
         public Command LoginCommand { get; }
+        public Command RegisterCommand { get; }
         public RegisterViewModel() {}
         public RegisterViewModel(INavigation navigation)
         {
@@ -27,6 +29,12 @@ namespace GoTour.MVVM.ViewModel
             EyeConfirmCommand = new Command(eyeConfirmHandle);
 
             LoginCommand = new Command(loginHandleAsync);
+            RegisterCommand = new Command(registerHandleAsync);
+        }
+
+        void registerHandleAsync(object obj)
+        {
+            
         }
 
         async void loginHandleAsync(object obj)
@@ -43,6 +51,16 @@ namespace GoTour.MVVM.ViewModel
         {
             IsPasswordConfirm = !IsPasswordConfirm;
             EyeSourceConfirm = !IsPasswordConfirm ? "eyeIcon.png" : "eyeOffIcon.png";
+        }
+
+        bool checkEmail(string inputEmail)
+        {
+            if (inputEmail == null) return false;
+            string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            Regex re = new Regex(strRegex);
+            return re.IsMatch(inputEmail);
         }
         private string eyeSource;
         public string EyeSource

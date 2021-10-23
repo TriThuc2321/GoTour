@@ -52,8 +52,9 @@ namespace GoTour.MVVM.ViewModel
         {
             //navigation.PushAsync(new HomeView());
 
-           
+            DependencyService.Get<IToast>().ShortToast("Lorem ipsum dolor sit amet");
             //await SendEmail("tuhc", "text", "trithuc23232@gmail.com");
+
         }
         void forgotHandle(object obj)
         {
@@ -85,6 +86,7 @@ namespace GoTour.MVVM.ViewModel
                
             }
         }
+
 
 
         private string eyeSource;

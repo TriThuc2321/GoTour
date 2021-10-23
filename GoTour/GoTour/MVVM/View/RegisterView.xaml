@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.RegisterView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             
+             >
 
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
