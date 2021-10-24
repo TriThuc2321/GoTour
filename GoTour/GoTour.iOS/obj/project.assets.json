@@ -1750,24 +1750,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\trith\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
+      "projectUniqueName": "D:\\Xamarin\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
       "projectName": "GoTour.iOS",
-      "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
-      "packagesPath": "C:\\Users\\trith\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour.iOS\\obj\\",
+      "projectPath": "D:\\Xamarin\\GoTour\\GoTour\\GoTour.iOS\\GoTour.iOS.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Xamarin\\GoTour\\GoTour\\GoTour.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\trith\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1781,8 +1784,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
-              "projectPath": "D:\\GitHub\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
+            "D:\\Xamarin\\GoTour\\GoTour\\GoTour\\GoTour.csproj": {
+              "projectPath": "D:\\Xamarin\\GoTour\\GoTour\\GoTour\\GoTour.csproj"
             }
           }
         }

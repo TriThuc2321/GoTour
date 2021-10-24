@@ -3,16 +3,125 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.FavoriteView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
-             NavigationPage.HasNavigationBar="false">
+             NavigationPage.HasNavigationBar="false"
+             BackgroundColor="DarkSlateGray">
 
     <ContentPage.BindingContext>
         <vm:FavoriteViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to favorite"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+
+            <CollectionView ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="1"
+                              >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="3*"></RowDefinition>
+                                <RowDefinition Height="3*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Image Source="https://thamhiemmekong.com/wp-content/uploads/2020/03/chuasomrong-1.jpg"
+                                    HeightRequest="350"
+                                    Aspect="AspectFill"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="3"
+                                 />
+
+                            <ImageButton Source="{Binding Love}" 
+                                   Command="{Binding UnlovedCommand}"
+                                   HeightRequest="25" 
+                                   HorizontalOptions="End" 
+                                   VerticalOptions="Start" 
+                                   Margin="0,3,5,0"/>
+
+                            <Grid Grid.Row="3"
+                                  BackgroundColor="Black"
+                                  Opacity="0.6">
+                            </Grid>
+                            
+                            <StackLayout Orientation="Vertical"
+                                         Grid.Row="3"
+                                         >
+                                <Label
+                                    Text=""
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="13,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                                    />
+                                
+                                <!--Địa điểm-->
+                                <StackLayout Orientation="Horizontal" 
+                                             Margin="0,0,5,10"
+                                             >
+                                    <Image 
+                                        Source="https://icons8.com/icon/340/icon"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                                    />
+                                    <Label
+                                        Text=""
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"/>
+                                </StackLayout>
+
+                                
+                                <StackLayout Orientation="Horizontal" 
+                                             Margin="0,0,5,10"
+                                             >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                    
+                                    <!--Ngày khởi hành-->
+
+                                    <Image 
+                                        Source="calendarIcon.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                                        Grid.Column="0"
+                                    />
+                                    <Label
+                                        Text=""
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"
+                                        Grid.Column="1"/>
+
+                                    <!--Thời gian khởi hành-->
+                                    <Image 
+                                        Source="clockIcon.png"
+                                        Aspect="AspectFill"
+                                        HeightRequest="20"
+                                        Margin="10, 0, 0, 0"
+                                        Grid.Column="0"
+                        />
+                                    <Label
+                                        Text=""
+                                        TextColor="White"
+                                        FontSize="14"                            
+                                        Margin="-5, 0, 0, 0"
+                                        Grid.Column="1"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
