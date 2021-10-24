@@ -138,5 +138,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\eyeIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\defaultAvatar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

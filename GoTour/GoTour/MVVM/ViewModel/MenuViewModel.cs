@@ -35,9 +35,9 @@ namespace GoTour.MVVM.ViewModel
 
             ImgSource = ImageSource.FromStream(imgData.GetStream);
 
-            User temp = new User("01", "Thien", "078382112", "3/10", "234222222", url);
+            /*User temp = new User("01", "Thien", "078382112", "3/10", "234222222", url);
 
-            await DataManager.Ins.UsersServices.addUser(temp);
+            await DataManager.Ins.UsersServices.addUser(temp);*/
         }
 
         private ImageSource imgSource;

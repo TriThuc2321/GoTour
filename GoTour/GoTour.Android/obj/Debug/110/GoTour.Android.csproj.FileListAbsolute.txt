@@ -1187,3 +1187,4 @@ D:\GitHub\GoTour\GoTour\GoTour.Android\obj\Debug\110\stamp\_ConvertResourcesCase
 D:\GitHub\GoTour\GoTour\GoTour.Android\obj\Debug\110\stamp\_GenerateJavaStubs.stamp
 D:\GitHub\GoTour\GoTour\GoTour.Android\obj\Debug\110\stamp\_GeneratePackageManagerJava.stamp
 D:\GitHub\GoTour\GoTour\GoTour.Android\obj\Debug\110\stamp\_ResolveLibraryProjectImports.stamp
+D:\GitHub\GoTour\GoTour\GoTour.Android\obj\Debug\110\res\drawable\defaultavatar.png

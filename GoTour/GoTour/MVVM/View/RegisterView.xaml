@@ -32,6 +32,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition />
 
             </Grid.RowDefinitions>
@@ -50,6 +51,21 @@
             <Frame Grid.Row="2" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
                 <StackLayout Orientation="Horizontal">
                     <Entry                    
+                        Placeholder="Name"
+                        PlaceholderColor="#C0C0C0"
+                        FontSize="15"
+                        Margin="15,0,0,0"
+                        TextColor="Black"
+                        Text="{Binding Name}"
+                        HorizontalOptions="FillAndExpand"
+                    />
+
+                </StackLayout>
+
+            </Frame>
+            <Frame Grid.Row="3" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+                <StackLayout Orientation="Horizontal">
+                    <Entry                    
                         Placeholder="Email"
                         PlaceholderColor="#C0C0C0"
                         FontSize="15"
@@ -63,7 +79,7 @@
 
             </Frame>
 
-            <Frame Grid.Row="3" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+            <Frame Grid.Row="4" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
                 <StackLayout Orientation="Horizontal">
                     <Entry                    
                     Placeholder="Password"
@@ -79,7 +95,7 @@
                 </StackLayout>
             </Frame>
 
-            <Frame Grid.Row="4" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+            <Frame Grid.Row="5" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
                 <StackLayout Orientation="Horizontal">
                     <Entry                    
                     Placeholder="PasswordConfirm"
@@ -97,7 +113,7 @@
 
 
             <Button 
-                Grid.Row="5"
+                Grid.Row="6"
                 CornerRadius="20" 
                 Margin="25,20,25,0"
                 Padding="5"  
@@ -109,7 +125,7 @@
                 Command="{Binding RegisterCommand}"
                 />
 
-            <Label Grid.Row="7" VerticalOptions="End"  HorizontalOptions="Center" Margin="0,0,0,10">
+            <Label Grid.Row="8" VerticalOptions="End"  HorizontalOptions="Center" Margin="0,0,0,10">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="You don't have account?" TextColor="Black">

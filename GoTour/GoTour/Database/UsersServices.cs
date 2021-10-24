@@ -4,7 +4,10 @@ using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +17,9 @@ namespace GoTour.Database
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseStorage storage = new FirebaseStorage("gotour-98c79.appspot.com");
+        List<User> listUser = new List<User>();
         public UsersServices()
         {
-
         }
         async public Task<string> saveImage(Stream imgStream)
         {
@@ -34,13 +37,84 @@ namespace GoTour.Database
               .Child("Users")
               .PostAsync(new User()
               {
-                  id = user.id,
+                  email = user.email,
+                  password = user.password,
                   name = user.name,
-                  birthday = user.birthday,
                   contact = user.contact,
+                  birthday = user.birthday,
                   cmnd = user.cmnd,
-                  profilePic = user.profilePic
-              });
+                  profilePic = user.profilePic,
+                  address = user.address,
+                  score = user.score,
+                  rank = user.rank
+              }) ;
         }
+        public async Task<List<User>> GetAllUsers()
+        {
+            return (await firebase
+              .Child("Users")
+              .OnceAsync<User>()).Select(item => new User
+              {
+                  email = item.Object.email,
+                  password = item.Object.password,
+                  name = item.Object.name,
+                  contact = item.Object.contact,
+                  birthday = item.Object.birthday,
+                  cmnd = item.Object.cmnd,
+                  profilePic = item.Object.profilePic,
+                  address = item.Object.address,
+                  score = item.Object.score,
+                  rank = item.Object.rank
+              }).ToList();
+        }
+        public User getUserByEmail(string mail, List<User> listUsers)
+        {
+            for (int i = 0; i < listUsers.Count(); i++)
+            {
+                if (listUsers[i].email == mail) return listUsers[i];
+            }
+            return null;
+        }
+        public bool ExistEmail(string email, List<User> listUsers)
+        {
+            for (int i = 0; i < listUsers.Count; i++)
+            {
+                if (email == listUsers[i].email) return true;
+            }
+            return false;
+        }
+        public string Encode(string stringValue)
+        {
+            MD5 mh = MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(stringValue);
+            byte[] hash = mh.ComputeHash(inputBytes);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        public bool IsPhoneNumber(string number)
+        {
+            if (number.Length > 11 || number.Length < 10) return false;
+            for (int i = 0; i < number.Length; i++)
+            {
+                if (number[i] < 48 || number[i] > 57) return false;
+            }
+            return true;
+        }
+        public bool IsCMND(string cmnd)
+        {
+            if (cmnd.Length < 9 || cmnd.Length > 12) return false;
+            for (int i = 0; i < cmnd.Length; i++)
+            {
+                if (cmnd[i] < 48 || cmnd[i] > 57) return false;
+            }
+            return true;
+        }
+
     }
 }

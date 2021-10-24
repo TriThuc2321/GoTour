@@ -1,4 +1,6 @@
 ﻿using GoTour.Core;
+using GoTour.Database;
+using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,8 +34,42 @@ namespace GoTour.MVVM.ViewModel
             RegisterCommand = new Command(registerHandleAsync);
         }
 
-        void registerHandleAsync(object obj)
+        async void registerHandleAsync(object obj)
         {
+            if (Account == null || Password == null || ConfirmPassword == null || Name == null|| Account == "" || Password == "" || ConfirmPassword == "" || Name =="")
+            {
+                DependencyService.Get<IToast>().ShortToast("Please fill out your information");
+            }
+            else if(!checkEmail(Account))
+            {
+                DependencyService.Get<IToast>().ShortToast("Email invalid");
+            }
+            else if (Password.Length < 6)
+            {
+                DependencyService.Get<IToast>().ShortToast("Password must be more than 6 characters");
+            }
+            else if (Password != ConfirmPassword)
+            {
+                DependencyService.Get<IToast>().ShortToast("Confirm password is incorrect");
+            }
+            else
+            {
+                await DataManager.Ins.UsersServices.addUser(new User()
+                {
+                    email = Account,
+                    password = DataManager.Ins.UsersServices.Encode(Password),
+                    name = Name,
+                    contact = "",
+                    birthday = "",
+                    cmnd = "",
+                    profilePic = "defaultUser.png",
+                    address = "",
+                    score = 0,
+                    rank = 3
+                });
+
+                DependencyService.Get<IToast>().ShortToast("Register successfully");
+            }
             
         }
 
@@ -100,6 +136,16 @@ namespace GoTour.MVVM.ViewModel
             {
                 isPasswordConfirm = value;
                 OnPropertyChanged("IsPasswordConfirm");
+            }
+        }
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
             }
         }
         private string account;
