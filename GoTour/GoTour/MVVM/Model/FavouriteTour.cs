@@ -13,6 +13,7 @@ namespace GoTour.MVVM.Model
         public DateTime startTime { get; set; }
         public int days { get; set; }
 
+        public int passengerNumber { get; set; }
         public string tourId { get; set; }
         public string userId { get; set; }
 

@@ -12,27 +12,28 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
-            <CollectionView ItemsLayout="VerticalGrid, 2">
+            <CollectionView ItemsLayout="VerticalGrid, 2"
+                            ItemsSource="{Binding Tours}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="1"
                               >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="3*"></RowDefinition>
-                                <RowDefinition Height="3*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="2*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Image Source="https://thamhiemmekong.com/wp-content/uploads/2020/03/chuasomrong-1.jpg"
-                                    HeightRequest="350"
+                            <Image Source="{Binding imgSource}"
+                                    HeightRequest="150"
                                     Aspect="AspectFill"
                                    Grid.Row="0"
-                                   Grid.RowSpan="3"
+                                   Grid.RowSpan="4"
                                  />
 
-                            <ImageButton Source="{Binding Love}" 
-                                   Command="{Binding UnlovedCommand}"
-                                   HeightRequest="25" 
+                            <ImageButton Source="love_red.png" 
+                                   
+                                   HeightRequest="35" 
                                    HorizontalOptions="End" 
                                    VerticalOptions="Start" 
                                    Margin="0,3,5,0"/>
@@ -41,20 +42,20 @@
                                   BackgroundColor="Black"
                                   Opacity="0.6">
                             </Grid>
-                            
+
                             <StackLayout Orientation="Vertical"
                                          Grid.Row="3"
                                          >
                                 <Label
-                                    Text=""
+                                    Text="{Binding name}"
                                     TextColor="White"
-                                    FontSize="18"
+                                    FontSize="24"
                                     FontAttributes="Bold"
                                     Margin="13,0,0,0"
                                     VerticalOptions="EndAndExpand"
                                     />
-                                
-                                <!--Địa điểm-->
+
+                                <!--Địa điểm--><!--
                                 <StackLayout Orientation="Horizontal" 
                                              Margin="0,0,5,10"
                                              >
@@ -65,14 +66,14 @@
                                         Margin="10, 0, 0, 0"
                                     />
                                     <Label
-                                        Text=""
+                                        Text="{Binding }"
                                         TextColor="White"
                                         FontSize="14"                            
                                         Margin="-5, 0, 0, 0"/>
-                                </StackLayout>
+                                </StackLayout>-->
 
-                                
-                                <StackLayout Orientation="Horizontal" 
+
+                                <StackLayout Orientation="Vertical" 
                                              Margin="0,0,5,10"
                                              >
                                     <Grid>
@@ -82,38 +83,59 @@
                                             <ColumnDefinition Width="1*"></ColumnDefinition>
                                             <ColumnDefinition Width="2*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
+                                        
+                                        <!--Ngày khởi hành-->
+                                            <Image 
+                                                Source="calendarIcon.png"
+                                                Aspect="AspectFit"
+                                                HeightRequest="0"
+                                                Margin="10, 0, 0, 0"
+                                                Grid.Column="0"
+                                            />
+                                            <Label
+                                            Text="{Binding startTime}"
+                                            TextColor="White"
+                                            FontSize="14"                            
+                                            Margin="-5, 0, 0, 0"
+                                                VerticalOptions="Center"
+                                            Grid.Column="1"/>
+
+                                            <!--Thời gian khởi hành-->
+                                            <Image 
+                                            Source="clockIcon.png"
+                                            Aspect="AspectFit"
+                                            HeightRequest="20"
+                                            Margin="10, 0, 0, 0"
+                                            Grid.Column="2"
+                                            />
+                                            <Label
+                                                Text="{Binding days}"
+                                                TextColor="White"
+                                                FontSize="14"                            
+                                                Margin="5, 0, 0, 0"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"
+                                                Grid.Column="3"/>
                                     </Grid>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image 
+                                            Source="passengerIcon.png"
+                                            Aspect="AspectFit"
+                                            HeightRequest="20"
+                                            Margin="10, 0, 0, 0"
+                                            />
+                                        <Label
+                                                Text="{Binding passengerNumber}"
+                                                TextColor="White"
+                                                FontSize="14"                            
+                                                Margin="10, 0, 0, 0"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"/>
+                                    </StackLayout>
+
+
                                     
-                                    <!--Ngày khởi hành-->
-
-                                    <Image 
-                                        Source="calendarIcon.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                                        Grid.Column="0"
-                                    />
-                                    <Label
-                                        Text=""
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"
-                                        Grid.Column="1"/>
-
-                                    <!--Thời gian khởi hành-->
-                                    <Image 
-                                        Source="clockIcon.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                                        Grid.Column="0"
-                        />
-                                    <Label
-                                        Text=""
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"
-                                        Grid.Column="1"/>
                                 </StackLayout>
                             </StackLayout>
                         </Grid>
@@ -121,7 +143,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
