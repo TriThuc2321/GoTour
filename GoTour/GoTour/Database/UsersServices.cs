@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GoTour.Database
@@ -67,6 +68,30 @@ namespace GoTour.Database
                   rank = item.Object.rank
               }).ToList();
         }
+        public async Task UpdatePerson(int email, User user)
+        {
+            var toUpdateUser = (await firebase
+              .Child("Users")
+              .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
+
+            await firebase
+              .Child("Users")
+              .Child(toUpdateUser.Key)
+              .PutAsync(new User
+              {
+                  email = user.email,
+                  password = user.password,
+                  name = user.name,
+                  contact = user.contact,
+                  birthday = user.birthday,
+                  cmnd = user.cmnd,
+                  profilePic = user.profilePic,
+                  address = user.address,
+                  score = user.score,
+                  rank = user.rank
+              });
+        }
+
         public User getUserByEmail(string mail, List<User> listUsers)
         {
             for (int i = 0; i < listUsers.Count(); i++)
@@ -115,6 +140,14 @@ namespace GoTour.Database
             }
             return true;
         }
-
+        public bool checkEmail(string inputEmail)
+        {
+            if (inputEmail == null) return false;
+            string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            Regex re = new Regex(strRegex);
+            return re.IsMatch(inputEmail);
+        }
     }
 }

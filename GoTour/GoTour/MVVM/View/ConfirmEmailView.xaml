@@ -1,12 +1,107 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoTour.MVVM.View.ConfirmEmailView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="GoTour.MVVM.View.ConfirmEmailView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             NavigationPage.HasNavigationBar="False"
+             >
+    
+    <ContentPage.BindingContext>
+        <vm:ConfirmEmailViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid >
+        <Image Source="https://i.pinimg.com/564x/91/5a/2e/915a2e0f61384fe73f858b302d7c95bf.jpg" Aspect="AspectFill"/>
+
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                    <GradientStop Color="Transparent" Offset="0"/>
+                    <GradientStop Color="#ffffff" Offset="1"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <!--<Label
+            x:Name="testLb"
+            Text="Welcome to,&#x0a;GoTour"
+            TextColor="Black"
+            FontSize="30"
+            FontAttributes="Bold"
+            Margin="20,35,0,0"
+            Grid.Row="0"
+            />-->
+
+            <Label Text="CONFIRM&#x0a;YOUR EMAIL" Grid.Row="1" FontSize="25" Margin="25,0,0,0" TextColor="Black" FontAttributes="Bold"/>
+            <Frame Grid.Row="2" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+                <Grid>
+                    <Entry                    
+                        Placeholder="Verify code"
+                        PlaceholderColor="#C0C0C0"
+                        FontSize="15"
+                        Margin="15,0,0,0"
+                        TextColor="Black"
+                        Text="{Binding VerifyCode}"
+                />
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="3" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+                <StackLayout Orientation="Horizontal">
+                    <Entry                    
+                    Placeholder="Password"
+                    PlaceholderColor="#C0C0C0"
+                    FontSize="15"
+                    Margin="15,0,0,0"
+                    TextColor="Black"         
+                    Text="{Binding Password}"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="{Binding IsPassword}"
+                />
+                    <ImageButton Source="{Binding EyeSource}" HorizontalOptions="End" WidthRequest="25" Margin="0,0,10,0" BackgroundColor="Transparent" Command="{Binding EyeCommand}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="4" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
+                <StackLayout Orientation="Horizontal">
+                    <Entry                    
+                    Placeholder="PasswordConfirm"
+                    PlaceholderColor="#C0C0C0"
+                    FontSize="15"
+                    Margin="15,0,0,0"
+                    TextColor="Black"         
+                    Text="{Binding ConfirmPassword}"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="{Binding IsPasswordConfirm}"
+                />
+                    <ImageButton Source="{Binding EyeSourceConfirm}" HorizontalOptions="End" WidthRequest="25" Margin="0,0,10,0" BackgroundColor="Transparent" Command="{Binding EyeConfirmCommand}"/>
+                </StackLayout>
+            </Frame>
+            <Button 
+                Grid.Row="3"
+                CornerRadius="20" 
+                Margin="25,20,25,0"
+                Padding="5"  
+                BackgroundColor="#f4707c" 
+                HorizontalOptions="End"
+                HeightRequest="40"
+                Text="CONFIRM"
+                FontSize="15"
+                Command="{Binding ConfirmCommand}"
+                />
+
+        </Grid>
+
+    </Grid>
 </ContentPage>
