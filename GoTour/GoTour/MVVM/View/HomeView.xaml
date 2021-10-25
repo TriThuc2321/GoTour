@@ -34,7 +34,7 @@
                     VerticalOptions="Center"
                     >
                     <ImageButton                        
-                        Source="thuc.jpg"
+                        Source="./SourceImage/thuc.jpg"
                         Aspect="AspectFill"
                         HeightRequest="40"
                         WidthRequest="40"                        
@@ -90,7 +90,7 @@
                        CornerRadius="15">
                     <ImageButton
                         Margin="10"
-                        Source="searchIcon.png"
+                        Source="./SourceImage/searchIcon.png"
                         BackgroundColor="Transparent"
                         />
                 </Frame>
@@ -195,7 +195,7 @@
                                         <Image Source="{Binding imgSource[0]}"
                                     HeightRequest="350"
                                     Aspect="AspectFill"                           
-                           />
+                                           />
                                     </StackLayout>
                                     <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
                                     <StackLayout>
