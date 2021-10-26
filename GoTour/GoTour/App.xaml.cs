@@ -11,7 +11,7 @@ namespace GoTour
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new FavoriteView());
+            MainPage = new NavigationPage(new BookTicketsView());
         }
 
         protected override void OnStart()

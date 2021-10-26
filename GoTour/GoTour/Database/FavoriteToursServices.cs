@@ -39,17 +39,12 @@ namespace GoTour.Database
               });
         }
 
-        public async Task DeleteFavoritePlace(string id, string country, string title, string imgSource)
+        public async Task DeleteFavoritePlace(string id)
         {
-            //await firebase
-            //    .Child("Favorite")
-            //    .DeleteAsync(new Place()
-            //    {
-            //        id = id,
-            //        country = country,
-            //        title=title,
-            //        imgSource = imgSource
-            //    })
+            var toDelete = (await firebase
+              .Child("Favourite")
+              .OnceAsync<FavouriteTour>()).Where(a => a.Object.id == id).FirstOrDefault();
+            await firebase.Child("Persons").Child(toDelete.Key).DeleteAsync();
         }
     }
 }

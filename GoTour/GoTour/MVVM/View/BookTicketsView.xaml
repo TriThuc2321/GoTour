@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.BookTicketsView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             NavigationPage.HasNavigationBar="false"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <Frame CornerRadius="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="https://saigontourist.net/uploads/destination/TrongNuoc/Phuquoc/phu-quoc-beach_788218267.jpg"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.RowSpan="2"
+                   Aspect="AspectFill"
+                />
+
+                <Grid Grid.Row="1"
+                      BackgroundColor="Black"
+                      Opacity="0.6">
+                    
+                </Grid>
+
+                <Label Text="DU LỊCH PHÚ QUỐC [KHỞI HÀNH TỪ HẢI PHÒNG]"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                       FontSize="Large"
+                   Padding="10"
+                />
+
+                <StackLayout Orientation="Vertical"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Grid.RowSpan="2"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="calendarIcon.png"
+                           HeightRequest="25"
+                               Grid.Column="0"/>
+
+                        <Label Text="14/06/2021"
+                               Grid.Column="1"
+                               TextColor="#FFB24000"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               
+                        />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="clockIcon.png"
+                           HeightRequest="25"
+                               Grid.Column="0"/>
+
+                        <Label Text="3 ngày 2 đêm"
+                               Grid.Column="1"
+                               TextColor="#FF00088B"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                        />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="moneyIcon.png"
+                           HeightRequest="25"
+                               Grid.Column="0"
+                               />
+
+                        <Label Text="250$"
+                               Grid.Column="1"
+                               TextColor="#FF007631"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                        />
+                    </Grid>
+                </StackLayout>
+
+            </Grid>
+
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>
