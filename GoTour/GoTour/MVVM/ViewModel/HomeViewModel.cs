@@ -20,6 +20,7 @@ namespace GoTour.MVVM.ViewModel
         public Command ToursCommand { get; }
         public Command FavoriteCommand { get; }
         public Command MyTourCommand { get; }
+        public Command SearchCommand { get; }
 
         public HomeViewModel() { }
         public HomeViewModel(INavigation navigation)
@@ -30,11 +31,16 @@ namespace GoTour.MVVM.ViewModel
             NotificaitonCommand = new Command(openNotifi);
             ToursCommand = new Command(openTours);
             FavoriteCommand = new Command(openFavorite);
-            MyTourCommand = new Command(openMyTour);        
+            MyTourCommand = new Command(openMyTour);
+            SearchCommand = new Command(openSearch);
 
             Places = DataManager.Ins.ListPlace;
         }
         #region open view
+        private void openSearch(object obj)
+        {
+            navigation.PushAsync(new SearchView());
+        }
         private void openMenu(object obj)
         {
             navigation.PushAsync(new MenuView());
