@@ -14,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         FirebaseHelper firebaseHelper;
+        public Command OpenSelectedTourListCommand { get; }
         public ToursViewModel() { }
         public ToursViewModel(INavigation navigation)
         {
@@ -21,14 +22,30 @@ namespace GoTour.MVVM.ViewModel
             firebaseHelper = new FirebaseHelper();
             Places = new ObservableCollection<Place>();
             Places2 = new ObservableCollection<Place>();
+            
             getPlacesAsync();
+        }
+
+        private Place selectedPlace;
+        public Place SelectedPlace
+        {
+            get { return selectedPlace; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedPlace = value;
+                    DataManager.Ins.currentPlace = selectedPlace.name;
+
+                }
+            }
         }
 
         async Task getPlacesAsync()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
-            List<Place> temp = await firebaseHelper.GetAllPlaces();
+            ObservableCollection<Place> temp = DataManager.Ins.ListPlace;
             int count = 0;
             foreach (Place p in temp)
             {

@@ -29,6 +29,7 @@ namespace GoTour.MVVM.ViewModel
         }
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         List<string> temp1 = new List<string>();
+        
         public async void pushData(object sender)
         {
             temp1.Add("11");
@@ -36,18 +37,19 @@ namespace GoTour.MVVM.ViewModel
             temp1.Add("11");
             temp1.Add("11");
             await firebase
-             .Child("StayPlaces")
-             .PostAsync(new StayPlace()
+             .Child("Tours")
+             .PostAsync(new Class1()
              {
-                 id = "SP001",
-                 name = "",
-                 imgSource = temp1,
-                 address = "Thuc love duc",
-                 placeId = "NT",
-                 description = "aaaa",
-
-
-             });
+            id = "",
+            name = "",
+            imgSource = temp1,
+            startTime = "",
+            duration = "",
+            tourGuide = temp1,
+            passengerNumber = "10",
+            description = "",
+            isOccured = false,
+        });
 
             /*  navigation.PushAsync(new DetailTourView());*/
 

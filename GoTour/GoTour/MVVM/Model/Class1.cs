@@ -8,21 +8,26 @@ namespace GoTour.MVVM.Model
     {
         public string id { get; set; }
         public string name { get; set; }
-        public string contact { get; set; }
-        public string birthday { get; set; }
-        public string cmnd { get; set; }
-        public string profilePic { get; set; }
-        public List<string> temp { get; set; }
+        public List<string> imgSource { get; set; }
+        public string startTime { get; set; }
+        public string duration { get; set; }
+        public List<string> tourGuide { get; set; }
+        public string passengerNumber { get; set; }
+        public string description { get; set; }
+        public Boolean isOccured { get; set; }
         public Class1() { }
-        public Class1(string id, string name, string contact, string birthday, string cmnd, string profilePic, List<string> temp)
+
+        public Class1(string id, string name, List<string> imgSource, string startTime, string duration, List<string> tourGuide, string passengerNumber, string description, bool isOccured)
         {
             this.id = id;
             this.name = name;
-            this.contact = contact;
-            this.birthday = birthday;
-            this.cmnd = cmnd;
-            this.profilePic = profilePic;
-            this.temp = temp;
+            this.imgSource = imgSource;
+            this.startTime = startTime;
+            this.duration = duration;
+            this.tourGuide = tourGuide;
+            this.passengerNumber = passengerNumber;
+            this.description = description;
+            this.isOccured = isOccured;
         }
     }
 }

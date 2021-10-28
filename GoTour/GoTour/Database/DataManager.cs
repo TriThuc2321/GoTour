@@ -21,9 +21,35 @@ namespace GoTour.Database
         }
 
         public UsersServices UsersServices;
-
+       
         public List<User> usersTemp;
         public bool LoadData = true;
+
+        #region TourView
+        public StayPlacesServices StayPlacesServices;
+        async Task getAllStayPlaceList()
+        {
+            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
+
+            List<StayPlace> temp = await StayPlacesServices.GetAllStayPlaces();
+            foreach (StayPlace p in temp)
+            {
+                ListStayPlace.Add(p);
+            }
+
+        }
+        private ObservableCollection<StayPlace> _stayPlaces;
+        public ObservableCollection<StayPlace> ListStayPlace
+        {
+            get { return _stayPlaces; }
+            set
+            {
+                _stayPlaces = value;
+            }
+        }
+        #endregion
+
+        public String currentPlace;
         private DataManager()
         {
             PlacesServices = new PlacesServices();
@@ -31,9 +57,16 @@ namespace GoTour.Database
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
 
+
+            /// Thiên
+            ListStayPlace = new ObservableCollection<StayPlace>();
+            StayPlacesServices = new StayPlacesServices();
+            getAllStayPlaceList();
+
+
+
             CurrentUser = new User();
             getAllList();
-            getAllStayPlaceList();
         }
         async Task getAllList()
         {
@@ -53,17 +86,7 @@ namespace GoTour.Database
 
             
         }
-        async Task getAllStayPlaceList()
-        {
-            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
-
-            List<StayPlace> temp = await StayPlacesServices.GetAllStayPlaces();
-            foreach (StayPlace p in temp)
-            {
-                ListStayPlace.Add(p);
-            }
-
-        }
+       
 
         private PlacesServices placesServices;
         public PlacesServices PlacesServices
@@ -93,6 +116,8 @@ namespace GoTour.Database
                 _places = value;
             }
         }
+
+      
         private ObservableCollection<User> _users;
         public ObservableCollection<User> ListUser
         {
