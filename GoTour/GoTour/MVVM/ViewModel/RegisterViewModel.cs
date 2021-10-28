@@ -1,8 +1,10 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -40,7 +42,7 @@ namespace GoTour.MVVM.ViewModel
             {
                 DependencyService.Get<IToast>().ShortToast("Please fill out your information");
             }
-            else if(!checkEmail(Account))
+            else if(!DataManager.Ins.UsersServices.checkEmail(Account))
             {
                 DependencyService.Get<IToast>().ShortToast("Email invalid");
             }
@@ -52,9 +54,17 @@ namespace GoTour.MVVM.ViewModel
             {
                 DependencyService.Get<IToast>().ShortToast("Confirm password is incorrect");
             }
+            else if(DataManager.Ins.UsersServices.ExistEmail(Account, DataManager.Ins.usersTemp))
+            {
+                DependencyService.Get<IToast>().ShortToast("Email is already in use");
+            }
             else
             {
-                await DataManager.Ins.UsersServices.addUser(new User()
+                Random rand = new Random();
+                string randomCode = (rand.Next(999999)).ToString();
+                DataManager.Ins.VerifyCode = randomCode;
+
+                DataManager.Ins.CurrentUser = new User()
                 {
                     email = Account,
                     password = DataManager.Ins.UsersServices.Encode(Password),
@@ -66,17 +76,46 @@ namespace GoTour.MVVM.ViewModel
                     address = "",
                     score = 0,
                     rank = 3
-                });
+                };
 
-                DependencyService.Get<IToast>().ShortToast("Register successfully");
+                await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: "+ randomCode, Account);
+                DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
+                navigation.PushAsync(new ConfirmEmailView());
             }
             
         }
 
+        public async Task SendEmail(string subject, string body, string recipient)
+        {
+            try
+            {
+
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("flanerapplication@gmail.com");
+                mail.To.Add(recipient);
+                mail.Subject = subject;
+                mail.Body = body;
+
+                SmtpServer.Port = 587;
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("flanerapplication@gmail.com", "flanerflaner");
+
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         async void loginHandleAsync(object obj)
         {
             await navigation.PopAsync();
         }
+
 
         void eyeHandle(object obj)
         {
@@ -89,15 +128,7 @@ namespace GoTour.MVVM.ViewModel
             EyeSourceConfirm = !IsPasswordConfirm ? "eyeIcon.png" : "eyeOffIcon.png";
         }
 
-        bool checkEmail(string inputEmail)
-        {
-            if (inputEmail == null) return false;
-            string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
-            Regex re = new Regex(strRegex);
-            return re.IsMatch(inputEmail);
-        }
+        
         private string eyeSource;
         public string EyeSource
         {

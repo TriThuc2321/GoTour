@@ -33,7 +33,11 @@ namespace GoTour.MVVM.ViewModel
             MyTourCommand = new Command(openMyTour);        
 
             Places = DataManager.Ins.ListPlace;
+
+            ProfilePic = DataManager.Ins.CurrentUser.profilePic;
         }
+
+        
         #region open view
         private void openMenu(object obj)
         {
@@ -66,6 +70,16 @@ namespace GoTour.MVVM.ViewModel
             {
                 _places = value;
                 OnPropertyChanged("Places");
+            }
+        }
+        private string profilePic;
+        public string ProfilePic
+        {
+            get { return profilePic; }
+            set
+            {
+                profilePic = value;
+                OnPropertyChanged("ProfilePic");
             }
         }
     }

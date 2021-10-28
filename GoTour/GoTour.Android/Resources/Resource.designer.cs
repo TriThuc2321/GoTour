@@ -11894,6 +11894,7 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F070069
 			public const int calendarIcon = 2131165289;
+			public const int defaultUser = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
 			public const int clockIcon = 2131165290;

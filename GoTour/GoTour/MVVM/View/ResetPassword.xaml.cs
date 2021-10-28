@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConfirmEmailView : ContentPage
+    public partial class ResetPassword : ContentPage
     {
-        public ConfirmEmailView()
+        public ResetPassword()
         {
             InitializeComponent();
-            this.BindingContext = new ConfirmEmailViewModel(Navigation);
+            this.BindingContext = new ResetPasswordViewModel(Navigation);
         }
     }
 }
