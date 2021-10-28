@@ -1,5 +1,6 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
+using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,14 @@ namespace GoTour.MVVM.ViewModel
             EyeSource = "eyeOffIcon.png";
             IsPassword = true;
             EyeCommand = new Command(eyeHandle);
+
+            if(Preferences.Get("remeber_key", "") == "true")
+            {
+                Account = Preferences.Get("email_key", "");
+                Password = Preferences.Get("password_key", "");
+                RememberAccount = true;
+            }
+            
         }
         void eyeHandle(object obj)
         {
@@ -67,6 +76,18 @@ namespace GoTour.MVVM.ViewModel
                     {
                         DataManager.Ins.CurrentUser = DataManager.Ins.ListUser[i];
                         DependencyService.Get<IToast>().ShortToast("Login successfully");
+
+                        if (RememberAccount)
+                        {
+                            Preferences.Set("email_key", Account);
+                            Preferences.Set("password_key", Password);
+                            Preferences.Set("remeber_key", "true");
+                        }
+                        else
+                        {
+                            Preferences.Set("remeber_key", "false");
+                        }
+
                         navigation.PushAsync(new HomeView());
                         break;
                     }
@@ -86,20 +107,37 @@ namespace GoTour.MVVM.ViewModel
         }
         async void forgotHandle(object obj)
         {
-            if(Account!= null && Account!= "" && DataManager.Ins.UsersServices.checkEmail(Account))
+            if(Account== null || Account== "" || !DataManager.Ins.UsersServices.checkEmail(Account))
+            {
+                DependencyService.Get<IToast>().ShortToast("Enter your email to continue");
+            }
+            else if(!DataManager.Ins.UsersServices.ExistEmail(Account, DataManager.Ins.usersTemp))
+            {
+                DependencyService.Get<IToast>().ShortToast("Email is not registed");
+            }
+            else
             {
                 Random rand = new Random();
                 string randomCode = (rand.Next(999999)).ToString();
                 DataManager.Ins.VerifyCode = randomCode;
-                DataManager.Ins.IsRegister = false;
+                DataManager.Ins.CurrentUser = new User()
+                {
+                    email = Account,
+                    password = "",
+                    name = "",
+                    contact = "",
+                    birthday = "",
+                    cmnd = "",
+                    profilePic = "defaultUser.png",
+                    address = "",
+                    score = 0,
+                    rank = 3
+                };
 
-                //await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: " + randomCode, Account);
+                await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: " + randomCode, Account);
                 DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
-                navigation.PushAsync(new ConfirmEmailView());
-            }
-            else
-            {
-                DependencyService.Get<IToast>().ShortToast("Enter your email to continue");
+                navigation.PushAsync(new ResetPassword());
+                
             }
         }
 

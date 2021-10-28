@@ -57,37 +57,7 @@
                 />
                 </Grid>
             </Frame>
-            <Frame Grid.Row="3" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
-                <StackLayout Orientation="Horizontal">
-                    <Entry                    
-                    Placeholder="Password"
-                    PlaceholderColor="#C0C0C0"
-                    FontSize="15"
-                    Margin="15,0,0,0"
-                    TextColor="Black"         
-                    Text="{Binding Password}"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="{Binding IsPassword}"
-                />
-                    <ImageButton Source="{Binding EyeSource}" HorizontalOptions="End" WidthRequest="25" Margin="0,0,10,0" BackgroundColor="Transparent" Command="{Binding EyeCommand}"/>
-                </StackLayout>
-            </Frame>
-
-            <Frame Grid.Row="4" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
-                <StackLayout Orientation="Horizontal">
-                    <Entry                    
-                    Placeholder="PasswordConfirm"
-                    PlaceholderColor="#C0C0C0"
-                    FontSize="15"
-                    Margin="15,0,0,0"
-                    TextColor="Black"         
-                    Text="{Binding ConfirmPassword}"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="{Binding IsPasswordConfirm}"
-                />
-                    <ImageButton Source="{Binding EyeSourceConfirm}" HorizontalOptions="End" WidthRequest="25" Margin="0,0,10,0" BackgroundColor="Transparent" Command="{Binding EyeConfirmCommand}"/>
-                </StackLayout>
-            </Frame>
+            
             <Button 
                 Grid.Row="3"
                 CornerRadius="20" 

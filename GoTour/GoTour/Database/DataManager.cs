@@ -21,6 +21,8 @@ namespace GoTour.Database
         }
 
         public UsersServices UsersServices;
+        public PriceServices PriceServices;
+        public TourPlaceServices TourPlaceServices;
 
         public List<User> usersTemp;
         public bool LoadData = true;
@@ -28,6 +30,9 @@ namespace GoTour.Database
         {
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
+            PriceServices = new PriceServices();
+            TourPlaceServices = new TourPlaceServices();
+
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
 
@@ -107,15 +112,6 @@ namespace GoTour.Database
             set
             {
                 verifyCode = value;
-            }
-        }
-        public bool isRegister;
-        public bool IsRegister
-        {
-            get { return isRegister; }
-            set
-            {
-                isRegister = value;
             }
         }
     }
