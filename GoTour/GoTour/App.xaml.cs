@@ -12,6 +12,7 @@ namespace GoTour
             InitializeComponent();
 
             MainPage = new NavigationPage(new HomeView());
+
         }
 
         protected override void OnStart()

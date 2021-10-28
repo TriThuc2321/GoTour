@@ -34,7 +34,12 @@ namespace GoTour.MVVM.ViewModel
 
             StayPlaces = DataManager.Ins.ListStayPlace;
             int a = 5;
+            Places = DataManager.Ins.ListPlace;
+
+            ProfilePic = DataManager.Ins.CurrentUser.profilePic;
         }
+
+        
         #region open view
         private void openMenu(object obj)
         {
@@ -77,6 +82,14 @@ namespace GoTour.MVVM.ViewModel
             {
                 _stayPlaces = value;
                 OnPropertyChanged("StayPlaces");
+        private string profilePic;
+        public string ProfilePic
+        {
+            get { return profilePic; }
+            set
+            {
+                profilePic = value;
+                OnPropertyChanged("ProfilePic");
             }
         }
     }

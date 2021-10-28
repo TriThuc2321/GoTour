@@ -69,7 +69,7 @@ namespace GoTour.Database
                   rank = item.Object.rank
               }).ToList();
         }
-        public async Task UpdatePerson(int email, User user)
+        public async Task UpdateUser(User user)
         {
             var toUpdateUser = (await firebase
               .Child("Users")

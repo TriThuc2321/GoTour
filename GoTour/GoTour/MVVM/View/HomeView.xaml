@@ -34,10 +34,11 @@
                     VerticalOptions="Center"
                     >
                     <ImageButton                        
-                        Source="./SourceImage/thuc.jpg"
+                        Source="{Binding ProfilePic}"
                         Aspect="AspectFill"
                         HeightRequest="40"
-                        WidthRequest="40"                        
+                        WidthRequest="40"    
+                        BackgroundColor="Transparent"
                     />
                 </Frame>
                 <Label Text="Let's,&#x0a;Go Tour" TextColor="Black" VerticalOptions="Center"/>

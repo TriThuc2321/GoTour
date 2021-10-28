@@ -11893,7 +11893,7 @@ namespace GoTour.Droid
 			public const int btn_radio_on_to_off_mtrl_animation = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int defaultAvatar = 2131165289;
+			public const int defaultUser = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
 			public const int design_bottom_navigation_item_background = 2131165290;
