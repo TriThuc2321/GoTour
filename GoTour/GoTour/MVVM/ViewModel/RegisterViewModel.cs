@@ -63,7 +63,6 @@ namespace GoTour.MVVM.ViewModel
                 Random rand = new Random();
                 string randomCode = (rand.Next(999999)).ToString();
                 DataManager.Ins.VerifyCode = randomCode;
-                DataManager.Ins.IsRegister = true;
 
                 DataManager.Ins.CurrentUser = new User()
                 {

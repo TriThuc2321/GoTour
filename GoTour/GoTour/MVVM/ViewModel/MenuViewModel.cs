@@ -27,17 +27,33 @@ namespace GoTour.MVVM.ViewModel
         async void _addImg(object sender)
         {
 
-            await CrossMedia.Current.Initialize();
+            /*await CrossMedia.Current.Initialize();
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
 
             string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream());
 
-            ImgSource = ImageSource.FromStream(imgData.GetStream);
+            ImgSource = ImageSource.FromStream(imgData.GetStream);*/
 
-            /*User temp = new User("01", "Thien", "078382112", "3/10", "234222222", url);
+            /*Price price = new Price() {
+                id = "01",
+                name ="",
+                price = 0,
+                hotleId = "KS001",
+            };
+            DataManager.Ins.PriceServices.addPrice(price);*/
 
-            await DataManager.Ins.UsersServices.addUser(temp);*/
+            List<PlaceId_Duration> temp = new List<PlaceId_Duration>();
+            temp.Add(new PlaceId_Duration(2,2,"DL"));
+            temp.Add(new PlaceId_Duration(2, 2, "DL"));
+            temp.Add(new PlaceId_Duration(2, 2, "DL"));
+
+            TourPlace tourPlace = new TourPlace()
+            {
+                tourId = "",
+                placeDurationList = temp
+            };
+            DataManager.Ins.TourPlaceServices.addTourPlace(tourPlace);
         }
 
         private ImageSource imgSource;

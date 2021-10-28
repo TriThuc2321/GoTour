@@ -1,24 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoTour.MainPage">
+             x:Class="GoTour.MainPage"
+       FlyoutHeaderBehavior="Scroll"
+       xmlns:views="clr-namespace:GoTour.MVVM.View"
+       FlyoutIcon="menuIcon.png"
+       Shell.NavBarIsVisible="False"
+       >
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.ForegroundColor" Value="Black"/>
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="Blue" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#A8B1B3" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#0A0E10"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#CFCFCF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
 
-</ContentPage>
+
+    <Shell.FlyoutHeader>
+        <StackLayout>
+            <Image Source="https://image.freepik.com/free-vector/cloud-background_91008-382.jpg"
+                   Aspect="AspectFill"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Home ">
+        <ShellContent Route="HomeView" ContentTemplate="{DataTemplate views:HomeView}" Style="{DynamicResource BaseStyle}"/>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Menu View">
+        <ShellContent Route="MenuView" ContentTemplate="{DataTemplate views:MenuView}" Style="{DynamicResource BaseStyle}"/>
+    </FlyoutItem>
+   
+
+</Shell>
