@@ -14,7 +14,7 @@ namespace GoTour.MVVM.Model
         string email { get; set; }
         string cmnd { get; set; }
         string address { get; set; }
-        string discountId { get; set; }
+        Discount discount { get; set; }
         string price { get; set; }
         
 

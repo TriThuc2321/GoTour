@@ -19,16 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MVVM\View\BookedTicketDetail.xaml.cs">
-      <DependentUpon>BookedTicketDetail.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="MVVM\View\BookedTicketDetail.xaml">
+    <EmbeddedResource Update="MVVM\View\BookTicketsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\BookTicketsView.xaml">
+    <EmbeddedResource Update="MVVM\View\BookTourView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\ConfirmEmailView.xaml">

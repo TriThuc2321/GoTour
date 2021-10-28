@@ -1,5 +1,4 @@
-﻿using GoTour.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BookTicketDetail : ContentPage
+    public partial class BookTourView : ContentPage
     {
-        public BookTicketDetail()
+        public BookTourView()
         {
             InitializeComponent();
-            this.BindingContext = new BookedTicketDetailViewModel(Navigation);
         }
     }
 }

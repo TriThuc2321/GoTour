@@ -11,7 +11,7 @@ using GoTour.MVVM.ViewModel;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BookTicketsView : ContentPage
+    public partial class BookTicketsView : Shell
     {
         public BookTicketsView()
         {
