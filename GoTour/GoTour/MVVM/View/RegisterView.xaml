@@ -4,9 +4,8 @@
              x:Class="GoTour.MVVM.View.RegisterView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
              NavigationPage.HasNavigationBar="False"
-             
+             Shell.FlyoutBehavior="Disabled"
              >
-
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
     </ContentPage.BindingContext>

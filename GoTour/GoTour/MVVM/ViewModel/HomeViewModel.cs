@@ -36,8 +36,6 @@ namespace GoTour.MVVM.ViewModel
             Places = DataManager.Ins.ListPlace;
             ProfilePic = DataManager.Ins.CurrentUser.profilePic;
 
-            var previousPage = navigation.NavigationStack.LastOrDefault();
-            navigation.RemovePage(previousPage);
         }
 
         
