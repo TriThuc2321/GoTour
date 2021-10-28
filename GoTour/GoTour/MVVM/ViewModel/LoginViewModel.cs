@@ -16,6 +16,7 @@ namespace GoTour.MVVM.ViewModel
     class LoginViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell curentShell;
         public LoginViewModel() {}
 
         public Command LoginCommand { get; }
@@ -23,9 +24,10 @@ namespace GoTour.MVVM.ViewModel
         public Command ForgotPasswordCommand { get; }
         public Command RememberCommand { get; }
         public Command EyeCommand { get; }
-        public LoginViewModel(INavigation navigation)
+        public LoginViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
+            this.curentShell = curentShell;
             bool flag = DataManager.Ins.LoadData;
 
             LoginCommand = new Command(loginHandleAsync);
@@ -56,9 +58,10 @@ namespace GoTour.MVVM.ViewModel
                 EyeSource = "eyeOffIcon.png";
             }
         }
-        void registerHandle(object obj)
+        async void registerHandle(object obj)
         {
-            navigation.PushAsync(new RegisterView());
+            //navigation.PushAsync(new RegisterView());
+            await curentShell.GoToAsync($"{nameof(RegisterView)}");
         }
         async void loginHandleAsync(object obj)
         {
@@ -87,8 +90,9 @@ namespace GoTour.MVVM.ViewModel
                         {
                             Preferences.Set("remeber_key", "false");
                         }
-                        
-                        navigation.PushAsync(new MainPage());
+
+                        await curentShell.GoToAsync($"//{nameof(HomeView)}");                        
+                        //navigation.PushAsync(new MainPage());
                         break;
                     }
                     else
@@ -136,8 +140,8 @@ namespace GoTour.MVVM.ViewModel
 
                 await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: " + randomCode, Account);
                 DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
-                navigation.PushAsync(new ResetPassword());
-                
+                //navigation.PushAsync(new ResetPassword());
+                await curentShell.GoToAsync($"{nameof(ResetPassword)}");
             }
         }
 
@@ -167,7 +171,6 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
-
 
         private string eyeSource;
         public string EyeSource

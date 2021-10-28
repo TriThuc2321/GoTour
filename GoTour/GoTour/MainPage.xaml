@@ -41,13 +41,12 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
-        <ShellContent Route="Home" ContentTemplate="{DataTemplate views:LoginView}"  />
+    <ShellItem Route="LoginView" FlyoutItemIsVisible="False">
+        <ShellContent Route="LoginView" ContentTemplate="{DataTemplate views:LoginView}" />
     </ShellItem>
-   
-    
+ 
     <FlyoutItem Title="Home">
-        <ShellContent Route="Home" ContentTemplate="{DataTemplate views:HomeView}" Style="{DynamicResource Base1Style}" />
+        <ShellContent Route="HomeView" ContentTemplate="{DataTemplate views:HomeView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Menu">

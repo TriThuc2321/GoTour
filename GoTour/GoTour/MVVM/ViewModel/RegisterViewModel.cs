@@ -15,14 +15,16 @@ namespace GoTour.MVVM.ViewModel
     class RegisterViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
         public Command EyeCommand { get; }
         public Command EyeConfirmCommand { get; }
         public Command LoginCommand { get; }
         public Command RegisterCommand { get; }
         public RegisterViewModel() {}
-        public RegisterViewModel(INavigation navigation)
+        public RegisterViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
 
             EyeSource = "eyeOffIcon.png";
             IsPassword = true;
@@ -80,7 +82,8 @@ namespace GoTour.MVVM.ViewModel
 
                 await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: "+ randomCode, Account);
                 DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
-                navigation.PushAsync(new ConfirmEmailView());
+                //navigation.PushAsync(new ConfirmEmailView());
+                await currentShell.GoToAsync($"{nameof(ConfirmEmailView)}");
             }
             
         }
@@ -113,7 +116,8 @@ namespace GoTour.MVVM.ViewModel
         }
         async void loginHandleAsync(object obj)
         {
-            await navigation.PopAsync();
+            //await navigation.PopAsync();
+            await currentShell.GoToAsync("..");
         }
 
 

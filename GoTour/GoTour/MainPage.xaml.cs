@@ -15,7 +15,11 @@ namespace GoTour
     {
         public MainPage()
         {
-            InitializeComponent();       
+            InitializeComponent();
+            Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
+            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+            Routing.RegisterRoute(nameof(ResetPassword), typeof(ResetPassword));
+            Routing.RegisterRoute(nameof(ConfirmEmailView), typeof(ConfirmEmailView));
         }
     }
 }

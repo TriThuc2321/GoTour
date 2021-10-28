@@ -11,15 +11,17 @@ namespace GoTour.MVVM.ViewModel
     class ResetPasswordViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
         public ResetPasswordViewModel() {}
 
         public Command EyeCommand { get; }
         public Command EyeConfirmCommand { get; }
         public Command ConfirmCommand { get; }
 
-        public ResetPasswordViewModel(INavigation navigation)
+        public ResetPasswordViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
 
             EyeSource = "eyeOffIcon.png";
             IsPassword = true;
@@ -50,7 +52,8 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentUser.password = DataManager.Ins.UsersServices.Encode(Password);
                 await DataManager.Ins.UsersServices.UpdateUser(DataManager.Ins.CurrentUser);
                 DependencyService.Get<IToast>().ShortToast("Reset password successfully");
-                navigation.PushAsync(new HomeView());
+                //navigation.PushAsync(new HomeView());
+                await currentShell.GoToAsync($"//{nameof(HomeView)}");
             }
             else
             {

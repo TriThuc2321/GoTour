@@ -12,11 +12,13 @@ namespace GoTour.MVVM.ViewModel
     class ConfirmEmailViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
         public Command ConfirmCommand { get; }
         public ConfirmEmailViewModel() {}
-        public ConfirmEmailViewModel(INavigation navigation)
+        public ConfirmEmailViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
             ConfirmCommand = new Command(confirmHandle);
            
         }
@@ -27,7 +29,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 await DataManager.Ins.UsersServices.addUser(DataManager.Ins.CurrentUser);
                 DependencyService.Get<IToast>().ShortToast("Register successfully");
-                navigation.PushAsync(new HomeView());
+                await currentShell.GoToAsync($"//{nameof(HomeView)}");
+                //navigation.PushAsync(new HomeView());
             }
            
             else
