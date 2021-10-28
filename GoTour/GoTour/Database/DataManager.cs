@@ -1,13 +1,15 @@
-﻿using GoTour.MVVM.Model;
+﻿using GoTour.Core;
+using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace GoTour.Database
 {
-    public class DataManager
+    public class DataManager: ObservableObject
     {
         private static DataManager _ins;
         public static DataManager Ins
@@ -114,5 +116,7 @@ namespace GoTour.Database
                 verifyCode = value;
             }
         }
+        
+       
     }
 }

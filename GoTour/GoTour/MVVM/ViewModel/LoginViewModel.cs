@@ -87,8 +87,8 @@ namespace GoTour.MVVM.ViewModel
                         {
                             Preferences.Set("remeber_key", "false");
                         }
-
-                        navigation.PushAsync(new HomeView());
+                        
+                        navigation.PushAsync(new MainPage());
                         break;
                     }
                     else

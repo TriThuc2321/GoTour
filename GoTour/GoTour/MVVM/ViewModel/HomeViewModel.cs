@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -33,8 +34,10 @@ namespace GoTour.MVVM.ViewModel
             MyTourCommand = new Command(openMyTour);        
 
             Places = DataManager.Ins.ListPlace;
-
             ProfilePic = DataManager.Ins.CurrentUser.profilePic;
+
+            var previousPage = navigation.NavigationStack.LastOrDefault();
+            navigation.RemovePage(previousPage);
         }
 
         
