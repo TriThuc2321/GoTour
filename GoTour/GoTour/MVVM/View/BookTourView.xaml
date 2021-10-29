@@ -23,8 +23,20 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
+                    <Frame Grid.Row="0"
+                          BackgroundColor="WhiteSmoke"
+                          Opacity="0.55"
+                          CornerRadius="15"
+                          Margin="15, 95, 15, 20"
+                          BorderColor="WhiteSmoke"
+                           
+                          >
+
+                    </Frame>
+
                     <StackLayout Orientation="Vertical"
                                  Grid.Row="0"
+                                 Margin="10, 0, 10,0"
                          >
 
                         <Label Text="BOOKING TOUR"
@@ -79,7 +91,7 @@
                                     <Label Margin="0,0,0,0"
                                Text="Birthday: "
                                Grid.Column="0"
-                               TextColor="Black"
+                               TextColor="LightSlateGray"
                                VerticalOptions="Center"
                                FontSize="15"/>
 
@@ -201,18 +213,18 @@
                                     Grid.Column="1"
                                     CornerRadius="20" 
                                     Padding="5"  
+                                    TextColor="White"
                                     BackgroundColor="#f4707c" 
                                     VerticalOptions="Center"
                                     FontAttributes="Bold"
-                                    FontSize="15"
-                                    Command=""/>
+                                    FontSize="15"/>
 
                             </Grid>
 
 
                         </StackLayout>
 
-                        <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Vertical" Margin="0, 50,0,0">
                             <Grid RowSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"></RowDefinition>
@@ -309,12 +321,12 @@
                                     Margin="25,20,25,50"
                                     Padding="5"  
                                     BackgroundColor="#f4707c" 
+                                    TextColor="White"
                                     VerticalOptions="Center"
-                                    HeightRequest="40"
+                                    HeightRequest="50"
                                     Text="confirm booking"
                                     FontAttributes="Bold"
-                                    FontSize="15"
-                                    Command=""
+                                    FontSize="20"
                         />
 
 
@@ -322,14 +334,7 @@
 
                     </StackLayout>
 
-                    <Frame Grid.Row="0"
-                          BackgroundColor="WhiteSmoke"
-                          Opacity="0.4"
-                          CornerRadius="15"
-                          Margin="15, 95, 15, 20"
-                          >
-                        
-                    </Frame>
+                    
 
                 </Grid>
 
