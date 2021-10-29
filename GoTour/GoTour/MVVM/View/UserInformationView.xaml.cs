@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomeView : ContentPage
+    public partial class UserInformationView : ContentPage
     {
-        public HomeView()
+        public UserInformationView()
         {
             InitializeComponent();
-            this.BindingContext = new HomeViewModel(Navigation, Shell.Current);
+            this.BindingContext = new UserInformationViewModel(Navigation, Shell.Current);
         }
     }
 }

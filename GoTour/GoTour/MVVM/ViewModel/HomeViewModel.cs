@@ -15,6 +15,7 @@ namespace GoTour.MVVM.ViewModel
     class HomeViewModel: ObservableObject
     {       
         INavigation navigation;
+        Shell currentShell;
 
         public Command MenuCommand { get; }
         public Command NotificaitonCommand { get; }
@@ -23,9 +24,10 @@ namespace GoTour.MVVM.ViewModel
         public Command MyTourCommand { get; }
 
         public HomeViewModel() { }
-        public HomeViewModel(INavigation navigation)
+        public HomeViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
 
             MenuCommand = new Command(openMenu);
             NotificaitonCommand = new Command(openNotifi);
@@ -42,7 +44,7 @@ namespace GoTour.MVVM.ViewModel
         #region open view
         private void openMenu(object obj)
         {
-            navigation.PushAsync(new MenuView());
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
         }
         private void openNotifi(object obj)
         {

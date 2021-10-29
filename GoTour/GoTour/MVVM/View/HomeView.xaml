@@ -24,14 +24,15 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackLayout Orientation="Horizontal">
-                <Frame                                         
-                   HorizontalOptions="End"                   
+
+                <Frame      
+                    Grid.Column="1"
+                   HorizontalOptions="End"
                    HasShadow="False"
                    CornerRadius="8"
                    Margin="0, 0, 0, 0"
                    Padding="0"
-                    VerticalOptions="Center"
+                   VerticalOptions="Center"
                     >
                     <ImageButton                        
                         Source="{Binding ProfilePic}"
@@ -41,21 +42,20 @@
                         BackgroundColor="Transparent"
                     />
                 </Frame>
-                <Label Text="Let's,&#x0a;Go Tour" TextColor="Black" VerticalOptions="Center"/>
-            </StackLayout>
+               
+
 
             <ImageButton
                 HeightRequest="40"
                 WidthRequest="40"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                VerticalOptions="End"
                 Source="menuIcon.png"
                 Margin="0, -10, 0, 0"
-                Grid.Column="1"
+                Grid.Column="0"
                 BackgroundColor="White"
                 Command="{Binding MenuCommand}"
             />
-
         </Grid>
 
         <Label
