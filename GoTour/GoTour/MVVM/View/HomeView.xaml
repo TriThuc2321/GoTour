@@ -177,7 +177,7 @@
                        Margin="30,0,0,0"
                 />
             </StackLayout>
-            <CarouselView ItemsSource="{Binding StayPlaces}"  PeekAreaInsets="100" >
+            <CarouselView ItemsSource="{Binding Tours}"  PeekAreaInsets="100" >
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>

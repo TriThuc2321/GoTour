@@ -22,14 +22,11 @@ namespace GoTour.Database
 
         public UsersServices UsersServices;
        
-        public PriceServices PriceServices;
-        public TourPlaceServices TourPlaceServices;
-
         public List<User> usersTemp;
         public bool LoadData = true;
 
         #region TourView
-        public StayPlacesServices StayPlacesServices;
+        
         async Task getAllStayPlaceList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
@@ -52,21 +49,22 @@ namespace GoTour.Database
         }
         #endregion
 
-        public String currentPlace;
+        public List<string> currentPlace = new List<string>();
+        public Tour currentTour = new Tour();
         private DataManager()
         {
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
-            PriceServices = new PriceServices();
-            TourPlaceServices = new TourPlaceServices();
-
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
+            ListTour = new ObservableCollection<Tour>();
 
 
             /// Thiên
             ListStayPlace = new ObservableCollection<StayPlace>();
             StayPlacesServices = new StayPlacesServices();
+            TourPlaceServices = new TourPlaceServices();
+            TourServices = new ToursServices();
             getAllStayPlaceList();
 
 
@@ -90,9 +88,37 @@ namespace GoTour.Database
                 ListPlace.Add(p);
             }
 
+            List<Tour> tourList = await TourServices.GetAllTours();
+            List<TourPlace> tourPlaceList = await TourPlaceServices.GetAllTourPlaces();
+            foreach (Tour ite in tourList)
+            {
+                ListTour.Add(ite);
+                TourPlace temp2 = tourPlaceList.Find(e => (e.tourId == ite.id));
+                ite.placeDurationList = temp2.placeDurationList;
+            }
+            int v = 5;
             
         }
-       
+        private ToursServices tourServices;
+        public ToursServices TourServices
+        {
+            get
+            {
+                return tourServices;
+            }
+            set { tourServices = value; }
+        }
+
+
+        private StayPlacesServices stayPlacesServices;
+        public StayPlacesServices StayPlacesServices
+        {
+            get
+            {
+                return stayPlacesServices;
+            }
+            set { stayPlacesServices = value; }
+        }
 
         private PlacesServices placesServices;
         public PlacesServices PlacesServices
@@ -103,16 +129,18 @@ namespace GoTour.Database
             }
             set { placesServices = value; }
         }
-        /*private UsersServices usersServices;
-        public UsersServices UsersServices
+
+        private TourPlaceServices tourPlaceServices;
+        public TourPlaceServices TourPlaceServices
         {
             get
             {
-                return usersServices;
+                return tourPlaceServices;
             }
-            set { usersServices = value; }
-        }*/
-       
+            set { tourPlaceServices = value; }
+        }
+
+
         private ObservableCollection<Place> _places;
         public ObservableCollection<Place> ListPlace
         {
@@ -123,7 +151,16 @@ namespace GoTour.Database
             }
         }
 
-      
+        private ObservableCollection<Tour> _tours;
+        public ObservableCollection<Tour> ListTour
+        {
+            get { return _tours; }
+            set
+            {
+                _tours = value;
+            }
+        }
+
         private ObservableCollection<User> _users;
         public ObservableCollection<User> ListUser
         {
@@ -150,6 +187,15 @@ namespace GoTour.Database
             set
             {
                 verifyCode = value;
+            }
+        }
+        public bool isRegister;
+        public bool IsRegister
+        {
+            get { return isRegister; }
+            set
+            {
+                isRegister = value;
             }
         }
     }

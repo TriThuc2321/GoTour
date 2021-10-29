@@ -1,16 +1,16 @@
-﻿using System;
+﻿using GoTour.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class Price
+    public class Price : ObservableObject
     {
-        public string id;
-        public string name;
-        public int price;
-        public string hotleId;
-
+        public string id {get;set ;}
+        public string name { get; set; }
+        public int price { get; set; }
+        public string hotleId { get; set; }
         public Price()
         {
         }

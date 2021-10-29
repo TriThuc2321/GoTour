@@ -3,100 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.ToursView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
-             NavigationPage.HasNavigationBar="false">
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True"
+             Title="Chọn địa điểm">
 
     <ContentPage.BindingContext>
         <vm:ToursViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition  ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
             <StackLayout Grid.Column="0" >
-                <CollectionView ItemsSource="{Binding Places2}" SelectedItem="{Binding SelectedPlace}" SelectionMode="Single">
-
+                <CollectionView x:Name="LstView" 
+                                ItemsSource="{Binding Places}"
+                                 SelectionMode="Multiple"
+                                SelectionChangedCommand="{Binding MultipleSelectedCommand}" 
+                                SelectionChangedCommandParameter="{Binding SelectedItems,Source={x:Reference LstView}}"                           
+                                >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                        Orientation="Vertical"                 
+                        Span="2"
+                        VerticalItemSpacing="0"
+                         />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" >
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="#f4707c" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
                                 <Frame
-                            HeightRequest="280" WidthRequest="180"
+                            HeightRequest="280" 
                             BackgroundColor="White"
                             HasShadow="True"
-                            Margin="10"
-                            CornerRadius="10"
+                            CornerRadius="5"                                                                
+                            Margin="5"
+                            Padding="0,0,0,0"
                             HorizontalOptions="Center"
-                            Padding="0"
                             
                         >
                                     <Grid>
-                                        <StackLayout
-                                        BackgroundColor="Black">
+                                       
                                             <ImageButton Source="{Binding imgSource[0]}"
-                                             HeightRequest="350"
+                                             HeightRequest="280"
                                              Aspect="AspectFill"     
                                       
                            />
-                                        </StackLayout>
-                                        <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
-                                        <StackLayout>
-                                            <Label
-                                    Text="{Binding description}"
-                                    TextColor="White"
-                                    FontSize="18"
-                                    FontAttributes="Bold"
-                                    Margin="13,0,0,0"
-                                    VerticalOptions="EndAndExpand"
-                        />
-                                            <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
-                                                <Image 
-                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                        />
-                                                <Label
-                                        Text="{Binding name}"
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"/>
-                                            </StackLayout>
-                                        </StackLayout>
-                                    </Grid>
-                                </Frame>
-                            </StackLayout>
-
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-            <StackLayout Grid.Column="1" >
-                <CollectionView ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" SelectionMode="Single" >
-
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout>
-                                <Frame
-                            HeightRequest="200" WidthRequest="180"
-                            BackgroundColor="White"
-                            HasShadow="True"
-                            Margin="10"
-                            CornerRadius="10"
-                            HorizontalOptions="Center"
-                            Padding="0"
-                        >
-                                    <Grid>
-                                        <StackLayout
-                                BackgroundColor="Black">
-                                            <ImageButton Source="{Binding imgSource[0]}"
-                                    HeightRequest="350"
-                                    Aspect="AspectFill"    
-                           />
-                                        </StackLayout>
-                                        <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
+                                        
+                                       
                                         <StackLayout>
                                             <Label
                                     Text="{Binding description}"
@@ -128,7 +93,19 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
+                <Button
+                Text="XEM CÁC TOUR"
+                BackgroundColor="#f4707c"
+                TextColor="White"
+                HorizontalOptions="EndAndExpand"
+                CornerRadius="10"
+                Margin="5"
+                Command="{Binding OpenToursFromSelectedPlaces}">
+                </Button>
             </StackLayout>
+
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

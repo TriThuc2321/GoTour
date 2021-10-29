@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoTour.Database
 {
-    class ToursServices
+    public class ToursServices
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
@@ -32,6 +32,7 @@ namespace GoTour.Database
                   passengerNumber = item.Object.passengerNumber,
                   description = item.Object.description,
                   isOccured = item.Object.isOccured,
+                  placeDurationList = null,
               }).ToList();
         }
         public async Task AddTour(string _id, string _name, List<string> _imgSource, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description, bool _isOccured)

@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.DetailTourView" 
-             NavigationPage.HasNavigationBar="false">
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             NavigationPage.HasNavigationBar="True"
+             Title="{Binding SelectedTour.name}">
+    <ContentPage.BindingContext>
+        <vm:DetailTourViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Frame
@@ -15,16 +20,13 @@
                             Padding="0"
                         >
                 <Grid>
-                    
-                    <StackLayout
-                                BackgroundColor="Black">
 
-                        <Image Source="https://www.pandotrip.com/wp-content/uploads/2015/02/Alberobello-980x735.jpg"
+                   
+                        <Image Source="{Binding SelectedTour.imgSource[0]}"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
                            />
-                    </StackLayout>
                     
                     <StackLayout VerticalOptions="EndAndExpand"
                                  HorizontalOptions="CenterAndExpand"                            
@@ -46,7 +48,7 @@
                         <StackLayout  Grid.Column="0" VerticalOptions="CenterAndExpand">
                             <StackLayout>
                             <Label
-                                    Text="Hội An Phố Cổ"
+                                    Text="{Binding SelectedTour.name}"
                                     TextColor="NavajoWhite"
                                     FontSize="25"
                                     FontAttributes="Bold"
@@ -82,7 +84,7 @@
                                     Margin="30,0,0,0"
                                     HorizontalOptions="StartAndExpand"></Label>
                                     <Label 
-                                     Text="3 ngày 2 đêm"
+                                     Text="{Binding SelectedTour.duration}"
                                     TextColor="White"
                                     FontSize="15"
                                     FontAttributes="Bold"
@@ -126,6 +128,7 @@
                                     BackgroundColor="Black"
                                     VerticalOptions="CenterAndExpand"
                                     Margin="0,5,0,0"
+                                    Command="{Binding OpenDetailTour}"
                                     CornerRadius="10"></Button>
                         </StackLayout>
                         

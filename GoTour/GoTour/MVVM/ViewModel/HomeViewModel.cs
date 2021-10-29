@@ -34,9 +34,10 @@ namespace GoTour.MVVM.ViewModel
 
             StayPlaces = DataManager.Ins.ListStayPlace;
             int a = 5;
-            Places = DataManager.Ins.ListPlace;
+           /* Places = DataManager.Ins.ListPlace;*/
 
             ProfilePic = DataManager.Ins.CurrentUser.profilePic;
+           /* Tours = DataManager.Ins.ListTour;*/
         }
 
         
@@ -82,6 +83,19 @@ namespace GoTour.MVVM.ViewModel
             {
                 _stayPlaces = value;
                 OnPropertyChanged("StayPlaces");
+            }
+        }
+
+        private ObservableCollection<Tour> _tours;
+        public ObservableCollection<Tour> Tours
+        {
+            get { return _tours; }
+            set
+            {
+                _tours = value;
+                OnPropertyChanged("Tours");
+            }
+        }
         private string profilePic;
         public string ProfilePic
         {

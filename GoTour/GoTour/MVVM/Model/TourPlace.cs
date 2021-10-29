@@ -1,13 +1,14 @@
-﻿using System;
+﻿using GoTour.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class TourPlace
+    public class TourPlace : ObservableObject
     {
-        public string tourId;
-        public List<PlaceId_Duration> placeDurationList;
+        public string tourId { get; set; }
+        public List<PlaceId_Duration> placeDurationList { get; set; }
 
         public TourPlace()
         {
