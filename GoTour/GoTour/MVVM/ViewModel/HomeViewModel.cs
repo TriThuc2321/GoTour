@@ -35,8 +35,13 @@ namespace GoTour.MVVM.ViewModel
             FavoriteCommand = new Command(openFavorite);
             MyTourCommand = new Command(openMyTour);        
 
-            Places = DataManager.Ins.ListPlace;
+            StayPlaces = DataManager.Ins.ListStayPlace;
+            int a = 5;
+           /* Places = DataManager.Ins.ListPlace;*/
+
             ProfilePic = DataManager.Ins.CurrentUser.profilePic;
+           /* Tours = DataManager.Ins.ListTour;*/
+            Places = DataManager.Ins.ListPlace;
 
         }
 
@@ -73,6 +78,27 @@ namespace GoTour.MVVM.ViewModel
             {
                 _places = value;
                 OnPropertyChanged("Places");
+            }
+        }
+        private ObservableCollection<StayPlace> _stayPlaces;
+        public ObservableCollection<StayPlace> StayPlaces
+        {
+            get { return _stayPlaces; }
+            set
+            {
+                _stayPlaces = value;
+                OnPropertyChanged("StayPlaces");
+            }
+        }
+
+        private ObservableCollection<Tour> _tours;
+        public ObservableCollection<Tour> Tours
+        {
+            get { return _tours; }
+            set
+            {
+                _tours = value;
+                OnPropertyChanged("Tours");
             }
         }
         private string profilePic;
