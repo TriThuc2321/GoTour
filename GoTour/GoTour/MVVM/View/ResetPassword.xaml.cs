@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public ResetPassword()
         {
             InitializeComponent();
-            this.BindingContext = new ResetPasswordViewModel(Navigation);
+            this.BindingContext = new ResetPasswordViewModel(Navigation, Shell.Current);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace GoTour.Database
 {
     public class TourPlaceServices
     {
-
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         async public Task addTourPlace(TourPlace tourPlace)
         {

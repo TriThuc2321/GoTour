@@ -10,9 +10,7 @@ namespace GoTour
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new HomeView());
-
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

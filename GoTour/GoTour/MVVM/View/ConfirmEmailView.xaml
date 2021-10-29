@@ -4,6 +4,7 @@
              x:Class="GoTour.MVVM.View.ConfirmEmailView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
              NavigationPage.HasNavigationBar="False"
+             Shell.FlyoutBehavior="Disabled"
              >
     
     <ContentPage.BindingContext>

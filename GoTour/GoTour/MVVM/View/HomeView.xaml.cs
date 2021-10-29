@@ -15,7 +15,7 @@ namespace GoTour.MVVM.View
         public HomeView()
         {
             InitializeComponent();
-            this.BindingContext = new HomeViewModel(Navigation);
+            this.BindingContext = new HomeViewModel(Navigation, Shell.Current);
         }
     }
 }

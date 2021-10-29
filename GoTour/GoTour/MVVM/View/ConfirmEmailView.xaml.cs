@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public ConfirmEmailView()
         {
             InitializeComponent();
-            this.BindingContext = new ConfirmEmailViewModel(Navigation);
+            this.BindingContext = new ConfirmEmailViewModel(Navigation, Shell.Current);
         }
     }
 }
