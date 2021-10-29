@@ -19,7 +19,7 @@ namespace GoTour.Database
         public async Task<List<FavouriteTour>> GetAllPlaces()
         {
             return (await firebase
-              .Child("Favourite")
+              .Child("Favourites")
               .OnceAsync<FavouriteTour>()).Select(item => new FavouriteTour
               {
                   id = item.Object.id,
@@ -30,7 +30,7 @@ namespace GoTour.Database
         public async Task AddFavouritePlace(FavouriteTour tour)
         {
             await firebase
-              .Child("Places")
+              .Child("Favourites")
               .PostAsync(new FavouriteTour()
               {
                   id = tour.id,
@@ -42,9 +42,9 @@ namespace GoTour.Database
         public async Task DeleteFavoritePlace(string id)
         {
             var toDelete = (await firebase
-              .Child("Favourite")
+              .Child("Favourites")
               .OnceAsync<FavouriteTour>()).Where(a => a.Object.id == id).FirstOrDefault();
-            await firebase.Child("Persons").Child(toDelete.Key).DeleteAsync();
+            await firebase.Child("Favourites").Child(toDelete.Key).DeleteAsync();
         }
     }
 }
