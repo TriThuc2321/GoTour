@@ -43,7 +43,7 @@ namespace GoTour.MVVM.ViewModel
             };
             DataManager.Ins.PriceServices.addPrice(price);*/
 
-            List<PlaceId_Duration> temp = new List<PlaceId_Duration>();
+            /*List<PlaceId_Duration> temp = new List<PlaceId_Duration>();
             temp.Add(new PlaceId_Duration(2,2,"DL"));
             temp.Add(new PlaceId_Duration(2, 2, "DL"));
             temp.Add(new PlaceId_Duration(2, 2, "DL"));
@@ -53,7 +53,8 @@ namespace GoTour.MVVM.ViewModel
                 tourId = "",
                 placeDurationList = temp
             };
-            DataManager.Ins.TourPlaceServices.addTourPlace(tourPlace);
+            DataManager.Ins.TourPlaceServices.addTourPlace(tourPlace);*/
+
         }
 
         private ImageSource imgSource;

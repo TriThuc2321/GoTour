@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public RegisterView()
         {
             InitializeComponent();
-            this.BindingContext = new RegisterViewModel(Navigation);
+            this.BindingContext = new RegisterViewModel(Navigation, Shell.Current);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace GoTour.MVVM.ViewModel
     class LoginViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell curentShell;
         public LoginViewModel() {}
 
         public Command LoginCommand { get; }
@@ -23,10 +24,13 @@ namespace GoTour.MVVM.ViewModel
         public Command ForgotPasswordCommand { get; }
         public Command RememberCommand { get; }
         public Command EyeCommand { get; }
-        public LoginViewModel(INavigation navigation)
+        public LoginViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
+            this.curentShell = curentShell;
             bool flag = DataManager.Ins.LoadData;
+
+            RememberLogin();
 
             LoginCommand = new Command(loginHandleAsync);
             RegisterCommand = new Command(registerHandle);
@@ -44,6 +48,23 @@ namespace GoTour.MVVM.ViewModel
             }
             
         }
+
+        private void RememberLogin()
+        {
+            string email = Preferences.Get("email_key", "");
+            if (Preferences.Get("remeber_login_key", "") == "true")
+            {
+                for (int i = 0; i < DataManager.Ins.ListUser.Count; i++)
+                {
+                    if (DataManager.Ins.ListUser[i].email == email)
+                    {
+                        DataManager.Ins.CurrentUser = DataManager.Ins.ListUser[i];
+                        curentShell.GoToAsync($"//{nameof(HomeView)}");
+                    }
+                }
+            }
+        }
+
         void eyeHandle(object obj)
         {
             IsPassword = !IsPassword;
@@ -56,9 +77,10 @@ namespace GoTour.MVVM.ViewModel
                 EyeSource = "eyeOffIcon.png";
             }
         }
-        void registerHandle(object obj)
+        async void registerHandle(object obj)
         {
-            navigation.PushAsync(new RegisterView());
+            //navigation.PushAsync(new RegisterView());
+            await curentShell.GoToAsync($"{nameof(RegisterView)}");
         }
         async void loginHandleAsync(object obj)
         {
@@ -82,13 +104,15 @@ namespace GoTour.MVVM.ViewModel
                             Preferences.Set("email_key", Account);
                             Preferences.Set("password_key", Password);
                             Preferences.Set("remeber_key", "true");
+                            Preferences.Set("remeber_login_key", "true");
                         }
                         else
                         {
                             Preferences.Set("remeber_key", "false");
                         }
 
-                        navigation.PushAsync(new HomeView());
+                        await curentShell.GoToAsync($"//{nameof(HomeView)}");                        
+                        //navigation.PushAsync(new MainPage());
                         break;
                     }
                     else
@@ -136,8 +160,8 @@ namespace GoTour.MVVM.ViewModel
 
                 await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: " + randomCode, Account);
                 DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
-                navigation.PushAsync(new ResetPassword());
-                
+                //navigation.PushAsync(new ResetPassword());
+                await curentShell.GoToAsync($"{nameof(ResetPassword)}");
             }
         }
 
@@ -167,7 +191,6 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
-
 
         private string eyeSource;
         public string EyeSource

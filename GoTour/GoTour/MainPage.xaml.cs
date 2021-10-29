@@ -1,4 +1,6 @@
-﻿using GoTour.MVVM.View;
+﻿using GoTour.Database;
+using GoTour.MVVM.View;
+using GoTour.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +16,10 @@ namespace GoTour
         public MainPage()
         {
             InitializeComponent();
-            Routing.RegisterRoute("HomeView", typeof(HomeView));
-            Routing.RegisterRoute("MenuView", typeof(MenuView));
+            Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
+            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+            Routing.RegisterRoute(nameof(ResetPassword), typeof(ResetPassword));
+            Routing.RegisterRoute(nameof(ConfirmEmailView), typeof(ConfirmEmailView));
         }
     }
 }
