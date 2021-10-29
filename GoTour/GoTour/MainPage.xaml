@@ -39,25 +39,44 @@
                 <Setter Property="Shell.FlyoutBehavior" Value="Flyout"/>
             </Style>
         </ResourceDictionary>
+
+        
     </Shell.Resources>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <StackLayout  Padding="16,20,4,0" Orientation="Horizontal">
+                <Image Source="{Binding Icon}" HeightRequest="20"/>
+                <Label Text="{Binding Title}"  
+                   HorizontalOptions="Start" Margin="10,0,0,0" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="15"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.ItemTemplate>
 
     <ShellItem Route="LoginView" FlyoutItemIsVisible="False">
         <ShellContent Route="LoginView" ContentTemplate="{DataTemplate views:LoginView}" />
     </ShellItem>
- 
-    <FlyoutItem Title="Home">
+
+    <FlyoutItem Title="Home" Icon="homeOutlineIcon.png">
         <ShellContent Route="HomeView" ContentTemplate="{DataTemplate views:HomeView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Menu">
-        <ShellContent Route="MenuView" ContentTemplate="{DataTemplate views:MenuView}" Style="{DynamicResource Base1Style}" />
+    <FlyoutItem Title="My Tour" >
+        <ShellContent Route="MyTourView" ContentTemplate="{DataTemplate views:MyTourView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
-    <Shell.FlyoutHeader>
-        <StackLayout>
-            <Image Source="https://image.freepik.com/free-vector/cloud-background_91008-382.jpg"
-                   Aspect="AspectFill"/>
-        </StackLayout>
+    <FlyoutItem Title="My Favorite" >
+        <ShellContent Route="FavoriteView" ContentTemplate="{DataTemplate views:FavoriteView}" Style="{DynamicResource Base1Style}" />
+    </FlyoutItem>
+
+    <Shell.FlyoutHeader >
+        <Grid HeightRequest="150" >
+            <Image 
+                   Source="https://i.pinimg.com/564x/60/75/61/607561e3f12062a5beb71210a60b3b06.jpg"
+                   Aspect="AspectFill"
+                Opacity="0.6"/>
+
+        </Grid>
     </Shell.FlyoutHeader>
 
 </Shell>

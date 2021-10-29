@@ -30,6 +30,8 @@ namespace GoTour.MVVM.ViewModel
             this.curentShell = curentShell;
             bool flag = DataManager.Ins.LoadData;
 
+            RememberLogin();
+
             LoginCommand = new Command(loginHandleAsync);
             RegisterCommand = new Command(registerHandle);
             ForgotPasswordCommand = new Command(forgotHandle);
@@ -46,6 +48,23 @@ namespace GoTour.MVVM.ViewModel
             }
             
         }
+
+        private void RememberLogin()
+        {
+            string email = Preferences.Get("email_key", "");
+            if (Preferences.Get("remeber_login_key", "") == "true")
+            {
+                for (int i = 0; i < DataManager.Ins.ListUser.Count; i++)
+                {
+                    if (DataManager.Ins.ListUser[i].email == email)
+                    {
+                        DataManager.Ins.CurrentUser = DataManager.Ins.ListUser[i];
+                        curentShell.GoToAsync($"//{nameof(HomeView)}");
+                    }
+                }
+            }
+        }
+
         void eyeHandle(object obj)
         {
             IsPassword = !IsPassword;
@@ -85,6 +104,7 @@ namespace GoTour.MVVM.ViewModel
                             Preferences.Set("email_key", Account);
                             Preferences.Set("password_key", Password);
                             Preferences.Set("remeber_key", "true");
+                            Preferences.Set("remeber_login_key", "true");
                         }
                         else
                         {
