@@ -34,16 +34,16 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
+
             }
         }
-
 
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             Tour result = obj as Tour;
         if (result != null)
         {
-                DataManager.Ins.currentTour = result;
+            DataManager.Ins.currentTour = result;
                 navigation.PushAsync(new DetailTourView());
                 SelectedTour = null;
             }
