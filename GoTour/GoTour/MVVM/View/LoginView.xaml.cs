@@ -21,6 +21,4 @@ namespace GoTour.MVVM.View
             this.BindingContext = new LoginViewModel(Navigation, Shell.Current);
         }               
     }
-    
-   
 }

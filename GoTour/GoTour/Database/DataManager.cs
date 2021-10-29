@@ -104,7 +104,8 @@ namespace GoTour.Database
             get { return currentUser; }
             set
             {
-                currentUser = value;               
+                currentUser = value;
+                ProfilePic = value.profilePic;
             }
         }
         private string verifyCode;
@@ -116,7 +117,17 @@ namespace GoTour.Database
                 verifyCode = value;
             }
         }
-        
-       
+
+        private string profilePic;
+        public string ProfilePic
+        {
+            get { return profilePic; }
+            set
+            {
+                profilePic = value;
+                OnPropertyChanged("ProfilePic");
+            }
+        }
+
     }
 }
