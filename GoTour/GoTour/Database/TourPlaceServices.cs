@@ -3,6 +3,7 @@ using Firebase.Database.Query;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,17 @@ namespace GoTour.Database
                   tourId = tourPlace.tourId,
                   placeDurationList = tourPlace.placeDurationList
         });
+        }
+
+        public async Task<List<TourPlace>> GetAllTourPlaces()
+        {
+            return (await firebase
+              .Child("TourPlaces")
+              .OnceAsync<TourPlace>()).Select(item => new TourPlace
+              {
+                  tourId = item.Object.tourId,
+                  placeDurationList = item.Object.placeDurationList
+              }).ToList();
         }
     }
 }

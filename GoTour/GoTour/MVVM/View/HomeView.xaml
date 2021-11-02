@@ -177,7 +177,7 @@
                        Margin="30,0,0,0"
                 />
             </StackLayout>
-            <CarouselView ItemsSource="{Binding Places}"  PeekAreaInsets="100" >
+            <CarouselView ItemsSource="{Binding Tours}"  PeekAreaInsets="100" >
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
@@ -193,7 +193,7 @@
                                 <Grid>
                                     <StackLayout
                                 BackgroundColor="Black">
-                                        <Image Source="{Binding imgSource}"
+                                        <Image Source="{Binding imgSource[0]}"
                                     HeightRequest="350"
                                     Aspect="AspectFill"                           
                                            />
@@ -201,7 +201,7 @@
                                     <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
                                     <StackLayout>
                                         <Label
-                                    Text="{Binding title}"
+                                    Text="{Binding name}"
                                     TextColor="White"
                                     FontSize="18"
                                     FontAttributes="Bold"
@@ -216,7 +216,7 @@
                                         Margin="10, 0, 0, 0"
                         />
                                             <Label
-                                        Text="{Binding country}"
+                                        Text="{Binding description}"
                                         TextColor="White"
                                         FontSize="14"                            
                                         Margin="-5, 0, 0, 0"/>

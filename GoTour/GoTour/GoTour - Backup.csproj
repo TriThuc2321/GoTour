@@ -55,11 +55,8 @@
     <EmbeddedResource Update="MVVM\View\ToursView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="MVVM\View\DetailTourView2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
+    <EmbeddedResource Update="MVVM\View\UserInformationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

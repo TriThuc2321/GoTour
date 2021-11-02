@@ -3,10 +3,12 @@ using Firebase.Database.Query;
 using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -16,14 +18,44 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
 
         public Command AddImageCommand { get; }
-        public MenuViewModel(){}
+        public Command PushDatacommand { get; }
+        public MenuViewModel() { }
         public MenuViewModel(INavigation navigation)
         {
             this.navigation = navigation;
 
             AddImageCommand = new Command(_addImg);
+            PushDatacommand = new Command(pushData);
+        }
+        FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        List<string> temp1 = new List<string>();
+        
+        public async void pushData(object sender)
+        {
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+            await firebase
+             .Child("Tours")
+             .PostAsync(new Class1()
+             {
+            id = "",
+            name = "",
+            imgSource = temp1,
+            startTime = "",
+            duration = "",
+            tourGuide = temp1,
+            passengerNumber = "10",
+            description = "",
+            isOccured = false,
+        });
+
+            /*  navigation.PushAsync(new DetailTourView());*/
+
         }
 
+        
         async void _addImg(object sender)
         {
 
