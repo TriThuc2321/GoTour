@@ -6,17 +6,8 @@ namespace GoTour.MVVM.Model
 {
     public class FavouriteTour
     {
+        public Tour tour { get; set; }
+        public string email { get; set; }
         public string id { get; set; }
-        public string name { get; set; }
-        public string imgSource { get; set; }
-
-        public DateTime startTime { get; set; }
-        public string days { get; set; }
-
-        public int passengerNumber { get; set; }
-        public string tourId { get; set; }
-        public string userId { get; set; }
-
-
     }
 }

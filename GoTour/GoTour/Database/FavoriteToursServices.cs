@@ -9,37 +9,40 @@ using System.Threading.Tasks;
 
 namespace GoTour.Database
 {
-    class FavoriteToursServices
+    public class FavoriteToursServices
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
 
         public List<FavouriteTour> favoritePlaces;
+
         public FavoriteToursServices() { }
-        public async Task<List<FavouriteTour>> GetAllPlaces()
+        public async Task<List<FavouriteTour>> GetAllFavourite()
         {
-            return (await firebase
+             return (await firebase
               .Child("Favourites")
               .OnceAsync<FavouriteTour>()).Select(item => new FavouriteTour
               {
                   id = item.Object.id,
-                  tourId = item.Object.tourId,
-                  userId = item.Object.userId
+                  tour = item.Object.tour,
+                  email = (string)item.Object.email,
+                  //.Where(email => email.ToString() == DataManager.Ins.CurrentUser.email),
               }).ToList();
+
         }
-        public async Task AddFavouritePlace(FavouriteTour tour)
+        public async Task AddFavouriteTour(FavouriteTour favourite)
         {
             await firebase
               .Child("Favourites")
               .PostAsync(new FavouriteTour()
               {
-                  id = tour.id,
-                  tourId = tour.tourId,
-                  userId = tour.userId,
+                  id = favourite.id,
+                  tour = new Tour { id = favourite.tour.id },
+                  email = favourite.email,
               });
         }
 
-        public async Task DeleteFavoritePlace(string id)
+        public async Task DeleteFavoriteTour(string id)
         {
             var toDelete = (await firebase
               .Child("Favourites")

@@ -6,16 +6,16 @@ namespace GoTour.MVVM.Model
 {
     public class BookedTicket
     { 
-        string id { get; set; }
-        string tourId { get; set; }
-        string name { get; set; }
-        string birthday { get; set; }
-        string contact { get; set; }
-        string email { get; set; }
-        string cmnd { get; set; }
-        string address { get; set; }
-        Discount discount { get; set; }
-        string price { get; set; }
+        public string id { get; set; }
+        public Tour tour { get; set; }
+        public string name { get; set; }
+        public string birthday { get; set; }
+        public string contact { get; set; }
+        public string email { get; set; }
+        public string cmnd { get; set; }
+        public string address { get; set; }
+        public string bookTime { get; set; }
+        public Invoice invoice { get; set; }
         
 
     }

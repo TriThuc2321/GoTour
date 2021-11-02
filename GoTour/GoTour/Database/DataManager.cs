@@ -70,6 +70,11 @@ namespace GoTour.Database
             getAllStayPlaceList();
 
 
+            /// Linh
+            ListFavouriteTours = new ObservableCollection<FavouriteTour>();
+            FavoritesServices = new FavoriteToursServices(); 
+
+
 
             CurrentUser = new User();
             getAllList();
@@ -99,6 +104,16 @@ namespace GoTour.Database
                 ite.placeDurationList = temp2.placeDurationList;
             }
             int v = 5;
+
+            List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
+            foreach (FavouriteTour favourite in favouriteToursList)
+            {
+                favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
+                ListFavouriteTours.Add(favourite);
+            }    
+
+            int t = 3;
+           
             
         }
         private ToursServices tourServices;
@@ -140,6 +155,16 @@ namespace GoTour.Database
                 return tourPlaceServices;
             }
             set { tourPlaceServices = value; }
+        }
+
+        private FavoriteToursServices favoritesServices;
+        public FavoriteToursServices FavoritesServices
+        {
+            get
+            {
+                return favoritesServices;
+            }
+            set { favoritesServices = value; }
         }
 
 
@@ -210,6 +235,17 @@ namespace GoTour.Database
             {
                 profilePic = value;
                 OnPropertyChanged("ProfilePic");
+            }
+        }
+
+        private ObservableCollection<FavouriteTour> favouriteTours;
+        public ObservableCollection<FavouriteTour> ListFavouriteTours
+        {
+            get { return favouriteTours; }
+            set
+            {
+                favouriteTours = value;
+                OnPropertyChanged("ListFavouriteTours");
             }
         }
 

@@ -2,8 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.BookTourView"
-             NavigationPage.HasNavigationBar="False">
-  <ContentPage.Content>
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:FavoriteViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -11,9 +16,9 @@
 
             <Grid Grid.Row="0"
                   Grid.RowSpan="1">
-                <Image Source="https://travelgear.vn/blog/wp-content/uploads/2019/05/soc-trang-co-gi-choi-8-min.jpg"
+                <Image Source="{Binding SelectedTour.imgSource[0]}"
                        HeightRequest="1000"
-                       Aspect="Fill"
+                       Aspect="AspectFill"
                        />
             </Grid>
 
@@ -47,7 +52,7 @@
                            Margin="0, 100, 0, 0"/>  
 
                         <Label
-                                Text="Dạo chơi Sóc Trăng"
+                                Text="{Binding SelectedTour.name}"
                                 FontSize="20"
                                 TextColor="DarkBlue"
                                 FontAttributes="Bold"
@@ -69,7 +74,7 @@
                                 FontSize="15"
                                 Margin="15,0,0,0"
                                 TextColor="Black"
-                                Text=""
+                                Text="{Binding Name}"
                             />
                             </Frame>
 
@@ -100,6 +105,7 @@
                                                 FontAttributes="Bold"
                                                 TextColor="#f4707c"
                                                 Margin="0, 0, 5, 0"
+                                                
                                     />
 
 
@@ -116,15 +122,30 @@
                            HasShadow="False"
                            BackgroundColor="White" 
                            VerticalOptions="Center" >
-                                <Entry                    
-                                Placeholder="Contact"
-                                PlaceholderColor="#C0C0C0"
-                                Keyboard="Telephone"
-                                FontSize="15"
-                                Margin="15,0,0,0"
-                                TextColor="Black"
-                                Text=""
-                            />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Entry Grid.Row="0"               
+                                        Placeholder="Contact"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Telephone"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                         Grid.ColumnSpan="2"
+                                        Text="{Binding Contact}"
+                                       />
+                                    <Label Text="Warning"
+                                               TextColor="ForestGreen"
+                                               IsVisible="True"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                               
                             </Frame>
 
                             <!--Email-->
@@ -135,15 +156,31 @@
                            HasShadow="False"
                            BackgroundColor="White" 
                            VerticalOptions="Center" >
-                                <Entry                    
-                                Placeholder="Email"
-                                PlaceholderColor="#C0C0C0"
-                                Keyboard="Email"
-                                FontSize="15"
-                                Margin="15,0,0,0"
-                                TextColor="Black"
-                                Text=""
-                            />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Entry Grid.Row="0"               
+                                        Placeholder="Email"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Email"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                        Text="{Binding Email}"
+                                           Grid.ColumnSpan="2"
+                                        />
+                                    <Label Text="Warning"
+                                               TextColor="ForestGreen"
+                                               IsVisible="True"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                                
                             </Frame>
 
                             <!--CMND-->
@@ -154,15 +191,31 @@
                            HasShadow="False"
                            BackgroundColor="White" 
                            VerticalOptions="Center" >
-                                <Entry                    
-                                Placeholder="Identity card number"
-                                PlaceholderColor="#C0C0C0"
-                                Keyboard="Numeric"
-                                FontSize="15"
-                                Margin="15,0,0,0"
-                                TextColor="Black"
-                                Text=""
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Entry                    
+                                        Placeholder="Identity card number"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Numeric"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                                Grid.ColumnSpan="2"
+                                        Text="{Binding Cmnd}"
                             />
+                                    <Label Text="Warning"
+                                               TextColor="ForestGreen"
+                                               IsVisible="True"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                               
                             </Frame>
 
                             <!--Address-->
@@ -180,7 +233,7 @@
                                 FontSize="15"
                                 Margin="15,0,0,0"
                                 TextColor="Black"
-                                Text=""
+                                Text="{Binding Address}"
                             />
                             </Frame>
 
@@ -192,21 +245,45 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Frame Grid.Column="0"
-                           CornerRadius="20"
-                           Padding="5" 
-                           HasShadow="False"
-                           BackgroundColor="White" 
-                           VerticalOptions="Center" >
-                                    <Entry           
-                                Placeholder="Discount ID"
-                                PlaceholderColor="#C0C0C0"
-                                Keyboard="Numeric"
-                                FontSize="15"
-                                Margin="15,0,0,0"
-                                TextColor="Black"
-                                Text=""
-                            />
+                                       CornerRadius="20"
+                                       Padding="5" 
+                                       HasShadow="False"
+                                       BackgroundColor="White" 
+                                       VerticalOptions="Center" >
+                                    <!--<Entry           
+                                        Placeholder="Discount ID"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Numeric"
+                                        Grid.Row="0"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                        Text=""/>-->
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
 
+                                        <Entry           
+                                            Placeholder="Discount ID"
+                                            PlaceholderColor="#C0C0C0"
+                                            Keyboard="Numeric"
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="2"
+                                            FontSize="15"
+                                            Margin="15,0,0,0"
+                                            TextColor="Black"
+                                            Text="{Binding DiscountId}"
+                                        />
+                                        <Label Text="Warning"
+                                               TextColor="ForestGreen"
+                                               IsVisible="True"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                    </Grid>
                                 </Frame>
 
                                 <Button Text="Check"
@@ -221,6 +298,93 @@
 
                             </Grid>
 
+                            <!--Số lượng-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Grid Margin="20, 5, 20, 5" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Margin="0,0,0,0"
+                                           Text="Amount: "
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           TextColor="Black"
+                                           VerticalOptions="Center"
+                                           FontSize="15"/>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Grid.Column="1"
+                                                 Grid.Row="0"
+                                                 HorizontalOptions="End">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button Text="-"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30"
+                                                    Grid.Column="0"
+                                                    CornerRadius="20" 
+                                                    Padding="5"  
+                                                    TextColor="White"
+                                                    BackgroundColor="#f4707c" 
+                                                    VerticalOptions="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"/>
+
+                                            <Entry  
+                                                    PlaceholderColor="#C0C0C0"
+                                                    Keyboard="Numeric"
+                                                    FontSize="15"
+                                                    TextColor="Black"
+                                                    Text="{Binding Amount}"
+                                                    HorizontalTextAlignment="Center"
+                                                    Grid.Column="1"
+                                                />
+
+                                            <Button Text="+"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30"
+                                                    Grid.Column="2"
+                                                    CornerRadius="20" 
+                                                    Padding="5"  
+                                                    TextColor="White"
+                                                    BackgroundColor="#f4707c" 
+                                                    VerticalOptions="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"/>
+
+                                        </Grid>
+
+                                    </StackLayout>
+
+                                    <Label Text="Warning"
+                                           Grid.Column="0"
+                                           TextColor="ForestGreen"
+                                           IsVisible="True"
+                                           Grid.Row="1"
+                                           Grid.ColumnSpan="2"
+                                           HorizontalOptions="End"/>
+
+
+                                </Grid>
+                            </Frame>
+
 
                         </StackLayout>
 
@@ -230,6 +394,8 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+
                                 </Grid.RowDefinitions>
 
                                 <Frame Grid.Row="0"
@@ -242,7 +408,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.Column="0"
-                                           Text="Total:"
+                                           Text="Tour Price:"
                                            TextColor="Black"
                                            FontSize="18"
                                            FontAttributes="Bold"
@@ -262,6 +428,33 @@
                                 <Frame Grid.Row="1"
                                        Margin="20, 0, 20, 5" 
                                        Padding="5" >
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                           Text="Provisional:"
+                                           TextColor="Black"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           Padding="5"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="100"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               Padding="5"/>
+
+                                    </Grid>
+                                </Frame>
+
+                                <Frame Grid.Row="2"
+                                       Margin="20, 0, 20, 5" 
+                                       Padding="5" >
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -269,7 +462,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.Column="0"
-                                               Text="Total:"
+                                               Text="Discount:"
                                                TextColor="Black"
                                                FontSize="18"
                                                FontAttributes="Bold"
@@ -286,7 +479,7 @@
                                     </Grid>
                                 </Frame>
 
-                                <Frame Grid.Row="2"
+                                <Frame Grid.Row="3"
                                Margin="20, 0, 20, 5" 
                                Padding="5" >
                                     <Grid>
@@ -327,6 +520,7 @@
                                     Text="confirm booking"
                                     FontAttributes="Bold"
                                     FontSize="20"
+                                    Command="{Binding PayingMethodCommand}"
                         />
 
 

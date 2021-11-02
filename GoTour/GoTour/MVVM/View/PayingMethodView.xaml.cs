@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BookTourView : ContentPage
+    public partial class PayingMethodView : ContentPage
     {
-        public BookTourView()
+        public PayingMethodView()
         {
             InitializeComponent();
-            this.BindingContext = new BookTourViewModel(Navigation);
+            this.BindingContext = new PayingMethodViewModel(Navigation);
         }
     }
 }

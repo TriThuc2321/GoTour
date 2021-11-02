@@ -47,20 +47,20 @@ namespace GoTour.Database
             await firebase.Child("Discounts").Child(toDelete.Key).DeleteAsync();
         }
 
-        public async Task<Discount> GetDiscountById(string id)
-        {
-            List<Discount> list = await GetAllDiscounts();
+        //public async Task<Discount> GetDiscountById(string id)
+        //{
+        //    List<Discount> list = await GetAllDiscounts();
 
-            Discount temp = new Discount();
+        //    Discount temp = new Discount();
 
-            foreach (var discount in list)
-            {
-                if (id == discount.id)
-                    temp = discount;
-            }
+        //    foreach (var discount in list)
+        //    {
+        //        if (id == discount.id)
+        //            temp = discount;
+        //    }
 
-            return temp;
-        }
+        //    return temp;
+        //}
 
 
     }

@@ -77,27 +77,38 @@
     </FlyoutItem>
 
     <FlyoutItem Title="My Tour" Icon="flagOutlineIcon.png">
-        <ShellContent Route="MyTourView" ContentTemplate="{DataTemplate views:MyTourView}" Style="{DynamicResource Base1Style}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="My Favorite" Icon="heartOutlineIcon.png">
-        <ShellContent Route="FavoriteView" ContentTemplate="{DataTemplate views:FavoriteView}" Style="{DynamicResource Base1Style}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="My BookedTours" Icon="shoppingcartIcon.png" >
         <ShellContent Route="InProgressView" 
                       ContentTemplate="{DataTemplate views:InProgressView}" 
                       Style="{DynamicResource Base1Style}"
                       Icon="occuringTourIcon.png"
                       Title="In Progress"
                       />
-        
+
         <ShellContent Route="BookedToursView" 
                       ContentTemplate="{DataTemplate views:BookedToursView}" 
                       Style="{DynamicResource Base1Style}"
                       Icon="orderedTourIcon.png" 
                       Title="Booked"/>
-    
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Favorite" Icon="heartOutlineIcon.png">
+        <ShellContent Route="FavoriteView" ContentTemplate="{DataTemplate views:FavoriteView}" Style="{DynamicResource Base1Style}" />
+    </FlyoutItem>
+
+    <!--<FlyoutItem Title="My BookedTours" Icon="shoppingcartIcon.png" >
+        <ShellContent Route="InProgressView" 
+                      ContentTemplate="{DataTemplate views:InProgressView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="occuringTourIcon.png"
+                      Title="In Progress"
+                      />
+
+        <ShellContent Route="BookedToursView" 
+                      ContentTemplate="{DataTemplate views:BookedToursView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="orderedTourIcon.png" 
+                      Title="Booked"/>
+    </FlyoutItem>-->
 
     <FlyoutItem Title="User Information" Icon="userOutlineIcon.png">
         <ShellContent Route="UserInformation" ContentTemplate="{DataTemplate views:UserInformationView}" Style="{DynamicResource Base1Style}" />
