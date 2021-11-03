@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.PlaceManagerView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             NavigationPage.HasNavigationBar="False"
+             Shell.FlyoutBehavior="Disabled"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             >
+
+    <ContentPage.BindingContext>
+        <vm:PlaceManagerViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <pancake:PancakeView CornerRadius="0,0,30,30">
+            <Image Source="https://i.pinimg.com/564x/ed/eb/59/edeb59cd554c95645fbca777424e3c3c.jpg" Aspect="AspectFill" />
+        </pancake:PancakeView>
+
+        <StackLayout Grid.Row="1">
+            <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold"/>
+
+            <CollectionView x:Name="clview" 
+                            ItemsSource="{Binding ListPlace}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedPlace}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame Padding="0" HasShadow="True" CornerRadius="8">
+                                <Image Source="{Binding imgSource[0]}" Aspect="AspectFill"/>
+                            </Frame>
+                          
+                            <StackLayout Grid.Column="1" Margin="8,0,0,0">
+                                <Label Text="{Binding name}" TextColor="SteelBlue"/>
+                                <Label Text="{Binding description}" TextColor="Gray"/>
+                            </StackLayout>
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            
+        </StackLayout>
+        
+    </Grid>
+</ContentPage>
