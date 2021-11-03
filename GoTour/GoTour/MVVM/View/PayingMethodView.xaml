@@ -18,7 +18,7 @@
                   Grid.RowSpan="1">
                 <Image Source="{Binding SelectedTour.imgSource[0]}"
                        HeightRequest="1000"
-                       Aspect="Fill"
+                       Aspect="AspectFill"
                        />
             </Grid>
 

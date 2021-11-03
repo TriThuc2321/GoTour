@@ -72,9 +72,16 @@ namespace GoTour.Database
 
             /// Linh
             ListFavouriteTours = new ObservableCollection<FavouriteTour>();
-            FavoritesServices = new FavoriteToursServices(); 
+            FavoritesServices = new FavoriteToursServices();
 
+            ListBookedTickets = new ObservableCollection<BookedTicket>();
+            BookedTicketsServices = new BookedTicketServices();
 
+            ListDiscount = new ObservableCollection<Discount>();
+            DiscountsServices = new DiscountsServices();
+
+            ListInvoice = new ObservableCollection<Invoice>();
+            InvoicesServices = new InvoicesServices();
 
             CurrentUser = new User();
             getAllList();
@@ -105,16 +112,23 @@ namespace GoTour.Database
             }
             int v = 5;
 
+
+            //Linh
             List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
             foreach (FavouriteTour favourite in favouriteToursList)
             {
                 favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
                 ListFavouriteTours.Add(favourite);
-            }    
+            }
 
-            int t = 3;
-           
-            
+            List<Discount> discountsList = await DiscountsServices.GetAllDiscounts();
+            List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
+            List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
+            foreach(BookedTicket booked in bookedTicketsList)
+            {
+                booked.tour = tourList.Find(e => (e.id == booked.tour.id));
+                booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+            }
         }
         private ToursServices tourServices;
         public ToursServices TourServices
@@ -249,6 +263,82 @@ namespace GoTour.Database
             }
         }
 
+        private ObservableCollection<BookedTicket> bookedTicket;
+        public ObservableCollection<BookedTicket> ListBookedTickets
+        {
+            get { return bookedTicket; }
+            set
+            {
+                bookedTicket = value;
+                OnPropertyChanged("ListBookedTickets");
+            }
+        }
+
+
+        private BookedTicketServices bookedTicketServices;
+        public BookedTicketServices BookedTicketsServices
+        {
+            get
+            {
+                return bookedTicketServices;
+            }
+            set { bookedTicketServices = value; }
+        }
+
+
+        private ObservableCollection<Discount> discountList;
+        public ObservableCollection<Discount> ListDiscount
+        {
+            get { return discountList; }
+            set
+            {
+                discountList = value;
+                OnPropertyChanged("ListDiscount");
+            }
+        }
+
+
+        private DiscountsServices discountServices;
+        public DiscountsServices DiscountsServices
+        {
+            get
+            {
+                return discountServices;
+            }
+            set { discountServices = value; }
+        }
+
+        private ObservableCollection<Invoice> invoiceList;
+        public ObservableCollection<Invoice> ListInvoice
+        {
+            get { return invoiceList; }
+            set
+            {
+                invoiceList = value;
+                OnPropertyChanged("ListInvoice");
+            }
+        }
+
+
+        private InvoicesServices invoiceServices;
+        public InvoicesServices InvoicesServices
+        {
+            get
+            {
+                return invoiceServices;
+            }
+            set { invoiceServices = value; }
+        }
+
+        private BookedTicket currentBookedTicket;
+        public BookedTicket CurrentBookedTicket
+        {
+            get { return currentBookedTicket; }
+            set
+            {
+                currentBookedTicket = value;
+            }
+        }
     }
 
 

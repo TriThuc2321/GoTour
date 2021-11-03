@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoTour.Database
 {
-    class BookedTicketServices
+    public class BookedTicketServices
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
@@ -17,7 +17,7 @@ namespace GoTour.Database
         public List<BookedTicketServices> bookedTickets;
 
         public BookedTicketServices() { }
-        public async Task<List<BookedTicket>> GetAllFavourite()
+        public async Task<List<BookedTicket>> GetAllBookedTicket()
         {
             return (await firebase
               .Child("BookedTickets")
@@ -36,7 +36,7 @@ namespace GoTour.Database
                  
               }).ToList();
         }
-        public async Task AddFavouriteTour(BookedTicket bookedTicket)
+        public async Task AddBookedTicket(BookedTicket bookedTicket)
         {
             await firebase
               .Child("BookedTickets")

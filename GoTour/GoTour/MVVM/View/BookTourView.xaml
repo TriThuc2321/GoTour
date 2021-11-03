@@ -137,9 +137,9 @@
                                          Grid.ColumnSpan="2"
                                         Text="{Binding Contact}"
                                        />
-                                    <Label Text="Warning"
-                                               TextColor="ForestGreen"
-                                               IsVisible="True"
+                                    <Label Text="{Binding ContactNotice}"
+                                               TextColor="{Binding ContactNoticeColor}"
+                                               IsVisible="{Binding ContactNoticeVisible}"
                                                Grid.Row="1"
                                                Grid.ColumnSpan="2"
                                                Margin="20,0,0,0"
@@ -169,12 +169,13 @@
                                         FontSize="15"
                                         Margin="15,0,0,0"
                                         TextColor="Black"
+                                        IsEnabled="False"
                                         Text="{Binding Email}"
                                            Grid.ColumnSpan="2"
                                         />
-                                    <Label Text="Warning"
-                                               TextColor="ForestGreen"
-                                               IsVisible="True"
+                                    <Label Text="{Binding EmailNotice}"
+                                               TextColor="{Binding EmailNoticeColor}"
+                                               IsVisible="{Binding EmailNoticeVisible}"
                                                Grid.Row="1"
                                                Grid.ColumnSpan="2"
                                                Margin="20,0,0,0"
@@ -207,9 +208,9 @@
                                                 Grid.ColumnSpan="2"
                                         Text="{Binding Cmnd}"
                             />
-                                    <Label Text="Warning"
-                                               TextColor="ForestGreen"
-                                               IsVisible="True"
+                                    <Label Text="{Binding CmndNotice}"
+                                               TextColor="{Binding CmndNoticeColor}"
+                                               IsVisible="{Binding CmndNoticeVisible}"
                                                Grid.Row="1"
                                                Grid.ColumnSpan="2"
                                                Margin="20,0,0,0"
@@ -276,9 +277,9 @@
                                             TextColor="Black"
                                             Text="{Binding DiscountId}"
                                         />
-                                        <Label Text="Warning"
-                                               TextColor="ForestGreen"
-                                               IsVisible="True"
+                                        <Label Text="{Binding DiscountNotice}"
+                                               TextColor="{Binding DiscountNoticeColor}"
+                                               IsVisible="{Binding DiscountNoticeVisible}"
                                                Grid.Row="1"
                                                Grid.ColumnSpan="2"
                                                Margin="20,0,0,0"
@@ -308,8 +309,8 @@
                            VerticalOptions="Center" >
                                 <Grid Margin="20, 5, 20, 5" >
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"></RowDefinition>
-                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -345,7 +346,8 @@
                                                     BackgroundColor="#f4707c" 
                                                     VerticalOptions="Center"
                                                     FontAttributes="Bold"
-                                                    FontSize="15"/>
+                                                    FontSize="15"
+                                                    Command="{Binding DescreaseAmountCommand}"/>
 
                                             <Entry  
                                                     PlaceholderColor="#C0C0C0"
@@ -367,16 +369,17 @@
                                                     BackgroundColor="#f4707c" 
                                                     VerticalOptions="Center"
                                                     FontAttributes="Bold"
-                                                    FontSize="15"/>
+                                                    FontSize="15"
+                                                    Command="{Binding IncreaseAmountCommand}"/>
 
                                         </Grid>
 
                                     </StackLayout>
 
-                                    <Label Text="Warning"
+                                    <Label Text="{Binding AmountNotice}"
                                            Grid.Column="0"
-                                           TextColor="ForestGreen"
-                                           IsVisible="True"
+                                           TextColor="{Binding AmountNoticeColor}"
+                                           IsVisible="{Binding AmountNoticeVisible}"
                                            Grid.Row="1"
                                            Grid.ColumnSpan="2"
                                            HorizontalOptions="End"/>

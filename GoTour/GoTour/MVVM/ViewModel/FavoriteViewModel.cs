@@ -28,9 +28,9 @@ namespace GoTour.MVVM.ViewModel
                 if (favourites.email == DataManager.Ins.CurrentUser.email)
                     Favourites.Add(favourites);
             }
-        }
 
-      
+            Refresh = new Command(RefreshFavourite);
+        }
 
         private ObservableCollection<FavouriteTour> _favourites;
         public ObservableCollection<FavouriteTour> Favourites
@@ -89,63 +89,33 @@ namespace GoTour.MVVM.ViewModel
             }
         });
 
+        private bool _isRefresh;
+        public bool IsRefresh
+        {
+            get
+            {
+                return _isRefresh;
+            }
 
+            set
+            {
+                _isRefresh = value;
+                OnPropertyChanged("IsRefresh");
+            }
+        }
 
-        //private string _love;
-        //public string Love
-        //{
-        //    get { return _love; }
-        //    set
-        //    {
-        //        _love = value;
-        //        OnPropertyChanged("Love");
-        //    }
-        //}
-
-        //private void unlovedPlace(object obj)
-        //{
-        //    _love = "love_white.png";
-        //}
-
-        //void init()
-        //{
-        //    Tours = new ObservableCollection<FavouriteTour>();
-
-        //   Tours.Add( new FavouriteTour()
-        //    {
-        //        name = "Dạo chơi Sóc Trăng",
-        //        imgSource = "https://cdn3.ivivu.com/2019/09/chua-som-rong-soc-trang-ivivu-3.jpg",
-        //        startTime = DateTime.Now.Date,
-        //        days = "2 ngày 1 đêm",
-        //        passengerNumber = 20
-        //    });
-
-        //    Tours.Add(new FavouriteTour()
-        //    {
-        //        name = "Lang thang Cần Thơ",
-        //        imgSource = "https://thamhiemmekong.com/wp-content/uploads/2020/02/dulichcantho.jpg",
-        //        startTime = DateTime.Now.Date,
-        //        days = "3 ngày",
-        //        passengerNumber = 25
-        //    });
-
-        //    Tours.Add(new FavouriteTour()
-        //    {
-        //        name = "DU LỊCH CỦ CHI - ĐẤT THÉP THÀNH ĐỒNG [KHU DI TÍCH ĐỊA ĐẠO CỦ CHI – ĐỀN BẾN DƯỢC]",
-        //        imgSource = "https://saigontourist.net/uploads/images/Page/SGT-CuChi/242834363_10160271427402952_5307975930879584325_n.jpg",
-        //        startTime = DateTime.Now.Date,
-        //        days = "3 ngày 2 đêm",
-        //        passengerNumber = 30
-        //    });
-
-        //    Tours.Add(new FavouriteTour()
-        //    {
-        //        name = "DU LỊCH PHÚ QUỐC [KHỞI HÀNH TỪ HẢI PHÒNG]",
-        //        imgSource = "https://saigontourist.net/uploads/destination/TrongNuoc/Phuquoc/phu-quoc-beach_788218267.jpg",
-        //        startTime = DateTime.Now.Date,
-        //        days = "3 ngày 2 đêm",
-        //        passengerNumber = 10
-        //    });
-        //}
+        public Command Refresh { get; }
+        void RefreshFavourite(object obj)
+        {
+            IsRefresh = true;
+            Favourites.Clear();
+            Favourites = new ObservableCollection<FavouriteTour>();
+            foreach (var favourites in DataManager.Ins.ListFavouriteTours)
+            {
+                if (favourites.email == DataManager.Ins.CurrentUser.email)
+                    Favourites.Add(favourites);
+            }
+            IsRefresh = false;
+        }    
     }
 }

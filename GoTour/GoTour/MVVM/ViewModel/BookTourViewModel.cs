@@ -21,8 +21,40 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             SelectedTour = DataManager.Ins.currentTour;
             PayingMethodCommand = new Command(openPayingMethodView);
+
+            IncreaseAmountCommand = new Command(increase);
+            DescreaseAmountCommand = new Command(decrease);
+            Amount = 1;
+
+            SetInformation();
         }
 
+        void SetInformation()
+        {
+            User getUser = DataManager.Ins.CurrentUser;
+            Name = getUser.name;
+            Birthday = getUser.birthday;
+
+            Contact = getUser.contact;
+            ContactNoticeVisible = false;
+
+            Email = getUser.email;
+            EmailNotice = "This email is your register account email";
+            EmailNoticeColor = Color.ForestGreen;
+            EmailNoticeVisible = true;
+
+            Cmnd = getUser.cmnd;
+            ContactNoticeVisible = false;
+
+            Address = getUser.address;
+
+            DiscountNotice = "Enter and press to check the validation of your code";
+            DiscountNoticeColor = Color.ForestGreen;
+            DiscountNoticeVisible = true;
+
+
+
+        }
         void openPayingMethodView(object obj)
         {
             navigation.PushAsync(new PayingMethodView());
@@ -37,6 +69,20 @@ namespace GoTour.MVVM.ViewModel
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
             }
+        }
+
+        public Command IncreaseAmountCommand { get; }
+        void increase(object obj)
+        {
+            Amount++;
+
+        }
+
+        public Command DescreaseAmountCommand { get; }
+        void decrease(object obj)
+        {
+            if (Amount > 1)
+                Amount--;
         }
 
         #region user information
@@ -117,8 +163,8 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string _amount;
-        public string Amount
+        private int _amount;
+        public int Amount
         {
             get { return _amount; }
             set
@@ -274,7 +320,7 @@ namespace GoTour.MVVM.ViewModel
         #region amount
         private string _amountNotice;
         public string AmountNotice
-        {
+        { 
             get { return _amountNotice; }
             set
             {
@@ -304,6 +350,8 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("AmountNoticeVisible");
             }
         }
+
+        
         #endregion
 
         #region price
@@ -352,5 +400,7 @@ namespace GoTour.MVVM.ViewModel
         }
 
         #endregion
+
+
     }
 }

@@ -11,32 +11,34 @@
         <vm:FavoriteViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <RefreshView Command="{Binding Refresh}"
+                     IsRefreshing="{Binding IsRefresh}">
+            <StackLayout Orientation="Vertical">
 
-            <CollectionView x:Name="clview"
+                <CollectionView x:Name="clview"
                             ItemsLayout="VerticalGrid, 2"
                             ItemsSource="{Binding Favourites}"
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedTour}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid x:Name="Item"                              
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="Item"                              
                               >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="250"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                            </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="250"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                            <Image Source="{Binding tour.imgSource[0]}"
+                                <Image Source="{Binding tour.imgSource[0]}"
                                     Aspect="AspectFill"
                                    Grid.Row="0"
                                    Grid.RowSpan="2"
                                    HeightRequest="250"
                                  />
 
-                            <ImageButton Source="trashIcon.png" 
+                                <ImageButton Source="trashIcon.png" 
                                    BindingContext="{Binding Source={x:Reference clview}, Path=BindingContext}"   
                                    Command="{Binding UnlovedCommand}"   
                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
@@ -46,15 +48,15 @@
                                    VerticalOptions="Start" 
                                    Margin="0,13,10,0"/>
 
-                            <Grid Grid.Row="1"
+                                <Grid Grid.Row="1"
                                   BackgroundColor="Black"
                                   Opacity="0.6">
-                            </Grid>
+                                </Grid>
 
-                            <StackLayout Orientation="Vertical"
+                                <StackLayout Orientation="Vertical"
                                          Grid.Row="1"
                                          >
-                                <Label
+                                    <Label
                                     Text="{Binding tour.name}"
                                     TextColor="White"
                                     FontSize="24"
@@ -63,7 +65,8 @@
                                     VerticalOptions="EndAndExpand"
                                     />
 
-                                <!--Địa điểm--><!--
+                                    <!--Địa điểm-->
+                                    <!--
                                 <StackLayout Orientation="Horizontal" 
                                              Margin="0,0,5,10"
                                              >
@@ -81,18 +84,18 @@
                                 </StackLayout>-->
 
 
-                                <StackLayout Orientation="Vertical" 
+                                    <StackLayout Orientation="Vertical" 
                                              Margin="0,0,5,10"
                                              >
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                                            <ColumnDefinition Width="4*"></ColumnDefinition>
-                                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <!--Ngày khởi hành-->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--Ngày khởi hành-->
                                             <Image 
                                                 Source="calendarIcon.png"
                                                 Aspect="AspectFit"
@@ -124,34 +127,36 @@
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Start"
                                                 Grid.Column="3"/>
-                                    </Grid>
+                                        </Grid>
 
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image 
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image 
                                             Source="passengerIcon.png"
                                             Aspect="AspectFit"
                                             HeightRequest="20"
                                             Margin="10, 0, 0, 0"
                                             />
-                                        <Label
+                                            <Label
                                                 Text="{Binding tour.passengerNumber}"
                                                 TextColor="White"
                                                 FontSize="14"                            
                                                 Margin="10, 0, 0, 0"
                                                 VerticalOptions="Center"
                                                 HorizontalOptions="Start"/>
+                                        </StackLayout>
+
+
+
                                     </StackLayout>
-
-
-                                    
                                 </StackLayout>
-                            </StackLayout>
-                        </Grid>
+                            </Grid>
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-        </StackLayout>
+            </StackLayout>
+
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>
