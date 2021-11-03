@@ -15,6 +15,8 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         public Command OpenDetailTour { get; }
         public Command BookTourCommand { get; }
+        public Command OpenDetailTour1 { get; }
+        public Command NavigationBack { get; }
 
         public DetailTourViewModel() { }
         public DetailTourViewModel(INavigation navigation)
@@ -22,9 +24,11 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             selectedTour = DataManager.Ins.currentTour;
 
-            OpenDetailTour = new Command(OpenDetailTourHandler);
             BookTourCommand = new Command(OpenBookTourView);
             FavouriteTour temp = CheckLoved();
+            NavigationBack = new Command(() => navigation.PopAsync());
+            OpenDetailTour = new Command(OpenDetailTourHandler);
+            OpenDetailTour1 = new Command(OpenDetailTourHandler1);
 
 
         }
@@ -38,6 +42,10 @@ namespace GoTour.MVVM.ViewModel
             navigation.PushAsync(new BookTourView());
         }
 
+        public void OpenDetailTourHandler1()
+        {
+            navigation.PushAsync(new TourScheduleView());
+        }
         private Tour selectedTour;
         public Tour SelectedTour
         {
