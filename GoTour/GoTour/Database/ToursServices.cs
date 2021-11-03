@@ -33,9 +33,11 @@ namespace GoTour.Database
                   description = item.Object.description,
                   isOccured = item.Object.isOccured,
                   placeDurationList = null,
-              }).ToList();
+                  basePrice = item.Object.basePrice,
+                  SPforPList = item.Object.SPforPList,
+        }).ToList();
         }
-        public async Task AddTour(string _id, string _name, List<string> _imgSource, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description, bool _isOccured)
+        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured)
         {
             await firebase
               .Child("Tours")
@@ -50,7 +52,9 @@ namespace GoTour.Database
                   passengerNumber = _passengerNumber,
                   description = _description,
                   isOccured = _isOccured,
-              });
+                  basePrice = basePrice,
+                  SPforPList = _SPforPList
+              }) ;
         }
     }
 }

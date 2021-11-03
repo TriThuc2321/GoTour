@@ -64,7 +64,7 @@
                                        
                                         <StackLayout>
                                             <Label
-                                    Text="{Binding description}"
+                                    Text="{Binding name}"
                                     TextColor="White"
                                     FontSize="18"
                                     FontAttributes="Bold"
@@ -72,17 +72,8 @@
                                     VerticalOptions="EndAndExpand"
                         />
                                             <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
-                                                <Image 
-                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                        />
-                                                <Label
-                                        Text="{Binding name}"
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"/>
+                                              
+                                            
                                             </StackLayout>
                                         </StackLayout>
                                     </Grid>
@@ -102,6 +93,7 @@
                 Margin="5"
                 Command="{Binding OpenToursFromSelectedPlaces}">
                 </Button>
+               
             </StackLayout>
 
 

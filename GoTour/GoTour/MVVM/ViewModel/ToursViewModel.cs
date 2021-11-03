@@ -39,7 +39,7 @@ namespace GoTour.MVVM.ViewModel
 
         });
 
-        
+
 
         public void MutipleSelectedHandler()
         {
@@ -79,6 +79,18 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-     
+        private string temp;
+
+        public string Temp
+        {
+            get { return temp; }
+            set
+            {
+                temp = value;
+                
+            }
+        }
+
+
     }
 }

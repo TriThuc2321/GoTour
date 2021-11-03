@@ -12,18 +12,40 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         public DetailTour2ViewModel() { }
+        public Command NavigationBack { get; }
         public DetailTour2ViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            List<Place> temp = new List<Place>();
+            NavigationBack = new Command(() => navigation.PopAsync());
+           
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
-                temp.Add(ite);
+                foreach (var ite2 in DataManager.Ins.currentTour.placeDurationList)
+                {
+                    if (ite2.placeId == ite.id)
+                    {
+                        ite2.host = ite;
+                        break;
+                    }
+                }
             }
-            TourPlaces = temp.FindAll(e => DataManager.Ins.currentTour.placeDurationList.Exists(p => p.placeId == e.id));
+            SelectedTour = DataManager.Ins.currentTour;
+            List<PlaceId_Duration> temp = selectedTour.placeDurationList;
+            // TourPlaces = temp.FindAll(e => DataManager.Ins.currentTour.placeDurationList.Exists(p => p.placeId == e.id));
+            DurationProcess();
             int c = 6;
 
 
+        }
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
         }
 
         private List<Place> tourPlace;
@@ -35,6 +57,24 @@ namespace GoTour.MVVM.ViewModel
                 tourPlace = value;
                 OnPropertyChanged("TourPlaces");
             }
+        }
+        private string processedDuration;
+        public string ProcessedDuration
+        {
+            get { return processedDuration; }
+            set
+            {
+                processedDuration = value;
+                OnPropertyChanged("ProcessedDuration");
+            }
+        }
+
+        private void DurationProcess()
+        {
+            if (DataManager.Ins.currentTour.duration == null) return;
+            string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
+            string result = _ProcessedDuration[0] + " Ngày "+ _ProcessedDuration[1] + " Đêm";
+            ProcessedDuration = result;
         }
     }
 }
