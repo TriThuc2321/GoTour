@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,12 @@ namespace GoTour.MVVM.ViewModel
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             Place result = obj as Place;
-            //DependencyService.Get<IToast>().ShortToast(result.name);
+            if(result != null)
+            {
+                DataManager.Ins.CurrentPlaceManager = result;
+                navigation.PushAsync(new EditPlaceView());
+            }      
+            SelectedPlace = null;
         });
         private Place selectedPlace;
         public Place SelectedPlace

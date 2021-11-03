@@ -8,18 +8,25 @@ namespace GoTour.MVVM.ViewModel
 {
     class ManagerViewModel
     {
-        INavigation navigation;
-        Shell curentShell;
+        public INavigation navigation;
+        public Shell currentShell;
 
         public Command PlaceCommand { get; }
+        public Command MenuCommand { get; }
 
         public ManagerViewModel() { }
         public ManagerViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
-            this.curentShell = curentShell;
+            this.currentShell = curentShell;
 
             PlaceCommand = new Command(placeHandle);
+            MenuCommand = new Command(openMenu);
+        }
+
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
         }
 
         private void placeHandle(object obj)

@@ -224,6 +224,17 @@ namespace GoTour.Database
             }
         }
 
+        private Place currentPlaceManager;
+        public Place CurrentPlaceManager
+        {
+            get { return currentPlaceManager; }
+            set
+            {
+                currentPlaceManager = value;
+                OnPropertyChanged("CurrentPlaceManager");
+            }
+        }
+
     }
 
 
