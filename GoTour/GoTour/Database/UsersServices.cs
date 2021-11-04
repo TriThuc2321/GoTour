@@ -16,18 +16,18 @@ namespace GoTour.Database
 {
     public class UsersServices
     {
-        FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
+         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseStorage storage = new FirebaseStorage("gotour-98c79.appspot.com");
         List<User> listUser = new List<User>();
         public UsersServices()
         {
         }
-        async public Task<string> saveImage(Stream imgStream)
+        async public Task<string> saveImage(Stream imgStream, string emailUser, string userName)
         {
-            string a = "clmm";
+           // string a = "clmm";
             var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
-                .Child("ProfilePic").Child(a)
-                .Child("test.png")
+                .Child("ProfilePic").Child(emailUser)
+                .Child(userName + ".png")
                 .PutAsync(imgStream);
             var imgurl = stroageImage;
             return imgurl;
