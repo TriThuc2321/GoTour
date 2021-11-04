@@ -181,6 +181,25 @@ namespace GoTour.Database
             {
                 currentUser = value;
                 ProfilePic = value.profilePic;
+                CurrentName = value.name;
+                if(value.rank == 0)
+                {
+                    IsManager = true;
+                }
+                else
+                {
+                    IsManager = false;
+                }
+            }
+        }
+        private string currentName;
+        public string CurrentName
+        {
+            get { return currentName; }
+            set
+            {
+                currentName = value;
+                OnPropertyChanged("CurrentName");
             }
         }
         private string verifyCode;
@@ -235,6 +254,17 @@ namespace GoTour.Database
             }
         }
 
+        private bool isManager;
+        public bool IsManager
+        {
+            get { return isManager; }
+            set
+            {
+                isManager = value;
+                OnPropertyChanged("IsManager");
+            }
+        }
+        
     }
 
 
