@@ -74,6 +74,10 @@
         <ShellContent Route="UserInformation" ContentTemplate="{DataTemplate views:UserInformationView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Manager" Icon="manager.png">
+        <ShellContent Route="Manager" ContentTemplate="{DataTemplate views:ManagerView}" Style="{DynamicResource Base1Style}" />
+    </FlyoutItem>
+
     <Shell.FlyoutHeader >
         <Grid HeightRequest="190">
             <Image 

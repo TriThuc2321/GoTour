@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.EditPlaceView" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             Shell.FlyoutBehavior="Disabled"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             >
+
+    <ContentPage.BindingContext>
+        <vm:EditPlaceViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <CollectionView x:Name="clview" 
+                            ItemsSource="{Binding Imgs}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedPlace}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="White" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <pancake:PancakeView CornerRadius="0,0,30,30">
+                            <Image Source="{Binding}" Aspect="AspectFill" />
+                        </pancake:PancakeView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout Grid.Row="1">
+            <StackLayout Margin="20,30,0,0" Orientation="Horizontal">
+                <ImageButton Source="editIcon.png" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
+                <Label Margin="0" Text="{Binding SelectedPlace.name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
+                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding SelectedPlace.name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
+                
+            </StackLayout>
+           
+            <Label Margin="20,5,0,0" Text="{Binding SelectedPlace.description}" TextColor="Gray"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

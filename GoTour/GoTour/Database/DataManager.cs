@@ -22,7 +22,7 @@ namespace GoTour.Database
             set { _ins = value; }
         }
 
-        public UsersServices UsersServices;
+        
        
         public List<User> usersTemp;
         public bool LoadData = true;
@@ -210,6 +210,28 @@ namespace GoTour.Database
             {
                 profilePic = value;
                 OnPropertyChanged("ProfilePic");
+            }
+        }
+
+        public UsersServices usersServices;
+        public UsersServices UsersServices
+        {
+            get { return usersServices; }
+            set
+            {
+                usersServices = value;
+                OnPropertyChanged("UsersServices");
+            }
+        }
+
+        private Place currentPlaceManager;
+        public Place CurrentPlaceManager
+        {
+            get { return currentPlaceManager; }
+            set
+            {
+                currentPlaceManager = value;
+                OnPropertyChanged("CurrentPlaceManager");
             }
         }
 
