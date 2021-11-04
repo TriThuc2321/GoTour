@@ -72,7 +72,21 @@ namespace GoTour.MVVM.ViewModel
             {
                 if (ite.color == "Teal") currentSchedule = ite; 
             }
+            foreach(var ite2 in selectedTour.SPforPList)
+            {
+                if (ite2.placeId == currentSchedule.place.id)
+                {
+                    foreach ( var ite3 in DataManager.Ins.ListStayPlace)
+                    {
+                        if (ite3.id == ite2.stayPlaceId)
+                        {
+                            selectedStayPlace = ite3;
+                        }
+                    }
+                }
+            }
         }
+
 
         private SupportUI currentSchedule;
         public SupportUI CurrentSchedule
@@ -94,6 +108,17 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
+            }
+        }
+
+        private StayPlace selectedStayPlace;
+        public StayPlace SelectedStayPlace
+        {
+            get { return selectedStayPlace; }
+            set
+            {
+                selectedStayPlace = value;
+                OnPropertyChanged("SelectedStayPlace");
             }
         }
 

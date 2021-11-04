@@ -134,18 +134,25 @@
                         <Label Text="{Binding CurrentSchedule.dateTime}" 
                                        FontSize="Large"
                                        FontAttributes="Bold"
-                               Margin="10"
+                                       Margin="10"
+                                       TextColor="White"
+                                       BackgroundColor="LightCoral"
+                                       Padding="5"
+                                       HorizontalOptions="CenterAndExpand"
                                        FontFamily="Arial"></Label>
-                        
-                        <Label Text="{Binding CurrentSchedule.place.description }" 
+                        <Label Text="Địa điểm của hôm nay:" 
                                        FontSize="Medium"
-                                       Padding="10"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,0"
+                                        
                                        FontFamily="Arial"></Label>
-                            <Frame
+
+                       
+                        <Frame
                             HeightRequest="280"
                             BackgroundColor="White"
                             HasShadow="True"
-                            Margin="10"
+                            Margin="10,0,10,0"
                             CornerRadius="10"
                             HorizontalOptions="Center"
                             Padding="0"
@@ -165,10 +172,12 @@
                                         <Label
                                     Text="{Binding  CurrentSchedule.place.name}"
                                     TextColor="White"
-                                    FontSize="30"
+                                    FontSize="40"
                                     FontAttributes="Bold"
                                     Margin="13,0,0,0"
-                                    VerticalOptions="EndAndExpand"
+                                    Opacity="0.7"
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand"
                                     
                         />
                                         <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
@@ -178,10 +187,95 @@
                                     </StackLayout>
                                 </Grid>
                             </Frame>
-                           
-                       
-                       
+                        <Frame  Grid.Row="1"
+                             BackgroundColor="Wheat"
+                            HasShadow="True"
+                            BorderColor="White"                           
+                            Padding="10"
+                            CornerRadius="10"
+                            Margin="25,-20, 25 , 10">
+                            <Label Text="{Binding CurrentSchedule.place.description }" 
+                                       FontSize="Medium"
+                                       Padding="10"
+                                       FontFamily="Arial"></Label>
+                        </Frame>
+
+
+
                     </StackLayout>
+                    <StackLayout  Orientation="Vertical"  >
+                        <Label Text="Thông tin khách sạn: " FontSize="Large" FontAttributes="Bold" BackgroundColor="LightPink" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding SelectedStayPlace.name}" 
+                                       FontSize="30"
+                                       FontAttributes="Bold"
+                                       Margin="10"
+                                     Padding="5"
+                                       BackgroundColor="LightCoral"
+                                       HorizontalOptions="CenterAndExpand"
+                                       TextColor="White"
+                                       FontFamily="Arial"></Label>
+                        <Label Text="Mô tả:" 
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,0"
+                                        
+                                       FontFamily="Arial"></Label>
+                        <Frame  Grid.Row="1"
+                             BackgroundColor="Wheat"
+                            HasShadow="True"
+                            BorderColor="White"                           
+                            Padding="10"
+                            CornerRadius="10"
+                            Margin="25,5, 25 , 0">
+                            <Label Text="{Binding SelectedStayPlace.description}" 
+                                       FontSize="Medium"
+                                       Padding="5"
+                                                                           
+                                       FontFamily="Arial"></Label>
+                        </Frame>
+
+                        <Label Text="Hình ảnh:" 
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,0"                                     
+                                       FontFamily="Arial"></Label>
+                        <CollectionView x:Name="clview2" 
+                            ItemsSource="{Binding SelectedStayPlace.imgSource}" 
+                            SelectionMode="None"
+                            HeightRequest="280"
+                            Margin="20,10,20,15"
+                            >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                   
+                                        <Frame
+                            HeightRequest="200"
+                            WidthRequest="300"
+                            HasShadow="True"                         
+                            Margin="20"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            Padding="0">
+                                            <Grid>
+                                                <ImageButton 
+                                                        Source="{Binding}"     
+                                                        Aspect="AspectFill"   
+                                                        HeightRequest="350"/>
+                                            </Grid>
+                                        </Frame>
+                                        
+                                  
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+
+                    </StackLayout>
+
 
 
 
