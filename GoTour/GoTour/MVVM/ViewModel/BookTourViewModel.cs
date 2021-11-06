@@ -14,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         public Command PayingMethodCommand { get; }
+        public Command NavigationBack { get; }
         public BookTourViewModel() { }
 
         public BookTourViewModel(INavigation navigation)
@@ -25,6 +26,9 @@ namespace GoTour.MVVM.ViewModel
             IncreaseAmountCommand = new Command(increase);
             DescreaseAmountCommand = new Command(decrease);
             Amount = 1;
+
+            NavigationBack = new Command(() => navigation.PopAsync());
+
 
             SetInformation();
         }

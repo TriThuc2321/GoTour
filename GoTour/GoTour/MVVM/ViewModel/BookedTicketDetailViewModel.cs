@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    class BookedTicketDetailViewModel
+    public class BookedTicketDetailViewModel
     {
         INavigation navigation;
 
@@ -17,6 +17,7 @@ namespace GoTour.MVVM.ViewModel
         public BookedTicketDetailViewModel(INavigation navigation)
         {
             this.navigation = navigation;
+            
         }
     }
 }

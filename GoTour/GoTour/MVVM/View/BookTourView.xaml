@@ -6,23 +6,38 @@
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel">
 
     <ContentPage.BindingContext>
-        <vm:FavoriteViewModel/>
+        <vm:BookedToursViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions >
 
             <Grid Grid.Row="0"
-                  Grid.RowSpan="1">
+                  Grid.RowSpan="2">
                 <Image Source="{Binding SelectedTour.imgSource[0]}"
                        HeightRequest="1000"
                        Aspect="AspectFill"
                        />
             </Grid>
 
-            <ScrollView Grid.Row="0">
+            <Grid Grid.Row="0"
+                  BackgroundColor="Transparent">
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="40" 
+                                 WidthRequest="60"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="Transparent" 
+                                 Margin="0, 10 , 0, 0"/>
+            </Grid>
+            
+
+            <ScrollView Grid.Row="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
