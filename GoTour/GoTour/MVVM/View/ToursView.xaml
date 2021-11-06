@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.ToursView"
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" 
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True"
              Title="Chọn địa điểm">
@@ -12,20 +13,42 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
-            <StackLayout Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <pancake:PancakeView CornerRadius="0,0,0,0">
+                <Image Source="background_tourview.jpg" Aspect="AspectFill" />
+            </pancake:PancakeView>
+            <Label Text="PLACE LIST" 
+                   TextColor="White"
+                   FontAttributes="Bold"
+                  FontSize="Title"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   Opacity="1"
+                   ></Label>
+           
+            <StackLayout Grid.Row="1" Padding="10,10,10,0"  Margin="0,0,0,0" HorizontalOptions="FillAndExpand" BackgroundColor="WhiteSmoke">
+                <Label Text="CHOOSE YOUR FAVORITE PLACE" 
+                       TextColor="Black"
+                   HorizontalOptions="StartAndExpand"
+                   FontAttributes="Bold"
+                  FontSize="Medium"
+                  Opacity="1"
+                   ></Label>
                 <CollectionView x:Name="LstView" 
+                                HorizontalOptions="FillAndExpand"
                                 ItemsSource="{Binding Places}"
                                  SelectionMode="Multiple"
                                 SelectionChangedCommand="{Binding MultipleSelectedCommand}" 
-                                SelectionChangedCommandParameter="{Binding SelectedItems,Source={x:Reference LstView}}"                           
+                                SelectionChangedCommandParameter="{Binding SelectedItems,Source={x:Reference LstView}}"   
+                               
                                 >
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                        Orientation="Vertical"                 
-                        Span="2"
-                        VerticalItemSpacing="0"
-                         />
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
                     </CollectionView.ItemsLayout>
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
@@ -33,68 +56,102 @@
                                     <VisualStateGroup Name="CommonStates">
                                         <VisualState Name="Normal" >
                                             <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="White" />
+                                                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState Name="Selected">
                                             <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="#f4707c" />
+                                                <Setter Property="BackgroundColor" Value="#dddddd" />
+                                                <Setter Property="Opacity" Value="0.5" />
                                             </VisualState.Setters>
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <Frame
-                            HeightRequest="280" 
-                            BackgroundColor="White"
-                            HasShadow="True"
-                            CornerRadius="5"                                                                
-                            Margin="5"
+                               
+                                <pancake:PancakeView
+                                                                            
+                            CornerRadius="25,25,0,0"                                                                
+                            Margin="5,5,5,10"
                             Padding="0,0,0,0"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="FillAndExpand"   
+                                    
                             
                         >
-                                    <Grid>
-                                       
-                                            <ImageButton Source="{Binding imgSource[0]}"
-                                             HeightRequest="280"
-                                             Aspect="AspectFill"     
-                                      
-                           />
-                                        
-                                       
+                                    <StackLayout>
+                                        <StackLayout >
+
+                                        <Image Source="{Binding imgSource[0]}"
+                                             HeightRequest="150" 
+                                             Aspect="AspectFill"/>
                                         <StackLayout>
+                                                <StackLayout BackgroundColor="White">
                                             <Label
                                     Text="{Binding name}"
-                                    TextColor="White"
-                                    FontSize="18"
+                                    TextColor="Black"
+                                    FontSize="Large"                                                                        
+                                    Padding="5"
                                     FontAttributes="Bold"
-                                    Margin="13,0,0,0"
+                                    Opacity="1.5"
+                                    Margin="5,0,0,0"
                                     VerticalOptions="EndAndExpand"
+                                     
+                                    
                         />
-                                            <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
-                                              
-                                            
+                                                <Label
+                                    Text="{Binding description}"
+                                                                        TextColor="Black"
+
+                                    FontSize="Small"                                                                   
+                                    Padding="10,0,10,5"
+                                    
+                                    Opacity="1"
+                                    Margin="0,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                                    
+                        />
+                                                </StackLayout>  
                                             </StackLayout>
+                                            
                                         </StackLayout>
-                                    </Grid>
-                                </Frame>
+                                    </StackLayout>
+                                </pancake:PancakeView>
                             </StackLayout>
 
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" BackgroundColor="White">
+                    <Label Text="{Binding a,StringFormat='{}Selected : {0}' }"></Label>
+                   
 
-                <Button
-                Text="XEM CÁC TOUR"
-                BackgroundColor="#f4707c"
-                TextColor="White"
-                HorizontalOptions="EndAndExpand"
-                CornerRadius="10"
-                Margin="5"
-                Command="{Binding OpenToursFromSelectedPlaces}">
-                </Button>
-               
+                </StackLayout>
+
+
             </StackLayout>
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0">
+            </ImageButton>
+            <Button
+                Text="{Binding SelecteNumber,StringFormat='{}Next ({0})' }"
+                BackgroundColor="White"
+                TextColor="Black"
+                FontSize="Small"
+                FontAttributes="Bold"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="StartAndExpand"
+                CornerRadius="10"               
+                Margin="0,5,10,5"
+                HeightRequest="40"
+                WidthRequest="100"
+                Command="{Binding OpenToursFromSelectedPlaces}">
+            </Button>
 
 
 

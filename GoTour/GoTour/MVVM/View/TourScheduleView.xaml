@@ -74,7 +74,7 @@
                                                  Opacity="1"                               
                                                  >
                                         <StackLayout.Triggers>
-                                            <DataTrigger TargetType="StackLayout" Binding="{Binding color}" Value="Teal">
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding color}" Value="Black">
                                                 <Setter Property="Opacity"  Value="1" />
                                             </DataTrigger>
                                             <DataTrigger  TargetType="StackLayout"  Binding="{Binding color}" Value="Gray">
@@ -130,6 +130,14 @@
                         </CollectionView>
                     </StackLayout>
                     <StackLayout  Orientation="Vertical"  >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding CurrentSchedule.color}" Value="Black">
+                                <Setter Property="Opacity"  Value="1" />
+                            </DataTrigger>
+                            <DataTrigger  TargetType="StackLayout"  Binding="{Binding CurrentSchedule.color}" Value="Gray">
+                                <Setter Property="Opacity"  Value="0.5" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
                         <Label Text="Lịch trình hôm nay " FontSize="Large" FontAttributes="Bold" BackgroundColor="LightPink" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <Label Text="{Binding CurrentSchedule.dateTime}" 
                                        FontSize="Large"
@@ -204,6 +212,14 @@
 
                     </StackLayout>
                     <StackLayout  Orientation="Vertical"  >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding CurrentSchedule.color}" Value="Black">
+                                <Setter Property="Opacity"  Value="1" />
+                            </DataTrigger>
+                            <DataTrigger  TargetType="StackLayout"  Binding="{Binding CurrentSchedule.color}" Value="Gray">
+                                <Setter Property="Opacity"  Value="0.5" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
                         <Label Text="Thông tin khách sạn: " FontSize="Large" FontAttributes="Bold" BackgroundColor="LightPink" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <Label Text="{Binding SelectedStayPlace.name}" 
                                        FontSize="30"
@@ -275,6 +291,7 @@
 
 
                     </StackLayout>
+                    
 
 
 

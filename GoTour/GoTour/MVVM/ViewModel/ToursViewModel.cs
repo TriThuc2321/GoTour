@@ -16,6 +16,7 @@ namespace GoTour.MVVM.ViewModel
     class ToursViewModel : ObservableObject
     {
         INavigation navigation;
+        public Command NavigationBack { get; }
         public Command OpenToursFromSelectedPlaces { get; }
         public ToursViewModel() { }
         public ToursViewModel(INavigation navigation)
@@ -23,6 +24,7 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             Places = new ObservableCollection<Place>();
             OpenToursFromSelectedPlaces = new Command(MutipleSelectedHandler);
+            NavigationBack = new Command(() => navigation.PopAsync());
             getPlacesAsync();
         }
         public List<Place> result = new List<Place>();
@@ -36,6 +38,7 @@ namespace GoTour.MVVM.ViewModel
                 var selectedItem = item as Place;
                 result.Add(selectedItem);
             }
+            SelecteNumber = result.Count.ToString();
 
         });
 
@@ -43,11 +46,18 @@ namespace GoTour.MVVM.ViewModel
 
         public void MutipleSelectedHandler()
         {
+            DataManager.Ins.currentPlace.Clear();
             foreach ( var ite in result)
             {
                 DataManager.Ins.currentPlace.Add(ite.id);
             }
-            if (result.Count == 0) return;
+            if (result.Count == 0)
+            {
+                foreach (var ite in DataManager.Ins.ListPlace)
+                {
+                    DataManager.Ins.currentPlace.Add(ite.id);
+                }
+            }
             OpenDetailTourView();
         }
         public void OpenDetailTourView()
@@ -79,15 +89,19 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string temp;
+        private string selecteNumber = "All";
 
-        public string Temp
+        public string SelecteNumber
         {
-            get { return temp; }
+            get { return selecteNumber; }
             set
             {
-                temp = value;
-                
+                if (value == "0")
+                    selecteNumber = "All";
+                else
+                    selecteNumber = value;
+                OnPropertyChanged("SelecteNumber");
+
             }
         }
 
