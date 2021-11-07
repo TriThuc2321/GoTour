@@ -7,28 +7,26 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    class EditPlaceViewModel: ObservableObject
+    class NewPlaceViewModel : ObservableObject
     {
         public INavigation navigation;
         public Shell currentShell;
-
         int count;
         List<Stream> listStream;
 
         public Command EditTextCommand { get; }
         public Command AddCommand { get; }
         public Command DeleteCommand { get; }
-
-        public EditPlaceViewModel() { }
-        public EditPlaceViewModel(INavigation navigation, Shell curentShell)
+        public NewPlaceViewModel() { }
+        public NewPlaceViewModel(INavigation navigation, Shell curentShell)
         {
+            this.navigation = navigation;
+            this.currentShell = curentShell;
             this.navigation = navigation;
             this.currentShell = curentShell;
 
@@ -41,7 +39,7 @@ namespace GoTour.MVVM.ViewModel
             SelectedPlace = DataManager.Ins.CurrentPlaceManager;
             listStream = new List<Stream>();
 
-            if(SelectedPlace.imgSource!= null)
+            if (SelectedPlace.imgSource != null)
             {
                 foreach (var i in SelectedPlace.imgSource)
                 {
@@ -49,25 +47,25 @@ namespace GoTour.MVVM.ViewModel
                     listStream.Add(GetStreamFromUrl(i));
                 }
             }
-            
+
 
             Name = DataManager.Ins.CurrentPlaceManager.name;
             Description = DataManager.Ins.CurrentPlaceManager.description;
             IsEdit = false;
             SourceIcon = "editIcon.png";
             IsText = true;
-            
-            count = Imgs.Count();           
+
+            count = Imgs.Count();
         }
 
         private void deleteHandle(object obj)
         {
-            if(Imgs.Count()>0)
+            if (Imgs.Count() > 0)
             {
                 Imgs.RemoveAt(0);
-                listStream.RemoveAt(0);                
+                listStream.RemoveAt(0);
             }
-            
+
         }
 
         private async void addHandleAsync(object obj)
@@ -80,7 +78,7 @@ namespace GoTour.MVVM.ViewModel
 
             //ImgSource = ImageSource.FromStream(imgData.GetStream);
             Imgs.Add(ImageSource.FromStream(imgData.GetStream));
-            Stream s= imgData.GetStream();
+            Stream s = imgData.GetStream();
             listStream.Add(s);
         }
 
@@ -104,14 +102,14 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.CurrentPlaceManager.name = Name;
             DataManager.Ins.CurrentPlaceManager.imgSource = new List<string>();
 
-            for(int i = 0; i< count; i++)
+            for (int i = 0; i < count; i++)
             {
                 await DataManager.Ins.PlacesServices.DeleteFile(DataManager.Ins.CurrentPlaceManager.id, i);
             }
 
-            for (int i =0; i< listStream.Count(); i++)
+            for (int i = 0; i < listStream.Count(); i++)
             {
-                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i );
+                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i);
                 DataManager.Ins.CurrentPlaceManager.imgSource.Add(url);
             }
             await DataManager.Ins.PlacesServices.UpdatePlace(DataManager.Ins.CurrentPlaceManager);
@@ -134,7 +132,7 @@ namespace GoTour.MVVM.ViewModel
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return ms;
@@ -148,7 +146,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedPlace = value;
                 OnPropertyChanged("SelectedPlace");
-
             }
         }
         private bool isEdit;
@@ -159,7 +156,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 isEdit = value;
                 OnPropertyChanged("IsEdit");
-
             }
         }
         private bool isText;
@@ -170,7 +166,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 isText = value;
                 OnPropertyChanged("IsText");
-
             }
         }
         private ObservableCollection<ImageSource> imgs;
@@ -192,7 +187,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 sourceIcon = value;
                 OnPropertyChanged("SourceIcon");
-
             }
         }
         private string name;
@@ -203,7 +197,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 name = value;
                 OnPropertyChanged("Name");
-
             }
         }
         private string description;
@@ -214,7 +207,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 description = value;
                 OnPropertyChanged("Description");
-
             }
         }
     }

@@ -23,8 +23,11 @@
         </pancake:PancakeView>
 
         <StackLayout Grid.Row="1">
-            <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold"/>
-
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            
             <CollectionView x:Name="clview" 
                             ItemsSource="{Binding ListPlace}" 
                             SelectionMode="Single" 
@@ -49,7 +52,7 @@
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
                             <Frame Padding="0" HasShadow="True" CornerRadius="8">
-                                <Image Source="{Binding imgSource[0]}" Aspect="AspectFill"/>
+                                <Image Source="{Binding imgSource[0]}" Aspect="AspectFill" HeightRequest="150"/>
                             </Frame>
                           
                             <StackLayout Grid.Column="1" Margin="8,0,0,0">

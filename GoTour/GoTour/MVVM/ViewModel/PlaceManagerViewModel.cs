@@ -34,6 +34,12 @@ namespace GoTour.MVVM.ViewModel
             }      
             SelectedPlace = null;
         });
+
+        public ICommand NewPlaceCommand => new Command<object>((obj) =>
+        {
+            navigation.PushAsync(new NewPlaceView());
+
+        });
         private Place selectedPlace;
         public Place SelectedPlace
         {

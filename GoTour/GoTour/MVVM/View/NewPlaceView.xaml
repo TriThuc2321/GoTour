@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoTour.MVVM.View.EditPlaceView" 
+             x:Class="GoTour.MVVM.View.NewPlaceView"
              NavigationPage.HasNavigationBar="False"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
              Shell.FlyoutBehavior="Disabled"
@@ -9,7 +9,7 @@
              >
 
     <ContentPage.BindingContext>
-        <vm:EditPlaceViewModel/>
+        <vm:NewPlaceViewModel/>
     </ContentPage.BindingContext>
 
     <Grid>
@@ -39,9 +39,9 @@
                             <pancake:PancakeView CornerRadius="0,0,30,30">
                                 <Image Source="{Binding}" Aspect="AspectFill" />
                             </pancake:PancakeView>
-                            
+
                         </Grid>
-                        
+
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -52,7 +52,7 @@
                 <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding DeleteCommand}"/>
                 <Button Text="Image +" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
             </StackLayout>
-            
+
             <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
                 <ImageButton Source="{Binding SourceIcon}" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
                 <Label Margin="0" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
