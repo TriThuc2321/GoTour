@@ -67,13 +67,18 @@ namespace GoTour.MVVM.ViewModel
             }
 
             List<Tour> temp = new List<Tour>();
+            List<Tour> result = new List<Tour>();
             this.navigation = navigation;
-            foreach (var ite in DataManager.Ins.currentPlace)
+            foreach (string ite in DataManager.Ins.currentPlace)
             {
+                
                 temp = temp2.FindAll(e => e.placeDurationList.Exists(p => p.placeId == ite));
+                foreach (var plc in temp)               
+                    if (!result.Contains(plc))
+                        result.Add(plc);  
             }
          
-            foreach (Tour ite3 in temp)
+            foreach (Tour ite3 in result)
             {
                 ListTourFromSelectedPlace.Add(ite3);
             }

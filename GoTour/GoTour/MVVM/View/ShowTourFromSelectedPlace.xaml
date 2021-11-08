@@ -2,18 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.ShowTourFromSelectedPlace"
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="Danh sách tour">
     <ContentPage.BindingContext>
         <vm:ShowTourFromSelectedPlaceViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <ImageButton Command="{Binding NavigationBack}"  Source="backbutton.png" HeightRequest="40" WidthRequest="60" CornerRadius="10" HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="10, 10 , 0, 0"></ImageButton>
-                <Label Text="Danh sách Tour" FontAttributes="Bold" FontSize="Title" TextColor="Black" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0" ></Label>
-            </StackLayout>
+        <Grid BackgroundColor="WhiteSmoke">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <pancake:PancakeView CornerRadius="0,0,0,0">
+                <Image Source="background_showtour.jfif" Aspect="AspectFill" />
+            </pancake:PancakeView>
+            <Label Text="TOUR-LIST" 
+                   TextColor="White"
+                   FontAttributes="Bold"
+                  FontSize="Title"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   Opacity="1"
+                   ></Label>
+
+
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0">
+            </ImageButton>
             <CollectionView x:Name="clview" 
+                            Grid.Row="1"
                             ItemsSource="{Binding ListTourFromSelectedPlace}" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedTour}"
@@ -21,57 +46,41 @@
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout>
-                            <Frame
-                            HeightRequest="280"
-                            BackgroundColor="White"
-                            HasShadow="True"
-                            Margin="10"
-                            CornerRadius="10"
-                            HorizontalOptions="Center"
-                            Padding="0"
-                            
-                        >
-                                <Grid>
-                                    <StackLayout
-                                        BackgroundColor="Black">
-                                        <ImageButton Source="{Binding imgSource[0]}"
-                                             HeightRequest="350"
-                                             Aspect="AspectFill"     
-                                      
-                           />
-                                    </StackLayout>
-                                    <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
-                                    <StackLayout>
-                                        <Label
-                                    Text="{Binding name}"
-                                    TextColor="White"
-                                    FontSize="18"
-                                    FontAttributes="Bold"
-                                    Margin="13,0,0,0"
-                                    VerticalOptions="EndAndExpand"
-                        />
-                                        <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
-                                            <Image 
-                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                        />
-                                            <Label
-                                        Text="{Binding startTime}"
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"/>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </Grid>
+                        <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame HeightRequest="250" Padding="0" HasShadow="True" CornerRadius="8">
+                                <Image Source="{Binding imgSource[0]}" Aspect="AspectFill"/>
                             </Frame>
-                        </StackLayout>
+                            <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
+                                <StackLayout>
+                                    <Label Text="{Binding name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                    <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
+                                    <Label Text="{Binding startTime ,StringFormat='{} Ngày khởi hành: {0}'}" TextColor="Black"/>
+                                    <Label Text="{Binding description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
+                                    <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
+                                     <Label Text="{Binding basePrice,StringFormat='{}{0} VND'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
+                                    </pancake:PancakeView>
+
+                                </StackLayout>
+                            </pancake:PancakeView>
+                        </Grid>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

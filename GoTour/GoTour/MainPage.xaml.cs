@@ -20,6 +20,7 @@ namespace GoTour
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(ResetPassword), typeof(ResetPassword));
             Routing.RegisterRoute(nameof(ConfirmEmailView), typeof(ConfirmEmailView));
+            Routing.RegisterRoute(nameof(ManagerView), typeof(ManagerView));
             this.BindingContext = DataManager.Ins;
         }
     }

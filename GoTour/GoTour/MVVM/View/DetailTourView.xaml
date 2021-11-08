@@ -2,19 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.DetailTourView" 
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="True"
              Title="{Binding SelectedTour.name}">
     <ContentPage.BindingContext>
         <vm:DetailTourViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Frame
+        <Grid BackgroundColor="WhiteSmoke">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <pancake:PancakeView        Grid.Row="0"
                             BackgroundColor="White"
-                            HasShadow="True"
-                            Margin="5"
-                            CornerRadius="10"
+                            
+                            Margin="0,0,0,0"
+                            CornerRadius="0,0,0,0"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand"
                             Padding="0"
@@ -26,8 +30,9 @@
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
                            />
-                    
-                    <StackLayout VerticalOptions="EndAndExpand"
+                   
+                   
+                    <!--<StackLayout VerticalOptions="EndAndExpand"
                                  HorizontalOptions="Fill"                            
                                  BackgroundColor="DimGray" 
                                  Opacity="0.8"
@@ -126,8 +131,8 @@
                                     VerticalOptions="CenterAndExpand"
                                     Margin="0,5,0,0"
                                     Command="{Binding OpenDetailTour}"
-                                    CornerRadius="10"></Button>
-                            <!--<Button Text="Xem lich trinh"
+                                    CornerRadius="10"></Button>--><!--
+                            <Button Text="Xem lich trinh"
                                     TextTransform="Uppercase"
                                     Opacity="1"
                                     TextColor="White"
@@ -135,7 +140,7 @@
                                     VerticalOptions="CenterAndExpand"
                                     Margin="0,5,0,0"
                                     Command="{Binding OpenDetailTour1}"
-                                    CornerRadius="10"></Button>-->
+                                    CornerRadius="10"></Button>
                         </StackLayout>
                         
                     </StackLayout>
@@ -149,18 +154,84 @@
                            ></ImageButton>
                     <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
-                                 HeightRequest="40" 
-                                 WidthRequest="60"
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
-                                 BackgroundColor="Transparent" 
-                                 Margin="0, 10 , 0, 0">
-                    </ImageButton>
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0">
+                        </ImageButton>
+                    
 
                 </Grid>
-            </Frame>
-        </StackLayout>
+            </pancake:PancakeView>
+            <pancake:PancakeView Grid.Row="1" CornerRadius="20,20,0,0" Margin="0,-20,0,0" BackgroundColor="WhiteSmoke">
+                <StackLayout Grid.Row="1" Padding="20,20,20,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                                    Text="{Binding SelectedTour.name}"
+                                    TextColor="SteelBlue"        
+                                    FontSize="30"
+                                    FontAttributes="Bold"
+                                    Margin="0,0,0,0"
+                                    HorizontalOptions="StartAndExpand"
+                        />
+                        <Button Text="DETAILS" Command="{Binding OpenDetailTour}" TextColor="White" CornerRadius="10" FontAttributes="Bold" BackgroundColor="MidnightBlue" HorizontalOptions="EndAndExpand"></Button> 
+                    </StackLayout>
+                  
+                    <Line HeightRequest="3" BackgroundColor="SteelBlue" Margin="5,0,5,10"></Line>
+                    <Frame BackgroundColor="SteelBlue" CornerRadius="10">
+                    <StackLayout Orientation="Horizontal">
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                            <ImageButton HeightRequest="30" WidthRequest="30"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent"></ImageButton>
+                            <Label Text="5" VerticalOptions="CenterAndExpand"
+                               TextColor="Wheat"
+                               FontAttributes="Bold"
+                               FontSize="Medium"></Label>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <ImageButton HeightRequest="30" WidthRequest="30"  Source="starttimeicon.png" CornerRadius="20" ></ImageButton>
+                            <Label Text="{Binding SelectedTour.startTime}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="Small"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                            <ImageButton HeightRequest="30" WidthRequest="30"  Source="durationicon.png" CornerRadius="20" ></ImageButton>
+                            <Label Text="{Binding ProcessedDuration}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="Small"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal">
+                        <Button x:Name="descriptionBtn" Text="Description" FontSize="Small" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding DescriptionBtn}"></Button>
+                        <Button x:Name="reviewBtn" Text="Reviews" FontSize="Small" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding ReviewBtn}"></Button>
+                        
+                    </StackLayout>
+                    <Grid>
+                        <Label Padding="10,0,10,0" Text="{Binding SelectedTour.description}" HorizontalOptions="StartAndExpand" IsVisible="{Binding DescriptionInfo}">
+                            
+                        </Label>
+                        <Label Padding="10,0,10,0" Text="Thuc yeu que rat nhieu" HorizontalOptions="StartAndExpand" TextColor="Red" IsVisible="{Binding ReviewInfo}"></Label>
+
+                    </Grid>
+
+                    <StackLayout Orientation="Horizontal"  VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding SelectedTour.basePrice,StringFormat='{}{0} VND'}" TextColor="Black" FontAttributes="Bold" FontSize="Large" VerticalOptions="CenterAndExpand" Margin="0,0,30,10"></Label>
+                        <Button BackgroundColor="SteelBlue" Text="BOOK NOW" FontAttributes="Bold" TextColor="White" CornerRadius="10" HorizontalOptions="FillAndExpand"></Button>
+                    </StackLayout>
+                </StackLayout>
+            </pancake:PancakeView>
+          
+            
+        </Grid>
 
 
     </ContentPage.Content>

@@ -40,7 +40,7 @@ namespace GoTour.MVVM.ViewModel
                             TimeSpan interval = time.Subtract(currrent_time);
                             double count = interval.Days * 24 + interval.Hours + ((interval.Minutes * 100) / 60) * 0.01;
                             if (count < 0)
-                                timeLine.Add(new SupportUI(ite, time, "Teal"));
+                                timeLine.Add(new SupportUI(ite, time, "Black"));
                             else timeLine.Add(new SupportUI(ite, time, "Gray"));
                         }
                         for (int i = 0; i < ite2.night; i++)
@@ -52,7 +52,7 @@ namespace GoTour.MVVM.ViewModel
                             TimeSpan interval = time.Subtract(currrent_time);
                             double count = interval.Days * 24 + interval.Hours + ((interval.Minutes * 100) / 60) * 0.01;
                             if (count < 0)
-                                timeLine.Add(new SupportUI(ite, time, "Teal"));
+                                timeLine.Add(new SupportUI(ite, time, "Black"));
                             else timeLine.Add(new SupportUI(ite, time, "Gray"));
                         }
                         TourStartTime1 = TourStartTime1.AddDays(ite2.day);
@@ -68,11 +68,38 @@ namespace GoTour.MVVM.ViewModel
 
         private void SetCurrentSchedule()
         {
+            currentSchedule = timeLine[0];
             foreach (var ite in timeLine)
             {
-                if (ite.color == "Teal") currentSchedule = ite; 
+                if (ite.color == "Black") currentSchedule = ite; 
+            }
+           
+            foreach(var ite2 in selectedTour.SPforPList)
+            {
+                if (ite2.placeId == currentSchedule.place.id)
+                {
+                    foreach ( var ite3 in DataManager.Ins.ListStayPlace)
+                    {
+                        if (ite3.id == ite2.stayPlaceId)
+                        {
+                            selectedStayPlace = ite3;
+                        }
+                    }
+                }
             }
         }
+
+        private string isOccured = "0.5";
+        public string IsOccurred
+        {
+            get { return isOccured; }
+            set
+            {
+                isOccured = value;
+                OnPropertyChanged("IsOccurred");
+            }
+        }
+
 
         private SupportUI currentSchedule;
         public SupportUI CurrentSchedule
@@ -94,6 +121,17 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
+            }
+        }
+
+        private StayPlace selectedStayPlace;
+        public StayPlace SelectedStayPlace
+        {
+            get { return selectedStayPlace; }
+            set
+            {
+                selectedStayPlace = value;
+                OnPropertyChanged("SelectedStayPlace");
             }
         }
 

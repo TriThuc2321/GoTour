@@ -192,13 +192,13 @@
                         >
                                 <Grid>
                                     <StackLayout
-                                BackgroundColor="Black">
+                                        BackgroundColor="Black">
                                         <Image Source="{Binding imgSource[0]}"
-                                    HeightRequest="350"
-                                    Aspect="AspectFill"                           
-                                           />
+                                                HeightRequest="350"
+                                                Aspect="AspectFill"                           
+                                        />
                                     </StackLayout>
-                                    <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0,5,0"/>
+                                    <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0, 5, 0"/>
                                     <StackLayout>
                                         <Label
                                     Text="{Binding name}"
