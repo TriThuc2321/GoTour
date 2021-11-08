@@ -16,6 +16,8 @@ namespace GoTour.MVVM.Model
         public string address { get; set; }
         public string bookTime { get; set; }
         public Invoice invoice { get; set; }
+
+        public string paidPhoto { get; set; }
         
 
     }

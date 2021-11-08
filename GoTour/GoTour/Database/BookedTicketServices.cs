@@ -32,7 +32,8 @@ namespace GoTour.Database
                   cmnd = item.Object.cmnd,
                   address = item.Object.address,
                   bookTime = item.Object.bookTime,
-                  invoice = item.Object.invoice
+                  invoice = item.Object.invoice,
+                  paidPhoto = item.Object.paidPhoto
                  
               }).ToList();
         }
@@ -51,8 +52,8 @@ namespace GoTour.Database
                   cmnd = bookedTicket.cmnd,
                   address = bookedTicket.address,
                   bookTime = bookedTicket.bookTime,
-                  invoice = bookedTicket.invoice
-
+                  invoice = bookedTicket.invoice,
+                  paidPhoto = bookedTicket.paidPhoto
               });
         }
 

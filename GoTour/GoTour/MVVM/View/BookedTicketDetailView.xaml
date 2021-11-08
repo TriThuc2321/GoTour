@@ -22,7 +22,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Source="https://img.cand.com.vn/resize/800x800/NewFiles/Images/2021/10/16/7_du-1634353732500.jpg"
+                    <Image Source="{Binding ticket.tour.imgSource[0]}"
                            Grid.Column="0"
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
@@ -36,6 +36,7 @@
                            BackgroundColor="Black"
                            VerticalOptions="End"
                            Opacity="0.4"/>
+                    
                     <Label Grid.Column="0"
                            Grid.Row="2"
                            Grid.ColumnSpan="2"
@@ -44,7 +45,8 @@
                            FontAttributes="Bold"
                            VerticalOptions="End"
                            Margin="5"
-                           Text="abc"/>
+                           Text="{Binding ticket.tour.name}"/>
+                    
                     <Button Grid.Column="1"
                             Grid.Row="0"
                             Margin="0, 10, 15, 0"
@@ -55,7 +57,7 @@
                             HorizontalOptions="End"
                             VerticalOptions="Start"
                             WidthRequest="90"
-                            BorderColor="Wheat"
+                            BorderColor="Red"
                             BorderWidth="1"
                             Text="cancel ticket"
                         />
@@ -64,7 +66,8 @@
                             Grid.Row="1"
                             CornerRadius="25"
                             Margin="0, 10, 15, 0"
-                            BorderColor="Wheat"
+                            BorderColor="DarkSeaGreen"
+                            WidthRequest="90"
                             BorderWidth="1"
                             HeightRequest="50"
                             BackgroundColor="ForestGreen"
@@ -119,7 +122,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="......."
+                                <Label Text="{Binding ticket.tour.startTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -145,7 +148,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="......."
+                                <Label Text="{Binding ticket.tour.duration}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -165,7 +168,7 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="Occurred "
+                                <Label Text="{Binding ticket.tour.isOccured}"
                                TextColor="DarkRed"
                                FontAttributes="Bold"
                                FontSize="15"
@@ -179,7 +182,7 @@
                 <!--Vé && hoá đơn-->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -222,7 +225,7 @@
                              Grid.Row="1"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -233,7 +236,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="Username "
+                            <Label Text="{Binding ticket.name} "
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -248,7 +251,7 @@
                              Grid.Row="2"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -259,7 +262,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="...... "
+                            <Label Text="{Binding ticket.birthday}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -273,7 +276,7 @@
                              Grid.Row="3"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -284,7 +287,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="........... "
+                            <Label Text="{Binding ticket.contact}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -298,7 +301,7 @@
                              Grid.Row="4"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -309,7 +312,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......... "
+                            <Label Text="{Binding ticket.email}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -323,7 +326,7 @@
                              Grid.Row="5"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -334,7 +337,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="........ "
+                            <Label Text="{Binding ticket.cmnd}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -348,7 +351,7 @@
                              Grid.Row="6"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -359,7 +362,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.address}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -373,7 +376,7 @@
                              Grid.Row="7"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -384,7 +387,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.bookTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -415,7 +418,7 @@
                              Grid.Row="9"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -426,7 +429,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.price}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -440,7 +443,7 @@
                              Grid.Row="10"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -451,7 +454,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.amount}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -466,10 +469,10 @@
                              Margin="25, 5, 15, 5"
                              IsVisible="True"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
@@ -479,7 +482,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.discount.id}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -491,7 +494,7 @@
                                FontSize="15"
                                Grid.Column="2"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.discount.percent}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -505,8 +508,9 @@
                              Grid.Row="12"
                              Margin="25, 5, 15, 5"
                                  IsVisible="True"
+                                 
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -517,7 +521,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.discountMoney}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -531,7 +535,7 @@
                              Grid.Row="13"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -542,7 +546,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.total}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -556,7 +560,7 @@
                              Grid.Row="14"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -567,7 +571,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.method}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -581,7 +585,7 @@
                              Grid.Row="15"
                              Margin="25, 5, 15, 5"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -592,7 +596,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.isPaid}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -607,7 +611,7 @@
                              Margin="25, 5, 15, 5"
                                  IsVisible="True"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -618,7 +622,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="......."
+                            <Label Text="{Binding ticket.invoice.payingTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -633,7 +637,7 @@
                              Margin="25, 5, 15, 5"
                                  IsVisible="True"
                              >
-                        <Grid>
+                        <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>

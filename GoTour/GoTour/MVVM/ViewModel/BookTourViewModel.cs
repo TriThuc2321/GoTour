@@ -30,6 +30,8 @@ namespace GoTour.MVVM.ViewModel
             NavigationBack = new Command(() => navigation.PopAsync());
 
 
+            CheckDiscountCommand = new Command(checkDiscount);
+
             SetInformation();
         }
 
@@ -64,16 +66,44 @@ namespace GoTour.MVVM.ViewModel
             navigation.PushAsync(new PayingMethodView());
         }
 
-        private Tour selectedTour;
-        public Tour SelectedTour
+        void checkDiscount(object obj)
         {
-            get { return selectedTour; }
-            set
+            if (DiscountId=="")
             {
-                selectedTour = value;
-                OnPropertyChanged("SelectedTour");
+                DiscountNotice = "Please enter the discount ID";
+                DiscountNoticeVisible = true;
+                DiscountNoticeColor = Color.Red;
+                return;
+            }  
+            else
+            {
+                foreach (var discount in DataManager.Ins.ListDiscount)
+                    if (DiscountId == discount.id)
+                    {
+                        if (discount.isUsed == discount.total)
+                        {
+                            DiscountNotice = "This discount has no more turn";
+                            DiscountNoticeVisible = true;
+                            DiscountNoticeColor = Color.LightGoldenrodYellow;
+                        }    
+                        else
+                        {
+                            DiscountNotice = "Successfully code applied";
+                            DiscountNoticeVisible = true;
+                            DiscountNoticeColor = Color.ForestGreen;
+                        }
+
+                        return;
+                    }    
             }
+
+            DiscountNotice = "Incorrect discount ID";
+            DiscountNoticeVisible = true;
+            DiscountNoticeColor = Color.Red;
         }
+       
+
+        public Command CheckDiscountCommand { get; }
 
         public Command IncreaseAmountCommand { get; }
         void increase(object obj)
@@ -405,6 +435,15 @@ namespace GoTour.MVVM.ViewModel
 
         #endregion
 
-
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
+        }
     }
 }

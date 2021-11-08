@@ -1,4 +1,5 @@
-﻿using GoTour.MVVM.ViewModel;
+﻿using GoTour.MVVM.Model;
+using GoTour.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,11 @@ namespace GoTour.MVVM.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookedTicketDetailView : ContentPage
     {
+        BookedTicket ticket;
         public BookedTicketDetailView()
         {
             InitializeComponent();
-            this.BindingContext = new BookedTicketDetailViewModel(Navigation);
+            this.BindingContext = new BookedTicketDetailViewModel(Navigation, ticket );
         }
     }
 }
