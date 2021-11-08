@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -16,10 +17,10 @@ namespace GoTour.MVVM.ViewModel
     {
         public INavigation navigation;
         public Shell currentShell;
-        int count;
+
         List<Stream> listStream;
 
-        public Command EditTextCommand { get; }
+        public Command SaveCommand { get; }
         public Command AddCommand { get; }
         public Command DeleteCommand { get; }
         public NewPlaceViewModel() { }
@@ -32,30 +33,44 @@ namespace GoTour.MVVM.ViewModel
 
             Imgs = new ObservableCollection<ImageSource>();
 
-            EditTextCommand = new Command(editTextHandle);
+            SaveCommand = new Command(saveHandleAsync);
             AddCommand = new Command(addHandleAsync);
             DeleteCommand = new Command(deleteHandle);
 
-            SelectedPlace = DataManager.Ins.CurrentPlaceManager;
-            listStream = new List<Stream>();
+            listStream = new List<Stream>();           
 
-            if (SelectedPlace.imgSource != null)
+        }
+
+        private async void saveHandleAsync(object obj)
+        {
+            if(Name == null || Name == "" )
             {
-                foreach (var i in SelectedPlace.imgSource)
-                {
-                    Imgs.Add(ImageSource.FromUri(new Uri(i)));
-                    listStream.Add(GetStreamFromUrl(i));
-                }
+                DependencyService.Get<IToast>().ShortToast("Please enter place's name");
+                return;
+            }
+            else if (Name == null || Description == null || Name == "" || Description == "" || listStream.Count() == 0)
+            {
+                DependencyService.Get<IToast>().ShortToast("Please enter place's description");
+                return;
+            }
+            else if (listStream.Count() == 0)
+            {
+                DependencyService.Get<IToast>().ShortToast("Please insert place's image");
+                return;
             }
 
+            string id = DataManager.Ins.GeneratePlaceId();           
 
-            Name = DataManager.Ins.CurrentPlaceManager.name;
-            Description = DataManager.Ins.CurrentPlaceManager.description;
-            IsEdit = false;
-            SourceIcon = "editIcon.png";
-            IsText = true;
+            List<string> imgSource = new List<string>();
 
-            count = Imgs.Count();
+            for (int i = 0; i < listStream.Count(); i++)
+            {
+                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], id, i);
+                imgSource.Add(url);
+            }
+            await DataManager.Ins.PlacesServices.AddPlace(id, Name, imgSource, Description);
+            DataManager.Ins.ListPlace.Add(new Place(id, Name, imgSource, Description));
+            navigation.PopAsync();
         }
 
         private void deleteHandle(object obj)
@@ -71,50 +86,18 @@ namespace GoTour.MVVM.ViewModel
         private async void addHandleAsync(object obj)
         {
             await CrossMedia.Current.Initialize();
-
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
 
-            //string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream());
-
-            //ImgSource = ImageSource.FromStream(imgData.GetStream);
-            Imgs.Add(ImageSource.FromStream(imgData.GetStream));
-            Stream s = imgData.GetStream();
-            listStream.Add(s);
+            if (imgData != null)
+            {
+                Imgs.Add(ImageSource.FromStream(imgData.GetStream));
+                Stream s = imgData.GetStream();
+                listStream.Add(s);
+            }
         }
 
-        private async void editTextHandle(object obj)
-        {
-            IsEdit = !IsEdit;
-            if (!IsEdit)
-            {
-                SourceIcon = "editIcon.png";
-                updateData();
-            }
-            else
-            {
-                SourceIcon = "tickIcon.png";
-            }
-            IsText = !IsText;
-        }
-        private async void updateData()
-        {
-            DataManager.Ins.CurrentPlaceManager.description = Description;
-            DataManager.Ins.CurrentPlaceManager.name = Name;
-            DataManager.Ins.CurrentPlaceManager.imgSource = new List<string>();
-
-            for (int i = 0; i < count; i++)
-            {
-                await DataManager.Ins.PlacesServices.DeleteFile(DataManager.Ins.CurrentPlaceManager.id, i);
-            }
-
-            for (int i = 0; i < listStream.Count(); i++)
-            {
-                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i);
-                DataManager.Ins.CurrentPlaceManager.imgSource.Add(url);
-            }
-            await DataManager.Ins.PlacesServices.UpdatePlace(DataManager.Ins.CurrentPlaceManager);
-
-        }
+        
+       
         private MemoryStream GetStreamFromUrl(string url)
         {
             byte[] imageData = null;
@@ -148,26 +131,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("SelectedPlace");
             }
         }
-        private bool isEdit;
-        public bool IsEdit
-        {
-            get { return isEdit; }
-            set
-            {
-                isEdit = value;
-                OnPropertyChanged("IsEdit");
-            }
-        }
-        private bool isText;
-        public bool IsText
-        {
-            get { return isText; }
-            set
-            {
-                isText = value;
-                OnPropertyChanged("IsText");
-            }
-        }
+        
         private ObservableCollection<ImageSource> imgs;
         public ObservableCollection<ImageSource> Imgs
         {
@@ -178,17 +142,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Imgs");
             }
         }
-
-        private string sourceIcon;
-        public string SourceIcon
-        {
-            get { return sourceIcon; }
-            set
-            {
-                sourceIcon = value;
-                OnPropertyChanged("SourceIcon");
-            }
-        }
+       
         private string name;
         public string Name
         {

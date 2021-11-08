@@ -47,7 +47,7 @@ namespace GoTour.MVVM.ViewModel
                 {
                     Imgs.Add(ImageSource.FromUri(new Uri(i)));
                     listStream.Add(GetStreamFromUrl(i));
-                }
+                }               
             }
             
 
@@ -76,12 +76,13 @@ namespace GoTour.MVVM.ViewModel
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
 
-            //string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream());
-
-            //ImgSource = ImageSource.FromStream(imgData.GetStream);
-            Imgs.Add(ImageSource.FromStream(imgData.GetStream));
-            Stream s= imgData.GetStream();
-            listStream.Add(s);
+            if(imgData!= null)
+            {
+                Imgs.Add(ImageSource.FromStream(imgData.GetStream));
+                Stream s = imgData.GetStream();
+                listStream.Add(s);
+            }
+            
         }
 
         private async void editTextHandle(object obj)

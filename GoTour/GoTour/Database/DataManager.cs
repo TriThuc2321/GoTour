@@ -3,6 +3,8 @@ using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -25,6 +27,7 @@ namespace GoTour.Database
         
        
         public List<User> usersTemp;
+        public List<ImagePlaceStream> imagePlaceStreams;
         public bool LoadData = true;
 
         #region TourView
@@ -98,8 +101,71 @@ namespace GoTour.Database
                 TourPlace temp2 = tourPlaceList.Find(e => (e.tourId == ite.id));
                 ite.placeDurationList = temp2.placeDurationList;
             }
+
+            /*imagePlaceStreams = GetImageStreamPlaces();
+            foreach (var ite in imagePlaceStreams)
+            {
+                ImgPlaceStreams.Add(ite);
+            }*/
+
             int v = 5;
             
+        }
+        public string GeneratePlaceId(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i =0;
+            while (i< ListPlace.Count())
+            {
+                if(ListPlace[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return randomString;
+        }
+        public List<ImagePlaceStream> GetImageStreamPlaces()
+        {
+            List<ImagePlaceStream> temp = new List<ImagePlaceStream>();
+            for (int i =0; i< ListPlace.Count(); i++)
+            {
+                List<Stream> streams = new List<Stream>();
+                foreach (var p in ListPlace[i].imgSource)
+                {                   
+                    streams.Add(GetStreamFromUrl(p));
+                }
+                temp.Add(new ImagePlaceStream(ListPlace[i].id, streams));
+            }
+
+            return temp;
+        }
+        private MemoryStream GetStreamFromUrl(string url)
+        {
+            byte[] imageData = null;
+            MemoryStream ms;
+
+            ms = null;
+
+            try
+            {
+                using (var wc = new System.Net.WebClient())
+                {
+                    imageData = wc.DownloadData(url);
+                }
+                ms = new MemoryStream(imageData);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return ms;
         }
         private ToursServices tourServices;
         public ToursServices TourServices
@@ -264,7 +330,16 @@ namespace GoTour.Database
                 OnPropertyChanged("IsManager");
             }
         }
-        
+        private ObservableCollection<ImagePlaceStream> imgPlaceStreams;
+        public ObservableCollection<ImagePlaceStream> ImgPlaceStreams
+        {
+            get { return imgPlaceStreams; }
+            set
+            {
+                imgPlaceStreams = value;
+                OnPropertyChanged("ImgPlaceStreams");
+            }
+        }
     }
 
 

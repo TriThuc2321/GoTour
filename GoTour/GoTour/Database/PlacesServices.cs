@@ -17,7 +17,8 @@ namespace GoTour.Database
         FirebaseStorage storage = new FirebaseStorage("gotour-98c79.appspot.com");
 
         public List<Place> places;
-        public  PlacesServices(){}
+        public PlacesServices() {
+        }
         public async Task<List<Place>> GetAllPlaces()
         {
             return (await firebase
@@ -75,5 +76,8 @@ namespace GoTour.Database
                  .Child(folderPlaceId).Child(id + ".png")
                  .DeleteAsync();
         }
+
+        
+
     }
 }
