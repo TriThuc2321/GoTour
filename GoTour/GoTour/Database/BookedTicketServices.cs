@@ -33,7 +33,8 @@ namespace GoTour.Database
                   address = item.Object.address,
                   bookTime = item.Object.bookTime,
                   invoice = item.Object.invoice,
-                  paidPhoto = item.Object.paidPhoto
+                  paidPhoto = item.Object.paidPhoto,
+                  isCancel = item.Object.isCancel
                  
               }).ToList();
         }
@@ -53,7 +54,8 @@ namespace GoTour.Database
                   address = bookedTicket.address,
                   bookTime = bookedTicket.bookTime,
                   invoice = bookedTicket.invoice,
-                  paidPhoto = bookedTicket.paidPhoto
+                  paidPhoto = bookedTicket.paidPhoto,
+                  isCancel = bookedTicket.isCancel
               });
         }
 

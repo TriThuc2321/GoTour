@@ -35,7 +35,7 @@ namespace GoTour.MVVM.ViewModel
             SetInformation();
         }
 
-       bool CheckInformation()
+       bool checkValidation()
         {
             // Check null
             if (Name == null)
@@ -66,7 +66,7 @@ namespace GoTour.MVVM.ViewModel
                 return false;
 
             }
-            else if (Amount == null)
+            else if (Amount == 0)
             {
                 DependencyService.Get<IToast>().ShortToast("Amount is null! Please enter your amount");
                 return false;
@@ -115,6 +115,16 @@ namespace GoTour.MVVM.ViewModel
                 return false;
 
             }
+
+            //Check discount 
+            if (chosenDiscount == null)
+            {
+                DiscountNotice = "Please check your discount";
+                DiscountNoticeColor = Color.Red;
+                DiscountNoticeVisible = true;
+                DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
+                return false;
+            }    
             return true;
 
 
@@ -124,6 +134,7 @@ namespace GoTour.MVVM.ViewModel
             navigation.PushAsync(new PayingMethodView());
         }
 
+        Discount chosenDiscount; 
         void checkDiscount(object obj)
         {
             if (DiscountId == null)
@@ -149,6 +160,13 @@ namespace GoTour.MVVM.ViewModel
                             DiscountNotice = "Successfully code applied";
                             DiscountNoticeVisible = true;
                             DiscountNoticeColor = Color.ForestGreen;
+
+                            chosenDiscount = discount;
+
+                            Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
+                            if (chosenDiscount != null)
+                                DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                            Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
                         }
 
                         return;
@@ -183,16 +201,25 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeColor = Color.ForestGreen;
             DiscountNoticeVisible = true;
 
+            TourPrice = Provisional = Total = selectedTour.basePrice;
+            DiscountMoney = "0";
         }
 
 
         public Command CheckDiscountCommand { get; }
 
+        #region command Amount
         public Command IncreaseAmountCommand { get; }
         void increase(object obj)
         {
             if (Amount < int.Parse(selectedTour.remaining))
+            {
                 Amount++;
+                Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
+                if (chosenDiscount != null)
+                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+            }
             else
             {
                 AmountNotice = "This tour is remaining " + Amount + " tickets";
@@ -206,8 +233,17 @@ namespace GoTour.MVVM.ViewModel
         void decrease(object obj)
         {
             if (Amount > 1)
+            {
                 Amount--;
+                Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
+                if (chosenDiscount != null)
+                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+            }
         }
+
+        #endregion
+
 
         #region user information
         private string _name;
@@ -501,14 +537,14 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string _discount;
-        public string Discount
+        private string _discountMoney;
+        public string DiscountMoney
         {
-            get { return _discount; }
+            get { return _discountMoney; }
             set
             {
-                _discount = value;
-                OnPropertyChanged("Discount");
+                _discountMoney = value;
+                OnPropertyChanged("DiscountMoney");
             }
         }
 
