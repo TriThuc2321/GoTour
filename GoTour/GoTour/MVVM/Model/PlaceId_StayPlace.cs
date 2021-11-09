@@ -6,21 +6,14 @@ using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class PlaceId_Duration : ObservableObject
+    public class PlaceId_StayPlace : ObservableObject
     {
-        public int day { get; set; }
-        public int night { get; set; }
         public string placeId { get; set; }
-        public string description { get; set; }
-        public Place host { get; set; }
-        public PlaceId_Duration() { }
-        public PlaceId_Duration(int day, int night, string placeId, string description)
+        public string stayPlaceId { get; set; }
+        public PlaceId_StayPlace(string placeId, string stayPlaceId)
         {
-            this.day = day;
-            this.night = night;
             this.placeId = placeId;
-            this.description = description;
-            this.host = null;
+            this.stayPlaceId = stayPlaceId;
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
