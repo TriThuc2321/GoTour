@@ -35,6 +35,131 @@ namespace GoTour.MVVM.ViewModel
             SetInformation();
         }
 
+       bool CheckInformation()
+        {
+            // Check null
+            if (Name == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Name is null! Please enter your name");
+                return false;
+            }
+            else if (Birthday == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Birthday is null! Please enter your birthday");
+                return false;
+            }
+            else if (Contact == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Contact is null! Please enter your contact");
+                return false;
+
+            }
+            else if (Cmnd == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Identity card ID is null! Please enter");
+                return false;
+
+            }
+            else if (Address == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Address is null! Please enter your address");
+                return false;
+
+            }
+            else if (Amount == null)
+            {
+                DependencyService.Get<IToast>().ShortToast("Amount is null! Please enter your amount");
+                return false;
+
+            }
+
+            //Check amount
+            if (Amount == 0)
+            {
+                AmountNotice = "Choose your amount";
+                AmountNoticeColor = Color.Red;
+                AmountNoticeVisible = true;
+                DependencyService.Get<IToast>().ShortToast("Amount is 0! Please enter your amount");
+                return false;
+
+
+            }
+            else if (Amount > int.Parse(selectedTour.remaining)  )
+            {
+                DiscountNotice = "This discount has no more turn";
+                DiscountNoticeVisible = true;
+                DiscountNoticeColor = Color.DarkOrange;
+                DependencyService.Get<IToast>().ShortToast("This discount has no more turn!");
+                return false;
+
+            }
+
+            UsersServices services = new UsersServices();
+            //Check contact
+            if (!services.IsPhoneNumber(Contact))
+            {
+                ContactNotice = "Incorrect phone number";
+                ContactNoticeColor = Color.Red;
+                ContactNoticeVisible = true;
+                DependencyService.Get<IToast>().ShortToast("Incorrect phone number!");
+                return false;
+
+            }
+            //Check cmnd
+            if (!services.IsCMND(Cmnd))
+            {
+                CmndNotice = "Incorrect identity card ID";
+                CmndNoticeColor = Color.Red;
+                CmndNoticeVisible = true;
+                DependencyService.Get<IToast>().ShortToast("Incorrect identity card ID!");
+                return false;
+
+            }
+            return true;
+
+
+        }
+        void openPayingMethodView(object obj)
+        {
+            navigation.PushAsync(new PayingMethodView());
+        }
+
+        void checkDiscount(object obj)
+        {
+            if (DiscountId == null)
+            {
+                DiscountNotice = "Please enter the discount ID";
+                DiscountNoticeVisible = true;
+                DiscountNoticeColor = Color.Red;
+                return;
+            }  
+            else
+            {
+                foreach (var discount in DataManager.Ins.ListDiscount)
+                    if (DiscountId == discount.id)
+                    {
+                        if (discount.isUsed == discount.total)
+                        {
+                            DiscountNotice = "This discount has no more turn";
+                            DiscountNoticeVisible = true;
+                            DiscountNoticeColor = Color.DarkOrange;
+                        }    
+                        else
+                        {
+                            DiscountNotice = "Successfully code applied";
+                            DiscountNoticeVisible = true;
+                            DiscountNoticeColor = Color.ForestGreen;
+                        }
+
+                        return;
+                    }    
+            }
+
+            DiscountNotice = "Incorrect discount ID";
+            DiscountNoticeVisible = true;
+            DiscountNoticeColor = Color.Red;
+        }
+
         void SetInformation()
         {
             User getUser = DataManager.Ins.CurrentUser;
@@ -58,57 +183,22 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeColor = Color.ForestGreen;
             DiscountNoticeVisible = true;
 
-
-
-        }
-        void openPayingMethodView(object obj)
-        {
-            navigation.PushAsync(new PayingMethodView());
         }
 
-        void checkDiscount(object obj)
-        {
-            if (DiscountId=="")
-            {
-                DiscountNotice = "Please enter the discount ID";
-                DiscountNoticeVisible = true;
-                DiscountNoticeColor = Color.Red;
-                return;
-            }  
-            else
-            {
-                foreach (var discount in DataManager.Ins.ListDiscount)
-                    if (DiscountId == discount.id)
-                    {
-                        if (discount.isUsed == discount.total)
-                        {
-                            DiscountNotice = "This discount has no more turn";
-                            DiscountNoticeVisible = true;
-                            DiscountNoticeColor = Color.LightGoldenrodYellow;
-                        }    
-                        else
-                        {
-                            DiscountNotice = "Successfully code applied";
-                            DiscountNoticeVisible = true;
-                            DiscountNoticeColor = Color.ForestGreen;
-                        }
-
-                        return;
-                    }    
-            }
-
-            DiscountNotice = "Incorrect discount ID";
-            DiscountNoticeVisible = true;
-            DiscountNoticeColor = Color.Red;
-        }
-       
 
         public Command CheckDiscountCommand { get; }
 
         public Command IncreaseAmountCommand { get; }
         void increase(object obj)
         {
-            Amount++;
+            if (Amount < int.Parse(selectedTour.remaining))
+                Amount++;
+            else
+            {
+                AmountNotice = "This tour is remaining " + Amount + " tickets";
+                AmountNoticeVisible = true;
+                AmountNoticeColor = Color.Red;
+            }
 
         }
 

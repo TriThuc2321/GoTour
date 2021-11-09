@@ -32,7 +32,7 @@
                            />
                    
                    
-                    <!--<StackLayout VerticalOptions="EndAndExpand"
+                    <StackLayout VerticalOptions="EndAndExpand"
                                  HorizontalOptions="Fill"                            
                                  BackgroundColor="DimGray" 
                                  Opacity="0.8"
@@ -131,7 +131,8 @@
                                     VerticalOptions="CenterAndExpand"
                                     Margin="0,5,0,0"
                                     Command="{Binding OpenDetailTour}"
-                                    CornerRadius="10"></Button>--><!--
+                                    CornerRadius="10"></Button>
+                            
                             <Button Text="Xem lich trinh"
                                     TextTransform="Uppercase"
                                     Opacity="1"

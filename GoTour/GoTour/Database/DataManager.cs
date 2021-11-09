@@ -122,7 +122,17 @@ namespace GoTour.Database
             }
 
             List<Discount> discountsList = await DiscountsServices.GetAllDiscounts();
+            foreach (Discount discount in discountsList)
+            {
+                ListDiscount.Add(discount);
+            }
+
             List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
+            foreach (Invoice invoice in invoicesList)
+            {
+                ListInvoice.Add(invoice);
+            }
+
             List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
             foreach(BookedTicket booked in bookedTicketsList)
             {

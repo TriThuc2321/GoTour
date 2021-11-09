@@ -42,11 +42,14 @@
                                    BindingContext="{Binding Source={x:Reference clview}, Path=BindingContext}"   
                                    Command="{Binding UnlovedCommand}"   
                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                   WidthRequest="30"
                                    HeightRequest="35" 
-                                   BackgroundColor="Transparent"
-                                   HorizontalOptions="End" 
-                                   VerticalOptions="Start" 
+                                   CornerRadius="10"
+                                   BackgroundColor="White"
+                                   HorizontalOptions="EndAndExpand" 
+                                   VerticalOptions="StartAndExpand"                                              
                                    Margin="0,13,10,0"/>
+
 
                                 <Grid Grid.Row="1"
                                   BackgroundColor="Black"

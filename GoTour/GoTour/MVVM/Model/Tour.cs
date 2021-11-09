@@ -18,11 +18,12 @@ namespace GoTour.MVVM.Model
         public string description { get; set; }
         public bool isOccured { get; set; }
         public string basePrice { get; set; }
+        public string remaining { get; set; }
         public List<PlaceId_StayPlace> SPforPList { get; set; }
         public List<PlaceId_Duration> placeDurationList { get; set; }
         public Tour() { }
 
-        public Tour(string id, string name, List<string> imgSource, string startTime, string duration, List<PlaceId_StayPlace> SPforPList ,List<string> tourGuide, string passengerNumber, string description, bool isOccured, string basePrice)
+        public Tour(string id, string name, List<string> imgSource, string startTime, string duration, List<PlaceId_StayPlace> SPforPList ,List<string> tourGuide, string passengerNumber, string description, bool isOccured, string basePrice, string remaining)
         {
             this.id = id;
             this.name = name;
@@ -36,6 +37,7 @@ namespace GoTour.MVVM.Model
             this.placeDurationList = new List<PlaceId_Duration>();
             this.basePrice = basePrice;
             this.SPforPList = SPforPList;
+            this.remaining = remaining;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

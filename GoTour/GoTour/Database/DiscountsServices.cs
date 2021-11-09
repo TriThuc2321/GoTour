@@ -16,7 +16,7 @@ namespace GoTour.Database
         async public Task addDiscount(Discount discount)
         {
             await firebase
-              .Child("Prices")
+              .Child("Discounts")
               .PostAsync(new Discount()
               {
                   id = discount.id,

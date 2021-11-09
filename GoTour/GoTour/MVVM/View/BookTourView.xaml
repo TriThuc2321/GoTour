@@ -27,13 +27,14 @@
                   BackgroundColor="Transparent">
                 <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
-                                 HeightRequest="40" 
-                                 WidthRequest="60"
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
-                                 BackgroundColor="Transparent" 
-                                 Margin="0, 10 , 0, 0"/>
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
             </Grid>
             
 
@@ -95,7 +96,7 @@
 
                             <!--Ngày sinh-->
 
-                                <Frame Grid.Row="2"
+                            <Frame Grid.Row="2"
                            CornerRadius="20"
                            Margin="20, 5, 20, 5" 
                            Padding="5" 
@@ -126,8 +127,6 @@
 
                                 </Grid>
                             </Frame>
-
-                               
 
                             <!--Contact-->
                             <Frame Grid.Row="2"
