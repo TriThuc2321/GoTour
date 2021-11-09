@@ -55,7 +55,7 @@ namespace GoTour.MVVM.ViewModel
 
         }
 
-        
+       
         async void _addImg(object sender)
         {
 

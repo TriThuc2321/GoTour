@@ -9,6 +9,7 @@
        FlyoutIsPresented="False"
        xmlns:sys="clr-namespace:System;assembly=mscorlib"
        xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+       
     >
 
     <Shell.Resources>
@@ -115,7 +116,11 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Manager" Icon="manager.png">
-        <ShellContent Route="Manager" ContentTemplate="{DataTemplate views:ManagerView}" Style="{DynamicResource Base1Style}" />
+        <ShellContent Route="Manager" ContentTemplate="{DataTemplate views:ManagerView}" Style="{DynamicResource Base1Style}" IsVisible="{Binding IsManager}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Invoice" Icon="invoiceIcon.png">
+        <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}"/>
     </FlyoutItem>
 
     <Shell.FlyoutHeader >
@@ -144,7 +149,7 @@
                     </Frame>
                 <StackLayout VerticalOptions="Center" Margin="0,25,0,0" HorizontalOptions="StartAndExpand">
                     <Label Text="Hello," TextColor="Black" VerticalOptions="Center" FontSize="15" />
-                    <Label Text="Thuc Tran" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"  Margin="0,-10,0,10"/>
+                    <Label Text="{Binding CurrentName}" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"  Margin="0,-10,0,10"/>
                 </StackLayout>
                 
                 </StackLayout>

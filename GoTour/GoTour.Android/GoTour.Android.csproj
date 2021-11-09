@@ -197,6 +197,13 @@
     <AndroidResource Include="Resources\drawable\editIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\invoiceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tickIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\deleteIcon.png" />
     <AndroidResource Include="Resources\drawable\background_tourview.jpg" />
   </ItemGroup>
   <ItemGroup>
