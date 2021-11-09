@@ -192,6 +192,15 @@ namespace GoTour.Database
                 verifyCode = value;
             }
         }
+        private string USDcurrency;
+        public string USDCurrency
+        {
+            get { return USDcurrency; }
+            set
+            {
+                USDcurrency = value;
+            }
+        }
         public bool isRegister;
         public bool IsRegister
         {
