@@ -14,7 +14,7 @@ namespace GoTour.Database
 
         //This part is filter properties
         public string CostFilter { get; set; }
-        public string AreFilter { get; set; }
+        public string AreaFilter { get; set; }
         public string StartTimeFilter { get; set; }
         public string DurationFilter { get; set; }
 
@@ -50,7 +50,7 @@ namespace GoTour.Database
                     currentPlaceId = i.id;
                 }
             }
-          
+            
             //Loc ID 
             temp = temp2.FindAll(e => e.placeDurationList.Exists(p => p.placeId == currentPlaceId));
                 foreach (var plc in temp)
