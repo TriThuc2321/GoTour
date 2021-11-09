@@ -28,8 +28,8 @@
                 <Button Margin="0,0,-20,0" Text="Delate Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
                 <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            
-            <x:Name="clview" 
+
+            <CollectionView x:Name="clview" 
                             ItemsSource="{Binding ListPlace}" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedPlace}"
@@ -81,7 +81,7 @@
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </x:Name>
+            </CollectionView>
             
             
         </StackLayout>
