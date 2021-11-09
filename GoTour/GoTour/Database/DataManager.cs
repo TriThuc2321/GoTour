@@ -55,6 +55,7 @@ namespace GoTour.Database
         public Tour currentTour = new Tour();
         private DataManager()
         {
+            SearchServices = new SearchAndFilterServices();
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
             ListPlace = new ObservableCollection<Place>();
@@ -122,6 +123,15 @@ namespace GoTour.Database
             set { stayPlacesServices = value; }
         }
 
+        private SearchAndFilterServices searchServices;
+        public SearchAndFilterServices SearchServices
+        {
+            get
+            {
+                return searchServices;
+            }
+            set { searchServices = value; }
+        }
         private PlacesServices placesServices;
         public PlacesServices PlacesServices
         {
