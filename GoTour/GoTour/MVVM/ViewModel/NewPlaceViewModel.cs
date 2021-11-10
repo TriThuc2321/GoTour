@@ -41,6 +41,8 @@ namespace GoTour.MVVM.ViewModel
 
         }
 
+
+
         private async void saveHandleAsync(object obj)
         {
             if(Name == null || Name == "" )

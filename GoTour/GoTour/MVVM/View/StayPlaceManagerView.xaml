@@ -21,7 +21,7 @@
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
                 <Label Margin="20,0,0,0" Text="StayPlace List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,-20,0" Text="Delate StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+                <Button Margin="0,0,-20,0" Text="Delete StayPlace" BackgroundColor="SteelBlue" Command="{Binding DeleteCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
                 <Button Margin="0,0,20,0" Text="New StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
@@ -40,7 +40,8 @@
                                     <SwipeItem Text="Delete"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand}"
+                                        
+                                        Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand1}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>

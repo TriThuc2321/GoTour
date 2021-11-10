@@ -44,7 +44,7 @@
                                     <SwipeItem Text="Delete"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand}"
+                                        Command="{Binding Source={x:Reference clview}, Path = DataContext.DeleteCommand}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>

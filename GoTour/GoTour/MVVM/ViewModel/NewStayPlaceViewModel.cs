@@ -93,7 +93,7 @@ namespace GoTour.MVVM.ViewModel
             }
 
         }
-
+      
         private async void addHandleAsync(object obj)
         {
             await CrossMedia.Current.Initialize();
