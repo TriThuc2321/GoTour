@@ -23,14 +23,14 @@ namespace GoTour.Database
               .OnceAsync<StayPlace>()).Select(item => new StayPlace
               {
                   id = item.Object.id,
-                  name = item.Object.name,
-                  address = item.Object.address,
-                  placeId = item.Object.placeId,
+                  name = item.Object.name,                
                   imgSource = item.Object.imgSource,
-                  description = item.Object.description,
+                  address = item.Object.address,
+                  description = item.Object.description,                 
+                  placeId = item.Object.placeId,
               }).ToList();
         }
-        public async Task AddPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
+        public async Task AddStayPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
         {
             await firebase
               .Child("StayPlaces")

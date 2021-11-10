@@ -169,6 +169,25 @@ namespace GoTour.Database
             }
             return randomString;
         }
+        public string GenerateStayPlaceId(int length = 3)
+        {
+            const string chars = "0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < ListPlace.Count())
+            {
+                if (ListPlace[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return "SP" + randomString;
+        }
         public List<ImagePlaceStream> GetImageStreamPlaces()
         {
             List<ImagePlaceStream> temp = new List<ImagePlaceStream>();

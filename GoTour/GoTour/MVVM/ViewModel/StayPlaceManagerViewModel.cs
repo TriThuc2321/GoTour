@@ -1,10 +1,12 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -22,6 +24,11 @@ namespace GoTour.MVVM.ViewModel
             ListStayPlace = DataManager.Ins.ListStayPlace;
         }
 
+        public ICommand NewStayPlaceCommand => new Command<object>((obj) =>
+        {
+            navigation.PushAsync(new NewStayPlaceView());
+
+        });
         private StayPlace selectedStayPlace;
         public StayPlace SelectedStayPlace
         {

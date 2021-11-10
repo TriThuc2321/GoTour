@@ -69,6 +69,15 @@ namespace GoTour.Database
             var imgurl = stroageImage;
             return imgurl;
         }
+        async public Task<string> saveImage_StayPlace(Stream imgStream, string placeId, int id)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("StayPlace").Child(placeId)
+                .Child(id + ".png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
+        }
         public async Task DeleteFile(string folderPlaceId, int id)
         {
             await new FirebaseStorage("gotour-98c79.appspot.com")

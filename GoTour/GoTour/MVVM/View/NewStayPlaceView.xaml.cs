@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoTour.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace GoTour.MVVM.View
         public NewStayPlaceView()
         {
             InitializeComponent();
+            this.BindingContext = new NewStayPlaceViewModel(Navigation, Shell.Current);
         }
+    
     }
 }

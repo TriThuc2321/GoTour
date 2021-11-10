@@ -20,9 +20,9 @@
 
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
-                <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,-20,0" Text="Delate Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
-                <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+                <Label Margin="20,0,0,0" Text="StayPlace List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Button Margin="0,0,-20,0" Text="Delate StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+                <Button Margin="0,0,20,0" Text="New StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
             <CollectionView x:Name="clview" 

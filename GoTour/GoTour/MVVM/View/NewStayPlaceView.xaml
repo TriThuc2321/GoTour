@@ -50,11 +50,17 @@
                 <Button Text="Save" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" Command="{Binding SaveCommand}" />
             </StackLayout>
 
-            <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
+            <StackLayout Margin="20,10,20,0" Orientation="Horizontal">
                 <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" Placeholder="Name" PlaceholderColor="Gray"/>
             </StackLayout>
 
-            <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
+            <Editor Margin="20,5,20,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
+            <Editor Margin="20,5,20,0" Text="{Binding Address}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Address..." PlaceholderColor="Gray"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Choose Place:" FontAttributes="Bold"  Margin="20,0,10,0" FontSize="Medium" ></Label>
+                <Picker  Margin="0,0,20,0" ItemsSource="{Binding PlaceList}" SelectedItem="{Binding SelectedPlace}" HorizontalOptions="FillAndExpand" ItemDisplayBinding="{Binding name}"></Picker>
+            </StackLayout>
+          
         </StackLayout>
     </Grid>
 </ContentPage>
