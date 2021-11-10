@@ -1,4 +1,5 @@
 ﻿using GoTour.Core;
+using GoTour.Database;
 using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,7 @@ namespace GoTour.MVVM.ViewModel
             Confirm = new Command(confirm);
 
 
-            Money = "1000000";
-            Regulation = "Quy định.....................................\n.......................\n..................";
-            ImageLink = "https://static.mservice.io/img/momo-upload-api-210622095003-637599522030862054.jpg";
-            ImageVisible = true;
-            ConfirmText = "DONE";
+            SetInformation();
         }
 
         void uploadPhoto(object obj)
@@ -103,5 +100,15 @@ namespace GoTour.MVVM.ViewModel
         }
 
         #endregion
+
+        void SetInformation()
+        {
+            Money = DataManager.Ins.CurrentBookedTicket.invoice.total;
+            Regulation = "This is our regulation: ";
+            ConfirmText = "Paying later";
+
+            ImageLink = "";
+            ImageVisible = false;
+        }
     }
 }

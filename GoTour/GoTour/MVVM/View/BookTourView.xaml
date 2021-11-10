@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel">
 
     <ContentPage.BindingContext>
-        <vm:BookedToursViewModel/>
+        <vm:BookTourViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
@@ -121,7 +121,7 @@
                                                 FontAttributes="Bold"
                                                 TextColor="#f4707c"
                                                 Margin="0, 0, 5, 0"
-                                                
+                                                Date="{Binding Birthday}"
                                     />
 
 
@@ -244,7 +244,7 @@
                                 <Entry                    
                                 Placeholder="Address"
                                 PlaceholderColor="#C0C0C0"
-                                Keyboard="Numeric"
+                                Keyboard="Text"
                                 FontSize="15"
                                 Margin="15,0,0,0"
                                 TextColor="Black"
@@ -428,14 +428,14 @@
                                         <Label Grid.Column="0"
                                            Text="Tour Price:"
                                            TextColor="Black"
-                                           FontSize="18"
+                                           FontSize="16"
                                            FontAttributes="Bold"
                                            Padding="5"/>
 
                                         <Label Grid.Column="1"
                                                Text="{Binding TourPrice}"
-                                               TextColor="Black"
-                                               FontSize="18"
+                                               TextColor="DarkBlue"
+                                               FontSize="20"
                                                FontAttributes="Bold"
                                                HorizontalOptions="Center"
                                                Padding="5"/>
@@ -455,14 +455,14 @@
                                         <Label Grid.Column="0"
                                            Text="Provisional:"
                                            TextColor="Black"
-                                           FontSize="18"
+                                           FontSize="16"
                                            FontAttributes="Bold"
                                            Padding="5"/>
 
                                         <Label Grid.Column="1"
                                                Text="{Binding Provisional}"
-                                               TextColor="Black"
-                                               FontSize="18"
+                                               TextColor="DarkBlue"
+                                               FontSize="20"
                                                FontAttributes="Bold"
                                                HorizontalOptions="Center"
                                                Padding="5"/>
@@ -482,13 +482,13 @@
                                         <Label Grid.Column="0"
                                                Text="Discount:"
                                                TextColor="Black"
-                                               FontSize="18"
+                                               FontSize="16"
                                                FontAttributes="Bold"
                                                Padding="5"/>
 
                                         <Label Grid.Column="1"
                                                Text="{Binding DiscountMoney}"
-                                               TextColor="Black"
+                                               TextColor="DarkBlue"
                                                FontSize="18"
                                                FontAttributes="Bold"
                                                HorizontalOptions="Center"
@@ -509,13 +509,13 @@
                                         <Label Grid.Column="0"
                                                Text="Total:"
                                                TextColor="Black"
-                                               FontSize="18"
+                                               FontSize="16"
                                                FontAttributes="Bold"
                                                Padding="5"/>
 
                                         <Label Grid.Column="1"
                                                Text="{Binding Total}"
-                                               TextColor="Black"
+                                               TextColor="DarkBlue"
                                                FontSize="18"
                                                FontAttributes="Bold"
                                                HorizontalOptions="Center"

@@ -2,6 +2,7 @@
 using GoTour.Database;
 using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
+using System;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -15,6 +16,9 @@ namespace GoTour.MVVM.ViewModel
         public PayingMethodViewModel(INavigation navigation)
         {
             this.navigation = navigation;
+
+            SetInformation();
+
             SelectedTour = DataManager.Ins.currentTour;
             NavigationBack = new Command(() => navigation.PopAsync());
             Confirm = new Command(confirmPress);
@@ -29,9 +33,16 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Please choose a paying method");
 
             if (IsCheckRegulation && MoMo)
+            {
+                DataManager.Ins.CurrentBookedTicket.invoice.method = "MoMo";
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
                 navigation.PushAsync(new MoMoConfirmView());
+            }
             else if (IsCheckRegulation && Cash)
             {
+                DataManager.Ins.CurrentBookedTicket.invoice.method = "Cash";
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
                 navigation.PushAsync(new BookedTicketDetailView());
             }
@@ -62,6 +73,17 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region regulation
+        private string _regulation;
+        public string Regulation
+        {
+            get { return _regulation; }
+            set
+            {
+                _regulation = value;
+                OnPropertyChanged("Regulation");
+            }
+        }
+
         private bool _isCheckRegulation;
         public bool IsCheckRegulation
         {
@@ -97,5 +119,28 @@ namespace GoTour.MVVM.ViewModel
             }
         }
         #endregion
+
+        #region TotalPrice 
+        private string _total;
+        public string Total
+        {
+            get { return _total; }
+            set
+            {
+                _total = value;
+                OnPropertyChanged("Total");
+            }
+        }
+        #endregion
+
+ 
+
+        void SetInformation()
+        {
+            Total = DataManager.Ins.CurrentBookedTicket
+                .invoice.total;
+
+            Regulation = "This is our regulation:";
+        }    
     }
 }

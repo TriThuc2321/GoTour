@@ -35,7 +35,8 @@
                    FontAttributes="Bold"
                    FontSize="25"/>
             
-            <ScrollView Grid.Row="1">
+            <ScrollView Grid.Row="1"
+                        BackgroundColor="AliceBlue">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
