@@ -12,6 +12,7 @@ namespace GoTour.MVVM.ViewModel
         public Shell currentShell;
 
         public Command PlaceCommand { get; }
+        public Command StayPlaceCommand { get; }
         public Command MenuCommand { get; }
 
         public ManagerViewModel() { }
@@ -21,7 +22,13 @@ namespace GoTour.MVVM.ViewModel
             this.currentShell = curentShell;
 
             PlaceCommand = new Command(placeHandle);
+            StayPlaceCommand = new Command(stayPlaceHandle);
             MenuCommand = new Command(openMenu);
+        }
+
+        private void stayPlaceHandle(object obj)
+        {
+            navigation.PushAsync(new StayPlaceManagerView());
         }
 
         private void openMenu(object obj)
