@@ -35,23 +35,31 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <pancake:PancakeView CornerRadius="0,0,30,30">
-                            <Image Source="{Binding}" Aspect="AspectFill" />
-                        </pancake:PancakeView>
+                        <Grid>
+                            <pancake:PancakeView CornerRadius="0,0,30,30">
+                                <Image Source="{Binding}" Aspect="AspectFill" />
+                            </pancake:PancakeView>
+                            
+                        </Grid>
+                        
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <StackLayout Grid.Row="1">
-            <StackLayout Margin="20,30,0,0" Orientation="Horizontal">
-                <ImageButton Source="editIcon.png" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
-                <Label Margin="0" Text="{Binding SelectedPlace.name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
-                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding SelectedPlace.name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
-                
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding DeleteCommand}"/>
+                <Button Text="Image +" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
             </StackLayout>
-           
-            <Label Margin="20,5,0,0" Text="{Binding SelectedPlace.description}" TextColor="Gray"/>
+            
+            <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
+                <ImageButton Source="{Binding SourceIcon}" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
+                <Label Margin="0" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
+                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
+            </StackLayout>
+            <Label Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" IsVisible="{Binding IsText}"/>
+            <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" IsVisible="{Binding IsEdit}"/>
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public FavoriteView()
         {
             InitializeComponent();
-            this.BindingContext = new FavoriteViewModel(Navigation);
+            this.BindingContext = new FavoriteViewModel(Navigation, this);
         }
     }
 }

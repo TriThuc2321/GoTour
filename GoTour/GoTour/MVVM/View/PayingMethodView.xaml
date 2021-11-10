@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.PayingMethodView"
+             xmlns:vm ="clr-namespace:GoTour.MVVM.ViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:PayingMethodViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions >
+
+
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="2">
+                <Image Source="{Binding SelectedTour.imgSource[0]}"
+                       HeightRequest="1000"
+                       Aspect="AspectFill"
+                       />
+            </Grid>
+
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
+            <ScrollView Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+
+                    <Frame Grid.Row="0"
+                          BackgroundColor="WhiteSmoke"
+                          Opacity="0.9"
+                          CornerRadius="15"
+                          Margin="15, 75, 15, 20"
+                          BorderColor="WhiteSmoke"
+                          >
+
+                    </Frame>
+
+                    <StackLayout Orientation="Vertical"
+                                 Grid.Row="0"
+                                 Margin="10, 0, 10,0"
+                         >
+
+                        <Label Text="PAYING METHOD"
+                               FontSize="25"
+                                HorizontalOptions="Center"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               Margin="0, 100, 0, 0"/>
+
+                        <!--Số tiền-->
+                        <Label Text="5000000"
+                               FontSize="35"
+                                HorizontalOptions="Center"
+                               TextColor="ForestGreen"
+                               FontAttributes="Bold"
+                               Margin="0, 50, 0, 0"/>
+
+                        <StackLayout HorizontalOptions="Center"
+                                     Orientation="Horizontal"
+                                     Margin="50">
+                            <RadioButton Content="MoMo Wallet" 
+                                         IsChecked="{Binding MoMo}"
+                                         TextColor="Blue"
+                                         FontSize="Large"
+                                         FontAttributes="Bold"/>
+
+                            <RadioButton Content="Cash"
+                                         IsChecked="{Binding Cash}"
+                                         TextColor="Blue"
+                                         FontSize="Large"
+                                         FontAttributes="Bold"/>
+                        </StackLayout>
+                        
+                        <!--Thông tin-->
+                        <Label
+                            Margin="0, 10, 0,0"
+                            Text="0383303061 - NGUYEN KHANH LINH"
+                            FontSize="Medium"
+                            TextColor="DarkRed"
+                            HorizontalOptions="Center"
+                            />
+                        
+                        <!--Quy định-->
+                        <Frame Opacity="0.4"
+                               Margin="15"
+                               CornerRadius="20">
+                            <Label
+                            Margin="10"
+                            Text="Quy định blabla bla"
+                            FontSize="17"
+                            FontAttributes="Italic"
+                            TextColor="Black"
+                            Padding="10"
+                            />
+                        </Frame>
+                        
+
+                        <StackLayout VerticalOptions="End" Orientation="Horizontal" Margin="25,-5,0,0" >
+                            <CheckBox VerticalOptions="Center"  
+                                      Color="Black" 
+                                      IsChecked="{Binding IsCheckRegulation}"/>
+                            <Label Text="I've read this payment regulation" 
+                                   VerticalOptions="Center" 
+                                   Margin="-5,0,0,0" 
+                                   TextColor="Black"/>
+                        </StackLayout>
+
+                        <Button Command="{Binding Confirm}"
+                                    Grid.Row="5"
+                                    CornerRadius="20" 
+                                    Margin="25,20,25,50"
+                                    Padding="5"  
+                                    BackgroundColor="#f4707c" 
+                                    TextColor="White"
+                                    VerticalOptions="Center"
+                                    HeightRequest="50"
+                                    Text="confirm "
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                        />
+
+                    </StackLayout>
+
+
+
+                </Grid>
+
+            </ScrollView>
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

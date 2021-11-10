@@ -143,9 +143,38 @@
     <AndroidResource Include="Resources\drawable\defaultUser.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\love_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\love_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\passengerIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\locationIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\clockIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\calendarIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\moneyIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\orderedTourIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\occuringTourIcon.png" />
     <AndroidResource Include="Resources\drawable\homeOutlineIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\shoppingcartIcon.png" />
     <AndroidResource Include="Resources\drawable\heartOutlineIcon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +184,7 @@
     <AndroidResource Include="Resources\drawable\userOutlineIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\trashIcon.png" />
     <AndroidResource Include="Resources\drawable\manager.png" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +197,13 @@
     <AndroidResource Include="Resources\drawable\editIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\invoiceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tickIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\deleteIcon.png" />
     <AndroidResource Include="Resources\drawable\background_tourview.jpg" />
   </ItemGroup>
   <ItemGroup>

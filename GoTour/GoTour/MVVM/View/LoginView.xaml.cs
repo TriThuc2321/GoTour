@@ -17,7 +17,6 @@ namespace GoTour.MVVM.View
         public LoginView()
         {
             InitializeComponent();
-            DataManager.Ins.LoadData = true;
             this.BindingContext = new LoginViewModel(Navigation, Shell.Current);
         }               
     }
