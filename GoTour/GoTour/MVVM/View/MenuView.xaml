@@ -11,16 +11,11 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Image Source="https://firebasestorage.googleapis.com/v0/b/gotour-98c79.appspot.com/o/ProfilePic%2F286181073.jpg"/>
-            <Button Grid.Row="1" Text="Choose Image!" Command="{Binding AddImageCommand}" />
-            <Button Grid.Row="2" Text="Choose  cc ba m !" Command="{Binding PushDatacommand}" />
+        <StackLayout>
+            <Button Text="Place" Command="{Binding PlaceCommand}" />
+            <Button Text="Stay place" Command="{Binding StayPlaceCommand}" />
+            <Button Text="Tour" Command="{Binding TourCommand}" />
 
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
