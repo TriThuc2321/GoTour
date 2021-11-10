@@ -16,18 +16,18 @@ namespace GoTour.Database
 {
     public class UsersServices
     {
-        FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
+         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseStorage storage = new FirebaseStorage("gotour-98c79.appspot.com");
         List<User> listUser = new List<User>();
         public UsersServices()
         {
         }
-        async public Task<string> saveImage(Stream imgStream)
+        async public Task<string> saveImage(Stream imgStream, string emailUser, string userName)
         {
-            string a = "clmm";
+           // string a = "clmm";
             var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
-                .Child("ProfilePic").Child(a)
-                .Child("test.png")
+                .Child("ProfilePic").Child(emailUser)
+                .Child(userName + ".png")
                 .PutAsync(imgStream);
             var imgurl = stroageImage;
             return imgurl;
@@ -149,6 +149,14 @@ namespace GoTour.Database
                   @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
             Regex re = new Regex(strRegex);
             return re.IsMatch(inputEmail);
+        }
+        public static string GenerateRandomString(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+            return randomString;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         Shell currentShell;
+        public Command DeleteCommand;
         public PlaceManagerViewModel() { }
         public PlaceManagerViewModel(INavigation navigation, Shell currentShell)
         {
@@ -22,6 +23,13 @@ namespace GoTour.MVVM.ViewModel
             this.currentShell = currentShell;
 
             ListPlace = DataManager.Ins.ListPlace;
+            DeleteCommand = new Command<object>(deleteHandle);
+        }
+
+        private void deleteHandle(object obj)
+        {
+            var place = obj as Place;
+            ListPlace.Remove(place);
         }
 
         public ICommand SelectedCommand => new Command<object>((obj) =>
@@ -33,6 +41,12 @@ namespace GoTour.MVVM.ViewModel
                 navigation.PushAsync(new EditPlaceView());
             }      
             SelectedPlace = null;
+        });
+
+        public ICommand NewPlaceCommand => new Command<object>((obj) =>
+        {
+            navigation.PushAsync(new NewPlaceView());
+
         });
         private Place selectedPlace;
         public Place SelectedPlace

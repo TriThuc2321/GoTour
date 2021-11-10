@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.BookTourView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:BookedToursViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions >
+
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="2">
+                <Image Source="{Binding SelectedTour.imgSource[0]}"
+                       HeightRequest="1000"
+                       Aspect="AspectFill"
+                       />
+            </Grid>
+
+            <Grid Grid.Row="0"
+                  BackgroundColor="Transparent">
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
+            </Grid>
+            
+
+            <ScrollView Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Frame Grid.Row="0"
+                          BackgroundColor="WhiteSmoke"
+                          Opacity="0.55"
+                          CornerRadius="15"
+                          Margin="15, 95, 15, 20"
+                          BorderColor="WhiteSmoke"
+                           
+                          >
+
+                    </Frame>
+
+                    <StackLayout Orientation="Vertical"
+                                 Grid.Row="0"
+                                 Margin="10, 0, 10,0"
+                         >
+
+                        <Label Text="BOOKING TOUR"
+                               FontSize="35"
+                              HorizontalOptions="Center"
+                               TextColor="Black"
+                           FontAttributes="Bold"
+                           Margin="0, 100, 0, 0"/>  
+
+                        <Label
+                                Text="{Binding SelectedTour.name}"
+                                FontSize="20"
+                                TextColor="DarkBlue"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                    />
+
+                        <StackLayout Orientation="Vertical">
+                            <!--Họ tên-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Entry                    
+                                Placeholder="Name"
+                                PlaceholderColor="#C0C0C0"
+                                FontSize="15"
+                                Margin="15,0,0,0"
+                                TextColor="Black"
+                                Text="{Binding Name}"
+                            />
+                            </Frame>
+
+                            <!--Ngày sinh-->
+
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Grid Margin="20, 5, 20, 5" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Margin="0,0,0,0"
+                               Text="Birthday: "
+                               Grid.Column="0"
+                               TextColor="LightSlateGray"
+                               VerticalOptions="Center"
+                               FontSize="15"/>
+
+                                    <DatePicker Grid.Column="1"
+                                                BackgroundColor="Transparent"
+                                                FontAttributes="Bold"
+                                                TextColor="#f4707c"
+                                                Margin="0, 0, 5, 0"
+                                                
+                                    />
+
+
+                                </Grid>
+                            </Frame>
+
+                            <!--Contact-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Entry Grid.Row="0"               
+                                        Placeholder="Contact"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Telephone"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                         Grid.ColumnSpan="2"
+                                        Text="{Binding Contact}"
+                                       />
+                                    <Label Text="{Binding ContactNotice}"
+                                               TextColor="{Binding ContactNoticeColor}"
+                                               IsVisible="{Binding ContactNoticeVisible}"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                               
+                            </Frame>
+
+                            <!--Email-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Entry Grid.Row="0"               
+                                        Placeholder="Email"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Email"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                        IsEnabled="False"
+                                        Text="{Binding Email}"
+                                           Grid.ColumnSpan="2"
+                                        />
+                                    <Label Text="{Binding EmailNotice}"
+                                               TextColor="{Binding EmailNoticeColor}"
+                                               IsVisible="{Binding EmailNoticeVisible}"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                                
+                            </Frame>
+
+                            <!--CMND-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Entry                    
+                                        Placeholder="Identity card number"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Numeric"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                                Grid.ColumnSpan="2"
+                                        Text="{Binding Cmnd}"
+                            />
+                                    <Label Text="{Binding CmndNotice}"
+                                               TextColor="{Binding CmndNoticeColor}"
+                                               IsVisible="{Binding CmndNoticeVisible}"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                </Grid>
+                               
+                            </Frame>
+
+                            <!--Address-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Entry                    
+                                Placeholder="Address"
+                                PlaceholderColor="#C0C0C0"
+                                Keyboard="Numeric"
+                                FontSize="15"
+                                Margin="15,0,0,0"
+                                TextColor="Black"
+                                Text="{Binding Address}"
+                            />
+                            </Frame>
+
+                            <!--Discount-->
+                            <Grid Margin="20, 5, 20, 5" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Grid.Column="0"
+                                       CornerRadius="20"
+                                       Padding="5" 
+                                       HasShadow="False"
+                                       BackgroundColor="White" 
+                                       VerticalOptions="Center" >
+                                    <!--<Entry           
+                                        Placeholder="Discount ID"
+                                        PlaceholderColor="#C0C0C0"
+                                        Keyboard="Numeric"
+                                        Grid.Row="0"
+                                        FontSize="15"
+                                        Margin="15,0,0,0"
+                                        TextColor="Black"
+                                        Text=""/>-->
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Entry           
+                                            Placeholder="Discount ID"
+                                            PlaceholderColor="#C0C0C0"
+                                            Keyboard="Numeric"
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="2"
+                                            FontSize="15"
+                                            Margin="15,0,0,0"
+                                            TextColor="Black"
+                                            Text="{Binding DiscountId}"
+                                        />
+                                        <Label Text="{Binding DiscountNotice}"
+                                               TextColor="{Binding DiscountNoticeColor}"
+                                               IsVisible="{Binding DiscountNoticeVisible}"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="2"
+                                               Margin="20,0,0,0"
+                                               HorizontalOptions="Start"/>
+                                    </Grid>
+                                </Frame>
+
+                                <Button Text="Check"
+                                        Command="{Binding CheckDiscountCommand}"
+                                    Grid.Column="1"
+                                    CornerRadius="20" 
+                                    Padding="5"  
+                                    TextColor="White"
+                                    BackgroundColor="#f4707c" 
+                                    VerticalOptions="Center"
+                                    FontAttributes="Bold"
+                                    FontSize="15"/>
+
+                            </Grid>
+
+                            <!--Số lượng-->
+                            <Frame Grid.Row="2"
+                           CornerRadius="20"
+                           Margin="20, 5, 20, 5" 
+                           Padding="5" 
+                           HasShadow="False"
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" >
+                                <Grid Margin="20, 5, 20, 5" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Margin="0,0,0,0"
+                                           Text="Amount: "
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           TextColor="Black"
+                                           VerticalOptions="Center"
+                                           FontSize="15"/>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Grid.Column="1"
+                                                 Grid.Row="0"
+                                                 HorizontalOptions="End">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button Text="-"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30"
+                                                    Grid.Column="0"
+                                                    CornerRadius="20" 
+                                                    Padding="5"  
+                                                    TextColor="White"
+                                                    BackgroundColor="#f4707c" 
+                                                    VerticalOptions="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Command="{Binding DescreaseAmountCommand}"/>
+
+                                            <Entry  
+                                                    PlaceholderColor="#C0C0C0"
+                                                    Keyboard="Numeric"
+                                                    FontSize="15"
+                                                    TextColor="Black"
+                                                    Text="{Binding Amount}"
+                                                    HorizontalTextAlignment="Center"
+                                                    Grid.Column="1"
+                                                />
+
+                                            <Button Text="+"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30"
+                                                    Grid.Column="2"
+                                                    CornerRadius="20" 
+                                                    Padding="5"  
+                                                    TextColor="White"
+                                                    BackgroundColor="#f4707c" 
+                                                    VerticalOptions="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    Command="{Binding IncreaseAmountCommand}"/>
+
+                                        </Grid>
+
+                                    </StackLayout>
+
+                                    <Label Text="{Binding AmountNotice}"
+                                           Grid.Column="0"
+                                           TextColor="{Binding AmountNoticeColor}"
+                                           IsVisible="{Binding AmountNoticeVisible}"
+                                           Grid.Row="1"
+                                           Grid.ColumnSpan="2"
+                                           HorizontalOptions="End"/>
+
+
+                                </Grid>
+                            </Frame>
+
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Vertical" Margin="0, 50,0,0">
+                            <Grid RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+
+                                </Grid.RowDefinitions>
+
+                                <Frame Grid.Row="0"
+                                       Margin="20, 0, 20, 5" 
+                                       Padding="5" >
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                           Text="Tour Price:"
+                                           TextColor="Black"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           Padding="5"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding TourPrice}"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               Padding="5"/>
+
+                                    </Grid>
+                                </Frame>
+
+                                <Frame Grid.Row="1"
+                                       Margin="20, 0, 20, 5" 
+                                       Padding="5" >
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                           Text="Provisional:"
+                                           TextColor="Black"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           Padding="5"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Provisional}"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               Padding="5"/>
+
+                                    </Grid>
+                                </Frame>
+
+                                <Frame Grid.Row="2"
+                                       Margin="20, 0, 20, 5" 
+                                       Padding="5" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                               Text="Discount:"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Padding="5"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding DiscountMoney}"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               Padding="5"/>
+
+                                    </Grid>
+                                </Frame>
+
+                                <Frame Grid.Row="3"
+                               Margin="20, 0, 20, 5" 
+                               Padding="5" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                               Text="Total:"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Padding="5"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Total}"
+                                               TextColor="Black"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               Padding="5"/>
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+
+                            <Button 
+                                    Grid.Row="5"
+                                    CornerRadius="20" 
+                                    Margin="25,20,25,50"
+                                    Padding="5"  
+                                    BackgroundColor="#f4707c" 
+                                    TextColor="White"
+                                    VerticalOptions="Center"
+                                    HeightRequest="50"
+                                    Text="confirm booking"
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    Command="{Binding PayingMethodCommand}"
+                        />
+
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                    
+
+                </Grid>
+
+            </ScrollView>
+
+            
+        </Grid>
+        
+  </ContentPage.Content>
+</ContentPage>

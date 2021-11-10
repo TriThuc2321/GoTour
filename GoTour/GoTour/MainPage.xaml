@@ -9,6 +9,7 @@
        FlyoutIsPresented="False"
        xmlns:sys="clr-namespace:System;assembly=mscorlib"
        xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+       
     >
 
     <Shell.Resources>
@@ -39,6 +40,20 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
                 <Setter Property="Shell.FlyoutBehavior" Value="Flyout"/>
             </Style>
+
+            <Style x:Key="Base2Style" TargetType="Element">
+                <Setter Property="Shell.ForegroundColor" Value="Black"/>
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="Blue" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#A8B1B3" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#0A0E10"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#CFCFCF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
+                <Setter Property="Shell.FlyoutBehavior" Value="Flyout"/>
+            </Style>
+
+
         </ResourceDictionary>
 
         
@@ -63,19 +78,49 @@
     </FlyoutItem>
 
     <FlyoutItem Title="My Tour" Icon="flagOutlineIcon.png">
-        <ShellContent Route="MyTourView" ContentTemplate="{DataTemplate views:MyTourView}" Style="{DynamicResource Base1Style}" />
+        <ShellContent Route="InProgressView" 
+                      ContentTemplate="{DataTemplate views:InProgressView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="occuringTourIcon.png"
+                      Title="In Progress"
+                      />
+
+        <ShellContent Route="BookedToursView" 
+                      ContentTemplate="{DataTemplate views:BookedToursView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="orderedTourIcon.png" 
+                      Title="Booked"/>
     </FlyoutItem>
 
     <FlyoutItem Title="My Favorite" Icon="heartOutlineIcon.png">
         <ShellContent Route="FavoriteView" ContentTemplate="{DataTemplate views:FavoriteView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
+    <!--<FlyoutItem Title="My BookedTours" Icon="shoppingcartIcon.png" >
+        <ShellContent Route="InProgressView" 
+                      ContentTemplate="{DataTemplate views:InProgressView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="occuringTourIcon.png"
+                      Title="In Progress"
+                      />
+
+        <ShellContent Route="BookedToursView" 
+                      ContentTemplate="{DataTemplate views:BookedToursView}" 
+                      Style="{DynamicResource Base1Style}"
+                      Icon="orderedTourIcon.png" 
+                      Title="Booked"/>
+    </FlyoutItem>-->
+
     <FlyoutItem Title="User Information" Icon="userOutlineIcon.png">
         <ShellContent Route="UserInformation" ContentTemplate="{DataTemplate views:UserInformationView}" Style="{DynamicResource Base1Style}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Manager" Icon="manager.png">
-        <ShellContent Route="Manager" ContentTemplate="{DataTemplate views:ManagerView}" Style="{DynamicResource Base1Style}" />
+        <ShellContent Route="Manager" ContentTemplate="{DataTemplate views:ManagerView}" Style="{DynamicResource Base1Style}" IsVisible="{Binding IsManager}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Invoice" Icon="invoiceIcon.png">
+        <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}"/>
     </FlyoutItem>
 
     <Shell.FlyoutHeader >
@@ -104,7 +149,7 @@
                     </Frame>
                 <StackLayout VerticalOptions="Center" Margin="0,25,0,0" HorizontalOptions="StartAndExpand">
                     <Label Text="Hello," TextColor="Black" VerticalOptions="Center" FontSize="15" />
-                    <Label Text="Thuc Tran" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"  Margin="0,-10,0,10"/>
+                    <Label Text="{Binding CurrentName}" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"  Margin="0,-10,0,10"/>
                 </StackLayout>
                 
                 </StackLayout>

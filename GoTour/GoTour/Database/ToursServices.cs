@@ -35,9 +35,10 @@ namespace GoTour.Database
                   placeDurationList = null,
                   basePrice = item.Object.basePrice,
                   SPforPList = item.Object.SPforPList,
-        }).ToList();
+                  remaining = item.Object.remaining
+              }).ToList();
         }
-        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured)
+        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining)
         {
             await firebase
               .Child("Tours")
@@ -53,7 +54,8 @@ namespace GoTour.Database
                   description = _description,
                   isOccured = _isOccured,
                   basePrice = basePrice,
-                  SPforPList = _SPforPList
+                  SPforPList = _SPforPList,
+                  remaining = _remaining
               }) ;
         }
     }

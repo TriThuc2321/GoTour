@@ -18,5 +18,6 @@ namespace GoTour.MVVM.View
             InitializeComponent();
             this.BindingContext = new UserInformationViewModel(Navigation, Shell.Current);
         }
+       
     }
 }
