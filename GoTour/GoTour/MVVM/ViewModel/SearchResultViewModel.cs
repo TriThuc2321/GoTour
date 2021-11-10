@@ -16,6 +16,8 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
 
         public Command NavigationBack { get; }
+        public Command OpenFilterCommand { get; }
+        public Command OpenSortTypeListCommand { get; }
 
         private ObservableCollection<Tour> listTourFromSelectedPlace;
         public ObservableCollection<Tour> ListTourFromSelectedPlace
@@ -53,6 +55,10 @@ namespace GoTour.MVVM.ViewModel
         });
         public SearchResultViewModel(INavigation navigation)
         {
+            OpenFilterCommand = new Command(openFilterPickerView);
+            OpenSortTypeListCommand = new Command(openSortMenu);
+
+
             ListTourFromSelectedPlace = new ObservableCollection<Tour>();
             NavigationBack = new Command(() => navigation.PopAsync());
             this.navigation = navigation;
@@ -60,6 +66,14 @@ namespace GoTour.MVVM.ViewModel
             {
                 ListTourFromSelectedPlace.Add(ite);
             }
+        }
+        private void openFilterPickerView()
+        {
+            DependencyService.Get<IToast>().ShortToast("Here is Open Filter");
+        }
+        private void openSortMenu()
+        {
+            DependencyService.Get<IToast>().ShortToast("Here is Open Sort");
         }
     }
 }

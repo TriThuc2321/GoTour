@@ -27,7 +27,7 @@
                    ></Label>
 
 
-                <ImageButton Command="{Binding NavigationBack}" 
+            <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                  HeightRequest="30" 
                                  WidthRequest="50"
@@ -36,8 +36,28 @@
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0">
-                </ImageButton>
-                <CollectionView x:Name="clview" 
+            </ImageButton>
+
+
+            <ImageButton Command="{Binding OpenSortTypeListCommand }"
+                                 Source="sorticon.png"
+                                 WidthRequest="20"
+                                 HeightRequest="20"
+                                 Aspect="AspectFit"
+                                 CornerRadius="10"
+                                 Margin="30,132,325,-7"
+                                 BackgroundColor="White"
+                                 />
+            <ImageButton Command="{Binding OpenFilterCommand}"
+                                 Source="filtericon.png"
+                                 WidthRequest="20"
+                                 HeightRequest="20"
+                                 Aspect="AspectFit"
+                                 CornerRadius="10"
+                                 Margin="70,132,285,-7"
+                                 BackgroundColor="White"
+                                 />
+            <CollectionView x:Name="clview" 
                             Grid.Row="1"
                             ItemsSource="{Binding ListTourFromSelectedPlace}" 
                             SelectionMode="Single" 
@@ -46,7 +66,7 @@
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                            <Grid Padding="30,25,20,10" VerticalOptions="Start">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup Name="CommonStates">
                                         <VisualState Name="Selected">

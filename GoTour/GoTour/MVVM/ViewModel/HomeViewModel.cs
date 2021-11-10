@@ -50,19 +50,27 @@ namespace GoTour.MVVM.ViewModel
 
         private void searchButtonHandle()
         {
-            DataManager.Ins.SearchServices.RefreshDataSearch();
-            DataManager.Ins.SearchServices.PlaceToSearch = PlaceToSearch;
-            DataManager.Ins.SearchServices.GetResult();
-            if(DataManager.Ins.SearchServices.ResultList.Count > 0)
+            if(string.IsNullOrWhiteSpace(PlaceToSearch))
             {
-                navigation.PushAsync(new SearchResultView());
-                //DependencyService.Get<IToast>().ShortToast(DataManager.Ins.SearchServices.ResultList.Count.ToString());
+                DependencyService.Get<IToast>().ShortToast("Where do you want to find ?");
+                return;
             }
             else
             {
-                DependencyService.Get<IToast>().ShortToast(" Sorry! At present, there is no tour that comes to the place you want.");
+                DataManager.Ins.SearchServices.RefreshDataSearch();
+                DataManager.Ins.SearchServices.PlaceToSearch = PlaceToSearch;
+                DataManager.Ins.SearchServices.GetResult();
+                if (DataManager.Ins.SearchServices.ResultList.Count > 0)
+                {
+                    navigation.PushAsync(new SearchResultView());
+                    //DependencyService.Get<IToast>().ShortToast(DataManager.Ins.SearchServices.ResultList.Count.ToString());
+                }
+                else
+                {
+                    DependencyService.Get<IToast>().ShortToast(" Sorry! At present, there is no tour that comes to the place you want.");
+                    return;
+                }
             }
-            return;
         }
 
         #region open view
