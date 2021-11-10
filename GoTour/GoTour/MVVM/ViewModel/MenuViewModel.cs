@@ -17,42 +17,100 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
 
-        public Command AddImageCommand { get; }
-        public Command PushDatacommand { get; }
+        public Command PlaceCommand { get; }
+        public Command StayPlaceCommand { get; }
+        public Command TourCommand { get; }
         public MenuViewModel() { }
         public MenuViewModel(INavigation navigation)
         {
             this.navigation = navigation;
 
-            AddImageCommand = new Command(_addImg);
-            PushDatacommand = new Command(pushData);
+            PlaceCommand = new Command(placeHandle);
+            StayPlaceCommand = new Command(stayPlaceHandle);
+            TourCommand = new Command(tourHandle);
         }
+
+        private async void stayPlaceHandle(object obj)
+        {
+            temp1.Clear();
+
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+
+            await firebase
+              .Child("StayPlaces")
+              .PostAsync(new StayPlace()
+              {
+                  id = "Thuc",
+                  name = "",
+                  address = "",
+                  placeId = "",
+                  imgSource = temp1,
+                  description = "",
+              });
+        }
+
+        private async void placeHandle(object obj)
+        {
+            temp1.Clear();
+
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+            temp1.Add("11");
+
+            await firebase
+               .Child("Places")
+               .PostAsync(new Place()
+               {
+                   id = "Thuc",
+                   name = "",
+                   imgSource = temp1,
+                   description = "",
+               });
+        }
+
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         List<string> temp1 = new List<string>();
-        
-        public async void pushData(object sender)
+        List<string> temp2 = new List<string>();
+        List<PlaceId_StayPlace> temp3 = new List<PlaceId_StayPlace>();
+
+        public async void tourHandle(object sender)
         {
+            temp1.Clear();
+            temp2.Clear();
+            temp3.Clear();
+
             temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
             temp1.Add("11");
+
+            temp2.Add("11");
+            temp2.Add("11");
+
+            temp3.Add(new PlaceId_StayPlace("DL", "SP001"));
+            temp3.Add(new PlaceId_StayPlace("DL", "SP001"));
+
             await firebase
-             .Child("Tours")
-             .PostAsync(new Class1()
-             {
-            id = "",
-            name = "",
-            imgSource = temp1,
-            startTime = "",
-            duration = "",
-            tourGuide = temp1,
-            passengerNumber = "10",
-            description = "",
-            isOccured = false,
-        });
-
-            /*  navigation.PushAsync(new DetailTourView());*/
-
+              .Child("Tours")
+              .PostAsync(new Tour()
+              {
+                  id = "Thuc",
+                  name = "",
+                  imgSource = temp1,
+                  startTime = "08/11/2021",
+                  duration = "3/4",
+                  tourGuide = temp2,
+                  passengerNumber = "10",
+                  description = "",
+                  isOccured = false,
+                  basePrice = "10000",
+                  SPforPList = temp3,
+                  remaining = "10"
+              });
         }
 
        
