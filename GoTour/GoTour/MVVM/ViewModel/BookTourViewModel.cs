@@ -32,6 +32,8 @@ namespace GoTour.MVVM.ViewModel
 
             CheckDiscountCommand = new Command(checkDiscount);
 
+            DataManager.Ins.CurrentDiscount = null;
+
             SetInformation();
         }
 
@@ -117,7 +119,7 @@ namespace GoTour.MVVM.ViewModel
             }
 
             //Check discount 
-            if (chosenDiscount == null && DiscountId=="")
+            if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
             {
                 DiscountNotice = "Please check your discount";
                 DiscountNoticeColor = Color.Red;
@@ -133,10 +135,23 @@ namespace GoTour.MVVM.ViewModel
         {
             if (checkValidation())
             {
-                BookedTicket ticket = new BookedTicket()
+                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
+
+                DataManager.Ins.CurrentInvoice = new Invoice()
+                {
+                    id = (new Random().Next(9999999).ToString()),
+                    discount = new Discount { id = DiscountId },
+                    discountMoney = DiscountMoney,
+                    isPaid = false,
+                    amount = Amount.ToString(),
+                    total = Total,
+                    price = TourPrice
+                };
+
+                DataManager.Ins.CurrentBookedTicket = new BookedTicket()
                 {
                     id = (new Random().Next(999999)).ToString(),
-                    tour = new Tour() { id = selectedTour.id },
+                    tour = new Tour { id = selectedTour.id},
                     name = Name,
                     birthday = Birthday,
                     contact = Contact,
@@ -146,22 +161,14 @@ namespace GoTour.MVVM.ViewModel
                     isCancel = false,
                     invoice = new Invoice
                     {
-                        id = (new Random().Next(9999999).ToString()),
-                        discount = new Discount { id = DiscountId},
-                        discountMoney = DiscountMoney,
-                        isPaid = false,
-                        amount = Amount.ToString(),
-                        total = Total,
-                        price = TourPrice
+                       id = DataManager.Ins.CurrentInvoice.id
                     }
                 };
 
-                DataManager.Ins.CurrentBookedTicket = ticket;
                 navigation.PushAsync(new PayingMethodView());
             }
         }
 
-        Discount chosenDiscount; 
         void checkDiscount(object obj)
         {
             if (DiscountId == null)
@@ -188,12 +195,14 @@ namespace GoTour.MVVM.ViewModel
                             DiscountNoticeVisible = true;
                             DiscountNoticeColor = Color.ForestGreen;
 
-                            chosenDiscount = discount;
+                            DataManager.Ins.CurrentDiscount = discount;
 
                             Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                            if (chosenDiscount != null)
-                                DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                            if (discount != null)
+                                DiscountMoney = (int.Parse(discount.percent) * int.Parse(Provisional) / 100).ToString();
                             Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+
+
                         }
 
                         return;
@@ -218,8 +227,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount++;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (chosenDiscount != null)
-                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (DataManager.Ins.CurrentDiscount != null)
+                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
             }
             else
@@ -238,8 +247,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount--;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (chosenDiscount != null)
-                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (DataManager.Ins.CurrentDiscount != null)
+                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
             }
         }

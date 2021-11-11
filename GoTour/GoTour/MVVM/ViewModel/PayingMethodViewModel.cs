@@ -10,13 +10,14 @@ namespace GoTour.MVVM.ViewModel
     public class PayingMethodViewModel: ObservableObject
     {
         INavigation navigation;
+       
         public Command NavigationBack { get; }
         public Command Confirm{ get; }
         public PayingMethodViewModel() { }
         public PayingMethodViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-
+           
             SetInformation();
 
             SelectedTour = DataManager.Ins.currentTour;
@@ -24,7 +25,7 @@ namespace GoTour.MVVM.ViewModel
             Confirm = new Command(confirmPress);
         }
 
-        void confirmPress(object obj)
+        async void confirmPress(object obj)
         {
             if (!IsCheckRegulation)
                 DependencyService.Get<IToast>().ShortToast("Please check regulation box");
@@ -40,11 +41,34 @@ namespace GoTour.MVVM.ViewModel
             }
             else if (IsCheckRegulation && Cash)
             {
-                DataManager.Ins.CurrentBookedTicket.invoice.method = "Cash";
+                DataManager.Ins.CurrentInvoice.method = "Cash";
+                DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
 
+                await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+
+                if (DataManager.Ins.CurrentDiscount != null)
+                {
+                    int isUsed = int.Parse(DataManager.Ins.CurrentDiscount.isUsed);
+                    isUsed++;
+                    DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
+
+                    await DataManager.Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+
+                }
+
+                if (DataManager.Ins.currentTour != null)
+                {
+                    int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
+                    remaining = remaining - int.Parse(DataManager.Ins.CurrentInvoice.amount);
+                    DataManager.Ins.currentTour.remaining = remaining.ToString();
+
+                    await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+
+                } 
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
-                navigation.PushAsync(new BookedTicketDetailView());
+              //  navigation.PushAsync(new BookedTicketDetailView());
             }
 
         }

@@ -283,7 +283,7 @@
                                         <Entry           
                                             Placeholder="Discount ID"
                                             PlaceholderColor="#C0C0C0"
-                                            Keyboard="Numeric"
+                                            Keyboard="Text"
                                             Grid.Row="0"
                                             Grid.ColumnSpan="2"
                                             FontSize="15"
