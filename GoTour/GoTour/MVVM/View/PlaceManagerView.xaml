@@ -41,7 +41,7 @@
                             <SwipeView.LeftItems>
                                 <SwipeItems>
                                     
-                                    <SwipeItem Text="Delete"
+                                    <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
                                         Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand}"
@@ -70,9 +70,7 @@
 
                                 <StackLayout Grid.Column="1" Margin="8,0,0,0">
                                     <Label Text="{Binding name}" TextColor="SteelBlue"/>
-                                    <Label Text="{Binding description}" TextColor="Gray"/>
-                                    <ImageButton Source="deleteIcon.png" Aspect="AspectFill" WidthRequest="30" HorizontalOptions="Start" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference clview}}" CommandParameter="{Binding .}"/>
-
+                                    <Label Text="{Binding description}" TextColor="Gray"/>                                   
                                 </StackLayout>
                             </Grid>
                         </SwipeView>

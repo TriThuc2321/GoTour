@@ -10,8 +10,8 @@ namespace GoTour
         public App()
         {
             InitializeComponent();
-            //MainPage = new MainPage();
-            MainPage = new MenuView();
+            MainPage = new MainPage();
+            //MainPage = new MenuView();
             //MainPage = new PayingMethodView();
         }
 
