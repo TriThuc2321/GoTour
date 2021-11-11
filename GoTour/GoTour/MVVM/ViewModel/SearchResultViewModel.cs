@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GoTour.Core;
 using GoTour.Database;
@@ -15,10 +16,13 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
 
+
+        //KHAI BAO COMMAND
         public Command NavigationBack { get; }
-        public Command OpenFilterCommand { get; }
         public Command OpenSortTypeListCommand { get; }
 
+
+        //KHAI BAO LIST REUSLT
         private ObservableCollection<Tour> listTourFromSelectedPlace;
         public ObservableCollection<Tour> ListTourFromSelectedPlace
         {
@@ -30,8 +34,12 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        public SearchResultViewModel() { }
 
+        //CONSTRUCTOR
+        public SearchResultViewModel() { }
+        
+
+        //KHAI BAO SELECTED TOUR
         private Tour selectedTour;
         public Tour SelectedTour
         {
@@ -43,6 +51,10 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
+
+
+
+        //SELECTED ITEM COMMAND
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             Tour result = obj as Tour;
@@ -53,9 +65,11 @@ namespace GoTour.MVVM.ViewModel
                 SelectedTour = null;
             }
         });
+
+
+        //SESARCH RESULT VIEWMODEL
         public SearchResultViewModel(INavigation navigation)
         {
-            OpenFilterCommand = new Command(openFilterPickerView);
             OpenSortTypeListCommand = new Command(openSortMenu);
 
 
@@ -67,13 +81,157 @@ namespace GoTour.MVVM.ViewModel
                 ListTourFromSelectedPlace.Add(ite);
             }
         }
-        private void openFilterPickerView()
+
+
+
+                 //SORT BACKEND
+        async void openSortMenu()
         {
-            DependencyService.Get<IToast>().ShortToast("Here is Open Filter");
+            //DependencyService.Get<IToast>().ShortToast("Here is Open Sort");
+            string action = await Application.Current.MainPage.DisplayActionSheet("Sort wwith: ", "Cancel", null, "Increasing price", "Decreasing price", "Appreciated", "Underestimated","Soon", "Late");
+            switch (action)
+            {
+                case "Increasing price":
+                    IncreasingPriceSort();
+                    break;
+                case "Decreasing price":
+                    DecreasingPriceSort();
+                    break;
+                case "Appreciated":
+                    GraduallyAppreciatedSort();
+                    break;
+                case "Underestimated":
+                    GraduallyUnderestimatedSort();
+                    break;
+                case "Soon":
+                    OccurSoonSort();
+                    break;
+                case "Late":
+                    OccurLateSort();
+                    break;
+            }
         }
-        private void openSortMenu()
+        private void IncreasingPriceSort()
         {
-            DependencyService.Get<IToast>().ShortToast("Here is Open Sort");
+            if(ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }
+            else
+            {
+                for(int i = 0; i < ListTourFromSelectedPlace.Count; i++)
+                {
+                    for(int j = i + 1; j < ListTourFromSelectedPlace.Count; j++)
+                    {
+                        if (Int32.Parse(ListTourFromSelectedPlace[j].basePrice) < Int32.Parse(ListTourFromSelectedPlace[i].basePrice))
+                        {
+                            Tour temp = new Tour();
+                            temp = ListTourFromSelectedPlace[i];
+                            ListTourFromSelectedPlace[i] = ListTourFromSelectedPlace[j];
+                            ListTourFromSelectedPlace[j] = temp;
+                        }
+                    }    
+                }
+                return;
+            }
+            
+        }
+        private void DecreasingPriceSort()
+        {
+            if (ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < ListTourFromSelectedPlace.Count; i++)
+                {
+                    for (int j = i + 1; j < ListTourFromSelectedPlace.Count; j++)
+                    {
+                        if (Int32.Parse(ListTourFromSelectedPlace[j].basePrice) > Int32.Parse(ListTourFromSelectedPlace[i].basePrice))
+                        {
+                            Tour temp = new Tour();
+                            temp = ListTourFromSelectedPlace[i];
+                            ListTourFromSelectedPlace[i] = ListTourFromSelectedPlace[j];
+                            ListTourFromSelectedPlace[j] = temp;
+                        }
+                    }
+                }
+                return;
+            }
+        }
+        private void GraduallyAppreciatedSort()
+        {
+            if(ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }
+            else
+            {
+
+            }
+        }
+        private void GraduallyUnderestimatedSort()
+        {
+            if (ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }
+            else
+            {
+
+            }
+        }
+        private void OccurSoonSort()
+        {
+            DateTime now = DateTime.Now;
+            if(ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }else
+            {
+                for(int i = 0; i < ListTourFromSelectedPlace.Count; i++)
+                {
+                    for(int j = i + 1; j < ListTourFromSelectedPlace.Count; j++)
+                    {
+                        DateTime dti = DateTime.Parse(ListTourFromSelectedPlace[i].startTime);
+                        DateTime dtj = DateTime.Parse(ListTourFromSelectedPlace[j].startTime);
+                        if (dtj < dti)
+                        {
+                            Tour temp = new Tour();
+                            temp = ListTourFromSelectedPlace[i];
+                            ListTourFromSelectedPlace[i] = ListTourFromSelectedPlace[j];
+                            ListTourFromSelectedPlace[j] = temp;
+                        }
+                    }
+                }
+            }
+        }
+        private void OccurLateSort()
+        {
+            DateTime now = DateTime.Now;
+            if (ListTourFromSelectedPlace.Count == 1)
+            {
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < ListTourFromSelectedPlace.Count; i++)
+                {
+                    for (int j = i + 1; j < ListTourFromSelectedPlace.Count; j++)
+                    {
+                        DateTime dti = DateTime.Parse(ListTourFromSelectedPlace[i].startTime);
+                        DateTime dtj = DateTime.Parse(ListTourFromSelectedPlace[j].startTime);
+                        if (dtj > dti)
+                        {
+                            Tour temp = new Tour();
+                            temp = ListTourFromSelectedPlace[i];
+                            ListTourFromSelectedPlace[i] = ListTourFromSelectedPlace[j];
+                            ListTourFromSelectedPlace[j] = temp;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -18,5 +18,6 @@ namespace GoTour.MVVM.View
             this.BindingContext = new SearchResultViewModel(Navigation);
 
         }
+
     }
 }

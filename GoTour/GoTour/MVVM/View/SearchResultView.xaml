@@ -8,7 +8,7 @@
             <vm:SearchResultViewModel/>
         </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid BackgroundColor="WhiteSmoke">
+        <Grid BackgroundColor="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="4*"></RowDefinition>
@@ -41,24 +41,17 @@
 
             <ImageButton Command="{Binding OpenSortTypeListCommand }"
                                  Source="sorticon.png"
-                                 WidthRequest="20"
-                                 HeightRequest="20"
-                                 Aspect="AspectFit"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Aspect="AspectFill"
                                  CornerRadius="10"
-                                 Margin="30,132,325,-7"
-                                 BackgroundColor="White"
-                                 />
-            <ImageButton Command="{Binding OpenFilterCommand}"
-                                 Source="filtericon.png"
-                                 WidthRequest="20"
-                                 HeightRequest="20"
-                                 Aspect="AspectFit"
-                                 CornerRadius="10"
-                                 Margin="70,132,285,-7"
-                                 BackgroundColor="White"
+                                 Margin="25,163,325,-37"
+                                 BackgroundColor="Transparent"                              
                                  />
             <CollectionView x:Name="clview" 
                             Grid.Row="1"
+                            Margin="0,25,0,0"
+                            BackgroundColor="White"
                             ItemsSource="{Binding ListTourFromSelectedPlace}" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedTour}"
@@ -66,7 +59,7 @@
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="30,25,20,10" VerticalOptions="Start">
+                            <Grid Padding="30,10,20,10" VerticalOptions="Start">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup Name="CommonStates">
                                         <VisualState Name="Selected">
