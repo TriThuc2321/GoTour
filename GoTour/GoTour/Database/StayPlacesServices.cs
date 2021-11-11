@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,29 @@ namespace GoTour.Database
               {
                   id = item.Object.id,
                   name = item.Object.name,
-                  address = item.Object.address,
-                  placeId = item.Object.placeId,
                   imgSource = item.Object.imgSource,
+                  address = item.Object.address,
                   description = item.Object.description,
+                  placeId = item.Object.placeId,
               }).ToList();
         }
-        public async Task AddPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
+
+        public async Task DeleteStayPlace(StayPlace stayplace)
+        {
+            var toDeleted = (await firebase
+               .Child("StayPlaces").OnceAsync<StayPlace>()).FirstOrDefault(p => p.Object.id == stayplace.id);
+
+            await firebase.Child("StayPlaces").Child(toDeleted.Key).DeleteAsync();
+
+            for (int i = 0; i < stayplace.imgSource.Count; i++)
+            {
+                DeleteFile(stayplace.id, i);
+            }
+            
+    
+        } 
+
+        public async Task AddStayPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
         {
             await firebase
               .Child("StayPlaces")
@@ -43,6 +60,13 @@ namespace GoTour.Database
                   imgSource = imgSource,
                   description = description,
               });
+        }
+        public async Task DeleteFile(string folderStayPlaceId, int id)
+        {
+            await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("StayPlace")
+                 .Child(folderStayPlaceId).Child(id + ".png")
+                 .DeleteAsync();
         }
     }
 }
