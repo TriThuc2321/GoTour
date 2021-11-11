@@ -29,6 +29,7 @@ namespace GoTour.Database
         public List<User> usersTemp;
         public List<ImagePlaceStream> imagePlaceStreams;
         public bool LoadData = true;
+        
 
         #region TourView
         
@@ -58,6 +59,12 @@ namespace GoTour.Database
         public Tour currentTour = new Tour();
         private DataManager()
         {
+            //HUYNH
+            SearchServices = new SearchAndFilterServices();
+            NotiServices = new NotificationServices();
+            NotiList = new ObservableCollection<Notification>();
+
+
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
             ListPlace = new ObservableCollection<Place>();
@@ -92,6 +99,12 @@ namespace GoTour.Database
         async Task getAllList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
+
+            //HUYNH
+            foreach(Notification ite in NotiServices.ListAllNoti)
+            {
+                NotiList.Add(ite);
+            }
 
             usersTemp = await UsersServices.GetAllUsers();
             foreach (User u in usersTemp)
@@ -244,6 +257,42 @@ namespace GoTour.Database
                 return stayPlacesServices;
             }
             set { stayPlacesServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO SEARCH SERVICE
+        private SearchAndFilterServices searchServices;
+        public SearchAndFilterServices SearchServices
+        {
+            get
+            {
+                return searchServices;
+            }
+            set { searchServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO NOTIFICATION SERVICE
+        private NotificationServices notiServices;
+        public NotificationServices NotiServices
+        {
+            get
+            {
+                return notiServices;
+            }
+            set { notiServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO LIST NOTI
+        private ObservableCollection<Notification> notiList;
+        public ObservableCollection<Notification> NotiList
+        {
+            get { return notiList; }
+            set
+            {
+                notiList = value;
+            }
         }
 
         private PlacesServices placesServices;

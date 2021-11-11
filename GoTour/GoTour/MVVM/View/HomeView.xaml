@@ -76,11 +76,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Entry                    
-                    Placeholder="Search something..."
+                    Placeholder="Search a place..."
                     PlaceholderColor="#C0C0C0"
                     FontSize="15"
                     Margin="15,0,0,0"
-                    TextColor="Black"                    
+                    TextColor="Black"   
+                    Text="{Binding PlaceToSearch}"
                 />
                 <Frame Grid.Column="1"
                        BackgroundColor="#f4707c"
@@ -93,6 +94,7 @@
                         Margin="10"
                         Source="./SourceImage/searchIcon.png"
                         BackgroundColor="Transparent"
+                        Command="{Binding SearchButtonHandleCommand}"
                         />
                 </Frame>
 

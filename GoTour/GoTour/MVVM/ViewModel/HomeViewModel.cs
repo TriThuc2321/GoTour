@@ -23,6 +23,8 @@ namespace GoTour.MVVM.ViewModel
         public Command FavoriteCommand { get; }
         public Command MyTourCommand { get; }
 
+        public Command SearchButtonHandleCommand { get; }
+
         public HomeViewModel() { }
         public HomeViewModel(INavigation navigation, Shell currentShell)
         {
@@ -33,7 +35,8 @@ namespace GoTour.MVVM.ViewModel
             NotificaitonCommand = new Command(openNotifi);
             ToursCommand = new Command(openTours);
             FavoriteCommand = new Command(openFavorite);
-            MyTourCommand = new Command(openMyTour);        
+            MyTourCommand = new Command(openMyTour);
+            SearchButtonHandleCommand = new Command(searchButtonHandle);
 
             StayPlaces = DataManager.Ins.ListStayPlace;
             int a = 5;
@@ -45,7 +48,31 @@ namespace GoTour.MVVM.ViewModel
 
         }
 
-        
+        private void searchButtonHandle()
+        {
+            if(string.IsNullOrWhiteSpace(PlaceToSearch))
+            {
+                DependencyService.Get<IToast>().ShortToast("Where do you want to find ?");
+                return;
+            }
+            else
+            {
+                DataManager.Ins.SearchServices.RefreshDataSearch();
+                DataManager.Ins.SearchServices.PlaceToSearch = PlaceToSearch;
+                DataManager.Ins.SearchServices.GetResult();
+                if (DataManager.Ins.SearchServices.ResultList.Count > 0)
+                {
+                    navigation.PushAsync(new SearchResultView());
+                    //DependencyService.Get<IToast>().ShortToast(DataManager.Ins.SearchServices.ResultList.Count.ToString());
+                }
+                else
+                {
+                    DependencyService.Get<IToast>().ShortToast(" Sorry! At present, there is no tour that comes to the place you want.");
+                    return;
+                }
+            }
+        }
+
         #region open view
         private void openMenu(object obj)
         {
@@ -111,5 +138,16 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("ProfilePic");
             }
         }
+        private string placeToSearch;
+        public string PlaceToSearch
+        {
+            get { return placeToSearch; }
+            set
+            {
+                placeToSearch = value;
+                OnPropertyChanged("PlaceToSearch");
+            }
+        }
+        
     }
 }
