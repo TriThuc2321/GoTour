@@ -58,5 +58,33 @@ namespace GoTour.Database
                   remaining = _remaining
               }) ;
         }
+
+        public async Task UpdateTour(Tour tour)
+        {
+            var toUpdateTour = (await firebase
+                 .Child("Tours")
+                 .OnceAsync<Tour>()).Where(a => a.Object.id == tour.id).FirstOrDefault();
+
+            await firebase
+              .Child("Tours")
+              .Child(toUpdateTour.Key)
+              .PutAsync(new Tour
+              {
+                  id = tour.id,
+                  name = tour.name,
+                  imgSource = tour.imgSource,
+                  startTime = tour.startTime,
+                  duration = tour.duration,
+                  tourGuide = tour.tourGuide,
+                  passengerNumber = tour.passengerNumber,
+                  description = tour.description,
+                  isOccured = tour.isOccured,
+                  placeDurationList = tour.placeDurationList,
+                  basePrice =tour.basePrice,
+                  SPforPList = tour.SPforPList,
+                  remaining = tour.remaining
+              });
+
+        }
     }
 }

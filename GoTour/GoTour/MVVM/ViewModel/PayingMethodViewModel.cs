@@ -2,6 +2,7 @@
 using GoTour.Database;
 using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
+using System;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -9,18 +10,22 @@ namespace GoTour.MVVM.ViewModel
     public class PayingMethodViewModel: ObservableObject
     {
         INavigation navigation;
+       
         public Command NavigationBack { get; }
         public Command Confirm{ get; }
         public PayingMethodViewModel() { }
         public PayingMethodViewModel(INavigation navigation)
         {
             this.navigation = navigation;
+           
+            SetInformation();
+
             SelectedTour = DataManager.Ins.currentTour;
             NavigationBack = new Command(() => navigation.PopAsync());
             Confirm = new Command(confirmPress);
         }
 
-        void confirmPress(object obj)
+        async void confirmPress(object obj)
         {
             if (!IsCheckRegulation)
                 DependencyService.Get<IToast>().ShortToast("Please check regulation box");
@@ -29,11 +34,41 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Please choose a paying method");
 
             if (IsCheckRegulation && MoMo)
+            {
+                DataManager.Ins.CurrentBookedTicket.invoice.method = "MoMo";
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
                 navigation.PushAsync(new MoMoConfirmView());
+            }
             else if (IsCheckRegulation && Cash)
             {
+                DataManager.Ins.CurrentInvoice.method = "Cash";
+                DataManager.Ins.CurrentInvoice.isPaid = false;
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+
+                await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+
+                if (DataManager.Ins.CurrentDiscount != null)
+                {
+                    int isUsed = int.Parse(DataManager.Ins.CurrentDiscount.isUsed);
+                    isUsed++;
+                    DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
+
+                    await DataManager.Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+
+                }
+
+                if (DataManager.Ins.currentTour != null)
+                {
+                    int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
+                    remaining = remaining - int.Parse(DataManager.Ins.CurrentInvoice.amount);
+                    DataManager.Ins.currentTour.remaining = remaining.ToString();
+
+                    await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+
+                } 
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
-                navigation.PushAsync(new BookedTicketDetailView());
+              //  navigation.PushAsync(new BookedTicketDetailView());
             }
 
         }
@@ -62,6 +97,17 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region regulation
+        private string _regulation;
+        public string Regulation
+        {
+            get { return _regulation; }
+            set
+            {
+                _regulation = value;
+                OnPropertyChanged("Regulation");
+            }
+        }
+
         private bool _isCheckRegulation;
         public bool IsCheckRegulation
         {
@@ -97,5 +143,28 @@ namespace GoTour.MVVM.ViewModel
             }
         }
         #endregion
+
+        #region TotalPrice 
+        private string _total;
+        public string Total
+        {
+            get { return _total; }
+            set
+            {
+                _total = value;
+                OnPropertyChanged("Total");
+            }
+        }
+        #endregion
+
+ 
+
+        void SetInformation()
+        {
+            Total = DataManager.Ins.CurrentBookedTicket
+                .invoice.total;
+
+            Regulation = "This is our regulation:";
+        }    
     }
 }

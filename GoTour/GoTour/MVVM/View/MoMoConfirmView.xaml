@@ -35,7 +35,8 @@
                    FontAttributes="Bold"
                    FontSize="25"/>
             
-            <ScrollView Grid.Row="1">
+            <ScrollView Grid.Row="1"
+                        BackgroundColor="AliceBlue">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -116,12 +117,28 @@
                                     Margin="25,20,25,30"
                                     Padding="5"  
                                     BorderWidth="1"
+                                    BorderColor="DarkBlue"
+                                    BackgroundColor="White" 
+                                    TextColor="DarkBlue"
+                                    VerticalOptions="Center"
+                                    HeightRequest="50"
+                                    Text="{Binding UploadImageText}"
+                                    FontAttributes="Bold"
+                                    FontSize="20"/>
+
+                                <Button Command="{Binding RemovePhoto}"
+                                        IsVisible="{Binding RemovePhotoVisible}"
+                                    Grid.Row="5"
+                                    CornerRadius="20" 
+                                    Margin="25,0,25,30"
+                                    Padding="5"  
+                                    BorderWidth="1"
                                     BorderColor="#f4707c"
                                     BackgroundColor="White" 
                                     TextColor="#f4707c"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="update photo"
+                                    Text="Remove"
                                     FontAttributes="Bold"
                                     FontSize="20"/>
 
@@ -143,7 +160,7 @@
                                     TextColor="White"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="confirm "
+                                    Text="{Binding ConfirmText} "
                                     FontAttributes="Bold"
                                     FontSize="20"
                         />
