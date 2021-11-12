@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -139,7 +140,7 @@ namespace GoTour.MVVM.ViewModel
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
-                    id = (new Random().Next(9999999).ToString()),
+                    id = GenerateInvoiceId(),
                     discount = new Discount { id = DiscountId },
                     discountMoney = DiscountMoney,
                     isPaid = false,
@@ -150,7 +151,7 @@ namespace GoTour.MVVM.ViewModel
 
                 DataManager.Ins.CurrentBookedTicket = new BookedTicket()
                 {
-                    id = (new Random().Next(999999)).ToString(),
+                    id = GenerateTicketId(),
                     tour = new Tour { id = selectedTour.id },
                     name = Name,
                     birthday = Birthday,
@@ -609,6 +610,50 @@ namespace GoTour.MVVM.ViewModel
 
             TourPrice = Provisional = Total = selectedTour.basePrice;
             DiscountMoney = "0";
+        }
+
+        public string GenerateInvoiceId()
+        {
+            int length = 15;
+            var List = DataManager.Ins.ListInvoice;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < List.Count())
+            {
+                if (List[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return randomString;
+        }
+
+        public string GenerateTicketId()
+        {
+            int length = 15;
+            var List = DataManager.Ins.ListBookedTickets;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < List.Count())
+            {
+                if (List[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return randomString;
         }
     }
 }
