@@ -20,12 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Reference Include="xNet">
-      <HintPath>..\..\..\..\xNet\xNet.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\xNet\xNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
+=======
     <EmbeddedResource Update="MVVM\View\BookedTicketDetailView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -35,7 +37,11 @@
     <EmbeddedResource Update="MVVM\View\BookTourView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+>>>>>>> origin/Linh_1
     <EmbeddedResource Update="MVVM\View\ConfirmEmailView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\ConfirmInvoiceView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\DetailTourView2.xaml">
@@ -44,16 +50,13 @@
     <EmbeddedResource Update="MVVM\View\EditPlaceView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\EditStayPlaceView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\EditTourView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\FavoriteView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\HomeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\InProgressView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\LoginView.xaml">
@@ -65,16 +68,19 @@
     <EmbeddedResource Update="MVVM\View\MenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\MoMoConfirmView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\MyTourView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\NewStayPlaceView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\NewTourView.xaml">
+    <EmbeddedResource Update="MVVM\View\NewPlaceView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\NotificationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\PayingMethodView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\PlaceManagerView.xaml">
@@ -89,12 +95,6 @@
     <EmbeddedResource Update="MVVM\View\ShowTourFromSelectedPlace.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\StayPlaceManagerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\TourManagerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\TourScheduleView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -105,9 +105,6 @@
 
   <ItemGroup>
     <None Update="MVVM\View\DetailTourView2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MVVM\View\StayPlaceManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>

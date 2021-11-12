@@ -1,15 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoTour.MVVM.View.PlaceManagerView"
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" 
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="False"
              Shell.FlyoutBehavior="Disabled"
-             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             >
-
+             x:Class="GoTour.MVVM.View.StayPlaceManagerView">
     <ContentPage.BindingContext>
-        <vm:PlaceManagerViewModel/>
+        <vm:StayPlaceManagerViewModel/>
     </ContentPage.BindingContext>
 
     <Grid>
@@ -17,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-                
+
         <pancake:PancakeView CornerRadius="0,0,30,30">
             <Image Source="https://i.pinimg.com/564x/ed/eb/59/edeb59cd554c95645fbca777424e3c3c.jpg" Aspect="AspectFill" />
         </pancake:PancakeView>
@@ -34,14 +32,14 @@
 
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
-                <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+                <Label Margin="20,0,0,0" Text="StayPlace List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Button Margin="0,0,20,0" Text="New StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
             <CollectionView x:Name="clview" 
-                            ItemsSource="{Binding ListPlace}" 
+                            ItemsSource="{Binding ListStayPlace}" 
                             SelectionMode="Single" 
-                            SelectedItem="{Binding SelectedPlace}"
+                            SelectedItem="{Binding SelectedStayPlace}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
                 <CollectionView.ItemTemplate>
@@ -49,15 +47,14 @@
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
-                                    
                                     <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
-                                        BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        BackgroundColor="White"                                        
+                                        Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand1}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>
-                            
+
                             <Grid Padding="30,10,20,10" VerticalOptions="Start">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup Name="CommonStates">
@@ -79,19 +76,16 @@
 
                                 <StackLayout Grid.Column="1" Margin="8,0,0,0">
                                     <Label Text="{Binding name}" TextColor="SteelBlue"/>
-                                    <Label Text="{Binding description}" TextColor="Gray"/>                                   
+                                    <Label Text="{Binding description}" TextColor="Gray"/>
                                 </StackLayout>
                             </Grid>
                         </SwipeView>
-
-                        
-
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
-            
+
+
         </StackLayout>
-        
+
     </Grid>
 </ContentPage>

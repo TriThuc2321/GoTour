@@ -8,12 +8,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    class NewPlaceViewModel : ObservableObject
+    public class NewStayPlaceViewModel : ObservableObject
     {
         public INavigation navigation;
         public Shell currentShell;
@@ -23,13 +22,16 @@ namespace GoTour.MVVM.ViewModel
         public Command SaveCommand { get; }
         public Command AddCommand { get; }
         public Command DeleteCommand { get; }
-        public NewPlaceViewModel() { }
-        public NewPlaceViewModel(INavigation navigation, Shell curentShell)
+        public NewStayPlaceViewModel() { }
+        public NewStayPlaceViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
             this.currentShell = curentShell;
             this.navigation = navigation;
             this.currentShell = curentShell;
+
+            PlaceList = DataManager.Ins.ListPlace;
+            SelectedPlace = placeList[0];
 
             Imgs = new ObservableCollection<ImageSource>();
 
@@ -37,15 +39,13 @@ namespace GoTour.MVVM.ViewModel
             AddCommand = new Command(addHandleAsync);
             DeleteCommand = new Command(deleteHandle);
 
-            listStream = new List<Stream>();           
+            listStream = new List<Stream>();
 
         }
 
-
-
         private async void saveHandleAsync(object obj)
         {
-            if(Name == null || Name == "" )
+            if (Name == null || Name == "")
             {
                 DependencyService.Get<IToast>().ShortToast("Please enter place's name");
                 return;
@@ -61,17 +61,26 @@ namespace GoTour.MVVM.ViewModel
                 return;
             }
 
-            string id = DataManager.Ins.GeneratePlaceId();           
+            bool check = true;
+            string id = "";
+            while (check)
+            {
+                check = false;
+                id = DataManager.Ins.GenerateStayPlaceId();
+                foreach (StayPlace ite in DataManager.Ins.ListStayPlace)
+                    if (ite.placeId == id) check = true;
+                if (check == false) break;
+            }
 
             List<string> imgSource = new List<string>();
 
             for (int i = 0; i < listStream.Count(); i++)
             {
-                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], id, i);
+                string url = await DataManager.Ins.StayPlacesServices.saveImage(listStream[i], id, i);
                 imgSource.Add(url);
             }
-            await DataManager.Ins.PlacesServices.AddPlace(id, Name, imgSource, Description);
-            DataManager.Ins.ListPlace.Add(new Place(id, Name, imgSource, Description));
+            await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address );
+            DataManager.Ins.ListStayPlace.Add(new StayPlace(id, Name, imgSource, address, selectedPlace.id, description ));
             navigation.PopAsync();
         }
 
@@ -84,7 +93,7 @@ namespace GoTour.MVVM.ViewModel
             }
 
         }
-
+      
         private async void addHandleAsync(object obj)
         {
             await CrossMedia.Current.Initialize();
@@ -98,8 +107,8 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        
-       
+
+
         private MemoryStream GetStreamFromUrl(string url)
         {
             byte[] imageData = null;
@@ -123,17 +132,17 @@ namespace GoTour.MVVM.ViewModel
             return ms;
         }
 
-        private Place selectedPlace;
-        public Place SelectedPlace
+        private StayPlace selectedStayPlace;
+        public StayPlace SelectedStayPlace
         {
-            get { return selectedPlace; }
+            get { return selectedStayPlace; }
             set
             {
-                selectedPlace = value;
-                OnPropertyChanged("SelectedPlace");
+                selectedStayPlace = value;
+                OnPropertyChanged("SelectedStayPlace");
             }
         }
-        
+
         private ObservableCollection<ImageSource> imgs;
         public ObservableCollection<ImageSource> Imgs
         {
@@ -144,7 +153,17 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Imgs");
             }
         }
-       
+        private ObservableCollection<Place> placeList;
+        public ObservableCollection<Place> PlaceList
+        {
+            get { return placeList; }
+            set
+            {
+                placeList = value;
+                OnPropertyChanged("PlaceList");
+            }
+        }
+
         private string name;
         public string Name
         {
@@ -165,5 +184,26 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Description");
             }
         }
+        private Place selectedPlace;
+        public Place SelectedPlace
+        {
+            get { return selectedPlace; }
+            set
+            {
+                selectedPlace = value;
+                OnPropertyChanged("SelectedPlace");
+            }
+        }
+        private string address;
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                address = value;
+                OnPropertyChanged("Address");
+            }
+        }
     }
 }
+

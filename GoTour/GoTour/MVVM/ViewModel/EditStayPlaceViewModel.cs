@@ -7,14 +7,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    class EditPlaceViewModel: ObservableObject
+    class EditStayPlaceViewModel:ObservableObject
     {
         public INavigation navigation;
         public Shell currentShell;
@@ -26,8 +24,8 @@ namespace GoTour.MVVM.ViewModel
         public Command AddCommand { get; }
         public Command DeleteCommand { get; }
 
-        public EditPlaceViewModel() { }
-        public EditPlaceViewModel(INavigation navigation, Shell curentShell)
+        public EditStayPlaceViewModel() { }
+        public EditStayPlaceViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
             this.currentShell = curentShell;
@@ -38,37 +36,37 @@ namespace GoTour.MVVM.ViewModel
             AddCommand = new Command(addHandleAsync);
             DeleteCommand = new Command(deleteHandle);
 
-            SelectedPlace = DataManager.Ins.CurrentPlaceManager;
+            SelectedStayPlace = DataManager.Ins.CurrentStayPlaceManager;
             listStream = new List<Stream>();
 
-            if(SelectedPlace.imgSource!= null)
+            if (SelectedStayPlace.imgSource != null)
             {
-                foreach (var i in SelectedPlace.imgSource)
+                foreach (var i in SelectedStayPlace.imgSource)
                 {
                     Imgs.Add(ImageSource.FromUri(new Uri(i)));
                     listStream.Add(GetStreamFromUrl(i));
-                   
-                }               
-            }
-            
 
-            Name = DataManager.Ins.CurrentPlaceManager.name;
-            Description = DataManager.Ins.CurrentPlaceManager.description;
+                }
+            }
+
+
+            Name = DataManager.Ins.CurrentStayPlaceManager.name;
+            Description = DataManager.Ins.CurrentStayPlaceManager.description;
             IsEdit = false;
             SourceIcon = "editIcon.png";
             IsText = true;
-            
-            count = Imgs.Count();           
+
+            count = Imgs.Count();
         }
 
         private void deleteHandle(object obj)
         {
-            if(Imgs.Count()>0)
+            if (Imgs.Count() > 0)
             {
                 Imgs.RemoveAt(0);
-                listStream.RemoveAt(0);                
+                listStream.RemoveAt(0);
             }
-            
+
         }
 
         private async void addHandleAsync(object obj)
@@ -77,13 +75,13 @@ namespace GoTour.MVVM.ViewModel
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
 
-            if(imgData!= null)
+            if (imgData != null)
             {
                 Imgs.Add(ImageSource.FromStream(imgData.GetStream));
                 Stream s = imgData.GetStream();
                 listStream.Add(s);
             }
-            
+
         }
 
         private async void editTextHandle(object obj)
@@ -102,21 +100,21 @@ namespace GoTour.MVVM.ViewModel
         }
         private async void updateData()
         {
-            DataManager.Ins.CurrentPlaceManager.description = Description;
-            DataManager.Ins.CurrentPlaceManager.name = Name;
-            DataManager.Ins.CurrentPlaceManager.imgSource = new List<string>();
+            DataManager.Ins.CurrentStayPlaceManager.description = Description;
+            DataManager.Ins.CurrentStayPlaceManager.name = Name;
+            DataManager.Ins.CurrentStayPlaceManager.imgSource = new List<string>();
 
-            for(int i = 0; i< count; i++)
+            for (int i = 0; i < count; i++)
             {
-                await DataManager.Ins.PlacesServices.DeleteFile(DataManager.Ins.CurrentPlaceManager.id, i);
+                await DataManager.Ins.StayPlacesServices.DeleteFile(DataManager.Ins.CurrentStayPlaceManager.id, i);
             }
 
-            for (int i =0; i< listStream.Count(); i++)
+            for (int i = 0; i < listStream.Count(); i++)
             {
-                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i );
-                DataManager.Ins.CurrentPlaceManager.imgSource.Add(url);
+                string url = await DataManager.Ins.StayPlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentStayPlaceManager.id, i);
+                DataManager.Ins.CurrentStayPlaceManager.imgSource.Add(url);
             }
-            await DataManager.Ins.PlacesServices.UpdatePlace(DataManager.Ins.CurrentPlaceManager);
+            await DataManager.Ins.StayPlacesServices.UpdateStayPlace(DataManager.Ins.CurrentStayPlaceManager);
 
         }
         private MemoryStream GetStreamFromUrl(string url)
@@ -136,20 +134,20 @@ namespace GoTour.MVVM.ViewModel
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return ms;
         }
 
-        private Place selectedPlace;
-        public Place SelectedPlace
+        private StayPlace selectedStayPlace;
+        public StayPlace SelectedStayPlace
         {
-            get { return selectedPlace; }
+            get { return selectedStayPlace; }
             set
             {
-                selectedPlace = value;
-                OnPropertyChanged("SelectedPlace");
+                selectedStayPlace = value;
+                OnPropertyChanged("SelectedStayPlace");
 
             }
         }
@@ -219,5 +217,6 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
+
     }
 }
