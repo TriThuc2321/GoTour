@@ -35,7 +35,8 @@ namespace GoTour.Database
                   placeDurationList = null,
                   basePrice = item.Object.basePrice,
                   SPforPList = item.Object.SPforPList,
-                  remaining = item.Object.remaining
+                  remaining = item.Object.remaining,
+                  reviewList = null
               }).ToList();
         }
         public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining)
@@ -56,7 +57,7 @@ namespace GoTour.Database
                   basePrice = basePrice,
                   SPforPList = _SPforPList,
                   remaining = _remaining
-              }) ;
+              });
         }
 
         public async Task UpdateTour(Tour tour)
