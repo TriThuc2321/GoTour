@@ -34,7 +34,8 @@ namespace GoTour.Database
                   amount = item.Object.amount,
                   method = item.Object.method,
                   total = item.Object.total,
-                  photoMomo = item.Object.photoMomo
+                  photoMomo = item.Object.photoMomo,
+                  momoVnd = item.Object.momoVnd
               }).ToList();
 
         }
@@ -53,7 +54,8 @@ namespace GoTour.Database
                   amount = invoice.amount,
                   method = invoice.method,
                   total = invoice.total,
-                  photoMomo = invoice.photoMomo
+                  photoMomo = invoice.photoMomo,
+                  momoVnd = invoice.momoVnd
               });
         }
 
@@ -85,7 +87,8 @@ namespace GoTour.Database
                   amount = invoice.amount,
                   method = invoice.method,
                   total = invoice.total,
-                  photoMomo = invoice.photoMomo
+                  photoMomo = invoice.photoMomo,
+                  momoVnd = invoice.momoVnd
               });
 
         }

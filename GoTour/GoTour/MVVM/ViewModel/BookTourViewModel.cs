@@ -151,7 +151,7 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentBookedTicket = new BookedTicket()
                 {
                     id = (new Random().Next(999999)).ToString(),
-                    tour = new Tour { id = selectedTour.id},
+                    tour = new Tour { id = selectedTour.id },
                     name = Name,
                     birthday = Birthday,
                     contact = Contact,
@@ -161,7 +161,7 @@ namespace GoTour.MVVM.ViewModel
                     isCancel = false,
                     invoice = new Invoice
                     {
-                       id = DataManager.Ins.CurrentInvoice.id
+                        id = DataManager.Ins.CurrentInvoice.id
                     }
                 };
 

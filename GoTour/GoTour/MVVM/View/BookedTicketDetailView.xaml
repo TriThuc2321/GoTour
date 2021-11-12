@@ -22,7 +22,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Source="{Binding Ticket.tour.imgSource[0]}"
+                    <Image Source="{Binding Tour.imgSource[0]}"
                            Grid.Column="0"
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
@@ -45,7 +45,7 @@
                            FontAttributes="Bold"
                            VerticalOptions="End"
                            Margin="5"
-                           Text="{Binding Ticket.tour.name}"/>
+                           Text="{Binding Tour.name}"/>
                     
                     <Button Grid.Column="1"
                             Grid.Row="0"
@@ -122,7 +122,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Ticket.tour.startTime}"
+                                <Label Text="{Binding Tour.startTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -168,7 +168,7 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Ticket.tour.isOccured}"
+                                <Label Text="{Binding Occured}"
                                TextColor="DarkRed"
                                FontAttributes="Bold"
                                FontSize="15"
@@ -429,7 +429,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.price}"
+                            <Label Text="{Binding Invoice.price}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -454,7 +454,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.amount}"
+                            <Label Text="{Binding Invoice.amount}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -467,14 +467,15 @@
                     <StackLayout Orientation="Horizontal"
                              Grid.Row="11"
                              Margin="25, 5, 15, 5"
-                             IsVisible="True"
+                             IsVisible="{Binding DiscountVisible}"
                              >
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="Discount ID: "
@@ -482,7 +483,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.discount.id}"
+                            <Label Text="{Binding Discount.id}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -493,13 +494,22 @@
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="2"
+                               HorizontalOptions="EndAndExpand"
                                />
-                            <Label Text="{Binding ticket.invoice.discount.percent}"
+                            <Label Text="{Binding Discount.percent}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="3"
+                               HorizontalOptions="End"
                             />
+                            <Label Text="%"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="4"
+                               HorizontalOptions="Start"
+                                />
                         </Grid>
                     </StackLayout>
 
@@ -507,13 +517,15 @@
                     <StackLayout Orientation="Horizontal"
                              Grid.Row="12"
                              Margin="25, 5, 15, 5"
-                                 IsVisible="True"
+                                 IsVisible="{Binding DiscountVisible}"
                                  
                              >
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="Discount Money: "
@@ -521,12 +533,28 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.discountMoney}"
+                            <Label Text="{Binding Invoice.discountMoney}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
+                               HorizontalOptions="End"
                             />
+                            <Label Text="USD"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="2"
+                               HorizontalOptions="Start"
+                                />
+
+                            <!--<Label Text="()"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="3"
+                               HorizontalOptions="Start"
+                                />-->
                         </Grid>
                     </StackLayout>
 
@@ -538,7 +566,9 @@
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="Total: "
@@ -546,12 +576,29 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.total}"
-                               TextColor="Black"
+                            <Label Text="{Binding Invoice.total}"
+                                   TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
-                            />
+                               HorizontalOptions="End"
+                                />
+                            <Label Text="USD"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="2"
+                               HorizontalOptions="Start"
+                                />
+
+                            <!--<Label Text="()"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="3"
+                               HorizontalOptions="Start"
+                                />-->
+                            
                         </Grid>
                     </StackLayout>
 
@@ -571,7 +618,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.method}"
+                            <Label Text="{Binding Invoice.method}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -596,7 +643,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Ticket.invoice.isPaid}"
+                            <Label Text="{Binding Paid}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -609,7 +656,7 @@
                     <StackLayout Orientation="Horizontal"
                              Grid.Row="16"
                              Margin="25, 5, 15, 5"
-                                 IsVisible="True"
+                                 IsVisible="{Binding PayingVisible}"
                              >
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
@@ -622,7 +669,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding ticket.invoice.payingTime}"
+                            <Label Text="{Binding Invoice.payingTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -635,12 +682,12 @@
                     <StackLayout Orientation="Vertical"
                              Grid.Row="17"
                              Margin="25, 5, 15, 5"
-                                 IsVisible="True"
+                              IsVisible="{Binding PayingVisible}"
                              >
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="Paying Photo: "
@@ -648,11 +695,9 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Image IsVisible="{Binding ImageVisible}"
-                                       Source="{Binding ImageLink}"
+                            <Image   Source="{Binding Invoice.photoMomo}"
                                       BackgroundColor="Transparent"
-                                      WidthRequest="90"
-                                      HeightRequest="600"
+                                      WidthRequest="500"
                                        Aspect="AspectFill"
                              />
                         </Grid>

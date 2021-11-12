@@ -36,10 +36,11 @@
                     <ImageButton Source="{Binding LoveBtn}"
                                  BackgroundColor="Transparent"
                                  Command="{Binding LoveCommand}"
-                           HeightRequest="50"
-                           WidthRequest="50"
+                           HeightRequest="40"
+                           WidthRequest="40"
                            HorizontalOptions="EndAndExpand"
                            VerticalOptions="StartAndExpand"
+                                 Margin="0, 10, 20, 0"
                            ></ImageButton>
                     <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 

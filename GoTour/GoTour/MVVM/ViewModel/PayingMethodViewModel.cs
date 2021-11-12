@@ -43,6 +43,7 @@ namespace GoTour.MVVM.ViewModel
             {
                 DataManager.Ins.CurrentInvoice.method = "Cash";
                 DataManager.Ins.CurrentInvoice.isPaid = false;
+                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
                 DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
 
                 await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
@@ -66,9 +67,10 @@ namespace GoTour.MVVM.ViewModel
 
                     await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
 
-                } 
+                }
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
-              //  navigation.PushAsync(new BookedTicketDetailView());
+                navigation.PushAsync(new BookedTicketDetailView());
+
             }
 
         }

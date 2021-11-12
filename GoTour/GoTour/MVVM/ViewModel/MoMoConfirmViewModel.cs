@@ -70,12 +70,9 @@ namespace GoTour.MVVM.ViewModel
                     DataManager.Ins.CurrentBookedTicket.invoice.id
                     );
 
-
                 DataManager.Ins.CurrentInvoice.isPaid = true;
                 DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
                 DataManager.Ins.CurrentInvoice.photoMomo = url;
-
-                navigation.PushAsync(new BookedTicketDetailView());
             }
             else
             {
@@ -83,8 +80,11 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentInvoice.payingTime = "";
             }
 
-            DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
-            DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            DataManager.Ins.CurrentInvoice.method ="MoMo";
+            DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
+            DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+            await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+            await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
 
             if (DataManager.Ins.CurrentDiscount != null)
             {
@@ -92,7 +92,7 @@ namespace GoTour.MVVM.ViewModel
                 isUsed++;
                 DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
 
-                DataManager.Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+                await DataManager .Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
 
             }
 
@@ -105,6 +105,8 @@ namespace GoTour.MVVM.ViewModel
                 await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
 
             }
+
+            await navigation.PushAsync(new BookedTicketDetailView());
         }
 
         #region money
