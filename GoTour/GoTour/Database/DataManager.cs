@@ -484,6 +484,17 @@ namespace GoTour.Database
             }
         }
 
+        private StayPlace currentStayPlaceManager;
+        public StayPlace CurrentStayPlaceManager
+        {
+            get { return currentStayPlaceManager; }
+            set
+            {
+                currentStayPlaceManager = value;
+                OnPropertyChanged("CurrentStayPlaceManager");
+            }
+        }
+
         private bool isManager;
         public bool IsManager
         {

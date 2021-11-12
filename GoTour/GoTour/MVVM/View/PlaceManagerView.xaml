@@ -25,7 +25,6 @@
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
                 <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,-20,0" Text="Delate Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
                 <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
@@ -44,7 +43,7 @@
                                     <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path = DataContext.DeleteCommand}"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>

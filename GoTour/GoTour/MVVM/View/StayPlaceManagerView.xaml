@@ -21,7 +21,6 @@
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
                 <Label Margin="20,0,0,0" Text="StayPlace List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,-20,0" Text="Delete StayPlace" BackgroundColor="SteelBlue" Command="{Binding DeleteCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
                 <Button Margin="0,0,20,0" Text="New StayPlace" BackgroundColor="SteelBlue" Command="{Binding NewStayPlaceCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
@@ -36,11 +35,9 @@
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
-
-                                    <SwipeItem Text="Delete"
+                                    <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
-                                        BackgroundColor="White"
-                                        
+                                        BackgroundColor="White"                                        
                                         Command="{Binding Source={x:Reference clview}, Path=BindingContext.DeleteCommand1}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
@@ -68,14 +65,9 @@
                                 <StackLayout Grid.Column="1" Margin="8,0,0,0">
                                     <Label Text="{Binding name}" TextColor="SteelBlue"/>
                                     <Label Text="{Binding description}" TextColor="Gray"/>
-                                    <ImageButton Source="deleteIcon.png" Aspect="AspectFill" WidthRequest="30" HorizontalOptions="Start" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference clview}}" CommandParameter="{Binding .}"/>
-
                                 </StackLayout>
                             </Grid>
                         </SwipeView>
-
-
-
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

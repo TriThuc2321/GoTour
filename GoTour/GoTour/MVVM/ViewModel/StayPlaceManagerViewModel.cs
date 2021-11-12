@@ -15,21 +15,21 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         Shell currentShell;
-        
+        private IMessageService _messageService;
+
         public StayPlaceManagerViewModel() { }
         public StayPlaceManagerViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
             
-
             ListStayPlace = DataManager.Ins.ListStayPlace;
+            _messageService = DependencyService.Get<IMessageService>();
         }
 
         public ICommand NewStayPlaceCommand => new Command<object>((obj) =>
         {
             navigation.PushAsync(new NewStayPlaceView());
-
         });
         public ICommand DeleteCommand => new Command<object>( (obj) =>
         {
@@ -49,7 +49,7 @@ namespace GoTour.MVVM.ViewModel
             }
             else
             {
-                string message = "Các tour: ";
+                string message = "Tours: ";
                 foreach (Tour ite in tour_Has_electedStayPlace_List)
                     message = message + ite.name + ", ";
                 DependencyService.Get<IToast>().LongToast(message + " has selected StayPlace, Please delete before doing this task!");
@@ -75,16 +75,26 @@ namespace GoTour.MVVM.ViewModel
             }
             else
             {
-                string message = "Các tour: ";
+                string message = "Tours: ";
                 foreach (Tour ite in tour_Has_electedStayPlace_List)
                     message = message + ite.name + ", ";
-                DependencyService.Get<IToast>().LongToast(message + " has selected StayPlace, Please delete before doing this task!");
+
+                _messageService.ShowAsync("Warning", message + " has selected StayPlace, Please delete before doing this task!");
+                //DependencyService.Get<IToast>().LongToast(message + " has selected StayPlace, Please delete before doing this task!");
                 selectedStayPlace = null;
             }
-
         });
 
-
+        public ICommand SelectedCommand => new Command<object>((obj) =>
+        {
+            StayPlace result = obj as StayPlace;
+            if (result != null)
+            {
+                DataManager.Ins.CurrentStayPlaceManager = result;
+                navigation.PushAsync(new EditStayPlaceView());
+            }
+            SelectedStayPlace = null;
+        });
 
 
         private StayPlace selectedStayPlace;
@@ -107,6 +117,6 @@ namespace GoTour.MVVM.ViewModel
                 listStayPlace = value;
                 OnPropertyChanged("ListStayPlace");
             }
-        }
+        }       
     }
 }

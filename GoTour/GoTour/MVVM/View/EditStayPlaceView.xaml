@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.EditStayPlaceView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             Shell.FlyoutBehavior="Disabled"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             x:Class="GoTour.MVVM.View.NewStayPlaceView">
+             >
     <ContentPage.BindingContext>
-        <vm:NewStayPlaceViewModel/>
+        <vm:EditStayPlaceViewModel/>
     </ContentPage.BindingContext>
 
     <Grid>
@@ -45,22 +48,17 @@
 
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
-                <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" Command="{Binding DeleteCommand}"/>
-                <Button Text="Image +" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" Command="{Binding AddCommand}" />
-                <Button Text="Save" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" Command="{Binding SaveCommand}" />
+                <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding DeleteCommand}"/>
+                <Button Text="Image +" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
             </StackLayout>
 
-            <StackLayout Margin="20,10,20,0" Orientation="Horizontal">
-                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" Placeholder="Name" PlaceholderColor="Gray"/>
+            <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
+                <ImageButton Source="{Binding SourceIcon}" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
+                <Label Margin="0" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
+                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
             </StackLayout>
-
-            <Editor Margin="20,5,20,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
-            <Editor Margin="20,5,20,0" Text="{Binding Address}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Address..." PlaceholderColor="Gray"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Choose Place:" FontAttributes="Bold"  Margin="20,0,10,0" FontSize="Medium" VerticalOptions="Center"></Label>
-                <Picker  Margin="0,0,20,0" ItemsSource="{Binding PlaceList}" SelectedItem="{Binding SelectedPlace}" HorizontalOptions="FillAndExpand" ItemDisplayBinding="{Binding name}" VerticalOptions="Center"></Picker>
-            </StackLayout>
-          
+            <Label Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" IsVisible="{Binding IsText}"/>
+            <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" IsVisible="{Binding IsEdit}"/>
         </StackLayout>
     </Grid>
 </ContentPage>
