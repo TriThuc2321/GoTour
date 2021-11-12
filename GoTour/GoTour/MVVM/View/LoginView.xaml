@@ -112,7 +112,6 @@
                 VerticalOptions="Center"
                 HeightRequest="40"
                 Text="LOGIN"
-                TextColor="White"
                 FontSize="15"
                 Command="{Binding LoginCommand}"
                 />

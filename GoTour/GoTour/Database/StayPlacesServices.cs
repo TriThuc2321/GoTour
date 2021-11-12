@@ -1,10 +1,8 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
-using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,29 +24,13 @@ namespace GoTour.Database
               {
                   id = item.Object.id,
                   name = item.Object.name,
-                  imgSource = item.Object.imgSource,
                   address = item.Object.address,
-                  description = item.Object.description,
                   placeId = item.Object.placeId,
+                  imgSource = item.Object.imgSource,
+                  description = item.Object.description,
               }).ToList();
         }
-
-        public async Task DeleteStayPlace(StayPlace stayplace)
-        {
-            var toDeleted = (await firebase
-               .Child("StayPlaces").OnceAsync<StayPlace>()).FirstOrDefault(p => p.Object.id == stayplace.id);
-
-            await firebase.Child("StayPlaces").Child(toDeleted.Key).DeleteAsync();
-
-            for (int i = 0; i < stayplace.imgSource.Count; i++)
-            {
-                DeleteFile(stayplace.id, i);
-            }
-            
-    
-        } 
-
-        public async Task AddStayPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
+        public async Task AddPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
         {
             await firebase
               .Child("StayPlaces")
@@ -60,56 +42,6 @@ namespace GoTour.Database
                   placeId = placeId,
                   imgSource = imgSource,
                   description = description,
-              });
-        }
-        public async Task DeleteFile(string folderStayPlaceId, int id)
-        {
-            try
-            {
-                await new FirebaseStorage("gotour-98c79.appspot.com")
-                 .Child("StayPlace")
-                 .Child(folderStayPlaceId).Child(id + ".jpg")
-                 .DeleteAsync();
-            }
-            catch
-            {
-            }
-            try
-            {
-                await new FirebaseStorage("gotour-98c79.appspot.com")
-                 .Child("StayPlace")
-                 .Child(folderStayPlaceId).Child(id + ".jpg")
-                 .DeleteAsync();
-            }
-            catch { }
-            
-        }
-        async public Task<string> saveImage(Stream imgStream, string stayPlaceId, int id)
-        {
-            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
-                .Child("StayPlace").Child(stayPlaceId)
-                .Child(id + ".png")
-                .PutAsync(imgStream);
-            var imgurl = stroageImage;
-            return imgurl;
-        }
-        public async Task UpdateStayPlace(StayPlace place)
-        {
-            var toUpdatePlace = (await firebase
-              .Child("StayPlaces")
-              .OnceAsync<StayPlace>()).Where(a => a.Object.id == place.id).FirstOrDefault();
-
-            await firebase
-              .Child("StayPlaces")
-              .Child(toUpdatePlace.Key)
-              .PutAsync(new StayPlace
-              {
-                  id = place.id,
-                  name = place.name,
-                  imgSource = place.imgSource,
-                  description = place.description,
-                  address = place.address,
-                  placeId = place.id
               });
         }
     }

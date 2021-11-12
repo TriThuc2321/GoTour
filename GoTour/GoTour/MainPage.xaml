@@ -147,13 +147,13 @@
                         BackgroundColor="Transparent"                           
                     />
                     </Frame>
-                <StackLayout VerticalOptions="Center" Margin="0,25,0,0" HorizontalOptions="StartAndExpand" >
+                <StackLayout VerticalOptions="Center" Margin="0,25,0,0" HorizontalOptions="StartAndExpand">
                     <Label Text="Hello," TextColor="Black" VerticalOptions="Center" FontSize="15" />
                     <Label Text="{Binding CurrentName}" TextColor="Black" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"  Margin="0,-10,0,10"/>
                 </StackLayout>
                 
-            </StackLayout>
-            <StackLayout BackgroundColor="Black" HeightRequest="1" VerticalOptions="End"/>
+                </StackLayout>
+
         </Grid>
     </Shell.FlyoutHeader>
 

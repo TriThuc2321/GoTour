@@ -1,6 +1,5 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
-using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
@@ -50,9 +49,8 @@ namespace GoTour.MVVM.ViewModel
             }
             else if (VerifyCode == DataManager.Ins.VerifyCode)
             {
-                User user = DataManager.Ins.UsersServices.getUserByEmail(DataManager.Ins.CurrentUser.email, DataManager.Ins.usersTemp);
-                user.password = DataManager.Ins.UsersServices.Encode(Password);
-                await DataManager.Ins.UsersServices.UpdateUser(user);
+                DataManager.Ins.CurrentUser.password = DataManager.Ins.UsersServices.Encode(Password);
+                await DataManager.Ins.UsersServices.UpdateUser(DataManager.Ins.CurrentUser);
                 DependencyService.Get<IToast>().ShortToast("Reset password successfully");
                 //navigation.PushAsync(new HomeView());
                 await currentShell.GoToAsync($"//{nameof(HomeView)}");

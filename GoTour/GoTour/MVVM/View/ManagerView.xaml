@@ -57,7 +57,7 @@
                             <FormattedString>
                                 <Span Text="Stay Places Manager" TextColor="Gray" FontSize="15">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding StayPlaceCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
                                     </Span.GestureRecognizers>
                                 </Span>
 
@@ -72,7 +72,7 @@
                             <FormattedString>
                                 <Span Text="Tours Manager" TextColor="Gray" FontSize="15">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding TourCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
                                     </Span.GestureRecognizers>
                                 </Span>
 
