@@ -199,6 +199,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
@@ -429,7 +430,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Invoice.price}"
+                            <Label Text="{Binding StrBasePrice}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -533,7 +534,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Invoice.discountMoney}"
+                            <Label Text="{Binding StrDiscountMoney}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -576,7 +577,7 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Label Text="{Binding Invoice.total}"
+                            <Label Text="{Binding StrTotal}"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -678,9 +679,35 @@
                         </Grid>
                     </StackLayout>
 
+                    <!--MoMoVND           VISIBLE-->
+                    <StackLayout Orientation="Horizontal"
+                             Grid.Row="17"
+                             Margin="25, 5, 15, 5"
+                                 IsVisible="{Binding PayingVisible}"
+                             >
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="MoMo Paid: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                            <Label Text="{Binding StrMoMoVND}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                        </Grid>
+                    </StackLayout>
+
                     <!--Proof            VISIBLE-->
                     <StackLayout Orientation="Vertical"
-                             Grid.Row="17"
+                             Grid.Row="18"
                              Margin="25, 5, 15, 5"
                               IsVisible="{Binding PayingVisible}"
                              >

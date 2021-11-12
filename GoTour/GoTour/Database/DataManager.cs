@@ -498,6 +498,8 @@ namespace GoTour.Database
             {
                 currentStayPlaceManager = value;
                 OnPropertyChanged("CurrentStayPlaceManager");
+            }
+        }
         private Invoice currentInvoice;
         public Invoice CurrentInvoice
         {

@@ -18,6 +18,8 @@ namespace GoTour.MVVM.ViewModel
         public Command NavigationBack { get; }
         public BookTourViewModel() { }
 
+        string TourPrice, Provisional, DiscountMoney, Total;
+
         public BookTourViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -134,13 +136,16 @@ namespace GoTour.MVVM.ViewModel
         }
         void openPayingMethodView(object obj)
         {
+            var ticketServices = DataManager.Ins.BookedTicketsServices;
+            var invoiceServices = DataManager.Ins.InvoicesServices;
+
             if (checkValidation())
             {
                 Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
-                    id = GenerateInvoiceId(),
+                    id = invoiceServices.GenerateInvoiceId(),
                     discount = new Discount { id = DiscountId },
                     discountMoney = DiscountMoney,
                     isPaid = false,
@@ -151,7 +156,7 @@ namespace GoTour.MVVM.ViewModel
 
                 DataManager.Ins.CurrentBookedTicket = new BookedTicket()
                 {
-                    id = GenerateTicketId(),
+                    id = ticketServices.GenerateTicketId(),
                     tour = new Tour { id = selectedTour.id },
                     name = Name,
                     birthday = Birthday,
@@ -202,7 +207,7 @@ namespace GoTour.MVVM.ViewModel
                             if (discount != null)
                                 DiscountMoney = (int.Parse(discount.percent) * int.Parse(Provisional) / 100).ToString();
                             Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
-
+                            FormatMoney();
 
                         }
 
@@ -231,6 +236,7 @@ namespace GoTour.MVVM.ViewModel
                 if (DataManager.Ins.CurrentDiscount != null)
                     DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+                FormatMoney();
             }
             else
             {
@@ -251,6 +257,7 @@ namespace GoTour.MVVM.ViewModel
                 if (DataManager.Ins.CurrentDiscount != null)
                     DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+                FormatMoney();
             }
         }
 
@@ -527,47 +534,47 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region price
-        private string _tourPrice;
-        public string TourPrice
+        private string _strTourPrice;
+        public string StrTourPrice
         {
-            get { return _tourPrice; }
+            get { return _strTourPrice; }
             set
             {
-                _tourPrice = value;
-                OnPropertyChanged("TourPrice");
+                _strTourPrice = value;
+                OnPropertyChanged("StrTourPrice");
             }
         }
 
-        private string _provisional;
-        public string Provisional
+        private string _strProvisional;
+        public string StrProvisional
         {
-            get { return _provisional; }
+            get { return _strProvisional; }
             set
             {
-                _provisional = value;
-                OnPropertyChanged("Provisional");
+                _strProvisional = value;
+                OnPropertyChanged("StrProvisional");
             }
         }
 
-        private string _discountMoney;
-        public string DiscountMoney
+        private string _strDiscountMoney;
+        public string StrDiscountMoney
         {
-            get { return _discountMoney; }
+            get { return _strDiscountMoney; }
             set
             {
-                _discountMoney = value;
-                OnPropertyChanged("DiscountMoney");
+                _strDiscountMoney = value;
+                OnPropertyChanged("StrDiscountMoney");
             }
         }
 
-        private string _total;
-        public string Total
+        private string _strTotal;
+        public string StrTotal
         {
-            get { return _total; }
+            get { return _strTotal; }
             set
             {
-                _total = value;
-                OnPropertyChanged("Total");
+                _strTotal = value;
+                OnPropertyChanged("StrTotal");
             }
         }
 
@@ -609,51 +616,26 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeVisible = true;
 
             TourPrice = Provisional = Total = selectedTour.basePrice;
+
             DiscountMoney = "0";
-        }
 
-        public string GenerateInvoiceId()
+            FormatMoney();
+        }
+       
+
+        void FormatMoney()
         {
-            int length = 15;
-            var List = DataManager.Ins.ListInvoice;
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            StrProvisional = Provisional;
+            StrTotal = Total;
+            StrTourPrice = TourPrice;
+            StrDiscountMoney = DiscountMoney;
 
-            var random = new Random();
-            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+            var service = DataManager.Ins.InvoicesServices;
 
-            int i = 0;
-            while (i < List.Count())
-            {
-                if (List[i].id == randomString)
-                {
-                    i = -1;
-                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
-                }
-                i++;
-            }
-            return randomString;
-        }
-
-        public string GenerateTicketId()
-        {
-            int length = 15;
-            var List = DataManager.Ins.ListBookedTickets;
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-            var random = new Random();
-            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
-
-            int i = 0;
-            while (i < List.Count())
-            {
-                if (List[i].id == randomString)
-                {
-                    i = -1;
-                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
-                }
-                i++;
-            }
-            return randomString;
-        }
+            StrTotal = service.FormatMoney(StrTotal) + " USD";
+            StrTourPrice = service.FormatMoney(StrTourPrice) + " USD";
+            StrDiscountMoney = service.FormatMoney(StrDiscountMoney) + " USD";
+            StrProvisional = service.FormatMoney(StrProvisional) + " USD";
+        }    
     }
 }

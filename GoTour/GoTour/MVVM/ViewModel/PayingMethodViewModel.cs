@@ -163,10 +163,15 @@ namespace GoTour.MVVM.ViewModel
 
         void SetInformation()
         {
-            Total = DataManager.Ins.CurrentBookedTicket
-                .invoice.total;
+
+            Total = DataManager.Ins.CurrentInvoice.total;
+
+            var service = DataManager.Ins.InvoicesServices;
+            Total = service.FormatMoney(Total);
 
             Regulation = "This is our regulation:";
+
+
         }    
     }
 }

@@ -51,6 +51,8 @@ namespace GoTour.MVVM.ViewModel
                 Paid = "Yes";
             else
                 Paid = "No";
+
+            FormatMoney();
         }
 
         private BookedTicket _ticket;
@@ -162,6 +164,78 @@ namespace GoTour.MVVM.ViewModel
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
             string result = _ProcessedDuration[0] + " days - " + _ProcessedDuration[1] + " nights";
             ProcessedDuration = result;
+        }
+
+
+        private string _strBasePrice;
+        public string StrBasePrice
+        {
+            get { return _strBasePrice; }
+            set
+            {
+                _strBasePrice = value;
+                OnPropertyChanged("StrBaserPrice");
+            }
+        }
+
+        private string _strProvisional;
+        public string StrProvisional
+        {
+            get { return _strProvisional; }
+            set
+            {
+                _strProvisional = value;
+                OnPropertyChanged("StrProvisional");
+            }
+        }
+
+        private string _strDiscountMoney;
+        public string StrDiscountMoney
+        {
+            get { return _strDiscountMoney; }
+            set
+            {
+                _strDiscountMoney = value;
+                OnPropertyChanged("StrDiscountMoney");
+            }
+        }
+
+        private string _strTotal;
+        public string StrTotal
+        {
+            get { return _strTotal; }
+            set
+            {
+                _strTotal = value;
+                OnPropertyChanged("StrTotal");
+            }
+        }
+
+        private string _strMoMoVND;
+        public string StrMoMoVND
+        {
+            get { return _strMoMoVND; }
+            set
+            {
+                _strMoMoVND = value;
+                OnPropertyChanged("StrMoMoVND");
+            }
+        }
+
+        void FormatMoney()
+        {
+            StrTotal = Invoice.total;
+            StrBasePrice = Invoice.price;
+            StrDiscountMoney = Invoice.discountMoney;
+            StrMoMoVND = Invoice.momoVnd;
+
+            var service = DataManager.Ins.InvoicesServices;
+
+            StrTotal = service.FormatMoney(StrTotal);
+            StrBasePrice = service.FormatMoney(StrBasePrice);
+            StrDiscountMoney = service.FormatMoney(StrDiscountMoney);
+            StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
+           
         }
     }
 }

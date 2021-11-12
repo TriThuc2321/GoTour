@@ -13,6 +13,7 @@ namespace GoTour.MVVM.ViewModel
     public class MoMoConfirmViewModel : ObservableObject
     {
         INavigation navigation;
+        string Money;
         public MoMoConfirmViewModel() { }
         public Command NavigationBack { get; }
         public Command UploadPhoto { get; }
@@ -82,7 +83,10 @@ namespace GoTour.MVVM.ViewModel
 
             DataManager.Ins.CurrentInvoice.method ="MoMo";
             DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
+            DataManager.Ins.CurrentInvoice.momoVnd = Money;
+
             DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+
             await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
             await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
 
@@ -110,14 +114,14 @@ namespace GoTour.MVVM.ViewModel
         }
 
         #region money
-        private string _money;
-        public string Money
+        private string _strMoney;
+        public string StrMoney
         {
-            get { return _money; }
+            get { return _strMoney; }
             set
             {
-                _money = value;
-                OnPropertyChanged("Money");
+                _strMoney = value;
+                OnPropertyChanged("StrMoney");
             }
         }
         #endregion
@@ -199,7 +203,10 @@ namespace GoTour.MVVM.ViewModel
 
         void SetInformation()
         {
-            Money = DataManager.Ins.CurrentBookedTicket.invoice.total;
+            string[] currency = DataManager.Ins.USDCurrency.Split(',');
+            string usd = currency[0] + currency[1];
+            int money = int.Parse(DataManager.Ins.CurrentInvoice.total) * int.Parse(usd);
+            Money = money.ToString();
             Regulation = "This is our regulation: ";
             ConfirmText = "Paying later";
             UploadImageText = "Upload photo";
@@ -207,6 +214,8 @@ namespace GoTour.MVVM.ViewModel
             ImageLink = "";
             ImageVisible = false;
             RemovePhotoVisible = false;
+
+            StrMoney = String.Format("{0:#,##0.##}", money);
         }
     }
 }

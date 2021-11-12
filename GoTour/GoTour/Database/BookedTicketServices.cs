@@ -69,7 +69,27 @@ namespace GoTour.Database
             await firebase.Child("BookedTickets").Child(toDelete.Key).DeleteAsync();
         }
 
-       
+        public string GenerateTicketId()
+        {
+            int length = 15;
+            var List = DataManager.Ins.ListBookedTickets;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < List.Count())
+            {
+                if (List[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return randomString;
+        }
     }
 }
 
