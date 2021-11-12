@@ -26,7 +26,10 @@ namespace GoTour.MVVM.ViewModel
             ListStayPlace = DataManager.Ins.ListStayPlace;
             _messageService = DependencyService.Get<IMessageService>();
         }
-
+        public ICommand NavigationBack => new Command<object>((obj) =>
+        {
+            navigation.PopAsync();
+        });
         public ICommand NewStayPlaceCommand => new Command<object>((obj) =>
         {
             navigation.PushAsync(new NewStayPlaceView());

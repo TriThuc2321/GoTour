@@ -29,7 +29,10 @@ namespace GoTour.MVVM.ViewModel
             //Show the dialog with next line
            
         }
-
+        public ICommand NavigationBack => new Command<object>((obj) =>
+        {
+            navigation.PopAsync();
+        });
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
             var place = obj as Place;
