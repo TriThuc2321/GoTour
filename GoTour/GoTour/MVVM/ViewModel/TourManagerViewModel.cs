@@ -30,7 +30,7 @@ namespace GoTour.MVVM.ViewModel
             if (result != null)
             {
                 DataManager.Ins.currentTour = result;
-                navigation.PushAsync(new DetailTourView());
+                navigation.PushAsync(new EditTourView());
                 SelectedTour = null;
             }
         });
