@@ -81,5 +81,14 @@ namespace GoTour.Database
 
         }
 
+        public async Task<Discount> FindDiscountById(string id)
+        {
+            var all = await GetAllDiscounts();
+            await firebase
+                .Child("Discounts")
+                .OnceAsync<Discount>();
+            return all.Where(a => a.id == id).FirstOrDefault();
+        }
+
     }
 }

@@ -61,6 +61,33 @@ namespace GoTour.Database
               });
         }
 
+
+        public async Task UpdateBookedTicket(BookedTicket bookedTicket)
+        {
+            var toUpdateTour = (await firebase
+                 .Child("BookedTickets")
+                 .OnceAsync<BookedTicket>()).Where(a => a.Object.id == bookedTicket.id).FirstOrDefault();
+
+            await firebase
+              .Child("BookedTickets")
+              .Child(toUpdateTour.Key)
+              .PutAsync(new BookedTicket
+              {
+                  id = bookedTicket.id,
+                  tour = new Tour() { id = bookedTicket.tour.id },
+                  name = bookedTicket.name,
+                  birthday = bookedTicket.birthday,
+                  contact = bookedTicket.contact,
+                  email = bookedTicket.email,
+                  cmnd = bookedTicket.cmnd,
+                  address = bookedTicket.address,
+                  bookTime = bookedTicket.bookTime,
+                  invoice = bookedTicket.invoice,
+                  paidPhoto = bookedTicket.paidPhoto,
+                  isCancel = bookedTicket.isCancel
+              });
+
+        }
         public async Task DeleteBookedTicket(string id)
         {
             var toDelete = (await firebase

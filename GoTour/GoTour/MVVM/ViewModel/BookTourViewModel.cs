@@ -619,6 +619,9 @@ namespace GoTour.MVVM.ViewModel
 
             DiscountMoney = "0";
 
+            DataManager.Ins.CurrentDiscount = null;
+            DataManager.Ins.CurrentBookedTicket = null;
+
             FormatMoney();
         }
        

@@ -6,6 +6,7 @@ using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -64,6 +65,17 @@ namespace GoTour.MVVM.ViewModel
 
         async void confirm(object obj)
         {
+            bool changeMethod = false;
+            if (await checkRemaining() == false)
+            {
+                return;
+            }
+
+            if (await checkDiscount() == false) return;
+
+            if (DataManager.Ins.CurrentInvoice.method == "Cash")
+                changeMethod = true;
+
             if (ImageVisible && currentPhoto != null)
             {
                 string url = await DataManager.Ins.InvoicesServices.saveMoMoImage(
@@ -87,8 +99,15 @@ namespace GoTour.MVVM.ViewModel
 
             DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
 
-            await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
-            await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            if (changeMethod)
+            {
+                await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            }
+            else {
+                await DataManager.Ins.InvoicesServices.UpdateInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            }
 
             if (DataManager.Ins.CurrentDiscount != null)
             {
@@ -110,6 +129,7 @@ namespace GoTour.MVVM.ViewModel
 
             }
 
+            
             await navigation.PushAsync(new BookedTicketDetailView());
         }
 
@@ -216,6 +236,32 @@ namespace GoTour.MVVM.ViewModel
             RemovePhotoVisible = false;
 
             StrMoney = String.Format("{0:#,##0.##}", money);
+        }
+
+        async Task<bool> checkRemaining()
+        {
+            Tour temp = await DataManager.Ins.TourServices.FindTourById(DataManager.Ins.currentTour.id);
+            if (int.Parse(DataManager.Ins.CurrentInvoice.amount) <= int.Parse(temp.remaining))
+                return true;
+            else
+                DependencyService.Get<IToast>().ShortToast("This tour has no turn!");
+
+            return false;
+        }
+
+        async Task<bool> checkDiscount()
+        {
+            if (DataManager.Ins.CurrentDiscount == null) return true;
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                Discount temp = await DataManager.Ins.DiscountsServices.FindDiscountById(DataManager.Ins.CurrentDiscount.id);
+                if (int.Parse(temp.isUsed) < int.Parse(temp.total))
+                    return true;
+                else
+                    DependencyService.Get<IToast>().ShortToast("Your discount has no turn!");
+            };
+
+            return false;
         }
     }
 }

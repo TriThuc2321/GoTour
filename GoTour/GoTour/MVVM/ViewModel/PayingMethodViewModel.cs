@@ -3,6 +3,7 @@ using GoTour.Database;
 using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -32,6 +33,9 @@ namespace GoTour.MVVM.ViewModel
 
             if (!MoMo && !Cash)
                 DependencyService.Get<IToast>().ShortToast("Please choose a paying method");
+
+            if (await checkDiscount() == false ) return;
+            if (await checkRemaining() == false) return;
 
             if (IsCheckRegulation && MoMo)
             {
@@ -160,7 +164,31 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
  
+        async Task<bool> checkRemaining()
+        {
+            Tour temp = await DataManager.Ins.TourServices.FindTourById(DataManager.Ins.currentTour.id);
+            if (int.Parse(DataManager.Ins.CurrentInvoice.amount) <= int.Parse(temp.remaining))
+                return true;
+            else
+                DependencyService.Get<IToast>().ShortToast("This tour has no turn!");
 
+            return false;
+        }
+
+        async Task<bool> checkDiscount()
+        {
+            if (DataManager.Ins.CurrentDiscount == null) return true;
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                Discount temp = await DataManager.Ins.DiscountsServices.FindDiscountById(DataManager.Ins.CurrentDiscount.id);
+                if (int.Parse(temp.isUsed) < int.Parse(temp.total))
+                    return true;
+                else
+                    DependencyService.Get<IToast>().ShortToast("Your discount has no turn!");
+            };
+
+            return false;
+        }
         void SetInformation()
         {
 

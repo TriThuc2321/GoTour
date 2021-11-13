@@ -43,7 +43,8 @@ namespace GoTour.MVVM.ViewModel
                 PayingVisible = false;
                 DisplayUpload = true;
             }
-
+            else
+                DisplayUpload = false;
             if (Discount == null)
             {
                 DiscountVisible = false;
@@ -259,14 +260,20 @@ namespace GoTour.MVVM.ViewModel
             StrTotal = Invoice.total;
             StrBasePrice = Invoice.price;
             StrDiscountMoney = Invoice.discountMoney;
-            StrMoMoVND = Invoice.momoVnd;
+
+            
 
             var service = DataManager.Ins.InvoicesServices;
 
             StrTotal = service.FormatMoney(StrTotal);
             StrBasePrice = service.FormatMoney(StrBasePrice);
             StrDiscountMoney = service.FormatMoney(StrDiscountMoney);
-            StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
+
+            if (Invoice.momoVnd != null)
+            {
+                StrMoMoVND = Invoice.momoVnd;
+                StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
+            }
            
         }
     }
