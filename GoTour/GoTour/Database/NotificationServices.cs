@@ -17,7 +17,6 @@ namespace GoTour.Database
         public List<Notification> ListMyNoti { get; set; }
         public NotificationServices() {
             GetAllNotification();
-
         }
         public async Task<List<Notification>> GetAllNotification()
         {
@@ -28,16 +27,19 @@ namespace GoTour.Database
               {
                   id = item.Object.id,
                   senderEmail = item.Object.senderEmail,
-                  recieverListEmail = item.Object.recieverListEmail,
+                  reciever = item.Object.reciever,
                   type = item.Object.type,
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
                   when = item.Object.when,
+                  title = item.Object.title,
+                  tourId = item.Object.tourId,
+                  isVisible = item.Object.isVisible
               }).ToList();
         }
 
         //Add a noti into DB
-        public async Task SendNoti(string id, string sender, List<string> recievers, int type, string body)
+        public async Task SendNoti(string id, string sender, string reciever, int type, string body, DateTime time, string tourId, string title)
         {
             await firebase
               .Child("Notification")
@@ -45,11 +47,14 @@ namespace GoTour.Database
               {
                   id = id,
                   senderEmail = sender,
-                  recieverListEmail = recievers,
+                  reciever = reciever,
                   type = type,
                   body = body,
                   isChecked = false,
                   when = DateTime.Now,
+                  title = title,
+                  tourId = tourId,
+                  isVisible = true
               });
         }
 
@@ -68,7 +73,7 @@ namespace GoTour.Database
             }
             List<Notification> temp2 = new List<Notification>();
             List<Notification> result = new List<Notification>();
-            temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
+           // temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
             foreach (var ntf in temp2)
             {
                 if (!result.Contains(ntf))
@@ -83,7 +88,7 @@ namespace GoTour.Database
         //GET MY GUIDER NOTIFICATION
         public async Task GetMyGuiderNoti(string yourEmail)
         {
-            ListMyNoti = new ObservableCollection<Notification>();
+           // ListMyNoti = new ObservableCollection<Notification>();
             List<Notification> temp = new List<Notification>();
             foreach (Notification x in ListAllNoti)
             {
@@ -95,7 +100,7 @@ namespace GoTour.Database
             }
             List<Notification> temp2 = new List<Notification>();
             List<Notification> result = new List<Notification>();
-            temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
+           // temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
             foreach (var ntf in temp2)
             {
                 if (!result.Contains(ntf))

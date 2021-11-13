@@ -3,8 +3,8 @@
   <PropertyGroup>
     <SelectedDevice>Xiaomi Redmi Note 7</SelectedDevice>
     <ActiveDebugProfile>Xiaomi Redmi Note 7</ActiveDebugProfile>
-    <SelectedDevice>Xiaomi Redmi Note 7</SelectedDevice>
-    <ActiveDebugProfile>Xiaomi Redmi Note 7</ActiveDebugProfile>
+    <SelectedDevice>Android Emulator</SelectedDevice>
+    <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
     <DefaultDevice>Pixel_3a_API_27</DefaultDevice>
   </PropertyGroup>
