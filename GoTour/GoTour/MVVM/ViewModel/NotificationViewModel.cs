@@ -14,15 +14,16 @@ namespace GoTour.MVVM.ViewModel
     class NotificationViewModel:ObservableObject
     {
         INavigation navigation;
-        
+        public Command NavigationBack { get; }
         public NotificationViewModel() { }
         public NotificationViewModel(INavigation navigation)
         {
             this.navigation = navigation;
             ListNotification = new ObservableCollection<Notification>();
             ListNotification2 = new ObservableCollection<Notification>();
-           
-            
+            NavigationBack = new Command(() => navigation.PopAsync());
+
+
             foreach (Notification ite in DataManager.Ins.NotiServices.GetMySystemNoti(DataManager.Ins.CurrentUser.email))
             {
                 ListNotification.Add(ite);
@@ -59,9 +60,8 @@ namespace GoTour.MVVM.ViewModel
 
         public ICommand AddMember => new Command<object>((obj) =>
         {
-            List<string> recieverList = new List<string>();
-            recieverList.Add(DataManager.Ins.CurrentUser.email);
-            DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), "System", recieverList, 2, "Test Notification","saaaaa");
+           
+            DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), "System", "19522267@gm.uit.edu.vn", 2, "Test Notification","saaaaa","11");
           
         });
 
