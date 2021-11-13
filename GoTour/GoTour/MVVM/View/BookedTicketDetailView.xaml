@@ -60,6 +60,7 @@
                             BorderColor="Red"
                             BorderWidth="1"
                             Text="cancel ticket"
+                            Command="{Binding CancelTicket}"
                         />
 
                     <Button Grid.Column="1"
@@ -709,7 +710,6 @@
                     <StackLayout Orientation="Vertical"
                              Grid.Row="18"
                              Margin="25, 5, 15, 5"
-                              IsVisible="{Binding PayingVisible}"
                              >
                         <Grid HorizontalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
@@ -722,12 +722,29 @@
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            <Image   Source="{Binding Invoice.photoMomo}"
+                        </Grid>
+                        <Image   Source="{Binding Invoice.photoMomo}"
                                       BackgroundColor="Transparent"
                                       WidthRequest="500"
-                                       Aspect="AspectFill"
+                                       Aspect="AspectFill"   
+                                     
+                                        IsVisible="{Binding PayingVisible}"
                              />
-                        </Grid>
+
+                        <Button Command="{Binding UploadPhoto}"
+                                       IsVisible="{Binding DisplayUpload}"
+                                    Grid.Row="5"
+                                    CornerRadius="20" 
+                                    Margin="25,20,25,30"
+                                    Padding="5"  
+                                    BorderWidth="1"
+                                    BorderColor="DarkBlue"
+                                    BackgroundColor="White" 
+                                    TextColor="DarkBlue"
+                                    VerticalOptions="Center"
+                                    HeightRequest="50"
+                                    FontAttributes="Bold"
+                                    FontSize="20"/>
                     </StackLayout>
 
                 </Grid>

@@ -1,6 +1,8 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +15,8 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         public Command NavigationBack { get; }
         public BookedTicketDetailViewModel() {}
-
+        public Command UploadPhoto { get; }
+        public Command CancelTicket { get; }
         public BookedTicketDetailViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -23,7 +26,10 @@ namespace GoTour.MVVM.ViewModel
             this.Invoice = DataManager.Ins.CurrentInvoice;
             this.Tour = DataManager.Ins.currentTour;
 
+            CancelTicket = new Command(cancelTicket);
+
             NavigationBack = new Command(() => navigation.PopAsync());
+            UploadPhoto = new Command(upload);
             SetInformation();
 
         }
@@ -35,6 +41,7 @@ namespace GoTour.MVVM.ViewModel
             if (!this.Invoice.isPaid)
             {
                 PayingVisible = false;
+                DisplayUpload = true;
             }
 
             if (Discount == null)
@@ -47,12 +54,24 @@ namespace GoTour.MVVM.ViewModel
             else
                 Occured = "No occured";
 
+            if (Ticket.isCancel)
+                Occured = Occured + " - This ticket was canceled";
+
             if (Invoice.isPaid)
                 Paid = "Yes";
             else
                 Paid = "No";
 
             FormatMoney();
+        }
+
+        void cancelTicket(object obj)
+        {
+
+        }
+        public void upload(object obj)
+        {
+            navigation.PushAsync(new MoMoConfirmView());
         }
 
         private BookedTicket _ticket;
@@ -158,6 +177,19 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Paid");
             }
         }
+
+        private bool displayUpload;
+        public bool DisplayUpload
+        {
+            get { return displayUpload; }
+            set
+            {
+                displayUpload = value;
+                OnPropertyChanged("DisplayUpload");
+            }
+        }
+
+
         private void DurationProcess()
         {
             if (DataManager.Ins.currentTour.duration == null) return;
