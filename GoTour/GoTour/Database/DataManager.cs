@@ -63,6 +63,7 @@ namespace GoTour.Database
             SearchServices = new SearchAndFilterServices();
             NotiServices = new NotificationServices();
             NotiList = new ObservableCollection<Notification>();
+            
 
 
             PlacesServices = new PlacesServices();
@@ -95,16 +96,20 @@ namespace GoTour.Database
 
             CurrentUser = new User();
             getAllList();
+            
+           
         }
         async Task getAllList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
             //HUYNH
-            foreach(Notification ite in NotiServices.ListAllNoti)
+            notiServices.ListAllNoti = await notiServices.GetAllNotification();
+            foreach (Notification ite in notiServices.ListAllNoti)
             {
                 NotiList.Add(ite);
             }
+           
 
             usersTemp = await UsersServices.GetAllUsers();
             foreach (User u in usersTemp)
@@ -181,6 +186,25 @@ namespace GoTour.Database
                 i++;
             }
             return randomString;
+        }
+        public string GenerateStayPlaceId(int length = 3)
+        {
+            const string chars = "0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < ListPlace.Count())
+            {
+                if (ListPlace[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return "SP" + randomString;
         }
         public List<ImagePlaceStream> GetImageStreamPlaces()
         {
@@ -337,6 +361,25 @@ namespace GoTour.Database
             }
         }
 
+        private ObservableCollection<Notification> systemNotification;
+        public ObservableCollection<Notification> SystemNotification
+        {
+            get { return systemNotification; }
+            set
+            {
+                systemNotification = value;
+            }
+        }
+        private ObservableCollection<Notification> guiderNotification;
+        public ObservableCollection<Notification> GuiderNotification
+        {
+            get { return guiderNotification; }
+            set
+            {
+                guiderNotification = value;
+            }
+        }
+
         private User currentUser;
         public User CurrentUser
         {
@@ -373,6 +416,15 @@ namespace GoTour.Database
             set
             {
                 verifyCode = value;
+            }
+        }
+        private string USDcurrency;
+        public string USDCurrency
+        {
+            get { return USDcurrency; }
+            set
+            {
+                USDcurrency = value;
             }
         }
         public bool isRegister;
@@ -491,6 +543,16 @@ namespace GoTour.Database
             {
                 usersServices = value;
                 OnPropertyChanged("UsersServices");
+            }
+        }
+        private Notification currentNoti;
+        public Notification CurrentNoti
+        {
+            get { return currentNoti; }
+            set
+            {
+                currentNoti = value;
+                OnPropertyChanged("CurrentNoti");
             }
         }
 

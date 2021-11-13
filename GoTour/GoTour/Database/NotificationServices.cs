@@ -14,21 +14,26 @@ namespace GoTour.Database
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         public List<Notification> ListAllNoti { get; set; }
-        public List<Notification> ListMyNoti { get; set; }
+        public ObservableCollection<Notification> ListMyNoti_TourGuider { get; set; }
+        public ObservableCollection<Notification> ListMyNoti_System { get; set; }
+
         public NotificationServices() {
-            GetAllNotification();
+          
+
         }
         public async Task<List<Notification>> GetAllNotification()
         {
-            ListAllNoti = new List<Notification>();
-            return (await firebase
+            ListAllNoti = (await firebase
               .Child("Notification")
               .OnceAsync<Notification>()).Select(item => new Notification
               {
                   id = item.Object.id,
                   senderEmail = item.Object.senderEmail,
-                  reciever = item.Object.reciever,
+                  reciever  = item.Object.reciever,
                   type = item.Object.type,
+                  isVisible = item.Object.isVisible,
+                  tourId = item.Object.tourId,
+                  title = item.Object.title,
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
                   when = item.Object.when,
@@ -36,10 +41,12 @@ namespace GoTour.Database
                   tourId = item.Object.tourId,
                   isVisible = item.Object.isVisible
               }).ToList();
+
+            return ListAllNoti;
         }
 
         //Add a noti into DB
-        public async Task SendNoti(string id, string sender, string reciever, int type, string body, DateTime time, string tourId, string title)
+        public async Task SendNoti(string id, string sender, string reciever, int type, string body,string title, string tourId)
         {
             await firebase
               .Child("Notification")
@@ -48,68 +55,92 @@ namespace GoTour.Database
                   id = id,
                   senderEmail = sender,
                   reciever = reciever,
+                  tourId = tourId,
+                  isVisible = true,
                   type = type,
                   body = body,
                   isChecked = false,
-                  when = DateTime.Now,
                   title = title,
-                  tourId = tourId,
-                  isVisible = true
+                  when = DateTime.Now,                 
+              });
+        }
+
+        public async Task UpdatePlace(Notification notification)
+        {
+            var toUpdateNotification = (await firebase
+              .Child("Notification")
+              .OnceAsync<Notification>()).Where(a => a.Object.id == notification.id).FirstOrDefault();
+
+            await firebase
+              .Child("Notification")
+              .Child(toUpdateNotification.Key)
+              .PutAsync(new Notification
+              {
+                  id = notification.id,
+                  senderEmail = notification.senderEmail,
+                  isChecked = notification.isChecked,
+                  reciever = notification.reciever,
+                  isVisible = notification.isVisible,
+                  tourId = notification.tourId,
+                  type = notification.type,
+                  body = notification.body,
+                  when = notification.when,
+                  title = notification.title,
               });
         }
 
         //Get MY SYSTEM NOTIFICATION
-        public async Task GetMySystemNoti(string yourEmail)
+        public ObservableCollection<Notification> GetMySystemNoti(string yourEmail)
         {
-            ListMyNoti = new List<Notification>();
-            List<Notification> temp = new List<Notification>();
+            ListMyNoti_System = new ObservableCollection<Notification>();
+            //List<Notification> temp = new List<Notification>();
             foreach(Notification x in ListAllNoti)
             {
-                if(x.type == 1)
+                if(x.type == 1 && x.reciever == yourEmail)
                 {
-                    temp.Add(x);
-
+                    ListMyNoti_System.Add(x);
                 }
             }
-            List<Notification> temp2 = new List<Notification>();
-            List<Notification> result = new List<Notification>();
-           // temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
-            foreach (var ntf in temp2)
-            {
-                if (!result.Contains(ntf))
-                    result.Add(ntf);
-            }
-            foreach (Notification ite3 in result)
-            {
-                ListMyNoti.Add(ite3);
-            }
+            //List<Notification> temp2 = new List<Notification>();
+            //List<Notification> result = new List<Notification>();
+            //temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
+            //foreach (var ntf in temp2)
+            //{
+            //    if (!result.Contains(ntf))
+            //        result.Add(ntf);
+            //}
+            //foreach (Notification ite3 in temp)
+            //{
+            //    ListMyNoti_System.Add(ite3);
+            //}
+            return ListMyNoti_System;
         }
 
         //GET MY GUIDER NOTIFICATION
-        public async Task GetMyGuiderNoti(string yourEmail)
+        public ObservableCollection<Notification> GetMyGuiderNoti(string yourEmail)
         {
-           // ListMyNoti = new ObservableCollection<Notification>();
-            List<Notification> temp = new List<Notification>();
+            ListMyNoti_TourGuider = new ObservableCollection<Notification>();
+            //List<Notification> temp = new List<Notification>();
             foreach (Notification x in ListAllNoti)
             {
-                if (x.type == 2)
+                if (x.type == 2 && x.reciever == yourEmail)
                 {
-                    temp.Add(x);
-
+                    ListMyNoti_TourGuider.Add(x);
                 }
             }
-            List<Notification> temp2 = new List<Notification>();
-            List<Notification> result = new List<Notification>();
-           // temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
-            foreach (var ntf in temp2)
-            {
-                if (!result.Contains(ntf))
-                    result.Add(ntf);
-            }
-            foreach (Notification ite3 in result)
-            {
-                ListMyNoti.Add(ite3);
-            }
+            //List<Notification> temp2 = new List<Notification>();
+            //List<Notification> result = new List<Notification>();
+            //temp2 = temp.FindAll(e => e.recieverListEmail.Exists(p => p.Equals(yourEmail)));
+            //foreach (var ntf in temp2)
+            //{
+            //    if (!result.Contains(ntf))
+            //        result.Add(ntf);
+            //}
+            //foreach (Notification ite3 in result)
+            //{
+            //    ListMyNoti_TourGuider.Add(ite3);
+            //}
+            return ListMyNoti_TourGuider;
         }
     }
 }

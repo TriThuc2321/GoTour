@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.NotificationView"
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="false"
              >
 
@@ -11,10 +11,127 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to notification"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Image Grid.RowSpan="3" Source="notification_background.jpg" VerticalOptions="FillAndExpand" Aspect="AspectFill" Opacity="1"></Image>
+            <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="StartAndExpand" Padding="5">
+            <Button HorizontalOptions="FillAndExpand" Text="System" TextColor="White" FontAttributes="Bold" Command="{Binding SystemNoti}" BackgroundColor="SteelBlue"></Button>
+                <Button HorizontalOptions="FillAndExpand" Text="Guider"  TextColor="White" FontAttributes="Bold" Command="{Binding GuiderNoti}" BackgroundColor="LightCoral"></Button>
+                <Button Command="{Binding AddMember}"></Button>
+                
+            </StackLayout>
+            <CollectionView x:Name="clview" 
+                            Grid.Row="2"
+                            ItemsSource="{Binding ListNotification}" 
+                            IsVisible="{Binding SystemNotiUI}"
+                            SelectedItem="{Binding SelectedNoti}"
+                            SelectionMode="Single"                                                         
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                            
+                            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Normal" >
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid>
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="White">
+                                    <StackLayout>
+                                    <Label Text="{Binding title}"></Label>
+                                        <Line BackgroundColor="SteelBlue" HeightRequest="1"></Line>
+                                        <Label Text="{Binding senderEmail}"></Label>
+                                    <Label Text="{Binding when}"></Label>
+                                    </StackLayout>
+                                </pancake:PancakeView>
+
+                            </Grid>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView x:Name="clview1" 
+                            Grid.Row="2"
+                            ItemsSource="{Binding ListNotification2}" 
+                           IsVisible="{Binding GuiderNotiUI}"
+                            SelectedItem="{Binding SelectedNoti_2}"
+                            SelectionMode="Single" 
+                            SelectionChangedCommand="{Binding SelectedCommand_2}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview1}}"
+                            
+                            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Normal" >
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid>
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke">
+                                    <StackLayout>
+                                        <Label Text="{Binding title}"></Label>
+                                        <Line BackgroundColor="LightCoral" HeightRequest="1"></Line>
+                                        <Label Text="{Binding senderEmail}"></Label>
+                                        <Label Text="{Binding when}"></Label>
+                                    </StackLayout>
+                                </pancake:PancakeView>
+
+                            </Grid>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <StackLayout Grid.Row="0" Orientation="Horizontal"  VerticalOptions="StartAndExpand" HorizontalOptions="Fill" Padding="5">
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="CenterAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 0 , 0, 0">
+                </ImageButton>
+                <Label Text="Notification" FontSize="22" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
