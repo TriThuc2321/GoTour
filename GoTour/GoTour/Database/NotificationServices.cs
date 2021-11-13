@@ -14,15 +14,16 @@ namespace GoTour.Database
     {
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         public List<Notification> ListAllNoti { get; set; }
-        public List<Notification> ListMyNoti { get; set; }
+        public ObservableCollection<Notification> ListMyNoti_TourGuider { get; set; }
+        public ObservableCollection<Notification> ListMyNoti_System { get; set; }
+
         public NotificationServices() {
-            GetAllNotification();
+          
 
         }
         public async Task<List<Notification>> GetAllNotification()
         {
-            ListAllNoti = new List<Notification>();
-            return (await firebase
+            ListAllNoti = (await firebase
               .Child("Notification")
               .OnceAsync<Notification>()).Select(item => new Notification
               {
@@ -30,14 +31,17 @@ namespace GoTour.Database
                   senderEmail = item.Object.senderEmail,
                   recieverListEmail = item.Object.recieverListEmail,
                   type = item.Object.type,
+                  title = item.Object.title,
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
                   when = item.Object.when,
               }).ToList();
+
+            return ListAllNoti;
         }
 
         //Add a noti into DB
-        public async Task SendNoti(string id, string sender, List<string> recievers, int type, string body)
+        public async Task SendNoti(string id, string sender, List<string> recievers, int type, string body,string title)
         {
             await firebase
               .Child("Notification")
@@ -49,14 +53,37 @@ namespace GoTour.Database
                   type = type,
                   body = body,
                   isChecked = false,
+                  title = title,
                   when = DateTime.Now,
               });
         }
 
-        //Get MY SYSTEM NOTIFICATION
-        public async Task GetMySystemNoti(string yourEmail)
+        public async Task UpdatePlace(Notification notification)
         {
-            ListMyNoti = new List<Notification>();
+            var toUpdateNotification = (await firebase
+              .Child("Notification")
+              .OnceAsync<Place>()).Where(a => a.Object.id == notification.id).FirstOrDefault();
+
+            await firebase
+              .Child("Notification")
+              .Child(toUpdateNotification.Key)
+              .PutAsync(new Notification
+              {
+                  id = notification.id,
+                  senderEmail = notification.senderEmail,
+                  isChecked = notification.isChecked,
+                  recieverListEmail = notification.recieverListEmail,
+                  type = notification.type,
+                  body = notification.body,
+                  when = notification.when,
+                  title = notification.title,
+              });
+        }
+
+        //Get MY SYSTEM NOTIFICATION
+        public ObservableCollection<Notification> GetMySystemNoti(string yourEmail)
+        {
+            ListMyNoti_System = new ObservableCollection<Notification>();
             List<Notification> temp = new List<Notification>();
             foreach(Notification x in ListAllNoti)
             {
@@ -76,14 +103,15 @@ namespace GoTour.Database
             }
             foreach (Notification ite3 in result)
             {
-                ListMyNoti.Add(ite3);
+                ListMyNoti_System.Add(ite3);
             }
+            return ListMyNoti_System;
         }
 
         //GET MY GUIDER NOTIFICATION
-        public async Task GetMyGuiderNoti(string yourEmail)
+        public ObservableCollection<Notification> GetMyGuiderNoti(string yourEmail)
         {
-            ListMyNoti = new ObservableCollection<Notification>();
+            ListMyNoti_TourGuider = new ObservableCollection<Notification>();
             List<Notification> temp = new List<Notification>();
             foreach (Notification x in ListAllNoti)
             {
@@ -103,8 +131,9 @@ namespace GoTour.Database
             }
             foreach (Notification ite3 in result)
             {
-                ListMyNoti.Add(ite3);
+                ListMyNoti_TourGuider.Add(ite3);
             }
+            return ListMyNoti_TourGuider;
         }
     }
 }
