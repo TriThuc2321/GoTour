@@ -9,6 +9,7 @@ using System.Text;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Windows.Input;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -38,15 +39,33 @@ namespace GoTour.MVVM.ViewModel
             MyTourCommand = new Command(openMyTour);
             SearchButtonHandleCommand = new Command(searchButtonHandle);
 
-            StayPlaces = DataManager.Ins.ListStayPlace;
-            int a = 5;
-           /* Places = DataManager.Ins.ListPlace;*/
+            Tours = DataManager.Ins.ListTour;
 
-            ProfilePic = DataManager.Ins.CurrentUser.profilePic;
-           /* Tours = DataManager.Ins.ListTour;*/
-            Places = DataManager.Ins.ListPlace;
 
         }
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+
+            }
+        }
+
+        public ICommand SelectedCommand => new Command<object>((obj) =>
+        {
+            Tour result = obj as Tour;
+            if (result != null)
+            {
+                DataManager.Ins.currentTour = result;
+                navigation.PushAsync(new DetailTourView());
+                SelectedTour = null;
+            }
+        });
+
 
         private void searchButtonHandle()
         {
@@ -97,26 +116,6 @@ namespace GoTour.MVVM.ViewModel
         #endregion
         
 
-        private ObservableCollection<Place> _places;
-        public ObservableCollection<Place> Places
-        {
-            get { return _places; }
-            set
-            {
-                _places = value;
-                OnPropertyChanged("Places");
-            }
-        }
-        private ObservableCollection<StayPlace> _stayPlaces;
-        public ObservableCollection<StayPlace> StayPlaces
-        {
-            get { return _stayPlaces; }
-            set
-            {
-                _stayPlaces = value;
-                OnPropertyChanged("StayPlaces");
-            }
-        }
 
         private ObservableCollection<Tour> _tours;
         public ObservableCollection<Tour> Tours

@@ -26,17 +26,9 @@ namespace GoTour.MVVM.ViewModel
             foreach (Notification ite in DataManager.Ins.NotiServices.GetMySystemNoti(DataManager.Ins.CurrentUser.email))
                ListNotification.Add(ite);
 
-            foreach (Notification ite in DataManager.Ins.NotiServices.GetMyGuiderNoti(DataManager.Ins.CurrentUser.email))
-            {
-                ListNotification2.Add(ite);
-            }
-
-
-            //ListNotification = DataManager.Ins.NotiServices.ListMyNoti_System;
-            //ListNotification2 = DataManager.Ins.NotiServices.ListMyNoti_TourGuider;
+            foreach (Notification ite in DataManager.Ins.NotiServices.GetMyGuiderNoti(DataManager.Ins.CurrentUser.email))         
+               ListNotification2.Add(ite);
         }
-
-
         public ICommand DeleteCommand => new Command<object>((obj) =>
         {
             Notification selected = (Notification)obj;

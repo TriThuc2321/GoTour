@@ -66,8 +66,16 @@
                             </Frame>
                             <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
                                 <StackLayout>
-                                    <Label Text="{Binding name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                        <Label Text="{Binding name}" Margin="0,0,0,0" FontSize="Medium" FontAttributes="Bold" TextColor="SteelBlue" HorizontalOptions="StartAndExpand"/>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                            <Label WidthRequest="50" HorizontalTextAlignment="End" Text="{Binding starNumber}" HorizontalOptions="EndAndExpand"  VerticalOptions="CenterAndExpand" Margin="0,0,0,0" FontSize="Medium" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                            <ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"></ImageButton>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    
                                     <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
+                                  
                                     <Label Text="{Binding startTime ,StringFormat='{} Ngày khởi hành: {0}'}" TextColor="Black"/>
                                     <Label Text="{Binding description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
                                     <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
