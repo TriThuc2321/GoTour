@@ -22,7 +22,7 @@
             <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="StartAndExpand" Padding="5">
             <Button HorizontalOptions="FillAndExpand" Text="System" TextColor="White" FontAttributes="Bold" Command="{Binding SystemNoti}" BackgroundColor="SteelBlue"></Button>
                 <Button HorizontalOptions="FillAndExpand" Text="Guider"  TextColor="White" FontAttributes="Bold" Command="{Binding GuiderNoti}" BackgroundColor="LightCoral"></Button>
-                <Button Command="{Binding AddMember}"></Button>
+                
                 
             </StackLayout>
             <CollectionView x:Name="clview" 
@@ -45,7 +45,7 @@
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState Name="Normal" >
@@ -57,26 +57,28 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10"  IsVisible="{Binding isVisible}">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup Name="CommonStates">
-                                            <VisualState Name="{Binding isChecked}">
-                                                <VisualState.Setters>
-                                                    <Setter Property="BackgroundColor" Value="White" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState Name="Normal" >
-                                                <VisualState.Setters>
-                                                    <Setter Property="BackgroundColor" Value="Wheat" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke"  IsVisible="{Binding isVisible}">
+                                   
                                     <StackLayout>
-                                        <Label Text="{Binding title}"></Label>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                            <Label Text="{Binding title}" FontAttributes="Bold" ></Label>
+                                            <Label Text="{Binding senderEmail}" HorizontalOptions="EndAndExpand"></Label>
+                                        </StackLayout>
+                                       
                                         <Line BackgroundColor="SteelBlue" HeightRequest="1"></Line>
-                                        <Label Text="{Binding senderEmail}"></Label>
+                                        <Label Text="{Binding tourId ,StringFormat='{} About: {0}'}"/>
+
                                         <Label Text="{Binding when}"></Label>
+                                        <Label Text="New" FontAttributes="Bold" TextColor="Green"  >
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="True">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="False">
+                                                    <Setter Property="IsVisible" Value="True" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
                                     </StackLayout>
                                 </pancake:PancakeView>
 
@@ -106,7 +108,7 @@
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState Name="Normal" >
@@ -120,23 +122,23 @@
                             <Grid>
                                 <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke" IsVisible="{Binding isVisible}">
                                     <StackLayout>
-                                        <Label Text="{Binding title}"></Label>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                            <Label Text="{Binding title}" FontAttributes="Bold" ></Label>
+                                            <Label Text="{Binding senderEmail}" HorizontalOptions="EndAndExpand"></Label>
+                                        </StackLayout>
                                         <Line BackgroundColor="LightCoral" HeightRequest="1"></Line>
-                                        <Label Text="{Binding senderEmail}"></Label>
+                                        <Label Text="{Binding tourId ,StringFormat='{} About: {0}'}" />
+
                                         <Label Text="{Binding when}"></Label>
-                                        <Label x:Name="newlabel1" Text="New" FontAttributes="Bold" TextColor="Red"  IsVisible="{Binding isChecked}" >
-                                            <!--<Label.Triggers>
-                                                <DataTrigger TargetType="Label"
-                                                 Binding="{Binding Source={x:Reference newlabel1},Path= IsVisible}"
-                                                         Value="True">
+                                        <Label  Text="New" FontAttributes="Bold" TextColor="Red"  >
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="True">
                                                     <Setter Property="IsVisible" Value="False" />
                                                 </DataTrigger>
-                                                <DataTrigger TargetType="Label"
-                                                 Binding="{Binding Source={x:Reference newlabel1},Path= IsVisible}"
-                                                         Value="False">
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="False">
                                                     <Setter Property="IsVisible" Value="True" />
                                                 </DataTrigger>
-                                            </Label.Triggers>-->
+                                            </Label.Triggers>
                                         </Label>
                                     </StackLayout>
                                 </pancake:PancakeView>

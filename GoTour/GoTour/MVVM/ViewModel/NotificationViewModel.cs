@@ -23,11 +23,9 @@ namespace GoTour.MVVM.ViewModel
             ListNotification2 = new ObservableCollection<Notification>();
             NavigationBack = new Command(() => navigation.PopAsync());
 
-
             foreach (Notification ite in DataManager.Ins.NotiServices.GetMySystemNoti(DataManager.Ins.CurrentUser.email))
-            {
-                ListNotification.Add(ite);
-            }
+               ListNotification.Add(ite);
+
             foreach (Notification ite in DataManager.Ins.NotiServices.GetMyGuiderNoti(DataManager.Ins.CurrentUser.email))
             {
                 ListNotification2.Add(ite);
@@ -37,24 +35,27 @@ namespace GoTour.MVVM.ViewModel
             //ListNotification = DataManager.Ins.NotiServices.ListMyNoti_System;
             //ListNotification2 = DataManager.Ins.NotiServices.ListMyNoti_TourGuider;
         }
-        public ICommand SelectedCommand => new Command<object>((obj) =>
+        public ICommand SelectedCommand => new Command<object>(async (obj) =>
         {
             Notification selected = obj as Notification;
             if (selected != null )
             {
-                selected.isChecked = "True";
+                selected.IsChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
+                await DataManager.Ins.NotiServices.UpdateNoti(selected);
+                /*OnPropertyChanged("ListNotification");*/
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti = null;
             }
         });
-        public ICommand SelectedCommand_2 => new Command<object>((obj) =>
+        public ICommand SelectedCommand_2 => new Command<object>(async (obj) =>
         {
             Notification selected = obj as Notification;
             if (selected != null)
             {
-                selected.isChecked = "True";
+                selected.IsChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
+                await DataManager.Ins.NotiServices.UpdateNoti(selected);
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti_2 = null;
             }

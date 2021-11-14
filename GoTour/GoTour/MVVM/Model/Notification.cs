@@ -1,15 +1,36 @@
-﻿using System;
+﻿using GoTour.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class Notification
+    public class Notification: ObservableObject
     {
         public string id { get; set; }
         public string senderEmail { get; set; }
-        public string isChecked { get; set; }
-        public string isVisible { get; set; }
+        public string isChecked;
+        public string IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged("IsChecked");
+
+            }
+        }
+        public string isVisible;
+        public string IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                OnPropertyChanged("IsVisible");
+
+            }
+        }
         public string reciever { get; set; }
         public int type { get; set; } //1: System notification    2: TourGuider Notification
         public string title { get; set; }

@@ -12,9 +12,11 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         public DetailNotificationViewModel() { }
+        public Command NavigationBack { get; }
         public DetailNotificationViewModel(INavigation navigation)
-        {
+        {           
             this.navigation = navigation;
+            NavigationBack = new Command(() => navigation.PopAsync());
 
             SelectedNoti = DataManager.Ins.CurrentNoti;
 

@@ -39,6 +39,7 @@ namespace GoTour.Database
                   when = item.Object.when,
                   
               }).ToList();
+            ListAllNoti.Reverse();
 
             return ListAllNoti;
         }
@@ -63,7 +64,7 @@ namespace GoTour.Database
               });
         }
 
-        public async Task UpdatePlace(Notification notification)
+        public async Task UpdateNoti(Notification notification)
         {
             var toUpdateNotification = (await firebase
               .Child("Notification")
