@@ -29,16 +29,15 @@
                         <RowDefinition Height="2*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Frame  Grid.Row="0"
-                             BackgroundColor="LightPink"
+                             BackgroundColor="SteelBlue"
                             HasShadow="True"
-                            CornerRadius="10"
-                           HeightRequest="40"
+                            CornerRadius="10"                        
                             Padding="10"
                             Margin="5"
                             >
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
-                            <Button Text="{Binding DataManager.Ins.USDCurrency}" TextColor="LightCoral" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="{Binding SelectedTour.name }" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large" TextColor="White"  Margin="10,0,10,0" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start"  ></Label>
+                            <Button Text="{Binding SelectedTour.name}" TextColor="Black" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
 
                         </StackLayout>
                         
@@ -52,10 +51,10 @@
                             Padding="10"
                             Margin="25, -10 , 25 , 0">
                         <StackLayout>
-                            <Label Text="{Binding SelectedTour.startTime,StringFormat='{}Thời gian khởi hành: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                            <Label Text="{Binding SelectedTour.basePrice ,StringFormat='{}Giá vé cơ bản: {0} VND/Người' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                            <Label Text="{Binding ProcessedDuration,StringFormat='{}Thời lượng: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                            <Label Text="{Binding SelectedTour.passengerNumber ,StringFormat='{}Số lượng: {0} Hành Khách' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                            <Label Text="{Binding SelectedTour.startTime,StringFormat='{}Start Date: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                            <Label Text="{Binding SelectedTour.basePrice ,StringFormat='{}Base Price: {0} $/Person' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                            <Label Text="{Binding ProcessedDuration,StringFormat='{}Duration: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                            <Label Text="{Binding SelectedTour.passengerNumber ,StringFormat='{}Total: {0} Passengers' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
                         </StackLayout>
                         
                     </Frame>
@@ -63,7 +62,7 @@
                 </Grid>
 
                 <StackLayout Grid.Row="1" >
-                    <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="LightPink" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                    <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <CollectionView x:Name="clview" 
                             ItemsSource="{Binding SelectedTour.placeDurationList}" 
                             SelectionMode="Single"

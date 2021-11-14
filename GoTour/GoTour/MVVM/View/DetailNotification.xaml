@@ -23,7 +23,7 @@
                     <Label Text="{Binding SelectedNoti.when ,StringFormat='{}When: {0}'}"></Label>
                 <Line BackgroundColor="Black" HeightRequest="2" ></Line>
                 <Label Text="Message:" FontAttributes="Bold" FontSize="Medium"></Label>
-                <Label Text="{Binding SelectedNoti.body}" Padding="10,2,10,0" FontSize="Medium" FontAttributes="None"></Label>
+                <Label Text="{Binding SelectedNoti.body}" Padding="10,2,10,5" FontSize="Medium" FontAttributes="None"></Label>
             </StackLayout>
             </pancake:PancakeView>
             <StackLayout Grid.Row="0" Orientation="Horizontal"  VerticalOptions="StartAndExpand" HorizontalOptions="Fill" Padding="5">

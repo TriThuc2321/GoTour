@@ -41,6 +41,8 @@ namespace GoTour.MVVM.ViewModel
 
             Tours = DataManager.Ins.ListTour;
 
+            ProfilePic = DataManager.Ins.CurrentUser.profilePic;
+
 
         }
         private Tour selectedTour;

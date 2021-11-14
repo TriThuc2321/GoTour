@@ -62,11 +62,13 @@
                         <Label
                                     Text="{Binding SelectedTour.name}"
                                     TextColor="SteelBlue"        
-                                    FontSize="30"
+                                    FontSize="Large"
                                     FontAttributes="Bold"
-                                    Margin="0,0,0,0"
                                     HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="StartAndExpand"
+                            
                         />
+                       
                         <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Source="nextIcon.png"/>
                     </StackLayout>
                   
