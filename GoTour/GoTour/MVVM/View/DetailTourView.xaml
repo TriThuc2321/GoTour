@@ -76,7 +76,7 @@
 
                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                             <ImageButton HeightRequest="30" WidthRequest="30"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent"></ImageButton>
-                            <Label Text="5" VerticalOptions="CenterAndExpand"
+                                <Label Text="{Binding SelectedTour.starNumber}" VerticalOptions="CenterAndExpand"
                                TextColor="Wheat"
                                FontAttributes="Bold"
                                FontSize="Medium"></Label>
