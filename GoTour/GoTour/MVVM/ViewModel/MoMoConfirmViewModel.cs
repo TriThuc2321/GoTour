@@ -65,17 +65,24 @@ namespace GoTour.MVVM.ViewModel
 
         async void confirm(object obj)
         {
+            // Nếu cash trước và trả MoMo
             bool changeMethod = false;
-            if (await checkRemaining() == false)
-            {
-                return;
-            }
-
-            if (await checkDiscount() == false) return;
-
+            bool payLater = true;
             if (DataManager.Ins.CurrentInvoice.method == "Cash")
                 changeMethod = true;
 
+            
+
+            if (changeMethod == false)
+            {
+                if (await checkRemaining() == false)
+                {
+                    return;
+                }
+
+                if (await checkDiscount() == false) return;
+            }
+            
             if (ImageVisible && currentPhoto != null)
             {
                 string url = await DataManager.Ins.InvoicesServices.saveMoMoImage(
@@ -86,20 +93,29 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentInvoice.isPaid = true;
                 DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
                 DataManager.Ins.CurrentInvoice.photoMomo = url;
+
+                payLater = false;
             }
             else
             {
                 DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentInvoice.payingTime = "";
+                payLater = true;
             }
 
-            DataManager.Ins.CurrentInvoice.method ="MoMo";
-            DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
-            DataManager.Ins.CurrentInvoice.momoVnd = Money;
+            if (!payLater)
+            {
+                DataManager.Ins.CurrentInvoice.method = "MoMo";
+                DataManager.Ins.CurrentInvoice.momoVnd = Money;
+            }else {
+                DataManager.Ins.CurrentInvoice.method = "Cash";
 
+            }
+
+            if (changeMethod == false)
             DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
 
-            if (changeMethod)
+            if (!changeMethod)
             {
                 await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
                 await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
@@ -119,7 +135,7 @@ namespace GoTour.MVVM.ViewModel
 
             }
 
-            if (DataManager.Ins.currentTour != null)
+            if (DataManager.Ins.currentTour != null && !changeMethod)
             {
                 int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
                 remaining = remaining - int.Parse(DataManager.Ins.CurrentInvoice.amount);
@@ -183,6 +199,17 @@ namespace GoTour.MVVM.ViewModel
         }
         #endregion
 
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
+        }
+
         private string _uploadImageText;
         public string UploadImageText
         {
@@ -236,6 +263,7 @@ namespace GoTour.MVVM.ViewModel
             RemovePhotoVisible = false;
 
             StrMoney = String.Format("{0:#,##0.##}", money);
+            SelectedTour = DataManager.Ins.currentTour;
         }
 
         async Task<bool> checkRemaining()

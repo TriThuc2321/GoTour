@@ -35,7 +35,7 @@
                            Grid.ColumnSpan="2"
                            BackgroundColor="Black"
                            VerticalOptions="End"
-                           Opacity="0.4"/>
+                           Opacity="0.5"/>
                     
                     <Label Grid.Column="0"
                            Grid.Row="2"
@@ -44,7 +44,7 @@
                            TextColor="white"
                            FontAttributes="Bold"
                            VerticalOptions="End"
-                           Margin="5"
+                           Margin="15, 5, 5, 5"
                            Text="{Binding Tour.name}"/>
                     
                     <Button Grid.Column="1"
@@ -76,6 +76,7 @@
                             HorizontalOptions="End"
                             VerticalOptions="End"
                             Text="details"
+                            Command="{Binding ViewDetail}"
                         />
 
                     <ImageButton Command="{Binding NavigationBack}" 
@@ -187,7 +188,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -407,14 +408,15 @@
                         />
                         </StackLayout>
 
-                        <!--BasePrice-->
+                       
                         <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              >
+                            <!--BasePrice-->
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Base Price: "
@@ -437,8 +439,8 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Amount: "
@@ -455,18 +457,16 @@
                             </Grid>
                         </StackLayout>
 
-                        <!--Discount ID && Percent        VISIBLE-->
+                        <!--Discount ID        VISIBLE-->
                         <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              IsVisible="{Binding DiscountVisible}"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
+                                    
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Discount ID: "
@@ -481,24 +481,41 @@
                                Grid.Column="1"
                             />
 
-                                <Label Text="Percent: "
+                               
+                               
+                            </Grid>
+                        </StackLayout>
+
+                        <!--Percent         VISIBLE-->
+                        <StackLayout Orientation="Horizontal"
+                             Margin="25, 5, 15, 5"
+                             IsVisible="{Binding DiscountVisible}"
+                             >
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Discount Pêrcent: "
                                TextColor="DarkBlue"
                                FontSize="15"
-                               Grid.Column="2"
-                               HorizontalOptions="EndAndExpand"
+                               Grid.Column="0"
                                />
                                 <Label Text="{Binding Discount.percent}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
-                               Grid.Column="3"
+                               Grid.Column="1"
                                HorizontalOptions="End"
                             />
                                 <Label Text="%"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
-                               Grid.Column="4"
+                               Grid.Column="2"
                                HorizontalOptions="Start"
                                 />
                             </Grid>
@@ -513,8 +530,8 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
@@ -555,8 +572,8 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
@@ -571,7 +588,7 @@
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
-                               HorizontalOptions="End"
+                               HorizontalOptions="Start"
                                 />
                                 <Label Text="USD"
                                    TextColor="Black"
@@ -598,7 +615,7 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
@@ -622,7 +639,7 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
@@ -647,7 +664,7 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
@@ -672,7 +689,7 @@
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
@@ -716,7 +733,7 @@
 
                             <Button Command="{Binding UploadPhoto}"
                                        IsVisible="{Binding DisplayUpload}"
-                                    Text="Upload photo"
+                                    Text="Pay by Momo wallet"
                                     Grid.Row="5"
                                     CornerRadius="20" 
                                     Margin="25,20,25,30"

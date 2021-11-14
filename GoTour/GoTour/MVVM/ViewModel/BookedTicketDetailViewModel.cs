@@ -17,6 +17,7 @@ namespace GoTour.MVVM.ViewModel
         public BookedTicketDetailViewModel() {}
         public Command UploadPhoto { get; }
         public Command CancelTicket { get; }
+        public Command ViewDetail { get; }
         public BookedTicketDetailViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -27,6 +28,7 @@ namespace GoTour.MVVM.ViewModel
             this.Tour = DataManager.Ins.currentTour;
 
             CancelTicket = new Command(cancelTicket);
+            ViewDetail = new Command(viewDetail);
 
             NavigationBack = new Command(() => navigation.PopAsync());
             UploadPhoto = new Command(upload);
@@ -66,6 +68,10 @@ namespace GoTour.MVVM.ViewModel
             FormatMoney();
         }
 
+        void viewDetail(object obj)
+        {
+            navigation.PushAsync(new DetailTourView());
+        }
         void cancelTicket(object obj)
         {
 
