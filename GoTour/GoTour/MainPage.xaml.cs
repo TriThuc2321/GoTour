@@ -22,6 +22,7 @@ namespace GoTour
             Routing.RegisterRoute(nameof(ConfirmEmailView), typeof(ConfirmEmailView));
             Routing.RegisterRoute(nameof(ManagerView), typeof(ManagerView));
             Routing.RegisterRoute(nameof(ConfirmInvoiceView), typeof(ConfirmInvoiceView));
+            Routing.RegisterRoute(nameof(TourGuideView), typeof(TourGuideView));
             this.BindingContext = DataManager.Ins;
         }
     }

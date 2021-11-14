@@ -68,9 +68,12 @@ namespace GoTour.Database
 
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
+            ReviewService = new ReviewService();
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
             ListTour = new ObservableCollection<Tour>();
+            ListBookedTickets = new ObservableCollection<BookedTicket>();
+            ListReview = new ObservableCollection<Review>();
 
 
             /// Thiên
@@ -78,6 +81,7 @@ namespace GoTour.Database
             StayPlacesServices = new StayPlacesServices();
             TourPlaceServices = new TourPlaceServices();
             TourServices = new ToursServices();
+            
             getAllStayPlaceList();
 
 
@@ -93,6 +97,9 @@ namespace GoTour.Database
 
             ListInvoice = new ObservableCollection<Invoice>();
             InvoicesServices = new InvoicesServices();
+
+            CurrentDiscount = new Discount();
+            currentInvoice = new Invoice();
 
             CurrentUser = new User();
             getAllList();
@@ -123,13 +130,17 @@ namespace GoTour.Database
                 ListPlace.Add(p);
             }
 
+            
+
             List<Tour> tourList = await TourServices.GetAllTours();
             List<TourPlace> tourPlaceList = await TourPlaceServices.GetAllTourPlaces();
+            List<Review> reviews = await ReviewService.GetAllReviews();
             foreach (Tour ite in tourList)
             {
                 ListTour.Add(ite);
                 TourPlace temp2 = tourPlaceList.Find(e => (e.tourId == ite.id));
                 ite.placeDurationList = temp2.placeDurationList;
+                ite.reviewList = reviews.FindAll(e => e.tourId == ite.id);
             }
 
             /*imagePlaceStreams = GetImageStreamPlaces();
@@ -137,8 +148,6 @@ namespace GoTour.Database
             {
                 ImgPlaceStreams.Add(ite);
             }*/
-
-            int v = 5;
 
 
             //Linh
@@ -164,8 +173,9 @@ namespace GoTour.Database
             List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
             foreach(BookedTicket booked in bookedTicketsList)
             {
-                booked.tour = tourList.Find(e => (e.id == booked.tour.id));
-                booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+                    booked.tour = tourList.Find(e => (e.id == booked.tour.id));
+                    booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+                    ListBookedTickets.Add(booked);
             }
         }
         public string GeneratePlaceId(int length = 10)
@@ -338,6 +348,15 @@ namespace GoTour.Database
             set
             {
                 _places = value;
+            }
+        }
+        private ObservableCollection<Review> listReview;
+        public ObservableCollection<Review> ListReview
+        {
+            get { return listReview; }
+            set
+            {
+                listReview = value;
             }
         }
 
@@ -556,6 +575,17 @@ namespace GoTour.Database
             }
         }
 
+        public ReviewService reviewService;
+        public ReviewService ReviewService
+        {
+            get { return reviewService; }
+            set
+            {
+                reviewService = value;
+                OnPropertyChanged("ReviewService");
+            }
+        }
+
         private Place currentPlaceManager;
         public Place CurrentPlaceManager
         {
@@ -564,6 +594,27 @@ namespace GoTour.Database
             {
                 currentPlaceManager = value;
                 OnPropertyChanged("CurrentPlaceManager");
+            }
+        }
+
+        private StayPlace currentStayPlaceManager;
+        public StayPlace CurrentStayPlaceManager
+        {
+            get { return currentStayPlaceManager; }
+            set
+            {
+                currentStayPlaceManager = value;
+                OnPropertyChanged("CurrentStayPlaceManager");
+            }
+        }
+        private Invoice currentInvoice;
+        public Invoice CurrentInvoice
+        {
+            get { return currentInvoice; }
+            set
+            {
+                currentInvoice = value;
+                OnPropertyChanged("CurrentInvoice");
             }
         }
 
@@ -585,6 +636,17 @@ namespace GoTour.Database
             {
                 imgPlaceStreams = value;
                 OnPropertyChanged("ImgPlaceStreams");
+            }
+        }
+
+        private Discount currentDiscount;
+        public Discount CurrentDiscount
+        {
+            get { return currentDiscount; }
+            set
+            {
+                currentDiscount = value;
+             
             }
         }
     }

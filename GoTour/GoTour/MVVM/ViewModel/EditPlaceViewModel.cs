@@ -47,6 +47,7 @@ namespace GoTour.MVVM.ViewModel
                 {
                     Imgs.Add(ImageSource.FromUri(new Uri(i)));
                     listStream.Add(GetStreamFromUrl(i));
+                   
                 }               
             }
             

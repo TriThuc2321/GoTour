@@ -15,17 +15,26 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-
+                
         <pancake:PancakeView CornerRadius="0,0,30,30">
             <Image Source="https://i.pinimg.com/564x/ed/eb/59/edeb59cd554c95645fbca777424e3c3c.jpg" Aspect="AspectFill" />
         </pancake:PancakeView>
 
+        <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
                 <Label Margin="20,0,0,0" Text="Place List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Button Margin="0,0,-20,0" Text="Delate Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
                 <Button Margin="0,0,20,0" Text="New Place" BackgroundColor="SteelBlue" Command="{Binding NewPlaceCommand}" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
@@ -41,10 +50,10 @@
                             <SwipeView.LeftItems>
                                 <SwipeItems>
                                     
-                                    <SwipeItem Text="Delete"
+                                    <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path = DataContext.DeleteCommand}"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
                                         CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>
@@ -70,9 +79,7 @@
 
                                 <StackLayout Grid.Column="1" Margin="8,0,0,0">
                                     <Label Text="{Binding name}" TextColor="SteelBlue"/>
-                                    <Label Text="{Binding description}" TextColor="Gray"/>
-                                    <ImageButton Source="deleteIcon.png" Aspect="AspectFill" WidthRequest="30" HorizontalOptions="Start" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference clview}}" CommandParameter="{Binding .}"/>
-
+                                    <Label Text="{Binding description}" TextColor="Gray"/>                                   
                                 </StackLayout>
                             </Grid>
                         </SwipeView>

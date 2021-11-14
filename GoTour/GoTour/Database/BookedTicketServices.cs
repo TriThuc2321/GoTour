@@ -1,8 +1,10 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +68,8 @@ namespace GoTour.Database
               .OnceAsync<BookedTicket>()).Where(a => a.Object.id == id).FirstOrDefault();
             await firebase.Child("BookedTickets").Child(toDelete.Key).DeleteAsync();
         }
+
+       
     }
 }
 

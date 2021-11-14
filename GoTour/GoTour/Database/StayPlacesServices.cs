@@ -4,6 +4,7 @@ using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,10 +64,53 @@ namespace GoTour.Database
         }
         public async Task DeleteFile(string folderStayPlaceId, int id)
         {
-            await new FirebaseStorage("gotour-98c79.appspot.com")
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
                  .Child("StayPlace")
-                 .Child(folderStayPlaceId).Child(id + ".png")
+                 .Child(folderStayPlaceId).Child(id + ".jpg")
                  .DeleteAsync();
+            }
+            catch
+            {
+            }
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("StayPlace")
+                 .Child(folderStayPlaceId).Child(id + ".jpg")
+                 .DeleteAsync();
+            }
+            catch { }
+            
+        }
+        async public Task<string> saveImage(Stream imgStream, string stayPlaceId, int id)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("StayPlace").Child(stayPlaceId)
+                .Child(id + ".png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
+        }
+        public async Task UpdateStayPlace(StayPlace place)
+        {
+            var toUpdatePlace = (await firebase
+              .Child("StayPlaces")
+              .OnceAsync<StayPlace>()).Where(a => a.Object.id == place.id).FirstOrDefault();
+
+            await firebase
+              .Child("StayPlaces")
+              .Child(toUpdatePlace.Key)
+              .PutAsync(new StayPlace
+              {
+                  id = place.id,
+                  name = place.name,
+                  imgSource = place.imgSource,
+                  description = place.description,
+                  address = place.address,
+                  placeId = place.id
+              });
         }
     }
 }

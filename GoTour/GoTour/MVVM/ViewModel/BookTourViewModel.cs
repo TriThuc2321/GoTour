@@ -32,6 +32,8 @@ namespace GoTour.MVVM.ViewModel
 
             CheckDiscountCommand = new Command(checkDiscount);
 
+            DataManager.Ins.CurrentDiscount = null;
+
             SetInformation();
         }
 
@@ -48,19 +50,19 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Birthday is null! Please enter your birthday");
                 return false;
             }
-            else if (Contact == null)
+            else if (Contact == "")
             {
                 DependencyService.Get<IToast>().ShortToast("Contact is null! Please enter your contact");
                 return false;
 
             }
-            else if (Cmnd == null)
+            else if (Cmnd == "")
             {
                 DependencyService.Get<IToast>().ShortToast("Identity card ID is null! Please enter");
                 return false;
 
             }
-            else if (Address == null)
+            else if (Address == "")
             {
                 DependencyService.Get<IToast>().ShortToast("Address is null! Please enter your address");
                 return false;
@@ -117,24 +119,56 @@ namespace GoTour.MVVM.ViewModel
             }
 
             //Check discount 
-            if (chosenDiscount == null)
+            if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
             {
                 DiscountNotice = "Please check your discount";
                 DiscountNoticeColor = Color.Red;
                 DiscountNoticeVisible = true;
                 DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
                 return false;
-            }    
+            }
             return true;
 
 
         }
         void openPayingMethodView(object obj)
         {
-            navigation.PushAsync(new PayingMethodView());
+            if (checkValidation())
+            {
+                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
+
+                DataManager.Ins.CurrentInvoice = new Invoice()
+                {
+                    id = (new Random().Next(9999999).ToString()),
+                    discount = new Discount { id = DiscountId },
+                    discountMoney = DiscountMoney,
+                    isPaid = false,
+                    amount = Amount.ToString(),
+                    total = Total,
+                    price = TourPrice
+                };
+
+                DataManager.Ins.CurrentBookedTicket = new BookedTicket()
+                {
+                    id = (new Random().Next(999999)).ToString(),
+                    tour = new Tour { id = selectedTour.id},
+                    name = Name,
+                    birthday = Birthday,
+                    contact = Contact,
+                    email = Email,
+                    cmnd = Cmnd,
+                    address = Address,
+                    isCancel = false,
+                    invoice = new Invoice
+                    {
+                       id = DataManager.Ins.CurrentInvoice.id
+                    }
+                };
+
+                navigation.PushAsync(new PayingMethodView());
+            }
         }
 
-        Discount chosenDiscount; 
         void checkDiscount(object obj)
         {
             if (DiscountId == null)
@@ -161,12 +195,14 @@ namespace GoTour.MVVM.ViewModel
                             DiscountNoticeVisible = true;
                             DiscountNoticeColor = Color.ForestGreen;
 
-                            chosenDiscount = discount;
+                            DataManager.Ins.CurrentDiscount = discount;
 
                             Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                            if (chosenDiscount != null)
-                                DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                            if (discount != null)
+                                DiscountMoney = (int.Parse(discount.percent) * int.Parse(Provisional) / 100).ToString();
                             Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+
+
                         }
 
                         return;
@@ -178,32 +214,7 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeColor = Color.Red;
         }
 
-        void SetInformation()
-        {
-            User getUser = DataManager.Ins.CurrentUser;
-            Name = getUser.name;
-            Birthday = getUser.birthday;
-
-            Contact = getUser.contact;
-            ContactNoticeVisible = false;
-
-            Email = getUser.email;
-            EmailNotice = "This email is your register account email";
-            EmailNoticeColor = Color.ForestGreen;
-            EmailNoticeVisible = true;
-
-            Cmnd = getUser.cmnd;
-            ContactNoticeVisible = false;
-
-            Address = getUser.address;
-
-            DiscountNotice = "Enter and press to check the validation of your code";
-            DiscountNoticeColor = Color.ForestGreen;
-            DiscountNoticeVisible = true;
-
-            TourPrice = Provisional = Total = selectedTour.basePrice;
-            DiscountMoney = "0";
-        }
+        
 
 
         public Command CheckDiscountCommand { get; }
@@ -216,15 +227,15 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount++;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (chosenDiscount != null)
-                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (DataManager.Ins.CurrentDiscount != null)
+                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
             }
             else
             {
                 AmountNotice = "This tour is remaining " + Amount + " tickets";
-                AmountNoticeVisible = true;
                 AmountNoticeColor = Color.Red;
+                AmountNoticeVisible = true;
             }
 
         }
@@ -236,8 +247,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount--;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (chosenDiscount != null)
-                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (DataManager.Ins.CurrentDiscount != null)
+                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
             }
         }
@@ -561,6 +572,7 @@ namespace GoTour.MVVM.ViewModel
 
         #endregion
 
+        #region selectedTour
         private Tour selectedTour;
         public Tour SelectedTour
         {
@@ -570,6 +582,33 @@ namespace GoTour.MVVM.ViewModel
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
             }
+        }
+        #endregion
+        void SetInformation()
+        {
+            User getUser = DataManager.Ins.CurrentUser;
+            Name = getUser.name;
+            //Birthday = getUser.birthday;
+
+            Contact = getUser.contact;
+            ContactNoticeVisible = false;
+
+            Email = getUser.email;
+            EmailNotice = "This email is your register account email";
+            EmailNoticeColor = Color.ForestGreen;
+            EmailNoticeVisible = true;
+
+            Cmnd = getUser.cmnd;
+            ContactNoticeVisible = false;
+
+            Address = getUser.address;
+
+            DiscountNotice = "Enter and press to check the validation of your code";
+            DiscountNoticeColor = Color.ForestGreen;
+            DiscountNoticeVisible = true;
+
+            TourPrice = Provisional = Total = selectedTour.basePrice;
+            DiscountMoney = "0";
         }
     }
 }

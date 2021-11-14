@@ -14580,6 +14580,7 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F07006F
 			public const int changephoto = 2131165295;
+			public const int calenderIcon = 2131165295;
 			
 			// aapt resource value: 0x7F070070
 			public const int clockIcon = 2131165296;
@@ -14625,6 +14626,46 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F07007E
 			public const int filtericon = 2131165310;
+			public const int clocksIcon = 2131165297;
+			
+			// aapt resource value: 0x7F070072
+			public const int defaultUser = 2131165298;
+			
+			// aapt resource value: 0x7F070073
+			public const int delete = 2131165299;
+			
+			// aapt resource value: 0x7F070074
+			public const int deleteIcon = 2131165300;
+			
+			// aapt resource value: 0x7F070075
+			public const int design_bottom_navigation_item_background = 2131165301;
+			
+			// aapt resource value: 0x7F070076
+			public const int design_fab_background = 2131165302;
+			
+			// aapt resource value: 0x7F070077
+			public const int design_ic_visibility = 2131165303;
+			
+			// aapt resource value: 0x7F070078
+			public const int design_ic_visibility_off = 2131165304;
+			
+			// aapt resource value: 0x7F070079
+			public const int design_password_eye = 2131165305;
+			
+			// aapt resource value: 0x7F07007A
+			public const int design_snackbar_background = 2131165306;
+			
+			// aapt resource value: 0x7F07007B
+			public const int durationicon = 2131165307;
+			
+			// aapt resource value: 0x7F07007C
+			public const int editIcon = 2131165308;
+			
+			// aapt resource value: 0x7F07007D
+			public const int eyeIcon = 2131165309;
+			
+			// aapt resource value: 0x7F07007E
+			public const int eyeOffIcon = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
 			public const int flagOutlineIcon = 2131165311;
@@ -14733,6 +14774,8 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F0700A2
 			public const int notification_background = 2131165346;
+			public const int nextIcon = 2131165345;
+		
 			
 			// aapt resource value: 0x7F0700A3
 			public const int notification_bg = 2131165347;

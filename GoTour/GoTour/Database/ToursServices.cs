@@ -35,10 +35,12 @@ namespace GoTour.Database
                   placeDurationList = null,
                   basePrice = item.Object.basePrice,
                   SPforPList = item.Object.SPforPList,
-                  remaining = item.Object.remaining
+                  remaining = item.Object.remaining,
+                  reviewList = null,
+                  starNumber = item.Object.starNumber
               }).ToList();
         }
-        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining)
+        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining, string _startNumber)
         {
             await firebase
               .Child("Tours")
@@ -55,8 +57,38 @@ namespace GoTour.Database
                   isOccured = _isOccured,
                   basePrice = basePrice,
                   SPforPList = _SPforPList,
-                  remaining = _remaining
-              }) ;
+                  remaining = _remaining,
+                  starNumber = _startNumber
+              });
+        }
+
+        public async Task UpdateTour(Tour tour)
+        {
+            var toUpdateTour = (await firebase
+                 .Child("Tours")
+                 .OnceAsync<Tour>()).Where(a => a.Object.id == tour.id).FirstOrDefault();
+
+            await firebase
+              .Child("Tours")
+              .Child(toUpdateTour.Key)
+              .PutAsync(new Tour
+              {
+                  id = tour.id,
+                  name = tour.name,
+                  imgSource = tour.imgSource,
+                  startTime = tour.startTime,
+                  duration = tour.duration,
+                  tourGuide = tour.tourGuide,
+                  passengerNumber = tour.passengerNumber,
+                  description = tour.description,
+                  isOccured = tour.isOccured,
+                  placeDurationList = tour.placeDurationList,
+                  basePrice =tour.basePrice,
+                  SPforPList = tour.SPforPList,
+                  remaining = tour.remaining,
+                  starNumber = tour.starNumber
+              });
+
         }
     }
 }

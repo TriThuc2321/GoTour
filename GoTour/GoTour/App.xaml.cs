@@ -9,9 +9,11 @@ namespace GoTour
     {
         public App()
         {
+            DependencyService.Register<IMessageService, MessageService>();
+
             InitializeComponent();
-            //MainPage = new MainPage();
             MainPage = new MainPage();
+            //MainPage = new MenuView();
             //MainPage = new PayingMethodView();
         }
 

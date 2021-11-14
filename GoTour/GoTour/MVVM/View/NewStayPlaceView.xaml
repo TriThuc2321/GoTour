@@ -57,8 +57,8 @@
             <Editor Margin="20,5,20,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
             <Editor Margin="20,5,20,0" Text="{Binding Address}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Address..." PlaceholderColor="Gray"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Choose Place:" FontAttributes="Bold"  Margin="20,0,10,0" FontSize="Medium" ></Label>
-                <Picker  Margin="0,0,20,0" ItemsSource="{Binding PlaceList}" SelectedItem="{Binding SelectedPlace}" HorizontalOptions="FillAndExpand" ItemDisplayBinding="{Binding name}"></Picker>
+                <Label Text="Choose Place:" FontAttributes="Bold"  Margin="20,0,10,0" FontSize="Medium" VerticalOptions="Center"></Label>
+                <Picker  Margin="0,0,20,0" ItemsSource="{Binding PlaceList}" SelectedItem="{Binding SelectedPlace}" HorizontalOptions="FillAndExpand" ItemDisplayBinding="{Binding name}" VerticalOptions="Center"></Picker>
             </StackLayout>
           
         </StackLayout>
