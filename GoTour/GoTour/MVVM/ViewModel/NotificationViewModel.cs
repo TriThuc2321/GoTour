@@ -42,6 +42,7 @@ namespace GoTour.MVVM.ViewModel
             Notification selected = obj as Notification;
             if (selected != null )
             {
+                selected.isChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti = null;
@@ -52,6 +53,7 @@ namespace GoTour.MVVM.ViewModel
             Notification selected = obj as Notification;
             if (selected != null)
             {
+                selected.isChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti_2 = null;

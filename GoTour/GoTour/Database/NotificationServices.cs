@@ -37,9 +37,7 @@ namespace GoTour.Database
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
                   when = item.Object.when,
-                  title = item.Object.title,
-                  tourId = item.Object.tourId,
-                  isVisible = item.Object.isVisible
+                  
               }).ToList();
 
             return ListAllNoti;
@@ -56,10 +54,10 @@ namespace GoTour.Database
                   senderEmail = sender,
                   reciever = reciever,
                   tourId = tourId,
-                  isVisible = true,
+                  isVisible = "True",
                   type = type,
                   body = body,
-                  isChecked = false,
+                  isChecked = "False",
                   title = title,
                   when = DateTime.Now,                 
               });
