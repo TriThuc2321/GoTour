@@ -40,7 +40,20 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                        <SwipeView>
+                        <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem 
+                                        
+                                        Text="Delete"                                       
+                                         IconImageSource="deleteIcon.png"
+                                         Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="White"
+                                        />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid Padding="10,0,10,0" VerticalOptions="Start">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
@@ -57,7 +70,7 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke"  IsVisible="{Binding isVisible}">
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke"  IsVisible="{Binding IsVisible}">
                                    
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
@@ -85,6 +98,7 @@
                             </Grid>
 
                         </Grid>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -103,7 +117,20 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+
+                                    <SwipeItem 
+                                        Text="Delete"                                       
+                                         IconImageSource="deleteIcon.png"
+                                         Command="{Binding Source={x:Reference clview1}, Path = BindingContext.DeleteCommand1}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="White"
+                                        />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid Padding="10,0,10,0" VerticalOptions="Start">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
@@ -120,7 +147,7 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke" IsVisible="{Binding isVisible}">
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke" IsVisible="{Binding IsVisible}">
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                                             <Label Text="{Binding title}" FontAttributes="Bold" ></Label>
@@ -146,6 +173,7 @@
                             </Grid>
 
                         </Grid>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

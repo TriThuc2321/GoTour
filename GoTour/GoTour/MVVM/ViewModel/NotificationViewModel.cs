@@ -35,6 +35,36 @@ namespace GoTour.MVVM.ViewModel
             //ListNotification = DataManager.Ins.NotiServices.ListMyNoti_System;
             //ListNotification2 = DataManager.Ins.NotiServices.ListMyNoti_TourGuider;
         }
+
+
+        public ICommand DeleteCommand => new Command<object>((obj) =>
+        {
+            Notification selected = (Notification)obj;
+            if (selected == null) return;
+            foreach (Notification ite in ListNotification)
+            {
+                if (ite.id == selected.id)
+                {
+                    ite.IsVisible = "False";
+                    DataManager.Ins.NotiServices.UpdateNoti(selected);
+                    break;
+                }
+            }
+        });
+        public ICommand DeleteCommand1 => new Command<object>((obj) =>
+        {
+            Notification selected = (Notification)obj;
+            if (selected == null) return;
+            foreach (Notification ite in ListNotification2)
+            {
+                if (ite.id == selected.id)
+                {
+                    ite.IsVisible = "False";
+                    DataManager.Ins.NotiServices.UpdateNoti(selected);
+                    break;
+                }
+            }
+        });
         public ICommand SelectedCommand => new Command<object>(async (obj) =>
         {
             Notification selected = obj as Notification;
