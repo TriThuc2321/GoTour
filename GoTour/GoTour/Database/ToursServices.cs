@@ -142,5 +142,13 @@ namespace GoTour.Database
 
         }
 
+        public async Task<Tour> FindTourById(string id)
+        {
+            var all = await GetAllTours();
+            await firebase
+                .Child("Tours")
+                .OnceAsync<Tour>();
+            return all.Where(a => a.id == id).FirstOrDefault();
+        }
     }
 }

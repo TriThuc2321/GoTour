@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -16,6 +17,8 @@ namespace GoTour.MVVM.ViewModel
         public Command PayingMethodCommand { get; }
         public Command NavigationBack { get; }
         public BookTourViewModel() { }
+
+        string TourPrice, Provisional, DiscountMoney, Total;
 
         public BookTourViewModel(INavigation navigation)
         {
@@ -133,13 +136,16 @@ namespace GoTour.MVVM.ViewModel
         }
         void openPayingMethodView(object obj)
         {
+            var ticketServices = DataManager.Ins.BookedTicketsServices;
+            var invoiceServices = DataManager.Ins.InvoicesServices;
+
             if (checkValidation())
             {
                 Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
-                    id = (new Random().Next(9999999).ToString()),
+                    id = invoiceServices.GenerateInvoiceId(),
                     discount = new Discount { id = DiscountId },
                     discountMoney = DiscountMoney,
                     isPaid = false,
@@ -150,8 +156,8 @@ namespace GoTour.MVVM.ViewModel
 
                 DataManager.Ins.CurrentBookedTicket = new BookedTicket()
                 {
-                    id = (new Random().Next(999999)).ToString(),
-                    tour = new Tour { id = selectedTour.id},
+                    id = ticketServices.GenerateTicketId(),
+                    tour = new Tour { id = selectedTour.id },
                     name = Name,
                     birthday = Birthday,
                     contact = Contact,
@@ -161,7 +167,7 @@ namespace GoTour.MVVM.ViewModel
                     isCancel = false,
                     invoice = new Invoice
                     {
-                       id = DataManager.Ins.CurrentInvoice.id
+                        id = DataManager.Ins.CurrentInvoice.id
                     }
                 };
 
@@ -201,7 +207,7 @@ namespace GoTour.MVVM.ViewModel
                             if (discount != null)
                                 DiscountMoney = (int.Parse(discount.percent) * int.Parse(Provisional) / 100).ToString();
                             Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
-
+                            FormatMoney();
 
                         }
 
@@ -230,6 +236,7 @@ namespace GoTour.MVVM.ViewModel
                 if (DataManager.Ins.CurrentDiscount != null)
                     DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+                FormatMoney();
             }
             else
             {
@@ -250,6 +257,7 @@ namespace GoTour.MVVM.ViewModel
                 if (DataManager.Ins.CurrentDiscount != null)
                     DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
+                FormatMoney();
             }
         }
 
@@ -526,47 +534,47 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region price
-        private string _tourPrice;
-        public string TourPrice
+        private string _strTourPrice;
+        public string StrTourPrice
         {
-            get { return _tourPrice; }
+            get { return _strTourPrice; }
             set
             {
-                _tourPrice = value;
-                OnPropertyChanged("TourPrice");
+                _strTourPrice = value;
+                OnPropertyChanged("StrTourPrice");
             }
         }
 
-        private string _provisional;
-        public string Provisional
+        private string _strProvisional;
+        public string StrProvisional
         {
-            get { return _provisional; }
+            get { return _strProvisional; }
             set
             {
-                _provisional = value;
-                OnPropertyChanged("Provisional");
+                _strProvisional = value;
+                OnPropertyChanged("StrProvisional");
             }
         }
 
-        private string _discountMoney;
-        public string DiscountMoney
+        private string _strDiscountMoney;
+        public string StrDiscountMoney
         {
-            get { return _discountMoney; }
+            get { return _strDiscountMoney; }
             set
             {
-                _discountMoney = value;
-                OnPropertyChanged("DiscountMoney");
+                _strDiscountMoney = value;
+                OnPropertyChanged("StrDiscountMoney");
             }
         }
 
-        private string _total;
-        public string Total
+        private string _strTotal;
+        public string StrTotal
         {
-            get { return _total; }
+            get { return _strTotal; }
             set
             {
-                _total = value;
-                OnPropertyChanged("Total");
+                _strTotal = value;
+                OnPropertyChanged("StrTotal");
             }
         }
 
@@ -608,7 +616,29 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeVisible = true;
 
             TourPrice = Provisional = Total = selectedTour.basePrice;
+
             DiscountMoney = "0";
+
+            DataManager.Ins.CurrentDiscount = null;
+            DataManager.Ins.CurrentBookedTicket = null;
+
+            FormatMoney();
         }
+       
+
+        void FormatMoney()
+        {
+            StrProvisional = Provisional;
+            StrTotal = Total;
+            StrTourPrice = TourPrice;
+            StrDiscountMoney = DiscountMoney;
+
+            var service = DataManager.Ins.InvoicesServices;
+
+            StrTotal = service.FormatMoney(StrTotal) + " USD";
+            StrTourPrice = service.FormatMoney(StrTourPrice) + " USD";
+            StrDiscountMoney = service.FormatMoney(StrDiscountMoney) + " USD";
+            StrProvisional = service.FormatMoney(StrProvisional) + " USD";
+        }    
     }
 }
