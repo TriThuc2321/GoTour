@@ -6,6 +6,6 @@
     <SelectedDevice>Android Emulator</SelectedDevice>
     <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
-    <DefaultDevice>Pixel_3a_API_27</DefaultDevice>
+    <DefaultDevice>nexus_6_pie_9_0_-_api_28</DefaultDevice>
   </PropertyGroup>
 </Project>

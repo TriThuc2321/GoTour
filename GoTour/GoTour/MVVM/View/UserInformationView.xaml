@@ -9,66 +9,189 @@
     </ContentPage.BindingContext>
 
     <RefreshView Command="{Binding RefreshCommand}"
-                 IsRefreshing="{Binding IsRefreshing}" RefreshColor="#df928e">
+                 IsRefreshing="{Binding IsRefreshing}" 
+                 RefreshColor="#df928e">
         <ScrollView>
             <StackLayout>
-                <Image Source="{Binding ProfilePic}" 
-               Aspect="AspectFill" HeightRequest="360" />
-                <Frame Padding="5"  HasShadow="False" CornerRadius="40" Margin="0,-50,0,0" 
-               VerticalOptions="FillAndExpand">
-                    <Grid RowDefinitions="Auto ,Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*, *,*">
-                        <Button  Grid.Row="0" Grid.Column="2"  HeightRequest="30" WidthRequest="80" 
-                         FontAttributes="Bold"  TextColor="White" BackgroundColor="#df928e" 
-                         CornerRadius="28" Text="Pic" FontSize="10"  VerticalOptions="Start" 
-                         HorizontalOptions="End" Margin="0,5,10,0" Command="{Binding AddImageCommand}" />
+                            <!--AVATAR ANF CHANGE AVATAR-->
+                <ImageButton Source="{Binding ProfilePic}"
+                             Aspect="AspectFill" HeightRequest="320"
+                             Command="{Binding AddImageCommand}" Visual="Material"/>
 
-                        <Label  Grid.Row="0" Grid.Column="0" HeightRequest="20" WidthRequest="60" Text="{Binding CurrRank}" TextColor="Black" 
-                           FontAttributes="Bold" FontSize="17" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Frame Padding="10" HasShadow="False" 
+                       CornerRadius="40" Margin="0,-50,0,0" 
+                       VerticalOptions="FillAndExpand">
+                    <Grid RowDefinitions="Auto ,Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+                           Padding="25" ColumnDefinitions="*, *, *">
+                        <Label  Grid.Row="0" Grid.Column="0" 
+                                HeightRequest="20" WidthRequest="60" 
+                                Text="{Binding CurrRank}" TextColor="Black" 
+                                FontAttributes="Bold"  FontSize="17" 
+                                HorizontalOptions="Center" VerticalOptions="Center"/>
 
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               HeightRequest="20" WidthRequest="80" 
+                               Text="{Binding CurrScore}" TextColor="Gray" 
+                               FontAttributes="Bold" FontSize="17"  
+                               Margin="-80,0,0,0"  HorizontalOptions="Center" 
+                               VerticalOptions="Center"/>
+                            
+                                        <!--NAME-->
+                        <Frame Margin="10,-20,10,0" WidthRequest="200" 
+                               HeightRequest="7" CornerRadius="10"
+                               Grid.Row="1" Grid.Column="0" 
+                               BackgroundColor="WhiteSmoke" 
+                               Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ImageButton Source="{Binding IconSource}" 
+                                             Command="{Binding EditTextCommand}" 
+                                             Grid.Column="0"
+                                             Margin="-10,-10,0,-17" BackgroundColor="Transparent" 
+                                             HeightRequest="30" WidthRequest="30" Aspect="AspectFit" />
+                                <local:CustomEntry x:Name="txtUserName" 
+                                                   Grid.Column="2" Margin="15,-15,0,-15" Keyboard="Text"
+                                                   HeightRequest="40" Text="{Binding Name}" 
+                                                   BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                            </Grid>
+                        </Frame>
+                        
+                                       <!--EMAIL-->
+                        <Frame Margin="10,10,10,0" 
+                               BackgroundColor="#ded9e2" 
+                               HeightRequest="7" CornerRadius="10" 
+                               BorderColor="White"
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                            <local:CustomEntry x:Name="txtEmail"  
+                                               BackgroundColor="#ded9e2" Margin="0,-15,0,-15" 
+                                               HeightRequest="30" IsEnabled="False" 
+                                               Text="{Binding Email}" FontSize="17" 
+                                               FontAttributes="Bold"  />
+                        </Frame>
+                        
+                        
+                                        <!--ID CARD-->
+                        <!--Lable-->
+                        <Label Margin="10,10,0,0"  
+                               Grid.Row="4" Grid.Column="0" 
+                               Text="ID Card:" VerticalOptions="Center" 
+                               TextColor="Gray" 
+                               FontSize="17" FontAttributes="Bold"  />
+                        
+                        <!--Entry--> 
+                        <Frame Margin="100,10,10,0" WidthRequest="200" 
+                               HeightRequest="7" CornerRadius="10"
+                               Grid.Row="4" Grid.Column="0" 
+                               BackgroundColor="WhiteSmoke" 
+                               Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <local:CustomEntry Grid.Column="2" Margin="25,-15,0,-15" Keyboard="Text"
+                                                   HeightRequest="40" Text="{Binding CMND}" 
+                                                   BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                            </Grid>
+                        </Frame>
+                        
+                        
+                                         <!--CONTACT-->
+                        <!--Label-->
+                        <Label Margin="10,10,0,0"  
+                               Grid.Row="5" Grid.Column="0" 
+                               Text="Contact:" VerticalOptions="Center" 
+                               TextColor="Gray" FontSize="17" 
+                               FontAttributes="Bold"  />
+                        
+                        <!--Entry-->
+                        <Frame Margin="100,10,10,0" WidthRequest="200" 
+                               HeightRequest="7" CornerRadius="10"
+                               Grid.Row="5" Grid.Column="0" 
+                               BackgroundColor="WhiteSmoke" 
+                               Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <local:CustomEntry Grid.Column="2" Margin="25,-15,0,-15" Keyboard="Telephone"
+                                                   HeightRequest="40" Text="{Binding Contact}" 
+                                                   BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                            </Grid>
+                        </Frame>
+                        
+                        
+                                        <!--BIRTHDAY-->
+                        <!--Label-->
+                        <Label Margin="10,10,0,0"  
+                               Grid.Row="6" Grid.Column="0" 
+                               Text="Born:" VerticalOptions="Center" 
+                               TextColor="Gray" FontSize="17" 
+                               FontAttributes="Bold"  />
+                        
+                        <!--DatePicker-->                     
+                        <Frame Margin="100,10,10,0" WidthRequest="200" 
+                               HeightRequest="7" CornerRadius="10"
+                               Grid.Row="6" Grid.Column="0" 
+                               BackgroundColor="WhiteSmoke" 
+                               Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker Grid.Column="2" Margin="-15,-15,0,-16"
+                                                   HeightRequest="40" Date="{Binding Birthday}" 
+                                                   BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"
+                                                    HorizontalOptions="Center" Format="d" />
+                            </Grid>
+                        </Frame>
+                        
+                                             <!--ADDRESS-->
+                        <!--Label-->
+                        <Label Margin="10,10,0,0"  
+                               Grid.Row="7" Grid.Column="0" 
+                               Text="Address:" VerticalOptions="Center" 
+                               TextColor="Gray" FontSize="17" 
+                               FontAttributes="Bold"  />
+                        
+                        <!--Entry-->  
+                        <Frame Margin="100,10,10,0" WidthRequest="200" 
+                               HeightRequest="7" CornerRadius="10"
+                               Grid.Row="7" Grid.Column="0" 
+                               BackgroundColor="WhiteSmoke" 
+                               Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <local:CustomEntry Grid.Column="2" Margin="15,-15,0,-15" Keyboard="Text"
+                                                   HeightRequest="40" Text="{Binding Address}" 
+                                                   BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                            </Grid>
+                        </Frame>
 
-                        <Label Grid.Row="0" Grid.Column="1" HeightRequest="20" WidthRequest="80" Text="{Binding CurrScore}" TextColor="Gray" 
-                           FontAttributes="Bold" FontSize="17" Margin="-80,0,0,0"  HorizontalOptions="Center" VerticalOptions="Center"/>
-
-                        <Frame Margin="10,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" 
-                       CornerRadius="30" BorderColor="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
-                            <local:CustomEntry x:Name="txtUserName"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" Keyboard="Text"
-                                       HeightRequest="30" Text="{Binding Name}" FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
-                        </Frame>
-                        <Frame Margin="10,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" CornerRadius="30" 
-                       BorderColor="White" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
-                            <local:CustomEntry x:Name="txtEmail"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" 
-                                       HeightRequest="30" IsEnabled="False" Text="{Binding Email}" FontSize="17" FontAttributes="Bold"  />
-                        </Frame>
-                        <Label Margin="10,10,0,0"  Grid.Row="3" Grid.Column="0" Text="ID Card:" VerticalOptions="Center" 
-                       TextColor="Gray" FontSize="17" FontAttributes="Bold"  />
-                        <Frame Margin="-45,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" CornerRadius="30" 
-                       BorderColor="Black" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" >
-                            <local:CustomEntry x:Name="txtCMND"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" Keyboard="Numeric" TextColor="Gray"
-                                       HeightRequest="30"  Text="{Binding CMND}" FontSize="17" FontAttributes="Bold"  />
-                        </Frame>
-                        <Label Margin="10,10,0,0"  Grid.Row="4" Grid.Column="0" Text="Contact:" VerticalOptions="Center" 
-                       TextColor="Gray" FontSize="17" FontAttributes="Bold"  />
-                        <Frame Margin="-45,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" 
-                       CornerRadius="30" BorderColor="Black" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"  >
-                            <local:CustomEntry x:Name="txtContact"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" Keyboard="Telephone"
-                                       HeightRequest="30" Text="{Binding Contact}" FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
-                        </Frame>
-                        <Label Margin="10,10,0,0"  Grid.Row="5" Grid.Column="0" Text="Born:" VerticalOptions="Center" 
-                       TextColor="Gray" FontSize="17" FontAttributes="Bold"  />
-                        <Frame Margin="-45,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" CornerRadius="30" 
-                       BorderColor="Black" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" >
-                            <local:CustomEntry x:Name="txtBirthday"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" TextColor="Gray"
-                                       HeightRequest="30"  Text="{Binding Birthday}" FontSize="17" FontAttributes="Bold"  />
-                        </Frame>
-                        <Label Margin="10,10,0,0"  Grid.Row="6" Grid.Column="0" Text="Address:" VerticalOptions="Center" 
-                       TextColor="Gray" FontSize="17" FontAttributes="Bold"  />
-                        <Frame Margin="-45,10,10,0" BackgroundColor="#ded9e2" HeightRequest="7" CornerRadius="30" 
-                       BorderColor="Black" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" >
-                            <local:CustomEntry x:Name="txtAddress"  BackgroundColor="#ded9e2" Margin="0,-15,0,-10" TextColor="Gray"
-                                       HeightRequest="30"  Text="{Binding Address}" FontSize="17" FontAttributes="Bold"  />
-                        </Frame>
-                        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="100,10,100,0" CornerRadius="50" WidthRequest="50" HeightRequest="50"
-                        Text="Save" BorderWidth="1" BackgroundColor="#df928e" FontAttributes="Bold" TextColor="White" Command="{Binding UpdateUserInfo}"/>
+                                    <!--SAVE BUTTON-->
+                        <Button Grid.Row="8" Grid.Column="0" 
+                                Grid.ColumnSpan="3" 
+                                Margin="100,20,100,0" 
+                                CornerRadius="10"
+                                WidthRequest="50" HeightRequest="40"
+                                Text="Save" BorderWidth="1" 
+                                BackgroundColor="#df928e" 
+                                FontAttributes="Bold" 
+                                TextColor="White" 
+                                Command="{Binding UpdateUserInfo}"/>
                     </Grid>
                 </Frame>
             </StackLayout>

@@ -14579,49 +14579,50 @@ namespace GoTour.Droid
 			public const int calendarIcon = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int clockIcon = 2131165295;
+			public const int changephoto = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int defaultUser = 2131165296;
+			public const int clockIcon = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int delete = 2131165297;
+			public const int defaultUser = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int deleteIcon = 2131165298;
+			public const int delete = 2131165298;
 			
 			// aapt resource value: 0x7F070073
-			public const int design_bottom_navigation_item_background = 2131165299;
+			public const int deleteIcon = 2131165299;
 			
 			// aapt resource value: 0x7F070074
-			public const int design_fab_background = 2131165300;
+			public const int design_bottom_navigation_item_background = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int design_ic_visibility = 2131165301;
+			public const int design_fab_background = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int design_ic_visibility_off = 2131165302;
+			public const int design_ic_visibility = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int design_password_eye = 2131165303;
+			public const int design_ic_visibility_off = 2131165303;
 			
 			// aapt resource value: 0x7F070078
-			public const int design_snackbar_background = 2131165304;
+			public const int design_password_eye = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int durationicon = 2131165305;
+			public const int design_snackbar_background = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int editIcon = 2131165306;
+			public const int durationicon = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int eyeIcon = 2131165307;
+			public const int editIcon = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int eyeOffIcon = 2131165308;
+			public const int eyeIcon = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
 			public const int filtericon = 2131165309;
+			public const int eyeOffIcon = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
 			public const int flagOutlineIcon = 2131165310;
@@ -14784,6 +14785,16 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F0700B3
 			public const int sorticon = 2131165363;
+			public const int questionableIcon = 2131165360;
+			
+			// aapt resource value: 0x7F0700B1
+			public const int scoreicon = 2131165361;
+			
+			// aapt resource value: 0x7F0700B2
+			public const int searchIcon = 2131165362;
+			
+			// aapt resource value: 0x7F0700B3
+			public const int shoppingcartIcon = 2131165363;
 			
 			// aapt resource value: 0x7F0700B4
 			public const int starttimeicon = 2131165364;
