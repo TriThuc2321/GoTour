@@ -172,7 +172,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 isText = value;
                 OnPropertyChanged("IsText");
-
             }
         }
         private ObservableCollection<ImageSource> imgs;

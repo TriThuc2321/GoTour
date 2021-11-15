@@ -1,8 +1,10 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,10 +37,12 @@ namespace GoTour.Database
                   placeDurationList = null,
                   basePrice = item.Object.basePrice,
                   SPforPList = item.Object.SPforPList,
-                  remaining = item.Object.remaining
+                  remaining = item.Object.remaining,
+                  reviewList = null,
+                  starNumber = item.Object.starNumber
               }).ToList();
         }
-        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining)
+        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining, string _startNumber)
         {
             await firebase
               .Child("Tours")
@@ -55,8 +59,9 @@ namespace GoTour.Database
                   isOccured = _isOccured,
                   basePrice = basePrice,
                   SPforPList = _SPforPList,
-                  remaining = _remaining
-              }) ;
+                  remaining = _remaining,
+                  starNumber = _startNumber
+              });
         }
 
         public async Task UpdateTour(Tour tour)
@@ -82,8 +87,58 @@ namespace GoTour.Database
                   placeDurationList = tour.placeDurationList,
                   basePrice =tour.basePrice,
                   SPforPList = tour.SPforPList,
-                  remaining = tour.remaining
+                  remaining = tour.remaining,
+                  starNumber = tour.starNumber
               });
+
+        }
+
+        async public Task<string> saveImage(Stream imgStream, string placeId, int id)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("Tours").Child(placeId)
+                .Child(id + ".png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
+        }
+
+        public async Task DeleteFile(string folderPlaceId, int id)
+        {
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("Tours")
+                 .Child(folderPlaceId).Child(id + ".png")
+                 .DeleteAsync();
+            }
+            catch { }
+
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("Tours")
+                 .Child(folderPlaceId).Child(id + ".jpg")
+                 .DeleteAsync();
+            }
+            catch { }
+
+        }
+
+        public async Task DeletePlace(Tour place)
+        {
+            var toDeleted = (await firebase
+               .Child("Tours").OnceAsync<Tour>()).FirstOrDefault(p => p.Object.id == place.id);
+
+            await firebase.Child("Tours").Child(toDeleted.Key).DeleteAsync();
+
+            for (int i = 0; i < place.imgSource.Count; i++)
+            {
+                await DeleteFile(place.id, i);
+            }
+
+
+
 
         }
 

@@ -60,10 +60,12 @@ namespace GoTour.Database
         {
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
+            ReviewService = new ReviewService();
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
             ListTour = new ObservableCollection<Tour>();
             ListBookedTickets = new ObservableCollection<BookedTicket>();
+            ListReview = new ObservableCollection<Review>();
 
 
             /// Thiên
@@ -110,13 +112,17 @@ namespace GoTour.Database
                 ListPlace.Add(p);
             }
 
+            
+
             List<Tour> tourList = await TourServices.GetAllTours();
             List<TourPlace> tourPlaceList = await TourPlaceServices.GetAllTourPlaces();
+            List<Review> reviews = await ReviewService.GetAllReviews();
             foreach (Tour ite in tourList)
             {
                 ListTour.Add(ite);
                 TourPlace temp2 = tourPlaceList.Find(e => (e.tourId == ite.id));
                 ite.placeDurationList = temp2.placeDurationList;
+                ite.reviewList = reviews.FindAll(e => e.tourId == ite.id);
             }
 
             /*imagePlaceStreams = GetImageStreamPlaces();
@@ -124,8 +130,6 @@ namespace GoTour.Database
             {
                 ImgPlaceStreams.Add(ite);
             }*/
-
-            int v = 5;
 
 
             //Linh
@@ -290,6 +294,15 @@ namespace GoTour.Database
             set
             {
                 _places = value;
+            }
+        }
+        private ObservableCollection<Review> listReview;
+        public ObservableCollection<Review> ListReview
+        {
+            get { return listReview; }
+            set
+            {
+                listReview = value;
             }
         }
 
@@ -476,6 +489,17 @@ namespace GoTour.Database
             {
                 usersServices = value;
                 OnPropertyChanged("UsersServices");
+            }
+        }
+
+        public ReviewService reviewService;
+        public ReviewService ReviewService
+        {
+            get { return reviewService; }
+            set
+            {
+                reviewService = value;
+                OnPropertyChanged("ReviewService");
             }
         }
 

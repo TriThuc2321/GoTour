@@ -1,7 +1,13 @@
 ﻿using GoTour.Core;
+using GoTour.Database;
+using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -10,11 +16,293 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         Shell currentShell;
+
+        public Command OpenDetailTour { get; }
+        public Command BookTourCommand { get; }
+        public Command OpenDetailTour1 { get; }
+        public Command NavigationBack { get; }
+        public Command EditTextCommand { get; }
+        public Command AddImageCommand { get; }
+
+        public Stream imgTemp;
+
         public EditTourViewModel() { }
         public EditTourViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
+
+            this.navigation = navigation;
+            SelectedTour = DataManager.Ins.currentTour;
+
+            
+            NavigationBack = new Command(() => navigation.PopAsync());          
+            OpenDetailTour = new Command(OpenDetailTourHandler);
+            OpenDetailTour1 = new Command(OpenDetailTourHandler1);
+            EditTextCommand = new Command(editTextHandle);
+            AddImageCommand = new Command(addHandleAsync);
+
+            Name = DataManager.Ins.currentTour.name;
+            Description = DataManager.Ins.currentTour.description;
+            Price = DataManager.Ins.currentTour.basePrice;
+            DurationProcess();
+            StartDate = DataManager.Ins.currentTour.startTime;
+            Img = ImageSource.FromUri(new Uri(SelectedTour.imgSource[0]));
+            StartDatePicker = DateTime.Now;
+
+            IsEdit = false;
+            SourceIcon = "editIcon.png";
+            IsText = true;
+
+        }
+
+        private async void editTextHandle(object obj)
+        {
+            IsEdit = !IsEdit;
+            if (!IsEdit)
+            {
+                SourceIcon = "editIcon.png";
+                updateData();
+            }
+            else
+            {
+                SourceIcon = "tickIcon.png";
+            }
+            IsText = !IsText;
+        }
+        private async void addHandleAsync(object obj)
+        {
+            await CrossMedia.Current.Initialize();
+
+            var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
+
+            if (imgData != null)
+            {
+                Img = ImageSource.FromStream(imgData.GetStream);
+                imgTemp = imgData.GetStream();
+            }
+
+        }
+        private async void updateData()
+        {
+            DataManager.Ins.currentTour.description = Description;
+            DataManager.Ins.currentTour.name = Name;
+            if(imgTemp != null)
+            {
+                DataManager.Ins.currentTour.imgSource = new List<string>();
+                await DataManager.Ins.TourServices.DeleteFile(DataManager.Ins.currentTour.id, 0);
+                string url = await DataManager.Ins.TourServices.saveImage(imgTemp, DataManager.Ins.currentTour.id, 0);
+                DataManager.Ins.currentTour.imgSource.Add(url);
+            }         
+            
+            await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+
+        }
+        public void OpenDetailTourHandler()
+        {
+            navigation.PushAsync(new DetailTourView2());
+        }
+
+        public void OpenBookTourView(object obj)
+        {
+            navigation.PushAsync(new BookTourView());
+        }
+
+        public void OpenDetailTourHandler1()
+        {
+            navigation.PushAsync(new TourScheduleView());
+        }
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
+        }
+
+        private string processedDuration;
+        public string ProcessedDuration
+        {
+            get { return processedDuration; }
+            set
+            {
+                processedDuration = value;
+                OnPropertyChanged("ProcessedDuration");
+            }
+        }
+        private string descriptionInfo = "True";
+        public string DescriptionInfo
+        {
+            get { return descriptionInfo; }
+            set
+            {
+                descriptionInfo = value;
+                OnPropertyChanged("DescriptionInfo");
+            }
+        }
+        private string reviewInfo = "False";
+        public string ReviewInfo
+        {
+            get { return reviewInfo; }
+            set
+            {
+                reviewInfo = value;
+                OnPropertyChanged("ReviewInfo");
+            }
+        }
+        private void DurationProcess()
+        {
+            if (DataManager.Ins.currentTour.duration == null) return;
+            string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
+            string result = _ProcessedDuration[0] + " Day " + _ProcessedDuration[1] + " Night";
+
+            Day = _ProcessedDuration[0];
+            Night = _ProcessedDuration[1];
+
+            ProcessedDuration = result;
+        }
+        private MemoryStream GetStreamFromUrl(string url)
+        {
+            byte[] imageData = null;
+            MemoryStream ms;
+            ms = null;
+            try
+            {
+                using (var wc = new System.Net.WebClient())
+                {
+                    imageData = wc.DownloadData(url);
+                }
+                ms = new MemoryStream(imageData);
+            }
+            catch (Exception ex)
+            {
+            }
+            return ms;
+        }
+        private string sourceIcon;
+        public string SourceIcon
+        {
+            get { return sourceIcon; }
+            set
+            {
+                sourceIcon = value;
+                OnPropertyChanged("SourceIcon");
+
+            }
+        }
+        private bool isEdit;
+        public bool IsEdit
+        {
+            get { return isEdit; }
+            set
+            {
+                isEdit = value;
+                OnPropertyChanged("IsEdit");
+
+            }
+        }
+        private bool isText;
+        public bool IsText
+        {
+            get { return isText; }
+            set
+            {
+                isText = value;
+                OnPropertyChanged("IsText");
+
+            }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+
+            }
+        }
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                OnPropertyChanged("Description");
+
+            }
+        }
+        private string price;
+        public string Price
+        {
+            get { return price; }
+            set
+            {
+                price = value;
+                OnPropertyChanged("Price");
+
+            }
+        }
+        private string day;
+        public string Day
+        {
+            get { return day; }
+            set
+            {
+                day = value;
+                OnPropertyChanged("Day");
+            }
+        }
+        private string night;
+        public string Night
+        {
+            get { return night; }
+            set
+            {
+                night = value;
+                OnPropertyChanged("Night");
+
+            }
+        }
+        private string startDate;
+        public string StartDate
+        {
+            get { return startDate; }
+            set
+            {
+                startDate = value;
+                OnPropertyChanged("StartDate");
+
+            }
+        }
+
+        private DateTime startDatePicker;
+        public DateTime StartDatePicker
+        {
+            get { return startDatePicker; }
+            set
+            {
+                startDatePicker = value;
+                OnPropertyChanged("StartDatePikcer");
+
+            }
+        }
+
+        private ImageSource img;
+        public ImageSource Img
+        {
+            get { return img; }
+            set
+            {
+                img = value;
+                OnPropertyChanged("Img");
+            }
         }
     }
 }
