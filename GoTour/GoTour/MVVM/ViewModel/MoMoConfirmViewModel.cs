@@ -91,7 +91,7 @@ namespace GoTour.MVVM.ViewModel
                     );
 
                 DataManager.Ins.CurrentInvoice.isPaid = true;
-                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
+                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
                 DataManager.Ins.CurrentInvoice.photoMomo = url;
 
                 payLater = false;
@@ -113,7 +113,9 @@ namespace GoTour.MVVM.ViewModel
             }
 
             if (changeMethod == false)
-            DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+            {
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            }
 
             if (!changeMethod)
             {

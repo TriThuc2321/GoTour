@@ -40,15 +40,14 @@ namespace GoTour.MVVM.ViewModel
             if (IsCheckRegulation && MoMo)
             {
                 DataManager.Ins.CurrentBookedTicket.invoice.method = "MoMo";
-                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
                 navigation.PushAsync(new MoMoConfirmView());
             }
             else if (IsCheckRegulation && Cash)
             {
                 DataManager.Ins.CurrentInvoice.method = "Cash";
                 DataManager.Ins.CurrentInvoice.isPaid = false;
-                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
-                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
 
                 await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
                 await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);

@@ -141,7 +141,8 @@ namespace GoTour.MVVM.ViewModel
 
             if (checkValidation())
             {
-                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
+                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToString("MM/dd/yyyy");
+
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
@@ -219,10 +220,6 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeVisible = true;
             DiscountNoticeColor = Color.Red;
         }
-
-        
-
-
         public Command CheckDiscountCommand { get; }
 
         #region command Amount
@@ -596,7 +593,10 @@ namespace GoTour.MVVM.ViewModel
         {
             User getUser = DataManager.Ins.CurrentUser;
             Name = getUser.name;
-            //Birthday = getUser.birthday;
+            if (getUser.birthday != "")
+                Birthday = getUser.birthday;
+            //else
+            //    Birthday = null;
 
             Contact = getUser.contact;
             ContactNoticeVisible = false;
@@ -625,7 +625,6 @@ namespace GoTour.MVVM.ViewModel
             FormatMoney();
         }
        
-
         void FormatMoney()
         {
             StrProvisional = Provisional;
