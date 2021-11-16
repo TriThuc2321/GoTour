@@ -7,7 +7,9 @@
     <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
     <SelectedDevice>Xiaomi Redmi Note 7</SelectedDevice>
     <ActiveDebugProfile>Xiaomi Redmi Note 7</ActiveDebugProfile>
+    <SelectedDevice>Samsung SM-G950F</SelectedDevice>
+    <ActiveDebugProfile>Samsung SM-G950F</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
-    <DefaultDevice>nexus_6_pie_9_0_-_api_28</DefaultDevice>
+    <DefaultDevice>Pixel_3a_API_27</DefaultDevice>
   </PropertyGroup>
 </Project>

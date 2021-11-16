@@ -16,7 +16,17 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            
+            <Image Source="{Binding SelectedTour.imgSource[0]}"
+                          Aspect="AspectFill" 
+                   Grid.Row="0"
+                   Grid.RowSpan="2"
+                           />
+
+            <Frame BackgroundColor="White"
+                   Grid.Row="0"
+                   Opacity="0.5"/>
+
+
             <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                 HeightRequest="30" 
@@ -33,6 +43,7 @@
                    Margin="0,0,20,0"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
+                   TextColor="Black"
                    FontSize="25"/>
             
             <ScrollView Grid.Row="1">
@@ -41,6 +52,9 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
+
+                    
+                    
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -71,12 +85,20 @@
                                    FontAttributes="Bold"
                                    HorizontalOptions="Center"
                    />
-                            <Label Text="{Binding Money}"
+                            <Label Text="{Binding StrMoney}"
                                     Margin="0,30,0,0"
                                    TextColor="ForestGreen"
                                    FontSize="35"
                                    FontAttributes="Bold"
-                                   HorizontalOptions="Center"/>     
+                                   HorizontalOptions="Center"/>
+
+                            <Label Text="VND"
+                                    Margin="0,10,0,0"
+                                   TextColor="Black"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"/>
+
                         </StackLayout>
                     </Grid>
 
@@ -95,7 +117,7 @@
                         <StackLayout Grid.Row="0"
                                     Margin="10, 0, 10, 50"
                          >
-                            <Label Margin="30"
+                            <Label Margin="50, 30, 50, 30"
                                    TextColor="DarkBlue"
                                    FontAttributes="Italic"
                                    FontSize="15"
@@ -107,7 +129,7 @@
                                 <Label Text="Update your proof of payment for us now to verify (optional):"
                                        TextColor="Black"
                                        FontAttributes="Bold"
-                                       
+                                       Margin="20, 0, 20, 20"
                                        FontSize="14"/>
 
                                 <Button Command="{Binding UploadPhoto}"
@@ -116,12 +138,28 @@
                                     Margin="25,20,25,30"
                                     Padding="5"  
                                     BorderWidth="1"
+                                    BorderColor="DarkBlue"
+                                    BackgroundColor="White" 
+                                    TextColor="DarkBlue"
+                                    VerticalOptions="Center"
+                                    HeightRequest="50"
+                                    Text="{Binding UploadImageText}"
+                                    FontAttributes="Bold"
+                                    FontSize="20"/>
+
+                                <Button Command="{Binding RemovePhoto}"
+                                        IsVisible="{Binding RemovePhotoVisible}"
+                                    Grid.Row="5"
+                                    CornerRadius="20" 
+                                    Margin="25,0,25,30"
+                                    Padding="5"  
+                                    BorderWidth="1"
                                     BorderColor="#f4707c"
                                     BackgroundColor="White" 
                                     TextColor="#f4707c"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="update photo"
+                                    Text="Remove"
                                     FontAttributes="Bold"
                                     FontSize="20"/>
 
@@ -143,7 +181,7 @@
                                     TextColor="White"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="confirm "
+                                    Text="{Binding ConfirmText} "
                                     FontAttributes="Bold"
                                     FontSize="20"
                         />

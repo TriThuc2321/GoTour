@@ -1,18 +1,24 @@
 ﻿using GoTour.Core;
+using GoTour.Database;
+using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    public class MoMoConfirmViewModel:ObservableObject
+    public class MoMoConfirmViewModel : ObservableObject
     {
         INavigation navigation;
+        string Money;
         public MoMoConfirmViewModel() { }
         public Command NavigationBack { get; }
         public Command UploadPhoto { get; }
+        public Command RemovePhoto { get; }
 
         public Command Confirm { get; }
         public MoMoConfirmViewModel(INavigation navigation)
@@ -21,41 +27,144 @@ namespace GoTour.MVVM.ViewModel
             NavigationBack = new Command(() => navigation.PopAsync());
             UploadPhoto = new Command(uploadPhoto);
             Confirm = new Command(confirm);
+            RemovePhoto = new Command(removePhoto);
 
 
-            Money = "1000000";
-            Regulation = "Quy định.....................................\n.......................\n..................";
-            ImageLink = "https://static.mservice.io/img/momo-upload-api-210622095003-637599522030862054.jpg";
-            ImageVisible = true;
-            ConfirmText = "DONE";
+            SetInformation();
         }
 
-        void uploadPhoto(object obj)
+        Plugin.Media.Abstractions.MediaFile currentPhoto;
+        async void uploadPhoto(object obj)
         {
+            await CrossMedia.Current.Initialize();
 
+            var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
+            currentPhoto = imgData;
+
+            if (imgData != null)
+            {
+                ImageLink = ImageSource.FromStream(imgData.GetStream);
+                ConfirmText = "DONE";
+                UploadImageText = "Change this photo";
+                ImageVisible = true;
+                RemovePhotoVisible = true;
+            }
         }
 
-        void confirm(object obj)
+        void removePhoto(object obj)
         {
-            navigation.PushAsync(new BookedTicketDetailView());
+            currentPhoto = null;
+            RemovePhotoVisible = false;
+            UploadImageText = "Upload photo";
+            ConfirmText = "Paying later";
+
+            ImageLink = "";
+            ImageVisible = false;
+        }
+
+
+        async void confirm(object obj)
+        {
+            // Nếu cash trước và trả MoMo
+            bool changeMethod = false;
+            bool payLater = true;
+            if (DataManager.Ins.CurrentInvoice.method == "Cash")
+                changeMethod = true;
+
+            
+
+            if (changeMethod == false)
+            {
+                if (await checkRemaining() == false)
+                {
+                    return;
+                }
+
+                if (await checkDiscount() == false) return;
+            }
+            
+            if (ImageVisible && currentPhoto != null)
+            {
+                string url = await DataManager.Ins.InvoicesServices.saveMoMoImage(
+                    currentPhoto.GetStream(),
+                    DataManager.Ins.CurrentBookedTicket.invoice.id
+                    );
+
+                DataManager.Ins.CurrentInvoice.isPaid = true;
+                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
+                DataManager.Ins.CurrentInvoice.photoMomo = url;
+
+                payLater = false;
+            }
+            else
+            {
+                DataManager.Ins.CurrentInvoice.isPaid = false;
+                DataManager.Ins.CurrentInvoice.payingTime = "";
+                payLater = true;
+            }
+
+            if (!payLater)
+            {
+                DataManager.Ins.CurrentInvoice.method = "MoMo";
+                DataManager.Ins.CurrentInvoice.momoVnd = Money;
+            }else {
+                DataManager.Ins.CurrentInvoice.method = "Cash";
+
+            }
+
+            if (changeMethod == false)
+            DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString();
+
+            if (!changeMethod)
+            {
+                await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            }
+            else {
+                await DataManager.Ins.InvoicesServices.UpdateInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            }
+
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                int isUsed = int.Parse(DataManager.Ins.CurrentDiscount.isUsed);
+                isUsed++;
+                DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
+
+                await DataManager .Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+
+            }
+
+            if (DataManager.Ins.currentTour != null && !changeMethod)
+            {
+                int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
+                remaining = remaining - int.Parse(DataManager.Ins.CurrentInvoice.amount);
+                DataManager.Ins.currentTour.remaining = remaining.ToString();
+
+                await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+
+            }
+
+            
+            await navigation.PushAsync(new BookedTicketDetailView());
         }
 
         #region money
-        private string _money;
-        public string Money
+        private string _strMoney;
+        public string StrMoney
         {
-            get { return _money; }
+            get { return _strMoney; }
             set
             {
-                _money = value;
-                OnPropertyChanged("Money");
+                _strMoney = value;
+                OnPropertyChanged("StrMoney");
             }
         }
         #endregion
 
         #region image
-        private string _imageLink;
-        public string ImageLink
+        private ImageSource _imageLink;
+        public ImageSource ImageLink
         {
             get { return _imageLink; }
             set
@@ -90,6 +199,28 @@ namespace GoTour.MVVM.ViewModel
         }
         #endregion
 
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
+        }
+
+        private string _uploadImageText;
+        public string UploadImageText
+        {
+            get { return _uploadImageText; }
+            set
+            {
+                _uploadImageText = value;
+                OnPropertyChanged("UploadImageText");
+            }
+        }
+
         #region regulation 
         private string _regulation;
         public string Regulation
@@ -103,5 +234,62 @@ namespace GoTour.MVVM.ViewModel
         }
 
         #endregion
+
+        #region RemovePhoto 
+        private bool _removePhotoVisible;
+        public bool RemovePhotoVisible
+        {
+            get { return _removePhotoVisible; }
+            set
+            {
+                _removePhotoVisible = value;
+                OnPropertyChanged("RemovePhotoVisible");
+            }
+        }
+        #endregion
+
+        void SetInformation()
+        {
+            string[] currency = DataManager.Ins.USDCurrency.Split(',');
+            string usd = currency[0] + currency[1];
+            int money = int.Parse(DataManager.Ins.CurrentInvoice.total) * int.Parse(usd);
+            Money = money.ToString();
+            Regulation = "This is our regulation: ";
+            ConfirmText = "Paying later";
+            UploadImageText = "Upload photo";
+
+            ImageLink = "";
+            ImageVisible = false;
+            RemovePhotoVisible = false;
+
+            StrMoney = String.Format("{0:#,##0.##}", money);
+            SelectedTour = DataManager.Ins.currentTour;
+        }
+
+        async Task<bool> checkRemaining()
+        {
+            Tour temp = await DataManager.Ins.TourServices.FindTourById(DataManager.Ins.currentTour.id);
+            if (int.Parse(DataManager.Ins.CurrentInvoice.amount) <= int.Parse(temp.remaining))
+                return true;
+            else
+                DependencyService.Get<IToast>().ShortToast("This tour has no turn!");
+
+            return false;
+        }
+
+        async Task<bool> checkDiscount()
+        {
+            if (DataManager.Ins.CurrentDiscount == null) return true;
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                Discount temp = await DataManager.Ins.DiscountsServices.FindDiscountById(DataManager.Ins.CurrentDiscount.id);
+                if (int.Parse(temp.isUsed) < int.Parse(temp.total))
+                    return true;
+                else
+                    DependencyService.Get<IToast>().ShortToast("Your discount has no turn!");
+            };
+
+            return false;
+        }
     }
 }
