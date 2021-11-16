@@ -19,13 +19,8 @@ namespace GoTour.MVVM.ViewModel
             SelectedNoti = DataManager.Ins.CurrentNoti;
 
             foreach (Notification ite in DataManager.Ins.NotiList)
-            {
-                if (ite.id == selectedNoti.id)
                 {
-                    ite.isChecked = "True";
-                    selectedNoti.isChecked = "True";
-                    break;
-                }
+
             }
 
 
