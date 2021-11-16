@@ -5,8 +5,8 @@
     <ActiveDebugProfile>Xiaomi Redmi Note 7</ActiveDebugProfile>
     <SelectedDevice>Android Emulator</SelectedDevice>
     <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
-    <SelectedDevice>nexus_6_pie_9_0_-_api_28</SelectedDevice>
-    <ActiveDebugProfile>nexus_6_pie_9_0_-_api_28</ActiveDebugProfile>
+    <SelectedDevice>Xiaomi Redmi Note 7</SelectedDevice>
+    <ActiveDebugProfile>Xiaomi Redmi Note 7</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
     <DefaultDevice>nexus_6_pie_9_0_-_api_28</DefaultDevice>
   </PropertyGroup>

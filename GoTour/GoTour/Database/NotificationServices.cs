@@ -17,10 +17,7 @@ namespace GoTour.Database
         public ObservableCollection<Notification> ListMyNoti_TourGuider { get; set; }
         public ObservableCollection<Notification> ListMyNoti_System { get; set; }
 
-        public NotificationServices() {
-          
-
-        }
+        public NotificationServices() { }
         public async Task<List<Notification>> GetAllNotification()
         {
             ListAllNoti = (await firebase
@@ -36,10 +33,7 @@ namespace GoTour.Database
                   title = item.Object.title,
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
-                  when = item.Object.when,
-                  title = item.Object.title,
-                  tourId = item.Object.tourId,
-                  isVisible = item.Object.isVisible
+                  when = item.Object.when,                 
               }).ToList();
 
             return ListAllNoti;
@@ -56,10 +50,10 @@ namespace GoTour.Database
                   senderEmail = sender,
                   reciever = reciever,
                   tourId = tourId,
-                  isVisible = true,
+                  isVisible = "True",
                   type = type,
                   body = body,
-                  isChecked = false,
+                  isChecked = "False",
                   title = title,
                   when = DateTime.Now,                 
               });

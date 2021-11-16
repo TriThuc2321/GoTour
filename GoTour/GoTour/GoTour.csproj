@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Reference Include="xNet">
-      <HintPath>..\..\..\..\..\Downloads\xNet\xNet.dll</HintPath>
+      <HintPath>C:\Users\admin\Downloads\xNet\xNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -72,6 +72,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\SearchResultView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\SendNotificationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\ShowTourFromSelectedPlace.xaml">

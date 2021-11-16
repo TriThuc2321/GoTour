@@ -60,16 +60,15 @@ namespace GoTour.MVVM.ViewModel
 
         public ICommand AddMember => new Command<object>((obj) =>
         {
-           
-            DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), "System", "19522267@gm.uit.edu.vn", 2, "Test Notification","saaaaa","11");
-          
+
+            //DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), "System", "19522267@gm.uit.edu.vn", 2, "Test Notification","saaaaa","11");
+            navigation.PushAsync(new SendNotificationView());
         });
 
         public ICommand SystemNoti => new Command<object>((obj) =>
         {
             SystemNotiUI = "True";
             GuiderNotiUI = "False";
-
         });
 
         public ICommand GuiderNoti => new Command<object>((obj) =>
