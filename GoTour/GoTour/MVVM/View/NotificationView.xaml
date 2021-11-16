@@ -57,12 +57,26 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="White">
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10"  IsVisible="{Binding isVisible}">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="{Binding isChecked}">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="White" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState Name="Normal" >
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="Wheat" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
                                     <StackLayout>
-                                    <Label Text="{Binding title}"></Label>
+                                        <Label Text="{Binding title}"></Label>
                                         <Line BackgroundColor="SteelBlue" HeightRequest="1"></Line>
                                         <Label Text="{Binding senderEmail}"></Label>
-                                    <Label Text="{Binding when}"></Label>
+                                        <Label Text="{Binding when}"></Label>
                                     </StackLayout>
                                 </pancake:PancakeView>
 
@@ -104,12 +118,26 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke">
+                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke" IsVisible="{Binding isVisible}">
                                     <StackLayout>
                                         <Label Text="{Binding title}"></Label>
                                         <Line BackgroundColor="LightCoral" HeightRequest="1"></Line>
                                         <Label Text="{Binding senderEmail}"></Label>
                                         <Label Text="{Binding when}"></Label>
+                                        <Label x:Name="newlabel1" Text="New" FontAttributes="Bold" TextColor="Red"  IsVisible="{Binding isChecked}" >
+                                            <!--<Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Source={x:Reference newlabel1},Path= IsVisible}"
+                                                         Value="True">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Source={x:Reference newlabel1},Path= IsVisible}"
+                                                         Value="False">
+                                                    <Setter Property="IsVisible" Value="True" />
+                                                </DataTrigger>
+                                            </Label.Triggers>-->
+                                        </Label>
                                     </StackLayout>
                                 </pancake:PancakeView>
 
