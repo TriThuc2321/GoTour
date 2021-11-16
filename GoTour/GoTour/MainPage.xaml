@@ -123,10 +123,6 @@
         <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Tour Guider" Icon="invoiceIcon.png">
-        <ShellContent Route="TourGuider" ContentTemplate="{DataTemplate views:TourGuideView}" Style="{DynamicResource Base1Style}"/>
-    </FlyoutItem>
-
     <Shell.FlyoutHeader >
         <Grid HeightRequest="190">
             <Image 

@@ -47,7 +47,6 @@ namespace GoTour.MVVM.ViewModel
                 {
                     Imgs.Add(ImageSource.FromUri(new Uri(i)));
                     listStream.Add(GetStreamFromUrl(i));
-                   
                 }               
             }
             
@@ -172,6 +171,7 @@ namespace GoTour.MVVM.ViewModel
             {
                 isText = value;
                 OnPropertyChanged("IsText");
+
             }
         }
         private ObservableCollection<ImageSource> imgs;

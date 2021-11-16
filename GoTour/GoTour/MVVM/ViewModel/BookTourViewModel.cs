@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System.Linq;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -17,8 +16,6 @@ namespace GoTour.MVVM.ViewModel
         public Command PayingMethodCommand { get; }
         public Command NavigationBack { get; }
         public BookTourViewModel() { }
-
-        string TourPrice, Provisional, DiscountMoney, Total;
 
         public BookTourViewModel(INavigation navigation)
         {
@@ -34,8 +31,6 @@ namespace GoTour.MVVM.ViewModel
 
 
             CheckDiscountCommand = new Command(checkDiscount);
-
-            DataManager.Ins.CurrentDiscount = null;
 
             SetInformation();
         }
@@ -53,19 +48,19 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Birthday is null! Please enter your birthday");
                 return false;
             }
-            else if (Contact == "")
+            else if (Contact == null)
             {
                 DependencyService.Get<IToast>().ShortToast("Contact is null! Please enter your contact");
                 return false;
 
             }
-            else if (Cmnd == "")
+            else if (Cmnd == null)
             {
                 DependencyService.Get<IToast>().ShortToast("Identity card ID is null! Please enter");
                 return false;
 
             }
-            else if (Address == "")
+            else if (Address == null)
             {
                 DependencyService.Get<IToast>().ShortToast("Address is null! Please enter your address");
                 return false;
@@ -122,59 +117,24 @@ namespace GoTour.MVVM.ViewModel
             }
 
             //Check discount 
-            if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
+            if (chosenDiscount == null)
             {
                 DiscountNotice = "Please check your discount";
                 DiscountNoticeColor = Color.Red;
                 DiscountNoticeVisible = true;
                 DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
                 return false;
-            }
+            }    
             return true;
 
 
         }
         void openPayingMethodView(object obj)
         {
-            var ticketServices = DataManager.Ins.BookedTicketsServices;
-            var invoiceServices = DataManager.Ins.InvoicesServices;
-
-            if (checkValidation())
-            {
-                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
-
-                DataManager.Ins.CurrentInvoice = new Invoice()
-                {
-                    id = invoiceServices.GenerateInvoiceId(),
-                    discount = new Discount { id = DiscountId },
-                    discountMoney = DiscountMoney,
-                    isPaid = false,
-                    amount = Amount.ToString(),
-                    total = Total,
-                    price = TourPrice
-                };
-
-                DataManager.Ins.CurrentBookedTicket = new BookedTicket()
-                {
-                    id = ticketServices.GenerateTicketId(),
-                    tour = new Tour { id = selectedTour.id },
-                    name = Name,
-                    birthday = Birthday,
-                    contact = Contact,
-                    email = Email,
-                    cmnd = Cmnd,
-                    address = Address,
-                    isCancel = false,
-                    invoice = new Invoice
-                    {
-                        id = DataManager.Ins.CurrentInvoice.id
-                    }
-                };
-
-                navigation.PushAsync(new PayingMethodView());
-            }
+            navigation.PushAsync(new PayingMethodView());
         }
 
+        Discount chosenDiscount; 
         void checkDiscount(object obj)
         {
             if (DiscountId == null)
@@ -201,14 +161,12 @@ namespace GoTour.MVVM.ViewModel
                             DiscountNoticeVisible = true;
                             DiscountNoticeColor = Color.ForestGreen;
 
-                            DataManager.Ins.CurrentDiscount = discount;
+                            chosenDiscount = discount;
 
                             Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                            if (discount != null)
-                                DiscountMoney = (int.Parse(discount.percent) * int.Parse(Provisional) / 100).ToString();
+                            if (chosenDiscount != null)
+                                DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                             Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
-                            FormatMoney();
-
                         }
 
                         return;
@@ -220,7 +178,32 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeColor = Color.Red;
         }
 
-        
+        void SetInformation()
+        {
+            User getUser = DataManager.Ins.CurrentUser;
+            Name = getUser.name;
+            Birthday = getUser.birthday;
+
+            Contact = getUser.contact;
+            ContactNoticeVisible = false;
+
+            Email = getUser.email;
+            EmailNotice = "This email is your register account email";
+            EmailNoticeColor = Color.ForestGreen;
+            EmailNoticeVisible = true;
+
+            Cmnd = getUser.cmnd;
+            ContactNoticeVisible = false;
+
+            Address = getUser.address;
+
+            DiscountNotice = "Enter and press to check the validation of your code";
+            DiscountNoticeColor = Color.ForestGreen;
+            DiscountNoticeVisible = true;
+
+            TourPrice = Provisional = Total = selectedTour.basePrice;
+            DiscountMoney = "0";
+        }
 
 
         public Command CheckDiscountCommand { get; }
@@ -233,16 +216,15 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount++;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (DataManager.Ins.CurrentDiscount != null)
-                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (chosenDiscount != null)
+                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
-                FormatMoney();
             }
             else
             {
                 AmountNotice = "This tour is remaining " + Amount + " tickets";
-                AmountNoticeColor = Color.Red;
                 AmountNoticeVisible = true;
+                AmountNoticeColor = Color.Red;
             }
 
         }
@@ -254,10 +236,9 @@ namespace GoTour.MVVM.ViewModel
             {
                 Amount--;
                 Provisional = (Amount * int.Parse(selectedTour.basePrice)).ToString();
-                if (DataManager.Ins.CurrentDiscount != null)
-                    DiscountMoney = (int.Parse(DataManager.Ins.CurrentDiscount.percent) * int.Parse(Provisional) / 100).ToString();
+                if (chosenDiscount != null)
+                    DiscountMoney = (int.Parse(chosenDiscount.percent) * int.Parse(Provisional) / 100).ToString();
                 Total = (int.Parse(Provisional) - int.Parse(DiscountMoney)).ToString();
-                FormatMoney();
             }
         }
 
@@ -534,53 +515,52 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region price
-        private string _strTourPrice;
-        public string StrTourPrice
+        private string _tourPrice;
+        public string TourPrice
         {
-            get { return _strTourPrice; }
+            get { return _tourPrice; }
             set
             {
-                _strTourPrice = value;
-                OnPropertyChanged("StrTourPrice");
+                _tourPrice = value;
+                OnPropertyChanged("TourPrice");
             }
         }
 
-        private string _strProvisional;
-        public string StrProvisional
+        private string _provisional;
+        public string Provisional
         {
-            get { return _strProvisional; }
+            get { return _provisional; }
             set
             {
-                _strProvisional = value;
-                OnPropertyChanged("StrProvisional");
+                _provisional = value;
+                OnPropertyChanged("Provisional");
             }
         }
 
-        private string _strDiscountMoney;
-        public string StrDiscountMoney
+        private string _discountMoney;
+        public string DiscountMoney
         {
-            get { return _strDiscountMoney; }
+            get { return _discountMoney; }
             set
             {
-                _strDiscountMoney = value;
-                OnPropertyChanged("StrDiscountMoney");
+                _discountMoney = value;
+                OnPropertyChanged("DiscountMoney");
             }
         }
 
-        private string _strTotal;
-        public string StrTotal
+        private string _total;
+        public string Total
         {
-            get { return _strTotal; }
+            get { return _total; }
             set
             {
-                _strTotal = value;
-                OnPropertyChanged("StrTotal");
+                _total = value;
+                OnPropertyChanged("Total");
             }
         }
 
         #endregion
 
-        #region selectedTour
         private Tour selectedTour;
         public Tour SelectedTour
         {
@@ -591,54 +571,5 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("SelectedTour");
             }
         }
-        #endregion
-        void SetInformation()
-        {
-            User getUser = DataManager.Ins.CurrentUser;
-            Name = getUser.name;
-            //Birthday = getUser.birthday;
-
-            Contact = getUser.contact;
-            ContactNoticeVisible = false;
-
-            Email = getUser.email;
-            EmailNotice = "This email is your register account email";
-            EmailNoticeColor = Color.ForestGreen;
-            EmailNoticeVisible = true;
-
-            Cmnd = getUser.cmnd;
-            ContactNoticeVisible = false;
-
-            Address = getUser.address;
-
-            DiscountNotice = "Enter and press to check the validation of your code";
-            DiscountNoticeColor = Color.ForestGreen;
-            DiscountNoticeVisible = true;
-
-            TourPrice = Provisional = Total = selectedTour.basePrice;
-
-            DiscountMoney = "0";
-
-            DataManager.Ins.CurrentDiscount = null;
-            DataManager.Ins.CurrentBookedTicket = null;
-
-            FormatMoney();
-        }
-       
-
-        void FormatMoney()
-        {
-            StrProvisional = Provisional;
-            StrTotal = Total;
-            StrTourPrice = TourPrice;
-            StrDiscountMoney = DiscountMoney;
-
-            var service = DataManager.Ins.InvoicesServices;
-
-            StrTotal = service.FormatMoney(StrTotal) + " USD";
-            StrTourPrice = service.FormatMoney(StrTourPrice) + " USD";
-            StrDiscountMoney = service.FormatMoney(StrDiscountMoney) + " USD";
-            StrProvisional = service.FormatMoney(StrProvisional) + " USD";
-        }    
     }
 }
