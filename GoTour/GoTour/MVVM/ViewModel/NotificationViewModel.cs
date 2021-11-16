@@ -64,7 +64,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 selected.IsChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
-                await DataManager.Ins.NotiServices.UpdateNoti(selected);
+                if (selected.IsChecked == "False")
+                    await DataManager.Ins.NotiServices.UpdateNoti(selected);
                 /*OnPropertyChanged("ListNotification");*/
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti = null;
@@ -77,7 +78,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 selected.IsChecked = "True";
                 DataManager.Ins.CurrentNoti = selected;
-                await DataManager.Ins.NotiServices.UpdateNoti(selected);
+                if (selected.IsChecked == "False")
+                    await DataManager.Ins.NotiServices.UpdateNoti(selected);
                 navigation.PushAsync(new DetailNotification());
                 SelectedNoti_2 = null;
             }
