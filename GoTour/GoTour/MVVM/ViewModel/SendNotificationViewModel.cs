@@ -7,6 +7,7 @@ using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace GoTour.MVVM.ViewModel
 {
@@ -54,18 +55,25 @@ namespace GoTour.MVVM.ViewModel
                 {
                     if(SystemSelected == true)
                     {
-                        type = 1;
-                        foreach(User i in DataManager.Ins.ListUser)
-                        {           
-                           DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                        if(DataManager.Ins.CurrentUser.rank == 2)
+                        {
+                          App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
                         }
-                        Title = "";
-                        TourIdText = "";
-                        StartTimetext = "";
-                        IsCheckToAll = true;
-                        Message = "";
-                        Recievers.Clear();
-                        DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                        else
+                        {
+                            type = 1;
+                            foreach (User i in DataManager.Ins.ListUser)
+                            {
+                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                            }
+                            Title = "";
+                            TourIdText = "";
+                            StartTimetext = "";
+                            IsCheckToAll = true;
+                            Message = "";
+                            Recievers.Clear();
+                            DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                        }                      
                     }
                     else
                     {
@@ -102,18 +110,25 @@ namespace GoTour.MVVM.ViewModel
                     {
                         if (SystemSelected == true)
                         {
-                            type = 1;
-                            foreach (User i in Recievers)
+                            if (DataManager.Ins.CurrentUser.rank == 2)
                             {
-                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                                App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
                             }
-                            Title = "";
-                            TourIdText = "";
-                            StartTimetext = "";
-                            IsCheckToAll = true;
-                            Message = "";
-                            Recievers.Clear();
-                            DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                            else
+                            {
+                                type = 1;
+                                foreach (User i in Recievers)
+                                {
+                                    DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                                }
+                                Title = "";
+                                TourIdText = "";
+                                StartTimetext = "";
+                                IsCheckToAll = true;
+                                Message = "";
+                                Recievers.Clear();
+                                DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                            }              
                         }
                         else
                         {
@@ -205,16 +220,49 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        //PICKER TOUR LIST
+        //PICKER TOUR LIST THAT YOUR OWN TO BE GUIDER
         public List<string> NameTourList { get; set; }
         public List<string> GetListNameTour()
         {
-            var temp = new List<string>();
-            foreach(Tour i in DataManager.Ins.ListTour)
+
+            List<string> ListTourYouWorkOn = new List<string>();
+
+            if(DataManager.Ins.CurrentUser.rank == 1)
             {
-                temp.Add(i.name);
+                foreach(Tour i in DataManager.Ins.ListTour)
+                {
+                    ListTourYouWorkOn.Add(i.name);
+                }
             }
-            return temp;
+            else
+            {
+                List<Tour> temp1 = new List<Tour>(); //List Tour
+
+                foreach (Tour ite in DataManager.Ins.ListTour)
+                {
+                    temp1.Add(ite);
+                }
+
+                List<Tour> temp = new List<Tour>();
+                List<Tour> result = new List<Tour>();
+
+
+                //Lay email guider
+                string yourEmail = DataManager.Ins.CurrentUser.email;
+
+
+                //Loc email
+                temp = temp1.FindAll(e => e.tourGuide.Exists(p => p == yourEmail));
+                foreach (var plc in temp)
+                    if (!result.Contains(plc))
+                        result.Add(plc);
+
+                foreach (Tour ite3 in result)
+                {
+                    ListTourYouWorkOn.Add(ite3.name);
+                }
+            }
+            return ListTourYouWorkOn;
         }
 
         //SELECTED TOUR NAME
@@ -320,7 +368,7 @@ namespace GoTour.MVVM.ViewModel
             NameTourList = GetListNameTour();
             ListEmailPicker = GetListEmail();
             Recievers = new ObservableCollection<User>();
-            SystemSelected = true;
+            SystemSelected = false;
             IsCheckToAll = true;
         
         }
