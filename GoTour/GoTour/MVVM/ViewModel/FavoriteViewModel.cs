@@ -14,12 +14,10 @@ namespace GoTour.MVVM.ViewModel
     public class FavoriteViewModel : ObservableObject
     {
         INavigation navigation;
-        Page page;
 
         public FavoriteViewModel() { }
-        public FavoriteViewModel(INavigation navigation, Page page)
+        public FavoriteViewModel(INavigation navigation)
         {
-            this.page = page;
             this.navigation = navigation;
 
             Favourites = new ObservableCollection<FavouriteTour>();

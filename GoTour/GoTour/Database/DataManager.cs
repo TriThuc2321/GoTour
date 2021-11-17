@@ -64,7 +64,6 @@ namespace GoTour.Database
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
             ListTour = new ObservableCollection<Tour>();
-            ListBookedTickets = new ObservableCollection<BookedTicket>();
             ListReview = new ObservableCollection<Review>();
 
 
@@ -94,6 +93,7 @@ namespace GoTour.Database
             currentInvoice = new Invoice();
 
             CurrentUser = new User();
+            
             getAllList();
         }
         async Task getAllList()
@@ -136,8 +136,8 @@ namespace GoTour.Database
             List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
             foreach (FavouriteTour favourite in favouriteToursList)
             {
-                favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
-                ListFavouriteTours.Add(favourite);
+                    favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
+                    ListFavouriteTours.Add(favourite);
             }
 
             List<Discount> discountsList = await DiscountsServices.GetAllDiscounts();
@@ -158,6 +158,7 @@ namespace GoTour.Database
                     booked.tour = tourList.Find(e => (e.id == booked.tour.id));
                     booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
                     ListBookedTickets.Add(booked);
+             
             }
         }
         public string GeneratePlaceId(int length = 10)
@@ -405,13 +406,13 @@ namespace GoTour.Database
             }
         }
 
-        private ObservableCollection<BookedTicket> bookedTicket;
+        private ObservableCollection<BookedTicket> bookedTicketList;
         public ObservableCollection<BookedTicket> ListBookedTickets
         {
-            get { return bookedTicket; }
+            get { return bookedTicketList; }
             set
             {
-                bookedTicket = value;
+                bookedTicketList = value;
                 OnPropertyChanged("ListBookedTickets");
             }
         }

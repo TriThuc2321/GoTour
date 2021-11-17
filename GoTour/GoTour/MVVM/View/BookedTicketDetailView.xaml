@@ -731,7 +731,7 @@
                                         IsVisible="{Binding PayingVisible}"
                              />
 
-                            <Button Command="{Binding UploadPhoto}"
+                            <!--<Button Command="{Binding UploadPhoto}"
                                        IsVisible="{Binding DisplayUpload}"
                                     Text="Pay by Momo wallet"
                                     Grid.Row="5"
@@ -745,7 +745,7 @@
                                     VerticalOptions="Center"
                                     HeightRequest="50"
                                     FontAttributes="Bold"
-                                    FontSize="20"/>
+                                    FontSize="20"/>-->
                         </StackLayout>
                     </StackLayout>
                     

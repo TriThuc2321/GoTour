@@ -34,8 +34,14 @@ namespace GoTour.MVVM.ViewModel
             if (!MoMo && !Cash)
                 DependencyService.Get<IToast>().ShortToast("Please choose a paying method");
 
-            if (await checkDiscount() == false ) return;
-            if (await checkRemaining() == false) return;
+            if (await checkDiscount() == false) 
+            { 
+                return;
+            }
+            if (await checkRemaining() == false) 
+            { 
+                return; 
+            }
 
             if (IsCheckRegulation && MoMo)
             {
@@ -47,7 +53,10 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentInvoice.method = "Cash";
                 DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+
                 DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+
+
 
                 await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
                 await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
@@ -69,10 +78,12 @@ namespace GoTour.MVVM.ViewModel
                     DataManager.Ins.currentTour.remaining = remaining.ToString();
 
                     await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
-
                 }
+
+
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
-                navigation.PushAsync(new BookedTicketDetailView());
+                updateManager();
+                await navigation.PushAsync(new BookedTicketDetailView());
 
             }
 
@@ -199,6 +210,34 @@ namespace GoTour.MVVM.ViewModel
             Regulation = "This is our regulation:";
 
 
-        }    
+        }  
+        
+        void updateManager()
+        {
+            DataManager.Ins.ListBookedTickets.Add(DataManager.Ins.CurrentBookedTicket);
+            DataManager.Ins.ListInvoice.Add(DataManager.Ins.CurrentInvoice);
+
+            DataManager.Ins.CurrentBookedTicket.invoice = DataManager.Ins.CurrentInvoice;
+
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                DataManager.Ins.CurrentBookedTicket.invoice.discount = DataManager.Ins.CurrentDiscount;
+
+                for (int i = 0; i < DataManager.Ins.ListDiscount.Count - 1; i++)
+                {
+                    if (DataManager.Ins.ListDiscount[i].id == DataManager.Ins.CurrentDiscount.id)
+                    {
+                        DataManager.Ins.ListDiscount[i] = DataManager.Ins.CurrentDiscount;
+                        break;
+                    }
+                }
+
+               
+            }
+
+
+
+
+        }
     }
 }

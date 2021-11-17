@@ -122,14 +122,14 @@ namespace GoTour.MVVM.ViewModel
             }
 
             //Check discount 
-            if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
-            {
-                DiscountNotice = "Please check your discount";
-                DiscountNoticeColor = Color.Red;
-                DiscountNoticeVisible = true;
-                DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
-                return false;
-            }
+            //if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
+            //{
+            //    DiscountNotice = "Please check your discount";
+            //    DiscountNoticeColor = Color.Red;
+            //    DiscountNoticeVisible = true;
+            //    DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
+            //    return false;
+            //}
             return true;
 
 

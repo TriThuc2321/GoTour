@@ -74,7 +74,7 @@
                         <Label Text="USD"
                                FontSize="20"
                                 HorizontalOptions="Center"
-                               TextColor="Black"
+                               TextColor="ForestGreen"
                                FontAttributes="Bold"
                                Margin="0, 10, 0, 0"/>
 

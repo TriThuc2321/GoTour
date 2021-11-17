@@ -31,7 +31,7 @@ namespace GoTour.MVVM.ViewModel
             ViewDetail = new Command(viewDetail);
 
             NavigationBack = new Command(() => navigation.PopAsync());
-            UploadPhoto = new Command(upload);
+          //  UploadPhoto = new Command(upload);
             SetInformation();
 
         }
@@ -76,10 +76,10 @@ namespace GoTour.MVVM.ViewModel
         {
 
         }
-        public void upload(object obj)
-        {
-            navigation.PushAsync(new MoMoConfirmView());
-        }
+        //public void upload(object obj)
+        //{
+        //    navigation.PushAsync(new MoMoConfirmView());
+        //}
 
         private BookedTicket _ticket;
         public BookedTicket Ticket
@@ -265,15 +265,17 @@ namespace GoTour.MVVM.ViewModel
         {
             StrTotal = Invoice.total;
             StrBasePrice = Invoice.price;
-            StrDiscountMoney = Invoice.discountMoney;
+            if (Invoice.discount != null)
+                StrDiscountMoney = Invoice.discountMoney;
 
-            
-
+           
             var service = DataManager.Ins.InvoicesServices;
 
             StrTotal = service.FormatMoney(StrTotal);
             StrBasePrice = service.FormatMoney(StrBasePrice);
-            StrDiscountMoney = service.FormatMoney(StrDiscountMoney);
+
+            if (Invoice.discount != null)
+                StrDiscountMoney = service.FormatMoney(StrDiscountMoney);
 
             if (Invoice.momoVnd != null)
             {
