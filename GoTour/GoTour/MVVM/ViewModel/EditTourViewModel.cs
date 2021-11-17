@@ -35,12 +35,12 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             SelectedTour = DataManager.Ins.currentTour;
 
-            
             NavigationBack = new Command(() => navigation.PopAsync());          
             OpenDetailTour = new Command(OpenDetailTourHandler);
             OpenDetailTour1 = new Command(OpenDetailTourHandler1);
             EditTextCommand = new Command(editTextHandle);
             AddImageCommand = new Command(addHandleAsync);
+
 
             Name = DataManager.Ins.currentTour.name;
             Description = DataManager.Ins.currentTour.description;
@@ -48,7 +48,15 @@ namespace GoTour.MVVM.ViewModel
             DurationProcess();
             StartDate = DataManager.Ins.currentTour.startTime;
             Img = ImageSource.FromUri(new Uri(SelectedTour.imgSource[0]));
-            StartDatePicker = DateTime.Now;
+            PassengerNumber = DataManager.Ins.currentTour.passengerNumber;
+
+            string[] temp = DataManager.Ins.currentTour.startTime.Split(' ');
+            string[] dayTemp = temp[0].Split('/');
+
+            StartTime = temp[1];
+
+            StartDatePicker = new DateTime(int.Parse(dayTemp[2]), int.Parse(dayTemp[1]), int.Parse(dayTemp[0]));
+            StartTimePicker = new TimeSpan(4, 0, 0);
 
             IsEdit = false;
             SourceIcon = "editIcon.png";
@@ -85,9 +93,21 @@ namespace GoTour.MVVM.ViewModel
         }
         private async void updateData()
         {
+            string[] temp = StartDatePicker.ToString().Split(' ');
+            string[] dayTemp = temp[0].Split('/');
+
             DataManager.Ins.currentTour.description = Description;
             DataManager.Ins.currentTour.name = Name;
-            if(imgTemp != null)
+            DataManager.Ins.currentTour.basePrice = Price;
+            DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
+            DataManager.Ins.currentTour.duration = Day + '/' + Night;
+            DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
+
+            StartDate = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2];
+            ProcessedDuration = Day + " Day " + Night + " Night";
+            StartTime = StartTimePicker.ToString();
+
+            if (imgTemp != null)
             {
                 DataManager.Ins.currentTour.imgSource = new List<string>();
                 await DataManager.Ins.TourServices.DeleteFile(DataManager.Ins.currentTour.id, 0);
@@ -100,7 +120,7 @@ namespace GoTour.MVVM.ViewModel
         }
         public void OpenDetailTourHandler()
         {
-            navigation.PushAsync(new DetailTourView2());
+            navigation.PushAsync(new EditDetailTourView());
         }
 
         public void OpenBookTourView(object obj)
@@ -281,6 +301,28 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
+        private string startTime;
+        public string StartTime
+        {
+            get { return startTime; }
+            set
+            {
+                startTime = value;
+                OnPropertyChanged("StartTime");
+
+            }
+        }
+        private string passengerNumber;
+        public string PassengerNumber
+        {
+            get { return passengerNumber; }
+            set
+            {
+                passengerNumber = value;
+                OnPropertyChanged("PassengerNumber");
+
+            }
+        }
 
         private DateTime startDatePicker;
         public DateTime StartDatePicker
@@ -290,10 +332,19 @@ namespace GoTour.MVVM.ViewModel
             {
                 startDatePicker = value;
                 OnPropertyChanged("StartDatePikcer");
+            }
+        }
+        private TimeSpan startTimePicker;
+        public TimeSpan StartTimePicker
+        {
+            get { return startTimePicker; }
+            set
+            {
+                startTimePicker = value;
+                OnPropertyChanged("StartTimePicker");
 
             }
         }
-
         private ImageSource img;
         public ImageSource Img
         {

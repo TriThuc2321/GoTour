@@ -24,17 +24,15 @@
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
                            />
-            <ImageButton 
-                    Command="{Binding NavigationBack}"                                  
-                    Source="backbutton.png"                                  
-                    HeightRequest="30"                                  
-                    WidthRequest="50"                                 
-                    CornerRadius="10"                                  
-                    HorizontalOptions="StartAndExpand"                                  
-                    VerticalOptions="StartAndExpand"                                 
-                    BackgroundColor="White"                                  
-                    Margin="10, 10 , 0, 0">
-                </ImageButton>
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
             <Frame
                 CornerRadius="10"                                  
                     HorizontalOptions="End"                                  
@@ -49,8 +47,7 @@
                     Source="imagePickerIcon.png"                                  
                     HeightRequest="30"                                  
                     WidthRequest="30"         
-                    BackgroundColor="Transparent"
-                  
+                    BackgroundColor="Transparent"                 
                 />
 
             </Frame>
@@ -72,17 +69,37 @@
                         <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="End" Source="nextIcon.png"/>
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
                         <ImageButton HeightRequest="25" Aspect="AspectFill" Source="scoreIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
                         <Label Text="{Binding SelectedTour.starNumber}" 
                                VerticalOptions="CenterAndExpand"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="Small"/>
+                    </StackLayout> -->
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="passengerIcon.png" BackgroundColor="Transparent"/>
+                        <Label Text="{Binding SelectedTour.passengerNumber}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="Small"
+                               IsVisible="{Binding IsText}"/>
+                        <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding PassengerNumber}" IsVisible="{Binding IsEdit}"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
                         <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="clocksIcon.png" BackgroundColor="Transparent"/>
+
+                        <Label Text="{Binding StartTime}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="Small"
+                               IsVisible="{Binding IsText}"/>
+                        <TimePicker Time="{Binding StartTimePicker}" IsVisible="{Binding IsEdit}" />
+                        
                         <Label Text="{Binding StartDate}" 
                                VerticalOptions="CenterAndExpand"
                                TextColor="Black"
@@ -90,7 +107,8 @@
                                FontSize="Small"
                                IsVisible="{Binding IsText}"
                                />
-                        <DatePicker IsVisible="{Binding IsEdit}" Date="{Binding StartDatePicker}" />
+                        <DatePicker IsVisible="{Binding IsEdit}" Date="{Binding StartDatePicker}" Format="dd/MM/yyyy"/>
+
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">

@@ -56,6 +56,8 @@ namespace GoTour.Database
 
         public List<string> currentPlace = new List<string>();
         public Tour currentTour = new Tour();
+        public PlaceId_Duration currentDuration = new PlaceId_Duration();
+        public int idTourDuration;
         private DataManager()
         {
             PlacesServices = new PlacesServices();
