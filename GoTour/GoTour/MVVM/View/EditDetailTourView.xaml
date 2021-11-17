@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.EditDetailTourView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             >
+    <ContentPage.BindingContext>
+        <vm:EditDetailTourViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Command="{Binding NavigationBack}" Source="backbutton.png" HeightRequest="30" WidthRequest="50" CornerRadius="10" HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="10, 10 , 0, 0"></ImageButton>
+                <Label Text=" TOUR DETAILS" FontAttributes="Bold" FontSize="Title" TextColor="Black" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0" ></Label>
+            </StackLayout>
+
+            <ScrollView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Frame  Grid.Row="0"
+                             BackgroundColor="SteelBlue"
+                            HasShadow="True"
+                            CornerRadius="10"
+                           HeightRequest="40"
+                            Padding="10"
+                            Margin="5"
+                            >
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
+                                <Button Text="{Binding DataManager.Ins.USDCurrency}" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+
+                            </StackLayout>
+
+                        </Frame>
+
+
+                        <Frame  Grid.Row="1"
+                             BackgroundColor="White"
+                            HasShadow="True"
+                            BorderColor="White"                           
+                            Padding="10"
+                            Margin="25, -10 , 25 , 0">
+                            <StackLayout>
+                                <Label Text="{Binding SelectedTour.startTime,StringFormat='{}Start: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding SelectedTour.basePrice ,StringFormat='{}Price: ${0} ' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding ProcessedDuration,StringFormat='{}Duration: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding SelectedTour.passengerNumber ,StringFormat='{}Passenger number: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                            </StackLayout>
+
+                        </Frame>
+
+                    </Grid>
+
+                    <StackLayout Grid.Row="1" >
+                        <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <CollectionView x:Name="clview" 
+                            ItemsSource="{Binding SelectedTour.placeDurationList}" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedDuration}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                                        
+                            >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="10">
+                                        <Label Text="{Binding description }" 
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"
+                                       FontFamily="Arial"/>
+                                        <Frame
+                                    HeightRequest="280"
+                                    BackgroundColor="White"
+                                    HasShadow="True"
+                                    Margin="10"
+                                    CornerRadius="10"
+                                    HorizontalOptions="Center"
+                                    Padding="0"
+                            
+                        >
+                                            <Grid>
+                                                <StackLayout
+                                        BackgroundColor="Black">
+                                                    <ImageButton Source="{Binding host.imgSource[0]}"
+                                             HeightRequest="350"
+                                             WidthRequest="500"
+                                             Aspect="AspectFill"     
+                                      
+                           />
+                                                </StackLayout>
+                                                <StackLayout>
+                                                    <Label
+                                    Text="{Binding host.name}"
+                                    TextColor="White"
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"
+                                    Margin="13,0,0,0"
+                                    VerticalOptions="EndAndExpand"
+                        />
+                                                    <StackLayout Orientation="Horizontal" Margin="20,0,20,10">
+                                                        <Label
+                                        Text="{Binding host.description}"
+                                        TextColor="White"
+                                        FontSize="Small"                            
+                                        Margin="-5, 0, 0, 0"/>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                        <Line BackgroundColor="Black" HeightRequest="1"></Line>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

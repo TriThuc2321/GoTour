@@ -21,12 +21,7 @@ namespace GoTour.MVVM.Model
             this.placeId = placeId;
             this.description = description;
             this.host = null;
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
+        }     
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
