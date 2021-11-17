@@ -114,6 +114,24 @@ namespace GoTour.Database
             }
             return randomString;
         }
+
+
+        public double countBookTourRegulation(Tour tour)
+        {
+            string[] tourStartTime = tour.startTime.Split('/');
+
+            string[] splitYear = tourStartTime[2].Split(' ');
+            DateTime time = new DateTime(
+                int.Parse(splitYear[0]),
+                int.Parse(tourStartTime[1]),
+                int.Parse(tourStartTime[0])
+                );
+
+            DateTime currentTime = DateTime.Now.AddDays(0);
+            TimeSpan interval = time.Subtract(currentTime);
+            double count = interval.Days;
+            return count;
+        }
     }
 }
 

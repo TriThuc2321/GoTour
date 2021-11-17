@@ -319,20 +319,21 @@
                            CornerRadius="20"
                            Margin="20, 5, 20, 5" 
                            Padding="5" 
-                           HasShadow="False"
+                           HasShadow="True"
                            BackgroundColor="White" 
                            VerticalOptions="Center" >
-                                <Grid Margin="20, 5, 20, 5" >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                <StackLayout Orientation="Vertical">
+                                    <Grid Margin="20, 5, 20, 5" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Margin="0,0,0,0"
+                                        <Label Margin="0,0,0,0"
                                            Text="Amount: "
                                            Grid.Column="0"
                                            Grid.Row="0"
@@ -340,18 +341,18 @@
                                            VerticalOptions="Center"
                                            FontSize="15"/>
 
-                                    <StackLayout Orientation="Horizontal"
+                                        <StackLayout Orientation="Horizontal"
                                                  Grid.Column="1"
                                                  Grid.Row="0"
                                                  HorizontalOptions="End">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
 
-                                            <Button Text="-"
+                                                <Button Text="-"
                                                     WidthRequest="30"
                                                     HeightRequest="30"
                                                     Grid.Column="0"
@@ -364,7 +365,7 @@
                                                     FontSize="15"
                                                     Command="{Binding DescreaseAmountCommand}"/>
 
-                                            <Entry  
+                                                <Entry  
                                                     PlaceholderColor="#C0C0C0"
                                                     Keyboard="Numeric"
                                                     FontSize="15"
@@ -374,7 +375,7 @@
                                                     Grid.Column="1"
                                                 />
 
-                                            <Button Text="+"
+                                                <Button Text="+"
                                                     WidthRequest="30"
                                                     HeightRequest="30"
                                                     Grid.Column="2"
@@ -387,20 +388,19 @@
                                                     FontSize="15"
                                                     Command="{Binding IncreaseAmountCommand}"/>
 
-                                        </Grid>
+                                            </Grid>
 
-                                    </StackLayout>
-
+                                        </StackLayout>
+                                    </Grid>
                                     <Label Text="{Binding AmountNotice}"
-                                           Grid.Column="0"
                                            TextColor="{Binding AmountNoticeColor}"
                                            IsVisible="{Binding AmountNoticeVisible}"
-                                           Grid.Row="1"
-                                           Grid.ColumnSpan="2"
-                                           HorizontalOptions="End"/>
-
-
-                                </Grid>
+                                           VerticalOptions="Start"
+                                           
+                                           HorizontalOptions="End"
+                                           Margin="0,0,20,0"/>
+                                </StackLayout>
+                                
                             </Frame>
 
 

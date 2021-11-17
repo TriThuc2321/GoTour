@@ -23,7 +23,8 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
 
             this.Ticket = DataManager.Ins.CurrentBookedTicket;
-            this.Discount = DataManager.Ins.CurrentDiscount;
+            if (DataManager.Ins.CurrentDiscount != null)
+                this.Discount = DataManager.Ins.CurrentDiscount;
             this.Invoice = DataManager.Ins.CurrentInvoice;
             this.Tour = DataManager.Ins.currentTour;
 
@@ -39,18 +40,16 @@ namespace GoTour.MVVM.ViewModel
         void SetInformation()
         {
             DurationProcess();
-            PayingVisible = DiscountVisible = true;
+
+            
+
             if (!this.Invoice.isPaid)
             {
-                PayingVisible = false;
+               // PayingVisible = false;
                 DisplayUpload = true;
             }
             else
                 DisplayUpload = false;
-            if (Discount == null)
-            {
-                DiscountVisible = false;
-            }
 
             if (Tour.isOccured)
                 Occured = "Occured";
@@ -65,16 +64,26 @@ namespace GoTour.MVVM.ViewModel
             else
                 Paid = "No";
 
+            if (Ticket.invoice.method == "MoMo")
+                payingPhotoVisible = true;
+            else payingPhotoVisible = false;
+
+            if (this.Discount.id != null)
+                DiscountVisible = true;
+            else
+                DiscountVisible = false;
+
             FormatMoney();
         }
 
         void viewDetail(object obj)
         {
+         
             navigation.PushAsync(new DetailTourView());
         }
         void cancelTicket(object obj)
         {
-
+            navigation.PushAsync(new CancelTourView());
         }
         //public void upload(object obj)
         //{
@@ -141,14 +150,14 @@ namespace GoTour.MVVM.ViewModel
         }
 
 
-        private bool payingVisible;
-        public bool PayingVisible
+        private bool payingPhotoVisible;
+        public bool PayingPhotoVisible
         {
-            get { return payingVisible; }
+            get { return payingPhotoVisible; }
             set
             {
-                payingVisible = value;
-                OnPropertyChanged("PayingVisible");
+                payingPhotoVisible = value;
+                OnPropertyChanged("PayingPhotoVisible");
             }
         }
 

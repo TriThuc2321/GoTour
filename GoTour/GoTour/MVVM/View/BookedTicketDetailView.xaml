@@ -89,7 +89,7 @@
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="White" 
-                                 Margin="0, 10 , 0, 0"/>
+                                 Margin="10, 10 , 0, 0"/>
 
                 </Grid>
 
@@ -416,7 +416,9 @@
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Base Price: "
@@ -430,6 +432,13 @@
                                FontSize="16"
                                Grid.Column="1"
                             />
+                                <Label Text="USD"
+                                   TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="2"
+                               HorizontalOptions="Start"
+                                />
                             </Grid>
                         </StackLayout>
 
@@ -499,7 +508,7 @@
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="Discount Pêrcent: "
+                                <Label Text="Discount Percent: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
@@ -524,9 +533,7 @@
                         <!--Discount Money          VISIBLE-->
                         <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
-                                 
                                  IsVisible="{Binding DiscountVisible}"
-                                 
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
@@ -685,7 +692,7 @@
                         <!--MoMoVND           VISIBLE-->
                         <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
-                                 IsVisible="{Binding PayingVisible}"
+                                 IsVisible="{Binding PayingPhotoVisible}"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
@@ -710,6 +717,7 @@
                         <!--Proof            VISIBLE-->
                         <StackLayout Orientation="Vertical"
                              Margin="25, 5, 15, 5"
+                                 IsVisible="{Binding PayingPhotoVisible}"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
@@ -728,7 +736,6 @@
                                       WidthRequest="500"
                                        Aspect="AspectFill"   
                                      
-                                        IsVisible="{Binding PayingVisible}"
                              />
 
                             <!--<Button Command="{Binding UploadPhoto}"

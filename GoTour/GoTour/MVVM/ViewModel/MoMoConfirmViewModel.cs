@@ -261,7 +261,7 @@ namespace GoTour.MVVM.ViewModel
             int money = int.Parse(DataManager.Ins.CurrentInvoice.total) * int.Parse(usd);
             Money = money.ToString();
             Regulation = "This is our regulation: ";
-            ConfirmText = "Paying later";
+            ConfirmText = "Paying later by cash";
             UploadImageText = "Upload photo";
 
             ImageLink = "";

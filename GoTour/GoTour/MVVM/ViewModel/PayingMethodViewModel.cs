@@ -20,7 +20,7 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
            
             SetInformation();
-
+            checkDateRegulation();
             SelectedTour = DataManager.Ins.currentTour;
             NavigationBack = new Command(() => navigation.PopAsync());
             Confirm = new Command(confirmPress);
@@ -199,18 +199,7 @@ namespace GoTour.MVVM.ViewModel
 
             return false;
         }
-        void SetInformation()
-        {
-
-            Total = DataManager.Ins.CurrentInvoice.total;
-
-            var service = DataManager.Ins.InvoicesServices;
-            Total = service.FormatMoney(Total);
-
-            Regulation = "This is our regulation:";
-
-
-        }  
+      
         
         void updateManager()
         {
@@ -234,10 +223,65 @@ namespace GoTour.MVVM.ViewModel
 
                
             }
-
-
-
-
         }
+
+        void checkDateRegulation()
+        {
+            PermitCheckCash = true;
+            LaterNotice = "";
+            if (DataManager.Ins.BookedTicketsServices.countBookTourRegulation(DataManager.Ins.currentTour) < 5)
+            {
+                PermitCheckCash = false;
+                LaterNotice = "Since you book the tour 5 days before it starts, you are required to pay for it by Momo/Banking ";
+                MoMo = true;
+            }    
+        }
+
+        private string _laterNotice;
+        public string LaterNotice
+        {
+            get { return _laterNotice; }
+            set
+            {
+                _laterNotice = value;
+                OnPropertyChanged("LaterNotice");
+            }
+        }
+
+        private string _laterNoticeVisible;
+        public string LaterNoticeVisible
+        {
+            get { return _laterNoticeVisible; }
+            set
+            {
+                _laterNoticeVisible = value;
+                OnPropertyChanged("LaterNoticeVisible");
+            }
+        }
+
+        private bool _permitCheckCash;
+        public bool PermitCheckCash
+        {
+            get { return _permitCheckCash; }
+            set
+            {
+                _permitCheckCash = value;
+                OnPropertyChanged("PermitCheckCash");
+            }
+        }
+
+          void SetInformation()
+        {
+
+            Total = DataManager.Ins.CurrentInvoice.total;
+
+            var service = DataManager.Ins.InvoicesServices;
+            Total = service.FormatMoney(Total);
+
+            Regulation = "\tIn case of service cancellation from customers: For instance, you can not use your service/tour, you must notify the Company in writing or by email (Do not handle with the case of contact transfer/cancellation by phone). At the same time, please bring the tour/service registration record & payment receipt to GoTour office for cancelling/transfering tour procedures. In case of service / tour cancellation: You must bear the cost of canceling the tour / service in accordance with GoTour's regulations and the entire budget for online payment work. \nRight after payment or before 10 days: cancel 30% of tour price. \nCancellation 5 days before the start date: cancel 50% of the tour price. \nCancellation 3 days before the start date: cancel 70% of the tour fee \nCancel 1 day before the start of the day: cancel 100% of the tour fee case of late arrival feature is canceled 5 days before the start date. \n\tYou can pay for the tour right away with momo e-wallet, the aggregate unit will be converted into VND. If you choose to pay in cash, please pay 5 days in advance from the time of tour start. \n\tOTHER NOTES \nOn departure day, please gather at the designated pick-up point. If you arrive late, the Company does not bear any related responsibility. At the end of the tour, Vietnam Booking will drop off guests at a single point, the Hanoi Opera House. Please take a taxi to your hotel or accommodation. In case there are 6 or less passengers on the departure date, the driver can act as a guide. These are experienced drivers, knowledgeable about routes and local culture. As a mountain tour, often ride small cars, so it is recommended that you do not bring bulky, oversized and do not carry a lot of luggage. Should bring backpacks instead of carrying hard suitcases. There are options to sleep at a homestay to increase the experience with the mountain tour. It is recommended that you bring personal items to use when staying at the Homestay (if necessary). In case the guest is traveling alone, we cannot arrange a roommate with other people to travel alone. must pay a separate sleeping fee equal to 50% of the room rate/night during the tour. \n\tYou must bring: legal identification (ID card or Passport). If you are a vegetarian, please bring more vegetarian food with you to ensure your taste. Any services in the tour if you do not use them, will not be refunded. The guide has the right to rearrange the items. own the attractions to suit the conditions of each specific departure date, but still ensure all the attractions in the program. You should bring: insect repellent, common cold medicine or medicine prescribed by a doctor individually. \n(*) Customer's responsibility: Customers are solely responsible for their health and chronic diseases (cardiovascular, blood pressure, diabetes, bone and joint...), congenital diseases, underlying diseases, HIV AIDS, mental and neurological disorders, pregnant women... are diseases not covered by insurance. When necessary, you must write a commitment about your illness when participating in the tour. The tour organizer is not responsible for cases where you do not declare your illness, declare dishonestly as well as cases outside the travel insurance coverage on the tour. Customers take care of their own property in all cases and in all places during the trip. The tour organizer is not responsible for the loss of money, valuables, airline tickets, and customer's private property during the trip. In objective cases such as: terrorism, natural disaster...or due to an incident, there is a change in the schedule of public transport such as: plane, train, etc., Vietnam Booking will reserve the right to change the schedule. change the route at any time for the convenience and safety of customers and will not be responsible for compensation for damages incurred. *If the number of participants does not meet the minimum number to depart, the Company will support to move to the nearest departure date and notify you in advance or refund the tour fee as deposit for you* .";
+
+
+        }  
+
     }
 }

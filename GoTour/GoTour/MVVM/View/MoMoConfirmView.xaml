@@ -70,21 +70,53 @@
                         <StackLayout Grid.Row="0"
                                     Margin="10, 30, 10, 50"
                          >
-                            <Image Source="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
-                                   WidthRequest="200"
-                                   HeightRequest="200"
-                                   Margin="0,20,0,0"
-                    />
-                            <Label Text="NGUYEN KHANH LINH"
-                                   FontSize="Large"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                   />
-                            <Label Text="038 3303 061"
+
+                            <StackLayout Orientation="Horizontal"
+                                         Margin="50">
+                                <Image Source="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
+                                      WidthRequest="50"
+                                       Aspect="AspectFill"
+                                />
+                                <StackLayout Orientation="Vertical"
+                                             Margin="10,0,0,0">
+                                    <Label Text="NGUYEN KHANH LINH"
                                    FontSize="20"
                                    FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                   />
+                                 />
+                                    <Label Text="038 3303 061"
+                                           FontSize="20"
+                                           HorizontalOptions="Center"
+                                            FontAttributes="Bold"
+                                />
+                                </StackLayout>
+
+                               
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal"
+                                         Margin="50, 0, 50, 50">
+                                <Image Source="https://znews-stc.zdn.vn/static/topic/company/vietcom.jpg"
+                                      WidthRequest="55"
+                                       Aspect="AspectFill"
+                                />
+                                <StackLayout Orientation="Vertical"
+                                             Margin="10,0,0,0">
+                                    <Label Text="TRAN TRI THUC"
+                                           FontSize="20"
+                                           Margin="20,0,0,0"
+                                           FontAttributes="Bold"
+                                 />
+                                    <Label Text="1015153929"
+                                           FontSize="20"
+                                           HorizontalOptions="Center"
+                                            FontAttributes="Bold"
+                                        />
+                                </StackLayout>
+
+
+                            </StackLayout>
+
+
                             <Label Text="{Binding StrMoney}"
                                     Margin="0,30,0,0"
                                    TextColor="ForestGreen"

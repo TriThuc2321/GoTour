@@ -87,6 +87,7 @@ namespace GoTour.MVVM.ViewModel
             }
         });
 
+        #region Refresh
         private bool _isRefresh;
         public bool IsRefresh
         {
@@ -114,6 +115,7 @@ namespace GoTour.MVVM.ViewModel
                     Favourites.Add(favourites);
             }
             IsRefresh = false;
-        }    
+        }
+        #endregion
     }
 }

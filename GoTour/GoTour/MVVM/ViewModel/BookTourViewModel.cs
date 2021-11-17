@@ -91,10 +91,10 @@ namespace GoTour.MVVM.ViewModel
             }
             else if (Amount > int.Parse(selectedTour.remaining)  )
             {
-                DiscountNotice = "This discount has no more turn";
-                DiscountNoticeVisible = true;
-                DiscountNoticeColor = Color.DarkOrange;
-                DependencyService.Get<IToast>().ShortToast("This discount has no more turn!");
+                AmountNotice = "This tour ticket has no more turn";
+                AmountNoticeVisible = true;
+                AmountNoticeColor = Color.DarkOrange;
+                DependencyService.Get<IToast>().ShortToast("This tour ticket has no more turn!");
                 return false;
 
             }
@@ -237,9 +237,7 @@ namespace GoTour.MVVM.ViewModel
             }
             else
             {
-                AmountNotice = "This tour is remaining " + Amount + " tickets";
                 AmountNoticeColor = Color.Red;
-                AmountNoticeVisible = true;
             }
 
         }
@@ -511,7 +509,7 @@ namespace GoTour.MVVM.ViewModel
             get { return _amountNoticeColor; }
             set
             {
-                _cmndNoticeColor = value;
+                _amountNoticeColor = value;
                 OnPropertyChanged("AmountNoticeColor");
             }
         }
@@ -595,8 +593,8 @@ namespace GoTour.MVVM.ViewModel
             Name = getUser.name;
             if (getUser.birthday != "")
                 Birthday = getUser.birthday;
-            //else
-            //    Birthday = null;
+            else
+                Birthday = new DateTime(1980,1,1).ToString();
 
             Contact = getUser.contact;
             ContactNoticeVisible = false;
@@ -610,6 +608,10 @@ namespace GoTour.MVVM.ViewModel
             ContactNoticeVisible = false;
 
             Address = getUser.address;
+
+            AmountNotice = "This tour is remaining " + SelectedTour.remaining + " tickets";
+            AmountNoticeColor = Color.ForestGreen;
+            AmountNoticeVisible = true;
 
             DiscountNotice = "Enter and press to check the validation of your code";
             DiscountNoticeColor = Color.ForestGreen;

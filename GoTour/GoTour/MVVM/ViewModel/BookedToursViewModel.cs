@@ -44,10 +44,25 @@ namespace GoTour.MVVM.ViewModel
                 if (result.invoice.discount != null)
                     DataManager.Ins.CurrentInvoice.discount = result.invoice.discount;
                 DataManager.Ins.currentTour = result.tour;
+
+                
                 navigation.PushAsync(new BookedTicketDetailView());
+
                 SelectedTicket = null;
             }
         });
+
+        private BookedTicket selectedTicket;
+        public BookedTicket SelectedTicket
+        {
+            get { return selectedTicket; }
+            set
+            {
+                selectedTicket = value;
+                OnPropertyChanged("SelectedTicket");
+
+            }
+        }
 
         private ObservableCollection<BookedTicket> _bookedTicketsList;
         public ObservableCollection<BookedTicket> BookedTicketsList
@@ -60,17 +75,7 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private Tour selectedTicket;
-        public Tour SelectedTicket
-        {
-            get { return selectedTicket; }
-            set
-            {
-                selectedTicket = value;
-                OnPropertyChanged("SelectedTicket");
-
-            }
-        }
+        
 
        
     }

@@ -15,9 +15,9 @@
             <CollectionView ItemsSource="{Binding BookedTicketsList}"
                         SelectionMode="Single" 
                         x:Name="clview"
-                        SelectedItem="{Binding SelectTicket}"
-                            SelectionChangedCommand="{Binding SelectedCommand}"
-                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                        SelectedItem="{Binding SelectedTicket}"
+                        SelectionChangedCommand="{Binding SelectedCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
                         >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -80,9 +80,9 @@
                                             </Grid.ColumnDefinitions>
 
                                             <Image Source="calendarIcon.png"
-                                               HeightRequest="15"
-                                               WidthRequest="15"
+                                               WidthRequest="20"
                                                Aspect="AspectFit"
+                                               VerticalOptions="Center"
                                                Grid.Column="0"/>
 
                                             <Label Text="{Binding tour.startTime}"
