@@ -34,7 +34,8 @@ namespace GoTour.Database
                   amount = item.Object.amount,
                   method = item.Object.method,
                   total = item.Object.total,
-                  photoMomo = item.Object.photoMomo
+                  photoMomo = item.Object.photoMomo,
+                  momoVnd = item.Object.momoVnd
               }).ToList();
 
         }
@@ -53,7 +54,8 @@ namespace GoTour.Database
                   amount = invoice.amount,
                   method = invoice.method,
                   total = invoice.total,
-                  photoMomo = invoice.photoMomo
+                  photoMomo = invoice.photoMomo,
+                  momoVnd = invoice.momoVnd
               });
         }
 
@@ -85,7 +87,8 @@ namespace GoTour.Database
                   amount = invoice.amount,
                   method = invoice.method,
                   total = invoice.total,
-                  photoMomo = invoice.photoMomo
+                  photoMomo = invoice.photoMomo,
+                  momoVnd = invoice.momoVnd
               });
 
         }
@@ -98,6 +101,62 @@ namespace GoTour.Database
                 .PutAsync(imgStream);
             var imgurl = storageImage;
             return imgurl;
+        }
+
+        public string GenerateInvoiceId()
+        {
+            int length = 15;
+            var List = DataManager.Ins.ListInvoice;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            int i = 0;
+            while (i < List.Count())
+            {
+                if (List[i].id == randomString)
+                {
+                    i = -1;
+                    randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                i++;
+            }
+            return randomString;
+        }
+        public string FormatMoney(string money)
+        {
+            return String.Format("{0:#,##0.##}", int.Parse(money));
+        }    
+
+        public string RoundMoney(int money)
+        {
+            string moneyStr = money.ToString();
+            string numberEnd = moneyStr.Substring(moneyStr.Length - 3, 3);
+            string numberStart = moneyStr.Substring(0, moneyStr.Length - 3);
+
+            if(int.Parse(numberEnd) >= 500)
+            {
+
+                int round = int.Parse(numberStart.ToString() + numberEnd.ToString());
+                while (round % 1000 !=0)
+                {
+                    round++;
+                }
+
+                moneyStr = round.ToString();
+            }
+            else if(int.Parse(numberEnd) >= 1 && int.Parse(numberEnd) <=499 )
+            {
+                int round = int.Parse(numberStart.ToString() + numberEnd.ToString());
+                while (round % 1000 != 0)
+                {
+                    round--;
+                }
+                moneyStr = round.ToString();
+            }
+
+            return moneyStr;
         }
     }
 }

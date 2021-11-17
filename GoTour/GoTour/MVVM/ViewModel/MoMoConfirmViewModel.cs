@@ -6,6 +6,7 @@ using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -13,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
     public class MoMoConfirmViewModel : ObservableObject
     {
         INavigation navigation;
+        string Money;
         public MoMoConfirmViewModel() { }
         public Command NavigationBack { get; }
         public Command UploadPhoto { get; }
@@ -54,7 +56,7 @@ namespace GoTour.MVVM.ViewModel
             currentPhoto = null;
             RemovePhotoVisible = false;
             UploadImageText = "Upload photo";
-            ConfirmText = "Paying later";
+            ConfirmText = "Paying later by cash";
 
             ImageLink = "";
             ImageVisible = false;
@@ -63,6 +65,24 @@ namespace GoTour.MVVM.ViewModel
 
         async void confirm(object obj)
         {
+            // Nếu cash trước và trả MoMo
+           // bool changeMethod = false;
+            bool payLater = true;
+            //if (DataManager.Ins.CurrentInvoice.method == "Cash")
+            //    changeMethod = true;
+
+            
+
+         //   if (changeMethod == false)
+           // {
+                if (await checkRemaining() == false)
+                {
+                    return;
+                }
+
+                if (await checkDiscount() == false) return;
+            //}
+            
             if (ImageVisible && currentPhoto != null)
             {
                 string url = await DataManager.Ins.InvoicesServices.saveMoMoImage(
@@ -70,21 +90,42 @@ namespace GoTour.MVVM.ViewModel
                     DataManager.Ins.CurrentBookedTicket.invoice.id
                     );
 
-
                 DataManager.Ins.CurrentInvoice.isPaid = true;
-                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString();
+                DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
                 DataManager.Ins.CurrentInvoice.photoMomo = url;
 
-                navigation.PushAsync(new BookedTicketDetailView());
+                payLater = false;
             }
             else
             {
                 DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentInvoice.payingTime = "";
+                payLater = true;
             }
 
-            DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
-            DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            if (!payLater)
+            {
+                DataManager.Ins.CurrentInvoice.method = "MoMo";
+                DataManager.Ins.CurrentInvoice.momoVnd = Money;
+            }else {
+                DataManager.Ins.CurrentInvoice.method = "Cash";
+
+            }
+
+          //  if (changeMethod == false)
+            //{
+                DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            //}
+
+            //if (!changeMethod)
+            //{
+                await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
+                await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            //}
+          //  else {
+           //     await DataManager.Ins.InvoicesServices.UpdateInvoice(DataManager.Ins.CurrentInvoice);
+             //   await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(DataManager.Ins.CurrentBookedTicket);
+            //}
 
             if (DataManager.Ins.CurrentDiscount != null)
             {
@@ -92,11 +133,13 @@ namespace GoTour.MVVM.ViewModel
                 isUsed++;
                 DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
 
-                DataManager.Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+                await DataManager .Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
 
             }
 
-            if (DataManager.Ins.currentTour != null)
+            if (DataManager.Ins.currentTour != null 
+                //&& !changeMethod
+                )
             {
                 int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
                 remaining = remaining - int.Parse(DataManager.Ins.CurrentInvoice.amount);
@@ -105,17 +148,22 @@ namespace GoTour.MVVM.ViewModel
                 await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
 
             }
+
+            //   updateManager(changeMethod);
+            updateManager();
+            
+            await navigation.PushAsync(new BookedTicketDetailView());
         }
 
         #region money
-        private string _money;
-        public string Money
+        private string _strMoney;
+        public string StrMoney
         {
-            get { return _money; }
+            get { return _strMoney; }
             set
             {
-                _money = value;
-                OnPropertyChanged("Money");
+                _strMoney = value;
+                OnPropertyChanged("StrMoney");
             }
         }
         #endregion
@@ -157,6 +205,17 @@ namespace GoTour.MVVM.ViewModel
         }
         #endregion
 
+        private Tour selectedTour;
+        public Tour SelectedTour
+        {
+            get { return selectedTour; }
+            set
+            {
+                selectedTour = value;
+                OnPropertyChanged("SelectedTour");
+            }
+        }
+
         private string _uploadImageText;
         public string UploadImageText
         {
@@ -197,7 +256,10 @@ namespace GoTour.MVVM.ViewModel
 
         void SetInformation()
         {
-            Money = DataManager.Ins.CurrentBookedTicket.invoice.total;
+            string[] currency = DataManager.Ins.USDCurrency.Split(',');
+            string usd = currency[0] + currency[1];
+            int money = int.Parse(DataManager.Ins.CurrentInvoice.total) * int.Parse(usd);
+            Money = money.ToString();
             Regulation = "This is our regulation: ";
             ConfirmText = "Paying later";
             UploadImageText = "Upload photo";
@@ -205,6 +267,80 @@ namespace GoTour.MVVM.ViewModel
             ImageLink = "";
             ImageVisible = false;
             RemovePhotoVisible = false;
+
+            money = int.Parse(DataManager.Ins.InvoicesServices.RoundMoney(money));
+            StrMoney = String.Format("{0:#,##0.##}", money);
+            SelectedTour = DataManager.Ins.currentTour;
+        }
+
+        async Task<bool> checkRemaining()
+        {
+            Tour temp = await DataManager.Ins.TourServices.FindTourById(DataManager.Ins.currentTour.id);
+            if (int.Parse(DataManager.Ins.CurrentInvoice.amount) <= int.Parse(temp.remaining))
+                return true;
+            else
+                DependencyService.Get<IToast>().ShortToast("This tour has no turn!");
+
+            return false;
+        }
+
+        async Task<bool> checkDiscount()
+        {
+            if (DataManager.Ins.CurrentDiscount == null) return true;
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                Discount temp = await DataManager.Ins.DiscountsServices.FindDiscountById(DataManager.Ins.CurrentDiscount.id);
+                if (int.Parse(temp.isUsed) < int.Parse(temp.total))
+                    return true;
+                else
+                    DependencyService.Get<IToast>().ShortToast("Your discount has no turn!");
+            };
+
+            return false;
+        }
+
+        void updateManager()
+        {
+            
+                DataManager.Ins.ListBookedTickets.Add(DataManager.Ins.CurrentBookedTicket);
+                DataManager.Ins.ListInvoice.Add(DataManager.Ins.CurrentInvoice);
+
+                DataManager.Ins.CurrentBookedTicket.invoice = DataManager.Ins.CurrentInvoice;
+
+                if (DataManager.Ins.CurrentDiscount != null)
+                {
+                    DataManager.Ins.CurrentBookedTicket.invoice.discount = DataManager.Ins.CurrentDiscount;
+
+                    for (int i = 0; i < DataManager.Ins.ListDiscount.Count - 1; i++)
+                    {
+                        if (DataManager.Ins.ListDiscount[i].id == DataManager.Ins.CurrentDiscount.id)
+                        {
+                            DataManager.Ins.ListDiscount[i] = DataManager.Ins.CurrentDiscount;
+                            break;
+                        }
+                    }
+                }
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < DataManager.Ins.ListBookedTickets.Count - 1; i++)
+            //    {
+            //        if (DataManager.Ins.ListBookedTickets[i].id == DataManager.Ins.CurrentBookedTicket.id)
+            //        {
+            //            DataManager.Ins.ListBookedTickets[i] = DataManager.Ins.CurrentBookedTicket;
+            //            break;
+            //        }
+            //    }
+
+            //    for (int i = 0; i < DataManager.Ins.ListInvoice.Count - 1; i++)
+            //    {
+            //        if (DataManager.Ins.ListInvoice[i].id == DataManager.Ins.CurrentInvoice.id)
+            //        {
+            //            DataManager.Ins.ListInvoice[i] = DataManager.Ins.CurrentInvoice;
+            //            break;
+            //        }
+            //    }
+           // }
         }
     }
 }

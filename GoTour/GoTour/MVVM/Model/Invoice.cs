@@ -17,6 +17,7 @@ namespace GoTour.MVVM.Model
         public string method { get; set; }
         public string total { get; set; }
         public string photoMomo { get; set; }
+        public string momoVnd { get; set; }
        
     }
 }

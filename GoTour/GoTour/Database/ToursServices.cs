@@ -1,8 +1,10 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +91,64 @@ namespace GoTour.Database
                   starNumber = tour.starNumber
               });
 
+        }
+
+        async public Task<string> saveImage(Stream imgStream, string placeId, int id)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("Tours").Child(placeId)
+                .Child(id + ".png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
+        }
+
+        public async Task DeleteFile(string folderPlaceId, int id)
+        {
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("Tours")
+                 .Child(folderPlaceId).Child(id + ".png")
+                 .DeleteAsync();
+            }
+            catch { }
+
+            try
+            {
+                await new FirebaseStorage("gotour-98c79.appspot.com")
+                 .Child("Tours")
+                 .Child(folderPlaceId).Child(id + ".jpg")
+                 .DeleteAsync();
+            }
+            catch { }
+
+        }
+
+        public async Task DeletePlace(Tour place)
+        {
+            var toDeleted = (await firebase
+               .Child("Tours").OnceAsync<Tour>()).FirstOrDefault(p => p.Object.id == place.id);
+
+            await firebase.Child("Tours").Child(toDeleted.Key).DeleteAsync();
+
+            for (int i = 0; i < place.imgSource.Count; i++)
+            {
+                await DeleteFile(place.id, i);
+            }
+
+
+
+
+        }
+
+        public async Task<Tour> FindTourById(string id)
+        {
+            var all = await GetAllTours();
+            await firebase
+                .Child("Tours")
+                .OnceAsync<Tour>();
+            return all.Where(a => a.id == id).FirstOrDefault();
         }
     }
 }
