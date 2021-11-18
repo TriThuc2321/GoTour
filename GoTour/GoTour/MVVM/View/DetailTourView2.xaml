@@ -38,7 +38,8 @@
                             >
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
-                            <Button Text="{Binding DataManager.Ins.USDCurrency}" TextColor="LightCoral" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                            <Button Text="VIEW TICKET" TextColor="LightCoral" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"
+                                    ></Button>
 
                         </StackLayout>
                         

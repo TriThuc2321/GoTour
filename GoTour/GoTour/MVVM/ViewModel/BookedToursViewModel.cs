@@ -39,6 +39,8 @@ namespace GoTour.MVVM.ViewModel
             BookedTicket result = obj as BookedTicket;
             if (result != null)
             {
+                if (SelectedTicket.invoice.isPaid)
+
                 DataManager.Ins.CurrentBookedTicket = result;
                 DataManager.Ins.CurrentInvoice = result.invoice;
                 if (result.invoice.discount != null)
@@ -64,6 +66,18 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private string payment;
+        public string Payment
+        {
+            get { return payment; }
+            set
+            {
+                payment = value;
+                OnPropertyChanged("Payment");
+
+            }
+        }
+
         private ObservableCollection<BookedTicket> _bookedTicketsList;
         public ObservableCollection<BookedTicket> BookedTicketsList
         {
@@ -75,7 +89,6 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        
 
        
     }

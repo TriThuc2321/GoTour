@@ -60,6 +60,7 @@
                             BorderColor="Red"
                             BorderWidth="1"
                             Text="cancel ticket"
+                            IsVisible="{Binding CancelVisible}"
                             Command="{Binding CancelTicket}"
                         />
 
@@ -166,15 +167,12 @@
                              >
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="{Binding Occured}"
-                               TextColor="DarkRed"
-                               FontAttributes="Bold"
-                               FontSize="15"
-                               Grid.Column="0"
+                                       TextColor="DarkRed"
+                                       FontAttributes="Bold"
+                                       FontSize="15"
                             />
                             </Grid>
                         </StackLayout>

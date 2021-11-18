@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,10 +14,12 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         public DetailTour2ViewModel() { }
         public Command NavigationBack { get; }
+        public Command ViewTicket { get; }
         public DetailTour2ViewModel(INavigation navigation)
         {
             this.navigation = navigation;
             NavigationBack = new Command(() => navigation.PopAsync());
+            ViewTicket = new Command(viewTicket);
            
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
@@ -37,6 +40,12 @@ namespace GoTour.MVVM.ViewModel
 
 
         }
+
+        void viewTicket(object obj)
+        {
+            navigation.PushAsync(new BookedTicketDetailView());
+        }
+
         private Tour selectedTour;
         public Tour SelectedTour
         {
@@ -76,5 +85,7 @@ namespace GoTour.MVVM.ViewModel
             string result = _ProcessedDuration[0] + " Ngày "+ _ProcessedDuration[1] + " Đêm";
             ProcessedDuration = result;
         }
+
+
     }
 }

@@ -51,10 +51,7 @@ namespace GoTour.MVVM.ViewModel
             else
                 DisplayUpload = false;
 
-            if (Tour.isOccured)
-                Occured = "Occured";
-            else
-                Occured = "No occured";
+            checkTourStatus(Tour);
 
             if (Ticket.isCancel)
                 Occured = Occured + " - This ticket was canceled";
@@ -74,6 +71,12 @@ namespace GoTour.MVVM.ViewModel
                 DiscountVisible = false;
 
             FormatMoney();
+            CancelVisible = true;
+
+            if (DataManager.Ins.BookedTicketsServices.countBookTourRegulation(Tour) <= 0)
+            {
+                CancelVisible = false;
+            }    
         }
 
         void viewDetail(object obj)
@@ -205,7 +208,16 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-
+        private bool cancelVisible;
+        public bool CancelVisible
+        {
+            get { return cancelVisible; }
+            set
+            {
+                cancelVisible = value;
+                OnPropertyChanged("CancelVisible");
+            }
+        }
         private void DurationProcess()
         {
             if (DataManager.Ins.currentTour.duration == null) return;
@@ -292,6 +304,40 @@ namespace GoTour.MVVM.ViewModel
                 StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
             }
            
+        }
+
+        public void checkTourStatus(Tour tour)
+        {
+            string[] tourStartTime = tour.startTime.Split('/');
+
+            string[] splitYear = tourStartTime[2].Split(' ');
+            DateTime timeStart = new DateTime(
+                int.Parse(splitYear[0]),
+                int.Parse(tourStartTime[1]),
+                int.Parse(tourStartTime[0])
+                );
+
+            string[] duration = tour.duration.Split('/');
+
+
+            DateTime currentTime = DateTime.Now.AddDays(0);
+            TimeSpan interval = timeStart.Subtract(currentTime);
+
+            string maxDuration = int.Parse(duration[0]) > int.Parse(duration[1]) ? duration[0] : duration[1];
+
+            // Thoi gian bat dau tour den current time
+            double count = interval.Days;
+
+            if (count <= int.Parse(maxDuration)) {
+                Occured = "Occuring";
+                return;
+            }
+            else if (count > int.Parse(maxDuration)) {
+                Occured = "Occurred";
+                return;
+            }
+
+            Occured = "Not occured";
         }
     }
 }
