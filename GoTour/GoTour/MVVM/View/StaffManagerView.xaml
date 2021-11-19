@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.StaffManagerView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             >
+
+    <ContentPage.BindingContext>
+        <vm:StaffManagerViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Image VerticalOptions="Start" HeightRequest="200" Aspect="AspectFill" Source="https://cdn.dribbble.com/users/1803663/screenshots/11277901/media/465c15bf2684cefcf841629260292daa.jpg"/>
+        <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
+        <pancake:PancakeView BackgroundColor="White" Margin="10, 60,10,0" CornerRadius="30,30,0,0" Padding="10,0,10,0">
+            <StackLayout Margin="0,20,0,0">
+                <StackLayout Orientation="Horizontal" >
+                    <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="addIcon.png" BackgroundColor="Transparent" Margin="20,0,0,0"/>
+                    <Picker ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" ItemDisplayBinding="{Binding }" HorizontalOptions="EndAndExpand" WidthRequest="130" Margin="0,0,15,0" HorizontalTextAlignment="End"/>
+                </StackLayout>
+
+                <CollectionView x:Name="clview" 
+                            ItemsSource="{Binding AllList}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedUser}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                            >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Remove"
+                                         IconImageSource="deleteIcon.png"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+
+                                <Frame Margin="15,5,15,5">
+                                    <StackLayout Orientation="Horizontal" >
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="White" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+
+                                        <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
+                                        <StackLayout >
+
+
+                                            <Label Text="{Binding name}" FontAttributes="Bold"/>
+                                            <Label Text="{Binding rank}">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
+                                                        <Setter Property="Text" Value="Admin" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
+                                                        <Setter Property="Text" Value="Management" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
+                                                        <Setter Property="Text" Value="Tour Guide" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
+                                                        <Setter Property="Text" Value="User" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </pancake:PancakeView>
+        
+    </Grid>
+
+   
+</ContentPage>

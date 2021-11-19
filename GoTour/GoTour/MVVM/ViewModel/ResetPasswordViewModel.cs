@@ -50,7 +50,7 @@ namespace GoTour.MVVM.ViewModel
             }
             else if (VerifyCode == DataManager.Ins.VerifyCode)
             {
-                User user = DataManager.Ins.UsersServices.getUserByEmail(DataManager.Ins.CurrentUser.email, DataManager.Ins.usersTemp);
+                User user = DataManager.Ins.UsersServices.getUserByEmail(DataManager.Ins.CurrentUser.email, DataManager.Ins.users);
                 user.password = DataManager.Ins.UsersServices.Encode(Password);
                 await DataManager.Ins.UsersServices.UpdateUser(user);
                 DependencyService.Get<IToast>().ShortToast("Reset password successfully");

@@ -26,7 +26,11 @@ namespace GoTour.Database
 
         
        
-        public List<User> usersTemp;
+        public List<User> users;
+        public List<User> admins;
+        public List<User> managements;
+        public List<User> tourGuides;
+        public List<User> customers;
         public List<ImagePlaceStream> imagePlaceStreams;
         public bool LoadData = true;
 
@@ -102,10 +106,19 @@ namespace GoTour.Database
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
-            usersTemp = await UsersServices.GetAllUsers();
-            foreach (User u in usersTemp)
+            users = await UsersServices.GetAllUsers();
+
+            admins = new List<User>();
+            managements = new List<User>();
+            tourGuides = new List<User>();
+            customers = new List<User>();
+            foreach (User u in users)
             {
                 ListUser.Add(u);
+                if (u.rank == 3) customers.Add(u);
+                else if (u.rank == 2) tourGuides.Add(u);
+                else if (u.rank == 1) managements.Add(u);
+                else admins.Add(u);
             }
 
             List<Place> temp = await PlacesServices.GetAllPlaces();

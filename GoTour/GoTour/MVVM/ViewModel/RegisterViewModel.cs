@@ -56,7 +56,7 @@ namespace GoTour.MVVM.ViewModel
             {
                 DependencyService.Get<IToast>().ShortToast("Confirm password is incorrect");
             }
-            else if(DataManager.Ins.UsersServices.ExistEmail(Account, DataManager.Ins.usersTemp))
+            else if(DataManager.Ins.UsersServices.ExistEmail(Account, DataManager.Ins.users))
             {
                 DependencyService.Get<IToast>().ShortToast("Email is already in use");
             }

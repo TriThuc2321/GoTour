@@ -5,26 +5,25 @@
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" 
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="True"
-             Title="{Binding SelectedTour.name}"
+
              >
 
     <ContentPage.BindingContext>
         <vm:EditTourViewModel/>
     </ContentPage.BindingContext>
-    
-    <ScrollView>
-        <Grid BackgroundColor="WhiteSmoke">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="1.2*"></RowDefinition>
-            </Grid.RowDefinitions>
 
-            <Image Source="{Binding Img}"
+    <Grid BackgroundColor="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="1.2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Image Source="{Binding Img}"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="FillAndExpand"
                                    Aspect="AspectFill"                           
                            />
-            <ImageButton Command="{Binding NavigationBack}" 
+        <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                  HeightRequest="30" 
                                  WidthRequest="50"
@@ -33,7 +32,7 @@
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0"/>
-            <Frame
+        <Frame
                 CornerRadius="10"                                  
                     HorizontalOptions="End"                                  
                     VerticalOptions="StartAndExpand"                                 
@@ -42,7 +41,7 @@
                 Padding="5"
                 IsVisible="{Binding IsEdit}"
                 >
-                <ImageButton 
+            <ImageButton 
                     Command="{Binding AddImageCommand}"                                  
                     Source="imagePickerIcon.png"                                  
                     HeightRequest="30"                                  
@@ -50,10 +49,10 @@
                     BackgroundColor="Transparent"                 
                 />
 
-            </Frame>
-           
+        </Frame>
 
-            <pancake:PancakeView Grid.Row="1" CornerRadius="40,40,0,0" Margin="0,-60,0,0" BackgroundColor="WhiteSmoke" Padding="10">
+        <ScrollView Grid.Row="1" Margin="0,-60,0,0">
+            <pancake:PancakeView CornerRadius="40,40,0,0"  BackgroundColor="WhiteSmoke" Padding="10">
                 <StackLayout Grid.Row="1" Padding="20,20,20,10">
                     <StackLayout Orientation="Horizontal">
                         <Label
@@ -68,15 +67,6 @@
                         <Entry HorizontalOptions="FillAndExpand" Text="{Binding Name}" IsVisible="{Binding IsEdit}" TextColor="SteelBlue" FontSize="25" FontAttributes="Bold"/>
                         <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="End" Source="nextIcon.png"/>
                     </StackLayout>
-
-                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
-                        <ImageButton HeightRequest="25" Aspect="AspectFill" Source="scoreIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
-                        <Label Text="{Binding SelectedTour.starNumber}" 
-                               VerticalOptions="CenterAndExpand"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="Small"/>
-                    </StackLayout> -->
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
                         <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="passengerIcon.png" BackgroundColor="Transparent"/>
@@ -99,7 +89,7 @@
                                FontSize="Small"
                                IsVisible="{Binding IsText}"/>
                         <TimePicker Time="{Binding StartTimePicker}" IsVisible="{Binding IsEdit}" />
-                        
+
                         <Label Text="{Binding StartDate}" 
                                VerticalOptions="CenterAndExpand"
                                TextColor="Black"
@@ -134,21 +124,80 @@
                         <Label Text="$" TextColor="SteelBlue" FontAttributes="Bold" FontSize="Large" Margin="0,0,0,10" VerticalOptions="Center" HorizontalOptions="Start"/>
                         <Entry HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" FontSize="Large" TextColor="SteelBlue" FontAttributes="Bold" Text="{Binding Price}"/>
                     </StackLayout>
-                    
+
+                    <CollectionView x:Name="clview"
+                            ItemsSource="{Binding ListTourGuide}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedUser}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                                    >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Remove"
+                                         IconImageSource="deleteIcon.png"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding}" />
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+
+                                    <Frame Margin="15,5,15,5">
+                                        <StackLayout Orientation="Horizontal" >
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+
+                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
+                                            <StackLayout >
+                                                <Label Text="{Binding name}" FontAttributes="Bold"/>
+                                                <Label Text="{Binding rank}">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
+                                                            <Setter Property="Text" Value="Admin" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
+                                                            <Setter Property="Text" Value="Management" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
+                                                            <Setter Property="Text" Value="Tour Guide" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
+                                                            <Setter Property="Text" Value="User" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
                     <StackLayout Orientation="Horizontal" Margin="0,25,0,0">
                         <Label Text="Description" FontSize="20" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black"/>
                         <ImageButton Source="{Binding SourceIcon}" BackgroundColor="Transparent" HeightRequest="18" Command="{Binding EditTextCommand}"/>
                     </StackLayout>
 
                     <Label Padding="0,0,10,0" Text="{Binding Description}" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsText}" />
-                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" IsVisible="{Binding IsEdit}"/>
-                    
+                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" IsVisible="{Binding IsEdit}"/>
+
                 </StackLayout>
             </pancake:PancakeView>
+        </ScrollView>
 
 
-        </Grid>
 
-
-    </ScrollView>
+    </Grid>
 </ContentPage>

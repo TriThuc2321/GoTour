@@ -5,6 +5,7 @@ using GoTour.MVVM.View;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows.Input;
@@ -60,6 +61,20 @@ namespace GoTour.MVVM.ViewModel
             IsEdit = false;
             SourceIcon = "editIcon.png";
             IsText = true;
+
+            ListTourGuide = new ObservableCollection<User>();
+             for (int i = 0; i < DataManager.Ins.currentTour.tourGuide.Count; i++)
+             {
+                foreach (var ite in DataManager.Ins.tourGuides)
+                {
+                    if (DataManager.Ins.currentTour.tourGuide[i] == ite.email)
+                    {
+                        ListTourGuide.Add(ite);
+                        break;
+                    }
+                }
+                
+             }
 
         }
 
@@ -200,6 +215,16 @@ namespace GoTour.MVVM.ViewModel
             {
             }
             return ms;
+        }
+        private ObservableCollection<User> listTourGuide;
+        public ObservableCollection<User> ListTourGuide
+        {
+            get { return listTourGuide; }
+            set
+            {
+                listTourGuide = value;
+                OnPropertyChanged("listTourGuide");
+            }
         }
         private string sourceIcon;
         public string SourceIcon
