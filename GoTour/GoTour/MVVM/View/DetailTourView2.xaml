@@ -16,19 +16,9 @@
             </StackLayout>
             
         <ScrollView>
-        <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="3*"></RowDefinition>
-                </Grid.RowDefinitions>
-                
-                <Grid Grid.Row="0">
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="2*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Frame  Grid.Row="0"
+                <StackLayout>
+                    <StackLayout>
+                        <Frame  
                              BackgroundColor="SteelBlue"
                             HasShadow="True"
                             CornerRadius="10"                        
@@ -36,15 +26,14 @@
                             Margin="5"
                             >
                         <StackLayout Orientation="Horizontal" >
-                            <Label Text="{Binding SelectedTour.name }" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large" TextColor="White"  Margin="10,0,10,0" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start"  ></Label>
-                            <Button Text="{Binding SelectedTour.name}" TextColor="Black" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                            <Label Text="{Binding SelectedTour.name }"  VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large" TextColor="White"  Margin="10,0,10,0" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start"  ></Label>
 
                         </StackLayout>
                         
                     </Frame>
                   
 
-                    <Frame  Grid.Row="1"
+                    <Frame  
                              BackgroundColor="White"
                             HasShadow="True"
                             BorderColor="White"                           
@@ -59,9 +48,9 @@
                         
                     </Frame>
                     
-                </Grid>
+                </StackLayout>
 
-                <StackLayout Grid.Row="1" >
+                <StackLayout >
                     <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <CollectionView x:Name="clview" 
                             ItemsSource="{Binding SelectedTour.placeDurationList}" 
@@ -121,7 +110,7 @@
                     </CollectionView>
                 </StackLayout>
                 
-        </Grid>
+        </StackLayout>
         </ScrollView>
         </StackLayout>
     </ContentPage.Content>

@@ -18,9 +18,8 @@ namespace GoTour.MVVM.ViewModel
         public TourScheduleViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-
-            string[] TourStartTime = DataManager.Ins.currentTour.startTime.Split('/');
-            DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[1]), int.Parse(TourStartTime[0]));
+            string[] TourStartTime = DataManager.Ins.currentTour.startTime.Split('/'); 
+            DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1])); 
             NavigationBack = new Command(() => navigation.PopAsync());
             timeLine = new List<SupportUI>();
             foreach (Place ite in DataManager.Ins.ListPlace)
@@ -34,7 +33,6 @@ namespace GoTour.MVVM.ViewModel
                         ite2.host = ite;
                         for (int i = 0; i < ite2.day; i++)
                         {
-                           
                             time = TourStartTime1.AddDays(i);
                             DateTime currrent_time = DateTime.Now.AddDays(0);
                             TimeSpan interval = time.Subtract(currrent_time);

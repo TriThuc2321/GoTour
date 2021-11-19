@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Query;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,19 @@ namespace GoTour.Database
             
 
             return Rule.ElementAt(0);
+        }
+
+        public async Task UpdateInvoice(Rule newRule)
+        {
+
+            await firebase
+              .Child("Rule")
+              .Child("wwewerewrewfewrewr")
+              .PutAsync(new Rule
+              {
+                  deduct = newRule.deduct,
+              }) ;
+
         }
 
         ////Add a noti into DB

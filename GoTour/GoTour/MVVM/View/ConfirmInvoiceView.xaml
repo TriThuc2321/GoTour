@@ -45,6 +45,12 @@
                             
                             
                             <pancake:PancakeView  CornerRadius="10,10,10,10" Padding="10"  Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="Wheat"   >
+                                <pancake:PancakeView.Triggers>
+                                    <DataTrigger TargetType="pancake:PancakeView" Binding="{Binding invoice.IsPaid}" Value="True">
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </DataTrigger>
+                                   
+                                </pancake:PancakeView.Triggers>
                                 
                                 <StackLayout>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
@@ -54,9 +60,9 @@
                                     </StackLayout>
                                     
                                     <Line HeightRequest="2" BackgroundColor="Red"></Line>
-                                    <Label Text="{Binding tour.name ,StringFormat='{} Tour đã đặt: {0}'}" FontAttributes="Bold" TextColor="Black"/>
-                                    <Label Text="{Binding bookTime ,StringFormat='{} Ngày đặt: {0}'}" TextColor="Black"/>
-                                    <Label Text="{Binding invoice.price ,StringFormat='{} Tiền thanh toán: {0}'}" TextColor="Black"/>
+                                    <Label Text="{Binding tour.name ,StringFormat='{} Booked Tour: {0}'}" FontAttributes="Bold" TextColor="Black"/>
+                                    <Label Text="{Binding bookTime ,StringFormat='{} Booking Date: {0}'}" TextColor="Black"/>
+                                    <Label Text="{Binding invoice.price ,StringFormat='{} Cost : {0} $'}" TextColor="Black"/>
                                     <StackLayout Orientation="Horizontal" BackgroundColor="White" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding name}" Margin="0,0,0,0" VerticalOptions="CenterAndExpand" FontSize="Small" FontAttributes="Bold" TextColor="SteelBlue" HorizontalOptions="EndAndExpand"/>
                                     <Image Source="momo.png" BackgroundColor="Transparent" HeightRequest="40" HorizontalOptions="End">

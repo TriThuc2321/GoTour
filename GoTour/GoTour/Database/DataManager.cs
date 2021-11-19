@@ -241,7 +241,7 @@ namespace GoTour.Database
             List<string> result = new List<string>();
             string deductPercent = "100";
             string[] TourStartTime = cancelledTicket.tour.startTime.Split('/');
-            DateTime time = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[1]), int.Parse(TourStartTime[0]));
+            DateTime time = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
             DateTime currrent_time = DateTime.Now.AddDays(0);
             TimeSpan interval = time.Subtract(currrent_time);
             double count = interval.Days;
