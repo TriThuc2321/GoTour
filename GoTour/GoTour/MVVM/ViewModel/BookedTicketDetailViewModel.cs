@@ -330,7 +330,7 @@ namespace GoTour.MVVM.ViewModel
             maxDuration = (int.Parse(maxDuration) * 24 * 60 * 60).ToString();
 
             // Thoi gian bat dau tour den current time
-            double count = interval.Seconds;
+            double count = interval.Days * 60 * 60 * 24;
             if (count > 0)
             {
                 Occured = "Not occured";

@@ -95,7 +95,7 @@ namespace GoTour.MVVM.ViewModel
             string maxDuration = int.Parse(duration[0]) > int.Parse(duration[1]) ? duration[0] : duration[1];
             maxDuration = (int.Parse(maxDuration) * 24 * 60 * 60).ToString();
 
-            double count = interval.Seconds;
+            double count = interval.Days * 60 * 60 *24;
 
             if (count <= 0 && Math.Abs(count) <= int.Parse(maxDuration))
             {
