@@ -102,8 +102,11 @@ namespace GoTour.MVVM.ViewModel
                     //string[] datetimeJ = BookedTicketsList[j].bookTime.Split(' ');
 
                     //datetimeI
-                    if (DateTime.ParseExact(BookedTicketsList[i].bookTime, "MM/dd/yyyy hh:mm:ss tt", null)
-                        < DateTime.ParseExact(BookedTicketsList[j].bookTime, "MM/dd/yyyy hh:mm:ss tt", null))
+                    string datetimeI = BookedTicketsList[i].bookTime;
+                    string datetimeJ = BookedTicketsList[j].bookTime;
+
+                    if (DateTime.ParseExact(datetimeI, "MM/dd/yyyy hh:mm:ss tt", null)
+                        < DateTime.ParseExact(datetimeJ, "MM/dd/yyyy hh:mm:ss tt", null))
                     {
                         BookedTicket tmp = new BookedTicket();
                         tmp = BookedTicketsList[i];
