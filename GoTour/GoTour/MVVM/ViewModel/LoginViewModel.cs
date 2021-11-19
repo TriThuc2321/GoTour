@@ -146,6 +146,8 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Email is not registered");
             }
 
+
+
         }
         async void forgotHandle(object obj)
         {

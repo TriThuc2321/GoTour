@@ -3,25 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.InProgressView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+
             >
     <ContentPage.BindingContext>
         <vm:InProgressViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="5*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-                <CarouselView ItemsSource="{Binding Places}"  PeekAreaInsets="100" >
-                    <CarouselView.ItemTemplate>
+        <RefreshView Command="{Binding Refresh}"
+                     IsRefreshing="{Binding IsRefresh}">
+            <StackLayout Orientation="Vertical">
+   
+                
+                <CollectionView x:Name="clview"
+                            ItemsSource="{Binding TicketList}"
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedTicket}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                            >
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                           
 
+                            <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Frame HeightRequest="250" Padding="0" HasShadow="True" CornerRadius="8">
+                                    <Image Source="{Binding tour.imgSource[0]}" Aspect="AspectFill"/>
+                                </Frame>
+                                <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
+                                    <StackLayout>
+                                        <Label Text="{Binding tour.name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                        <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
+                                        <Label Text="{Binding tour.startTime ,StringFormat='{} Depart: {0}'}" TextColor="Black"/>
+                                        <Label Text="{Binding tour.description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
+                                        <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
+                                            <Label Text="{Binding tour.basePrice,StringFormat='{}{0} USD'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
+                                        </pancake:PancakeView>
+
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
                         </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-        </Grid>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

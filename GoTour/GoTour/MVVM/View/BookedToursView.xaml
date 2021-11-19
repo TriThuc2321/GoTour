@@ -1,126 +1,225 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:GoTour.MVVM.View"
              x:Class="GoTour.MVVM.View.BookedToursView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
              NavigationPage.HasNavigationBar="false"
-             BackgroundColor="AliceBlue">
+             BackgroundColor="WhiteSmoke"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+
+             >
 
     <ContentPage.BindingContext>
         <vm:BookedToursViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding BookedTicketsList}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                            </Grid.RowDefinitions>
+        <StackLayout Orientation="Vertical">
+            <CollectionView ItemsSource="{Binding BookedTicketsList}"
+                        SelectionMode="Single" 
+                        x:Name="clview"
+                        SelectedItem="{Binding SelectedTicket}"
+                        SelectionChangedCommand="{Binding SelectedCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                        >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame BorderColor="LightSlateGray"
+                                   HasShadow="True"
+                                   Padding="0"
+                                   CornerRadius="5"
+                                   Margin="15, 10,15,0"
+                                   BackgroundColor="White"
+                               >
+                                <Grid Margin="5"
+                                  Padding="0">
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>-->
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                            <!--Hình-->
-                            <Image Source="{Binding tour.imgSource[0]}"
+                                    <!--Hình-->
+                                    <Image Source="{Binding tour.imgSource[0]}"
                                                Grid.Column="0"
-                                               Grid.Row="0"
-                                               Grid.RowSpan="2"
+                                                Grid.ColumnSpan="2"
+                                                HeightRequest="450"
                                                Aspect="AspectFill"
-                                               HeightRequest="150"
                                             />
 
-                            <Grid Grid.Row="1"
-                                                  BackgroundColor="Black"
-                                                  Opacity="0.6"/>
+                                    <!--<Frame Grid.Column="1"
+                                           Opacity="0.8"
+                                           CornerRadius="10">
+                                        <Grid Grid.Column="1"
+                                                  BackgroundColor="White"
+                                                  />
+                                    </Frame>-->
 
-                            <!--TÊn tour-->
-                            <Label Text="{Binding tour.name}"
+                                    <pancake:PancakeView
+                                        Grid.Column="1"
+                                        CornerRadius="25,0, 25, 0"
+                                              BackgroundColor="White"
+                                              Opacity="0.8">
+                                    </pancake:PancakeView>
+                                    
+
+                                    <!--TÊn tour--><!--
+                                    <Label Text="{Binding tour.name}"
                                            Grid.Column="0"
                                            Grid.Row="1"
                                            TextColor="White"
+                                           VerticalOptions="CenterAndExpand"
                                            FontAttributes="Bold"
                                                FontSize="Large"
                                            Padding="10"
+                                        />-->
+
+                                    <!--Thông tin-->
+                                    <StackLayout Orientation="Vertical"
+                                         Grid.Column="1">
+                                        
+                                        <Label Text="{Binding tour.name}"
+                                               TextColor="Black"
+                                               Margin="10, 0,0,0"
+                                               FontAttributes="Bold"
+                                               FontSize="Large"
+                                               Padding="10"
                                         />
 
-                            <StackLayout Orientation="Vertical"
-                                         Grid.Row="0"
-                                         Grid.Column="1"
-                                         Grid.RowSpan="2"
-                                         VerticalOptions="Center"
-                                         HorizontalOptions="Center">
 
-                                <!--Thời gian khởi hành-->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding tour.description}"
+                                               Padding="10"
+                                               FontSize="15"
+                                               TextColor="DarkBlue"
+                                               FontAttributes="Italic"/>
 
-                                    <Image Source="calendarIcon.png"
-                                               HeightRequest="25"
+                                        <Label  Margin="20,0,0,10"
+                                                Grid.Column="1"
+                                                TextColor="DarkRed"
+                                                Grid.ColumnSpan="2"
+                                                FontSize="15"
+                                                FontAttributes="Bold">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding invoice.isPaid}" Value="True">
+                                                    <Setter Property="Text" Value="Paid" />
+                                                </DataTrigger>
+
+                                                <DataTrigger TargetType="Label" Binding="{Binding invoice.isPaid}" Value="False">
+                                                    <Setter Property="Text" Value="Not Paid" />
+                                                </DataTrigger>
+
+                                                <DataTrigger TargetType="Label" Binding="{Binding isCancel}" Value="True">
+                                                    <Setter Property="Text" Value="This ticket was canceled" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+
+                                        <StackLayout Orientation="Vertical">
+                                            <!--Thời gian khởi hành-->
+                                            <StackLayout Orientation="Vertical" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Image Source="calendarIcon.png"
+                                               WidthRequest="20"
+                                               Aspect="AspectFit"
+                                               VerticalOptions="Center"
                                                Grid.Column="0"/>
 
-                                    <Label Text="14/06/2021"
+                                                    <Label Text="{Binding tour.startTime}"
                                                Grid.Column="1"
                                                TextColor="#FFB24000"
                                                FontSize="15"
                                                FontAttributes="Bold"
                                
-                                        />
-                                </Grid>
+                                                />
+                                                </Grid>
+                                            </StackLayout>
 
-                                <!--Số lượng-->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                            <StackLayout Orientation="Vertical" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
 
-                                    <Image Source="passengerIcon.png"
-                                               HeightRequest="25"
+                                                    <Image Source="ticketIcon.png"
+                                               WidthRequest="20"
+                                               Aspect="AspectFit"
+                                               VerticalOptions="Center"
                                                Grid.Column="0"/>
 
-                                    <Label Text="{Binding invoice.amount}"
+                                                    <Label Text="{Binding invoice.amount}"
                                                Grid.Column="1"
-                                               TextColor="#FF00088B"
+                                               TextColor="#FFB24000"
                                                FontSize="15"
                                                FontAttributes="Bold"
-                                        />
-                                </Grid>
+                               
+                                                />
+                                                </Grid>
+                                            </StackLayout>
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                            <StackLayout Orientation="Vertical" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
 
-                                    <Image Source="moneyIcon.png"
-                                               HeightRequest="25"
-                                                   Grid.Column="0"
-                                                   />
+                                                    <Image Source="usdIcon.png"
+                                               WidthRequest="20"
+                                               Aspect="AspectFit"
+                                               VerticalOptions="Center"
+                                               Grid.Column="0"/>
 
-                                    <Label Text="{Binding invoice.total}"
+                                                    <Label Text="{Binding invoice.total}"
                                                Grid.Column="1"
-                                               TextColor="#FF007631"
+                                               TextColor="#FFB24000"
                                                FontSize="15"
                                                FontAttributes="Bold"
-                                        />
-                                </Grid>
-                            </StackLayout>
+                               
+                                                />
+                                                </Grid>
+                                            </StackLayout>
 
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                            <StackLayout Orientation="Vertical">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+
+
+                                                </Grid>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        
+
+                                        
+                                        
+
+
+
+
+                                    </StackLayout>
+
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                       
+                            
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
 
     </ContentPage.Content>
 

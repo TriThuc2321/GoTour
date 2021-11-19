@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public MoMoConfirmView()
         {
             InitializeComponent();
-            this.BindingContext = new MoMoConfirmViewModel(Navigation);
+            this.BindingContext = new MoMoConfirmViewModel(Navigation, Shell.Current) ;
         }
     }
 }

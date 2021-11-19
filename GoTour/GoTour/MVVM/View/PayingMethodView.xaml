@@ -74,14 +74,21 @@
                         <Label Text="USD"
                                FontSize="20"
                                 HorizontalOptions="Center"
-                               TextColor="Black"
+                               TextColor="ForestGreen"
                                FontAttributes="Bold"
                                Margin="0, 10, 0, 0"/>
 
-                        <StackLayout HorizontalOptions="Center"
-                                     Orientation="Horizontal"
+                        <StackLayout 
+                                     Orientation="Vertical"
                                      Margin="50">
-                            <RadioButton Content="MoMo Wallet" 
+                            <Label Text="{Binding LaterNotice}"
+                                   IsVisible="{Binding LaterNoticeVisible}"
+                                   FontSize="14"
+                                    HorizontalOptions="Center"
+                                   TextColor="Black"
+                                   FontAttributes="Italic"
+                                   Margin="0, 0, 0, 20"/>
+                            <RadioButton Content="MoMo Wallet/ Banking" 
                                          IsChecked="{Binding MoMo}"
                                          TextColor="Blue"
                                          FontSize="Large"
@@ -89,19 +96,61 @@
 
                             <RadioButton Content="Cash"
                                          IsChecked="{Binding Cash}"
+                                         IsEnabled="{Binding PermitCheckCash}"
                                          TextColor="Blue"
                                          FontSize="Large"
                                          FontAttributes="Bold"/>
                         </StackLayout>
                         
                         <!--Thông tin-->
-                        <Label
-                            Margin="0, 10, 0,0"
-                            Text="0383303061 - NGUYEN KHANH LINH"
-                            FontSize="Medium"
-                            TextColor="DarkRed"
-                            HorizontalOptions="Center"
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Vertical">
+                                <Label  Margin="0, 0, 0,0"
+                                    Text="MoMo wallet:"
+                                    FontSize="Medium"
+                                    TextColor="Black"
+                                        FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+                                <Label
+                                    Margin="0, 0, 0,0"
+                                    Text="0383303061 - NGUYEN KHANH LINH"
+                                    FontSize="Medium"
+                                    TextColor="DarkRed"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
                             />
+                            </StackLayout>
+
+
+                            <StackLayout Orientation="Vertical">
+                                <Label  Margin="0, 20, 0,0"
+                                    Text="Banking account:"
+                                    FontSize="Medium"
+                                    TextColor="Black"
+                                        FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+                                <Label
+                                    Margin="0, 10, 0,0"
+                                    Text="1015153929 - TRAN TRI THUC"
+                                    FontSize="Medium"
+                                    TextColor="DarkRed"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                />
+
+                                <Label
+                                    Margin="0, 0, 0,0"
+                                    Text="Vietcombank"
+                                    FontSize="Medium"
+                                    TextColor="DarkRed"
+                                    HorizontalOptions="Center"
+                                />
+
+                            </StackLayout>
+
+                          
+                        </StackLayout>
+                       
                         
                         <!--Quy định-->
                         <Frame Opacity="0.4"

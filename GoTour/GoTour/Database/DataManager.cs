@@ -70,7 +70,6 @@ namespace GoTour.Database
             ListPlace = new ObservableCollection<Place>();
             ListUser = new ObservableCollection<User>();
             ListTour = new ObservableCollection<Tour>();
-            ListBookedTickets = new ObservableCollection<BookedTicket>();
             ListReview = new ObservableCollection<Review>();
 
 
@@ -100,6 +99,7 @@ namespace GoTour.Database
             currentInvoice = new Invoice();
 
             CurrentUser = new User();
+            
             getAllList();
         }
         async Task getAllList()
@@ -146,7 +146,6 @@ namespace GoTour.Database
                 ImgPlaceStreams.Add(ite);
             }*/
 
-
             //Linh
             List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
             foreach (FavouriteTour favourite in favouriteToursList)
@@ -164,15 +163,23 @@ namespace GoTour.Database
             List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
             foreach (Invoice invoice in invoicesList)
             {
+                //foreach (Discount discount in discountsList)
+                //{
+                //    if (invoice.discount.id == discount.id)
+                //        invoice.discount = discount;
+                //}
+                if (invoice.discount != null)
+                    invoice.discount = discountsList.Find(e => (e.id == invoice.discount.id));
                 ListInvoice.Add(invoice);
             }
 
             List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
             foreach(BookedTicket booked in bookedTicketsList)
             {
-                    booked.tour = tourList.Find(e => (e.id == booked.tour.id));
-                    booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
-                    ListBookedTickets.Add(booked);
+                booked.tour = tourList.Find(e => (e.id == booked.tour.id));
+                booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+                ListBookedTickets.Add(booked);
+             
             }
         }
         public string GeneratePlaceId(int length = 10)
@@ -420,13 +427,13 @@ namespace GoTour.Database
             }
         }
 
-        private ObservableCollection<BookedTicket> bookedTicket;
+        private ObservableCollection<BookedTicket> bookedTicketList;
         public ObservableCollection<BookedTicket> ListBookedTickets
         {
-            get { return bookedTicket; }
+            get { return bookedTicketList; }
             set
             {
-                bookedTicket = value;
+                bookedTicketList = value;
                 OnPropertyChanged("ListBookedTickets");
             }
         }

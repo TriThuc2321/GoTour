@@ -16,7 +16,7 @@ namespace GoTour.MVVM.View
         public PayingMethodView()
         {
             InitializeComponent();
-            this.BindingContext = new PayingMethodViewModel(Navigation);
+            this.BindingContext = new PayingMethodViewModel(Navigation, Shell.Current);
         }
     }
 }

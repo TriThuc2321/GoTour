@@ -128,5 +128,35 @@ namespace GoTour.Database
         {
             return String.Format("{0:#,##0.##}", int.Parse(money));
         }    
+
+        public string RoundMoney(int money)
+        {
+            string moneyStr = money.ToString();
+            string numberEnd = moneyStr.Substring(moneyStr.Length - 3, 3);
+            string numberStart = moneyStr.Substring(0, moneyStr.Length - 3);
+
+            if(int.Parse(numberEnd) >= 500)
+            {
+
+                int round = int.Parse(numberStart.ToString() + numberEnd.ToString());
+                while (round % 1000 !=0)
+                {
+                    round++;
+                }
+
+                moneyStr = round.ToString();
+            }
+            else if(int.Parse(numberEnd) >= 1 && int.Parse(numberEnd) <=499 )
+            {
+                int round = int.Parse(numberStart.ToString() + numberEnd.ToString());
+                while (round % 1000 != 0)
+                {
+                    round--;
+                }
+                moneyStr = round.ToString();
+            }
+
+            return moneyStr;
+        }
     }
 }

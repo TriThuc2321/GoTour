@@ -91,10 +91,10 @@ namespace GoTour.MVVM.ViewModel
             }
             else if (Amount > int.Parse(selectedTour.remaining)  )
             {
-                DiscountNotice = "This discount has no more turn";
-                DiscountNoticeVisible = true;
-                DiscountNoticeColor = Color.DarkOrange;
-                DependencyService.Get<IToast>().ShortToast("This discount has no more turn!");
+                AmountNotice = "This tour ticket has no more turn";
+                AmountNoticeVisible = true;
+                AmountNoticeColor = Color.DarkOrange;
+                DependencyService.Get<IToast>().ShortToast("This tour ticket has no more turn!");
                 return false;
 
             }
@@ -122,14 +122,14 @@ namespace GoTour.MVVM.ViewModel
             }
 
             //Check discount 
-            if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
-            {
-                DiscountNotice = "Please check your discount";
-                DiscountNoticeColor = Color.Red;
-                DiscountNoticeVisible = true;
-                DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
-                return false;
-            }
+            //if (DataManager.Ins.CurrentDiscount == null && DiscountId=="")
+            //{
+            //    DiscountNotice = "Please check your discount";
+            //    DiscountNoticeColor = Color.Red;
+            //    DiscountNoticeVisible = true;
+            //    DependencyService.Get<IToast>().ShortToast("Check your discount entered, please!");
+            //    return false;
+            //}
             return true;
 
 
@@ -141,7 +141,8 @@ namespace GoTour.MVVM.ViewModel
 
             if (checkValidation())
             {
-                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToShortDateString();
+                string[] birth;
+                birth = Birthday.ToString().Split(' ');
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
@@ -159,7 +160,7 @@ namespace GoTour.MVVM.ViewModel
                     id = ticketServices.GenerateTicketId(),
                     tour = new Tour { id = selectedTour.id },
                     name = Name,
-                    birthday = Birthday,
+                    birthday = birth[0],
                     contact = Contact,
                     email = Email,
                     cmnd = Cmnd,
@@ -219,10 +220,6 @@ namespace GoTour.MVVM.ViewModel
             DiscountNoticeVisible = true;
             DiscountNoticeColor = Color.Red;
         }
-
-        
-
-
         public Command CheckDiscountCommand { get; }
 
         #region command Amount
@@ -240,9 +237,7 @@ namespace GoTour.MVVM.ViewModel
             }
             else
             {
-                AmountNotice = "This tour is remaining " + Amount + " tickets";
                 AmountNoticeColor = Color.Red;
-                AmountNoticeVisible = true;
             }
 
         }
@@ -276,8 +271,8 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string _birthday;
-        public string Birthday
+        private DateTime _birthday;
+        public DateTime Birthday
         {
             get { return _birthday; }
             set
@@ -514,7 +509,7 @@ namespace GoTour.MVVM.ViewModel
             get { return _amountNoticeColor; }
             set
             {
-                _cmndNoticeColor = value;
+                _amountNoticeColor = value;
                 OnPropertyChanged("AmountNoticeColor");
             }
         }
@@ -596,7 +591,18 @@ namespace GoTour.MVVM.ViewModel
         {
             User getUser = DataManager.Ins.CurrentUser;
             Name = getUser.name;
-            //Birthday = getUser.birthday;
+            if (getUser.birthday != "")
+            {
+                string[] day = getUser.birthday.Split(' ');
+                string[] arr = day[0].Split('/');
+                Birthday = new DateTime(
+                    int.Parse(arr[2]),
+                    int.Parse(arr[0]),
+                    int.Parse(arr[1])
+                    );
+            }
+            else
+                Birthday = new DateTime(1980, 1, 1);
 
             Contact = getUser.contact;
             ContactNoticeVisible = false;
@@ -610,6 +616,10 @@ namespace GoTour.MVVM.ViewModel
             ContactNoticeVisible = false;
 
             Address = getUser.address;
+
+            AmountNotice = "This tour is remaining " + SelectedTour.remaining + " tickets";
+            AmountNoticeColor = Color.ForestGreen;
+            AmountNoticeVisible = true;
 
             DiscountNotice = "Enter and press to check the validation of your code";
             DiscountNoticeColor = Color.ForestGreen;
@@ -625,7 +635,6 @@ namespace GoTour.MVVM.ViewModel
             FormatMoney();
         }
        
-
         void FormatMoney()
         {
             StrProvisional = Provisional;
