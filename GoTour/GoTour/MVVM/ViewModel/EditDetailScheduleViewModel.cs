@@ -14,62 +14,102 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         Shell currentShell;
         public Command SaveCommand { get; }
+        public Command NavigationBack;
         public EditDetailScheduleViewModel() { }
         public int index;
+        bool flag = false;
         public EditDetailScheduleViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
+            NavigationBack = new Command(backHandle);
 
-            Description = DataManager.Ins.currentDuration.description;
-            Host = DataManager.Ins.currentDuration.host;
             Places = DataManager.Ins.ListPlace;
-            Day = DataManager.Ins.currentDuration.day;
-            Night = DataManager.Ins.currentDuration.night;
-
             StayPlaces = DataManager.Ins.ListStayPlace;
-
             IsVisible = false;
             SaveCommand = new Command(savehandle);
+            index = DataManager.Ins.currentTour.placeDurationList.Count;
 
-            for(int i =0; i < DataManager.Ins.currentTour.placeDurationList.Count; i++)
+            if(DataManager.Ins.currentDuration!= null)
             {
-                if (DataManager.Ins.currentDuration == DataManager.Ins.currentTour.placeDurationList[i])
+                flag = true;
+                Description = DataManager.Ins.currentDuration.description;
+                Host = DataManager.Ins.currentDuration.host;
+
+                Day = DataManager.Ins.currentDuration.day;
+                Night = DataManager.Ins.currentDuration.night;
+
+                for (int i = 0; i < DataManager.Ins.currentTour.placeDurationList.Count; i++)
                 {
-                    index = i;
-                    break;
+                    if (DataManager.Ins.currentDuration == DataManager.Ins.currentTour.placeDurationList[i])
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < DataManager.Ins.ListStayPlace.Count; i++)
+                {
+                    if (DataManager.Ins.ListStayPlace[i].placeId == DataManager.Ins.currentTour.SPforPList[index].stayPlaceId)
+                    {
+                        StayPlaceSelected = DataManager.Ins.ListStayPlace[i];
+                    }
                 }
             }
+            
+        }
 
-            for(int i =0; i< DataManager.Ins.ListStayPlace.Count; i++)
-            {
-                if(DataManager.Ins.ListStayPlace[i].placeId == DataManager.Ins.currentTour.SPforPList[index].stayPlaceId)
-                {
-                    StayPlaceSelected = DataManager.Ins.ListStayPlace[i];
-                }
-            }
+        private void backHandle(object obj)
+        {
+            navigation.PopAsync();
         }
 
         private async void savehandle(object obj)
         {
             IsVisible = false;
+          
+            if( Day == null || Night == null || Description == null || Host == null ||  Description == "")
+            {
+                DependencyService.Get<IToast>().ShortToast("Please fill out schedule information.");
+                return;
+            }
+            if (flag)
+            {
+                DataManager.Ins.currentDuration.night = night;
+                DataManager.Ins.currentDuration.day = day;
+                DataManager.Ins.currentDuration.placeId = Host.id;
+                DataManager.Ins.currentDuration.description = description;
 
-            DataManager.Ins.currentDuration.night = night;
-            DataManager.Ins.currentDuration.day = day;
-            DataManager.Ins.currentDuration.placeId = Host.id;
-            DataManager.Ins.currentDuration.description = description;
+                DataManager.Ins.currentTour.SPforPList[index].placeId = Host.id;
+                DataManager.Ins.currentTour.SPforPList[index].stayPlaceId = StayPlaceSelected.id;
+                DataManager.Ins.currentTour.placeDurationList[index] = DataManager.Ins.currentDuration;
 
-            DataManager.Ins.currentTour.SPforPList[index].placeId = Host.id;
-            DataManager.Ins.currentTour.SPforPList[index].stayPlaceId = StayPlaceSelected.id;
+                TourPlace tourPlace = new TourPlace(DataManager.Ins.currentTour.id, DataManager.Ins.currentTour.placeDurationList);
 
-            DataManager.Ins.currentDuration.host = null;
+                await DataManager.Ins.TourPlaceServices.UpdateTourPlace(tourPlace);
+                await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);                
+            }
+            else
+            {
+                DataManager.Ins.currentDuration = new PlaceId_Duration();
+                DataManager.Ins.currentDuration.night = night;
+                DataManager.Ins.currentDuration.day = day;
+                DataManager.Ins.currentDuration.placeId = Host.id;
+                DataManager.Ins.currentDuration.description = description;
 
-            DataManager.Ins.currentTour.placeDurationList[index] = DataManager.Ins.currentDuration;
+                if (DataManager.Ins.currentTour.SPforPList == null) DataManager.Ins.currentTour.SPforPList = new List<PlaceId_StayPlace>();
+                if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new List<PlaceId_Duration>();
 
+                DataManager.Ins.currentTour.SPforPList.Add(new PlaceId_StayPlace(Host.id, StayPlaceSelected.id));
+                DataManager.Ins.currentTour.placeDurationList.Add(DataManager.Ins.currentDuration);
 
-            await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+                TourPlace tourPlace = new TourPlace(DataManager.Ins.currentTour.id, DataManager.Ins.currentTour.placeDurationList);
 
+                await DataManager.Ins.TourPlaceServices.UpdateTourPlace(tourPlace);
+                await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+            }
 
+            DependencyService.Get<IToast>().ShortToast("New schedule has been updated");
         }
 
         private Place host;

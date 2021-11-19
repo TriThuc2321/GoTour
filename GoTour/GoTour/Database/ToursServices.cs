@@ -42,25 +42,26 @@ namespace GoTour.Database
                   starNumber = item.Object.starNumber
               }).ToList();
         }
-        public async Task AddTour(string _id, string _name, List<string> _imgSource, List<PlaceId_StayPlace> _SPforPList, string _startTime, string _duration, List<string> _tourGuide, string _passengerNumber, string _description,string basePrice, bool _isOccured, string _remaining, string _startNumber)
+        public async Task AddTour(Tour tour)
         {
             await firebase
               .Child("Tours")
               .PostAsync(new Tour()
               {
-                  id = _id,
-                  name = _name,
-                  imgSource = _imgSource,
-                  startTime = _startTime,
-                  duration = _duration,
-                  tourGuide = _tourGuide,
-                  passengerNumber = _passengerNumber,
-                  description = _description,
-                  isOccured = _isOccured,
-                  basePrice = basePrice,
-                  SPforPList = _SPforPList,
-                  remaining = _remaining,
-                  starNumber = _startNumber
+                  id = tour.id,
+                  name = tour.name,
+                  imgSource = tour.imgSource,
+                  startTime = tour.startTime,
+                  duration = tour.duration,
+                  tourGuide = tour.tourGuide,
+                  passengerNumber = tour.passengerNumber,
+                  description = tour.description,
+                  isOccured = false,
+                  basePrice = tour.basePrice,
+                  SPforPList = tour.SPforPList,
+                  remaining = tour.passengerNumber,
+                  starNumber = "0", 
+                  reviewList = null,
               });
         }
 
@@ -84,7 +85,7 @@ namespace GoTour.Database
                   passengerNumber = tour.passengerNumber,
                   description = tour.description,
                   isOccured = tour.isOccured,
-                  placeDurationList = tour.placeDurationList,
+                  placeDurationList = null,
                   basePrice =tour.basePrice,
                   SPforPList = tour.SPforPList,
                   remaining = tour.remaining,

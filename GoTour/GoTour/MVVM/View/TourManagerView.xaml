@@ -45,7 +45,18 @@
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Remove"
+                                         IconImageSource="deleteIcon.png"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+
+                                <Grid Padding="30,10,20,10" VerticalOptions="Start">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup Name="CommonStates">
                                         <VisualState Name="Selected">
@@ -76,7 +87,7 @@
                                     </StackLayout>
                                 </pancake:PancakeView>
                             </Grid>
-
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

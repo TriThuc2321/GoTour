@@ -21,7 +21,13 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             this.currentShell = currentShell;
 
-            ListTourManager = DataManager.Ins.ListTour;
+            ListTourManager = new ObservableCollection<Tour>();
+
+            for (int i =0; i< DataManager.Ins.ListTour.Count; i++)
+            {
+                if (DataManager.Ins.ListTour[i].remaining == DataManager.Ins.ListTour[i].passengerNumber) ListTourManager.Add(DataManager.Ins.ListTour[i]);
+            }
+
             NavigationBack = new Command(() => navigation.PopAsync());        
         }
         public ICommand SelectedCommand => new Command<object>((obj) =>
@@ -32,6 +38,17 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.currentTour = result;
                 navigation.PushAsync(new EditTourView());
                 SelectedTour = null;
+            }
+        });
+        public ICommand DeleteCommand => new Command<object>(async (obj) =>
+        {
+            Tour result = obj as Tour;
+            if (result != null)
+            {
+                ListTourManager.Remove(result);
+                DataManager.Ins.ListTour.Remove(result);
+                await DataManager.Ins.TourServices.DeletePlace(result);
+                await DataManager.Ins.TourPlaceServices.DeleteTourPlace(result.id);
             }
         });
         public ICommand NewTourCommand => new Command<object>((obj) =>

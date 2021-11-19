@@ -32,7 +32,6 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             this.currentShell = currentShell;
 
-            this.navigation = navigation;
             SelectedTour = DataManager.Ins.currentTour;
 
             NavigationBack = new Command(() => navigation.PopAsync());          

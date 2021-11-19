@@ -64,9 +64,6 @@ namespace GoTour.MVVM.ViewModel
                  
              }
 
-
-
-
             if (tour_Has_electedStayPlace_List.Count == 0 && placeHasStayPlaceList.Count == 0)
             {
                 await DataManager.Ins.PlacesServices.DeletePlace(place);

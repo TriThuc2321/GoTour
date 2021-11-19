@@ -12,6 +12,16 @@
     <ScrollView>
 
         <StackLayout Padding="0" >
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+
             <Label Text="Place" Margin="20" FontSize="20" FontAttributes="Bold" TextColor="SteelBlue"/>
             <Frame Margin="20, 00, 20, 20">
                 <StackLayout>

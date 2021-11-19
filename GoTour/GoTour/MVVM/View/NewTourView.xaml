@@ -1,12 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoTour.MVVM.View.NewTourView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="GoTour.MVVM.View.NewTourView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             >
+    <ContentPage.BindingContext>
+        <vm:NewTourViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid BackgroundColor="WhiteSmoke">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.2*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Source="{Binding Img}"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                                   Aspect="AspectFill"                           
+                           />
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+            <Frame
+                CornerRadius="10"                                  
+                    HorizontalOptions="End"                                  
+                    VerticalOptions="StartAndExpand"                                 
+                    BackgroundColor="White"                                  
+                    Margin="0, 10 , 10, 0"
+                Padding="5"
+                >
+                <ImageButton 
+                    Command="{Binding AddImageCommand}"                                  
+                    Source="imagePickerIcon.png"                                  
+                    HeightRequest="30"                                  
+                    WidthRequest="30"         
+                    BackgroundColor="Transparent"                 
+                />
+
+            </Frame>
+
+
+            <pancake:PancakeView Grid.Row="1" CornerRadius="40,40,0,0" Margin="0,-60,0,0" BackgroundColor="WhiteSmoke" Padding="10">
+                <StackLayout Grid.Row="1" Padding="20,20,20,10">
+                    <StackLayout Orientation="Horizontal">
+                        
+                        <Entry HorizontalOptions="FillAndExpand" Text="{Binding Name}" TextColor="SteelBlue" FontSize="25" FontAttributes="Bold" Placeholder="Name..."/>
+                        <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="End" Source="nextIcon.png"/>
+                    </StackLayout>
+
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" Aspect="AspectFill" Source="scoreIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
+                        <Label Text="{Binding SelectedTour.starNumber}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="Small"/>
+                    </StackLayout> -->
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="passengerIcon.png" BackgroundColor="Transparent"/>
+                        <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding PassengerNumber}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="clocksIcon.png" BackgroundColor="Transparent"/>
+                        <TimePicker Time="{Binding StartTimePicker}"/>
+                        <DatePicker Date="{Binding StartDatePicker}" Format="dd/MM/yyyy"/>
+
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" Aspect="AspectFit" Source="calenderIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
+                        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal" >
+                            <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Day}"/>
+                            <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Night}"/>
+                            <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
+
+                        </StackLayout>
+
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="$" TextColor="SteelBlue" FontAttributes="Bold" FontSize="Large" Margin="0,0,0,10" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <Entry HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" FontSize="Large" TextColor="SteelBlue" FontAttributes="Bold" Text="{Binding Price}"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,25,0,0">
+                        <Label Text="Description" FontSize="20" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black"/>
+                        <ImageButton Source="tickIcon.png" BackgroundColor="Transparent" HeightRequest="18" Command="{Binding EditTextCommand}"/>
+                    </StackLayout>
+
+                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" />
+
+                </StackLayout>
+            </pancake:PancakeView>
+
+
+        </Grid>
+
+
+    </ScrollView>
 </ContentPage>

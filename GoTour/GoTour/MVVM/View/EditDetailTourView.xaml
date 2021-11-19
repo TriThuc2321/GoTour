@@ -37,7 +37,7 @@
                             >
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
-                                <Button Text="{Binding DataManager.Ins.USDCurrency}" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                                <Button Text="New Schedule +" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding NewScheduleCommand}"/>
 
                             </StackLayout>
 
@@ -64,7 +64,7 @@
                     <StackLayout Grid.Row="1" >
                         <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <CollectionView x:Name="clview" 
-                            ItemsSource="{Binding SelectedTour.placeDurationList}" 
+                            ItemsSource="{Binding PlaceDurationsList}" 
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedDuration}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
@@ -73,7 +73,17 @@
                             >
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackLayout Padding="10">
+                                    <SwipeView>
+                                        <SwipeView.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Remove"
+                                         IconImageSource="deleteIcon.png"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding}" />
+                                            </SwipeItems>
+                                        </SwipeView.LeftItems>
+                                        <StackLayout Padding="10">
                                         <Label Text="{Binding description }" 
                                        FontSize="Medium"
                                        FontAttributes="Bold"
@@ -119,7 +129,7 @@
                                         </Frame>
                                         <Line BackgroundColor="Black" HeightRequest="1"></Line>
                                     </StackLayout>
-
+                                    </SwipeView>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
