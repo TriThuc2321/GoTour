@@ -315,8 +315,8 @@ namespace GoTour.MVVM.ViewModel
             string[] splitYear = tourStartTime[2].Split(' ');
             DateTime timeStart = new DateTime(
                 int.Parse(splitYear[0]),
-                int.Parse(tourStartTime[1]),
-                int.Parse(tourStartTime[0])
+                int.Parse(tourStartTime[0]),
+                int.Parse(tourStartTime[1])
                 );
 
             string[] duration = tour.duration.Split('/');

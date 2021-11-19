@@ -20,7 +20,7 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
 
             string[] TourStartTime = DataManager.Ins.currentTour.startTime.Split('/');
-            DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[1]), int.Parse(TourStartTime[0]));
+            DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
             NavigationBack = new Command(() => navigation.PopAsync());
             timeLine = new List<SupportUI>();
             foreach (Place ite in DataManager.Ins.ListPlace)

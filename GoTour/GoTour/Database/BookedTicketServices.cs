@@ -124,8 +124,8 @@ namespace GoTour.Database
             string[] splitYear = tourStartTime[2].Split(' ');
             DateTime time = new DateTime(
                 int.Parse(splitYear[0]),
-                int.Parse(tourStartTime[1]),
-                int.Parse(tourStartTime[0])
+                int.Parse(tourStartTime[0]),
+                int.Parse(tourStartTime[1])
                 );
 
             DateTime currentTime = DateTime.Now.AddDays(0);
