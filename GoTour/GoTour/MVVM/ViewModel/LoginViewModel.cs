@@ -129,14 +129,6 @@ namespace GoTour.MVVM.ViewModel
                             Preferences.Set("remeber_key", "false");
                         }
 
-                        //List<FavouriteTour> favouriteToursList = await DataManager.Ins.FavoritesServices.GetAllFavourite();
-                        //List<Tour> listTour = DataManager.Ins.ListTour;
-                        //foreach (FavouriteTour favourite in favouriteToursList)
-                        //{
-                        //    favourite.tour = DataManager.Ins.ListTour.Find(e => (e.id == favourite.tour.id));
-                        //    DataManager.Ins.ListFavouriteTours.Add(favourite);
-                        //}
-
                         await curentShell.GoToAsync($"//{nameof(HomeView)}");                        
                         //navigation.PushAsync(new MainPage());
                         break;

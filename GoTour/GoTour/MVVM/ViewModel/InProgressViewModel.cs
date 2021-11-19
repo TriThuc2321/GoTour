@@ -22,13 +22,14 @@ namespace GoTour.MVVM.ViewModel
             TicketList = new ObservableCollection<BookedTicket>();
             Refresh = new Command(RefreshList);
             SetInformation();
+            SortingTicket();
            
         }
         void SetInformation()
         {
             foreach (var ticket in DataManager.Ins.ListBookedTickets)
             {
-                if (ticket.email == DataManager.Ins.CurrentUser.email && checkTourOccuring(ticket.tour))
+                if (ticket.email == DataManager.Ins.CurrentUser.email && checkTourOccuring(ticket))
                 {
                     TicketList.Add(ticket);
                 }
@@ -69,8 +70,13 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        public bool checkTourOccuring(Tour tour)
+        public bool checkTourOccuring(BookedTicket ticket)
         {
+            Tour tour = ticket.tour;
+
+            if (ticket.isCancel)
+                return false;
+
             string[] tourStartTime = tour.startTime.Split('/');
 
             string[] splitYear = tourStartTime[2].Split(' ');
@@ -87,12 +93,34 @@ namespace GoTour.MVVM.ViewModel
             TimeSpan interval = timeStart.Subtract(currentTime);
 
             string maxDuration = int.Parse(duration[0]) > int.Parse(duration[1]) ? duration[0] : duration[1];
+            maxDuration = (int.Parse(maxDuration) * 24 * 60 * 60).ToString();
 
-            double count = interval.Days;
+            double count = interval.Seconds;
 
-            if (count <= int.Parse(maxDuration))
+            if (count <= 0 && Math.Abs(count) <= int.Parse(maxDuration))
+            {
                 return true;
+            }
+
             return false;
+        }
+
+        void SortingTicket()
+        {
+            // Xep giam dan
+            for (int i =0; i<TicketList.Count; i++)
+            {
+                for (int j = i+1; j< TicketList.Count -1; j ++)
+                {
+                    if (DateTime.Parse(TicketList[i].bookTime) < DateTime.Parse(TicketList[j].bookTime))
+                    {
+                        BookedTicket tmp = new BookedTicket();
+                        tmp = TicketList[i];
+                        TicketList[i] = TicketList[j];
+                        TicketList[j] = tmp;
+                    }    
+                }    
+            }    
         }
 
         #region Refresh

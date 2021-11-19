@@ -14,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
     public class MoMoConfirmViewModel : ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
         string Money;
         public MoMoConfirmViewModel() { }
         public Command NavigationBack { get; }
@@ -21,9 +22,10 @@ namespace GoTour.MVVM.ViewModel
         public Command RemovePhoto { get; }
 
         public Command Confirm { get; }
-        public MoMoConfirmViewModel(INavigation navigation)
+        public MoMoConfirmViewModel(INavigation navigation, Shell shell)
         {
             this.navigation = navigation;
+            this.currentShell = shell;
             NavigationBack = new Command(() => navigation.PopAsync());
             UploadPhoto = new Command(uploadPhoto);
             Confirm = new Command(confirm);
@@ -31,6 +33,7 @@ namespace GoTour.MVVM.ViewModel
 
 
             SetInformation();
+            checkDateRegulation();
         }
 
         Plugin.Media.Abstractions.MediaFile currentPhoto;
@@ -48,7 +51,9 @@ namespace GoTour.MVVM.ViewModel
                 UploadImageText = "Change this photo";
                 ImageVisible = true;
                 RemovePhotoVisible = true;
+                PermitConfirm = true;
             }
+            
         }
 
         void removePhoto(object obj)
@@ -90,7 +95,7 @@ namespace GoTour.MVVM.ViewModel
                     DataManager.Ins.CurrentBookedTicket.invoice.id
                     );
 
-                DataManager.Ins.CurrentInvoice.isPaid = true;
+                DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
                 DataManager.Ins.CurrentInvoice.photoMomo = url;
 
@@ -151,8 +156,9 @@ namespace GoTour.MVVM.ViewModel
 
             //   updateManager(changeMethod);
             updateManager();
-            
-            await navigation.PushAsync(new BookedTicketDetailView());
+
+             await navigation.PushAsync(new SuccessBookView());
+           // await currentShell.GoToAsync($"//{nameof(HomeView)}");
         }
 
         #region money
@@ -341,6 +347,25 @@ namespace GoTour.MVVM.ViewModel
             //        }
             //    }
            // }
+        }
+        private bool _permitConfirm;
+        public bool PermitConfirm
+        {
+            get { return _permitConfirm; }
+            set
+            {
+                _permitConfirm = value;
+                OnPropertyChanged("PermitConfirm");
+            }
+        }
+
+        void checkDateRegulation()
+        {
+            PermitConfirm = true;
+            if (DataManager.Ins.BookedTicketsServices.countBookTourRegulation(DataManager.Ins.currentTour) < 5)
+            {
+                PermitConfirm = false;
+            }   
         }
     }
 }

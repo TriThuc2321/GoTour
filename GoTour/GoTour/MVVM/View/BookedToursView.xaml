@@ -4,7 +4,10 @@
              x:Class="GoTour.MVVM.View.BookedToursView"
              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
              NavigationPage.HasNavigationBar="false"
-             BackgroundColor="AliceBlue">
+             BackgroundColor="WhiteSmoke"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+
+             >
 
     <ContentPage.BindingContext>
         <vm:BookedToursViewModel/>
@@ -26,7 +29,7 @@
                                    HasShadow="True"
                                    Padding="0"
                                    CornerRadius="5"
-                                   Margin="5, 10,5,0"
+                                   Margin="15, 10,15,0"
                                    BackgroundColor="White"
                                >
                                 <Grid Margin="5"
@@ -36,21 +39,33 @@
                                     </Grid.RowDefinitions>-->
 
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
                                     <!--Hình-->
                                     <Image Source="{Binding tour.imgSource[0]}"
                                                Grid.Column="0"
-                                                Grid.RowSpan="2"
-                                           HeightRequest="450"
+                                                Grid.ColumnSpan="2"
+                                                HeightRequest="450"
                                                Aspect="AspectFill"
                                             />
 
-                                    <!--<Grid Grid.Row="1"
-                                                  BackgroundColor="Black"
-                                                  Opacity="0.6"/>-->
+                                    <!--<Frame Grid.Column="1"
+                                           Opacity="0.8"
+                                           CornerRadius="10">
+                                        <Grid Grid.Column="1"
+                                                  BackgroundColor="White"
+                                                  />
+                                    </Frame>-->
+
+                                    <pancake:PancakeView
+                                        Grid.Column="1"
+                                        CornerRadius="25,0, 25, 0"
+                                              BackgroundColor="White"
+                                              Opacity="0.8">
+                                    </pancake:PancakeView>
+                                    
 
                                     <!--TÊn tour--><!--
                                     <Label Text="{Binding tour.name}"
@@ -65,20 +80,24 @@
 
                                     <!--Thông tin-->
                                     <StackLayout Orientation="Vertical"
-                                         Grid.Column="1"
-                                         BackgroundColor="White">
+                                         Grid.Column="1">
                                         
                                         <Label Text="{Binding tour.name}"
                                                TextColor="Black"
+                                               Margin="10, 0,0,0"
                                                FontAttributes="Bold"
                                                FontSize="Large"
                                                Padding="10"
                                         />
 
 
-                                        <!--<Label Text="{Binding tour.description}"/>-->
+                                        <Label Text="{Binding tour.description}"
+                                               Padding="10"
+                                               FontSize="15"
+                                               TextColor="DarkBlue"
+                                               FontAttributes="Italic"/>
 
-                                        <Label  Margin="0,0,0,10"
+                                        <Label  Margin="20,0,0,10"
                                                 Grid.Column="1"
                                                 TextColor="DarkRed"
                                                 Grid.ColumnSpan="2"

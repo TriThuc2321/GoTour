@@ -149,11 +149,11 @@
                         <StackLayout Grid.Row="0"
                                     Margin="10, 0, 10, 50"
                          >
-                            <Label Margin="50, 30, 50, 30"
+                            <!--<Label Margin="50, 30, 50, 30"
                                    TextColor="DarkBlue"
                                    FontAttributes="Italic"
                                    FontSize="15"
-                                Text="{Binding Regulation}"/>
+                                Text="{Binding Regulation}"/>-->
 
                             <StackLayout Margin="30"
                                         Orientation="Vertical"
@@ -206,6 +206,7 @@
 
                                 <Button Command="{Binding Confirm}"
                                     Grid.Row="5"
+                                    IsVisible="{Binding PermitConfirm}"
                                     CornerRadius="20" 
                                     Margin="25,20,25,20"
                                     Padding="5"  

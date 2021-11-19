@@ -131,13 +131,12 @@ namespace GoTour.Database
                 ImgPlaceStreams.Add(ite);
             }*/
 
-
             //Linh
             List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
             foreach (FavouriteTour favourite in favouriteToursList)
             {
-                    favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
-                    ListFavouriteTours.Add(favourite);
+                favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
+                ListFavouriteTours.Add(favourite);
             }
 
             List<Discount> discountsList = await DiscountsServices.GetAllDiscounts();
@@ -149,15 +148,22 @@ namespace GoTour.Database
             List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
             foreach (Invoice invoice in invoicesList)
             {
+                //foreach (Discount discount in discountsList)
+                //{
+                //    if (invoice.discount.id == discount.id)
+                //        invoice.discount = discount;
+                //}
+                if (invoice.discount != null)
+                    invoice.discount = discountsList.Find(e => (e.id == invoice.discount.id));
                 ListInvoice.Add(invoice);
             }
 
             List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
             foreach(BookedTicket booked in bookedTicketsList)
             {
-                    booked.tour = tourList.Find(e => (e.id == booked.tour.id));
-                    booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
-                    ListBookedTickets.Add(booked);
+                booked.tour = tourList.Find(e => (e.id == booked.tour.id));
+                booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+                ListBookedTickets.Add(booked);
              
             }
         }

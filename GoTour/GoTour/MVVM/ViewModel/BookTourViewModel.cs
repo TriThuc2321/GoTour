@@ -141,8 +141,8 @@ namespace GoTour.MVVM.ViewModel
 
             if (checkValidation())
             {
-                Birthday = DateTime.ParseExact(Birthday, "MM/dd/yyyy HH:mm:ss", null).ToString("MM/dd/yyyy");
-
+                string[] birth;
+                birth = Birthday.ToString().Split(' ');
 
                 DataManager.Ins.CurrentInvoice = new Invoice()
                 {
@@ -160,7 +160,7 @@ namespace GoTour.MVVM.ViewModel
                     id = ticketServices.GenerateTicketId(),
                     tour = new Tour { id = selectedTour.id },
                     name = Name,
-                    birthday = Birthday,
+                    birthday = birth[0],
                     contact = Contact,
                     email = Email,
                     cmnd = Cmnd,
@@ -271,8 +271,8 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string _birthday;
-        public string Birthday
+        private DateTime _birthday;
+        public DateTime Birthday
         {
             get { return _birthday; }
             set
@@ -592,9 +592,17 @@ namespace GoTour.MVVM.ViewModel
             User getUser = DataManager.Ins.CurrentUser;
             Name = getUser.name;
             if (getUser.birthday != "")
-                Birthday = getUser.birthday;
+            {
+                string[] day = getUser.birthday.Split(' ');
+                string[] arr = day[0].Split('/');
+                Birthday = new DateTime(
+                    int.Parse(arr[2]),
+                    int.Parse(arr[0]),
+                    int.Parse(arr[1])
+                    );
+            }
             else
-                Birthday = new DateTime(1980,1,1).ToString();
+                Birthday = new DateTime(1980, 1, 1);
 
             Contact = getUser.contact;
             ContactNoticeVisible = false;

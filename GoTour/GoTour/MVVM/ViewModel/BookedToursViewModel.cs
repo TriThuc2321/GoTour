@@ -32,6 +32,8 @@ namespace GoTour.MVVM.ViewModel
                     BookedTicketsList.Add(tk);
             }
 
+            SortingTicket();
+
         }
 
         public ICommand SelectedCommand => new Command<object>((obj) =>
@@ -44,7 +46,7 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentBookedTicket = result;
                 DataManager.Ins.CurrentInvoice = result.invoice;
                 if (result.invoice.discount != null)
-                    DataManager.Ins.CurrentInvoice.discount = result.invoice.discount;
+                    DataManager.Ins.CurrentDiscount = result.invoice.discount;
                 DataManager.Ins.currentTour = result.tour;
 
                 
@@ -89,8 +91,30 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        void SortingTicket()
+        {
+            // Xep giam dan
+            for (int i = 0; i < BookedTicketsList.Count; i++)
+            {
+                for (int j = i + 1; j < BookedTicketsList.Count - 1; j++)
+                {
+                    //string[] datetimeI = BookedTicketsList[i].bookTime.Split(' ');
+                    //string[] datetimeJ = BookedTicketsList[j].bookTime.Split(' ');
 
-       
+                    //datetimeI
+                    if (DateTime.ParseExact(BookedTicketsList[i].bookTime, "MM/dd/yyyy hh:mm:ss tt", null)
+                        < DateTime.ParseExact(BookedTicketsList[j].bookTime, "MM/dd/yyyy hh:mm:ss tt", null))
+                    {
+                        BookedTicket tmp = new BookedTicket();
+                        tmp = BookedTicketsList[i];
+                        BookedTicketsList[i] = BookedTicketsList[j];
+                        BookedTicketsList[j] = tmp;
+                    }
+                }
+            }
+        }
+
+
     }
 
 

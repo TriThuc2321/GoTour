@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    public class CancelTourViewModel: ObservableObject
+    public class CancelTourViewModel : ObservableObject
     {
         INavigation navigation;
         public CancelTourViewModel() { }
@@ -32,10 +32,59 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.CurrentBookedTicket.isCancel = true;
                 await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(DataManager.Ins.CurrentBookedTicket);
 
-                
+                if (DataManager.Ins.CurrentDiscount != null)
+                {
+                    int isUsed = int.Parse(DataManager.Ins.CurrentDiscount.isUsed);
+                    isUsed--;
+                    DataManager.Ins.CurrentDiscount.isUsed = isUsed.ToString();
+
+                    await DataManager.Ins.DiscountsServices.UpdateDiscount(DataManager.Ins.CurrentDiscount);
+
+                }
+
+                if (DataManager.Ins.currentTour != null)
+                {
+                    int remaining = int.Parse(DataManager.Ins.currentTour.remaining);
+                    remaining = remaining + int.Parse(DataManager.Ins.CurrentInvoice.amount);
+                    DataManager.Ins.currentTour.remaining = remaining.ToString();
+
+                    await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
+                }
+
+                updateManager();
+                DependencyService.Get<IToast>().ShortToast("Canceled this tour successfully!");
+
 
                 await navigation.PopAsync();
-            }    
+            }
+        }
+
+        void updateManager()
+        {
+            if (DataManager.Ins.CurrentDiscount != null)
+            {
+                DataManager.Ins.CurrentBookedTicket.invoice.discount = DataManager.Ins.CurrentDiscount;
+
+                for (int i = 0; i < DataManager.Ins.ListDiscount.Count - 1; i++)
+                {
+                    if (DataManager.Ins.ListDiscount[i].id == DataManager.Ins.CurrentDiscount.id)
+                    {
+                        DataManager.Ins.ListDiscount[i] = DataManager.Ins.CurrentDiscount;
+                        break;
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < DataManager.Ins.ListTour.Count - 1; i++)
+            {
+                if (DataManager.Ins.ListTour[i].id == DataManager.Ins.currentTour.id)
+                {
+                    DataManager.Ins.ListTour[i] = DataManager.Ins.currentTour;
+                    break;
+                }
+            }
+
         }
 
         void SetInformation()

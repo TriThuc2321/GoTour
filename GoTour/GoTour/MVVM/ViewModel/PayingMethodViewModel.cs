@@ -11,13 +11,15 @@ namespace GoTour.MVVM.ViewModel
     public class PayingMethodViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
        
         public Command NavigationBack { get; }
         public Command Confirm{ get; }
         public PayingMethodViewModel() { }
-        public PayingMethodViewModel(INavigation navigation)
+        public PayingMethodViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
            
             SetInformation();
             checkDateRegulation();
@@ -83,7 +85,10 @@ namespace GoTour.MVVM.ViewModel
 
                 DependencyService.Get<IToast>().ShortToast("Booked this tour successfully!");
                 updateManager();
-                await navigation.PushAsync(new BookedTicketDetailView());
+               // await currentShell.GoToAsync($"//{nameof(HomeView)}");
+                 await navigation.PushAsync(new SuccessBookView());
+
+
 
             }
 

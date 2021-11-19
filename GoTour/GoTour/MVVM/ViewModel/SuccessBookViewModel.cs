@@ -2,52 +2,51 @@
 using GoTour.Database;
 using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
-using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    public class BookedTicketDetailViewModel: ObservableObject
+    public class SuccessBookViewModel: ObservableObject
     {
         INavigation navigation;
-        public Command NavigationBack { get; }
-        public BookedTicketDetailViewModel() {}
-        public Command UploadPhoto { get; }
-        public Command CancelTicket { get; }
-        public Command ViewDetail { get; }
-        public BookedTicketDetailViewModel(INavigation navigation)
+        Shell currentShell;
+        public Command GoToHome { get; }
+        public SuccessBookViewModel() { }
+        public SuccessBookViewModel(INavigation navigation, Shell current)
         {
             this.navigation = navigation;
+            this.currentShell = current;
 
             this.Ticket = DataManager.Ins.CurrentBookedTicket;
             if (DataManager.Ins.CurrentDiscount != null)
                 this.Discount = DataManager.Ins.CurrentDiscount;
             this.Invoice = DataManager.Ins.CurrentInvoice;
             this.Tour = DataManager.Ins.currentTour;
-            
-            
 
-            CancelTicket = new Command(cancelTicket);
-            ViewDetail = new Command(viewDetail);
+            GoToHome = new Command(goHome);
 
-            NavigationBack = new Command(() => navigation.PopAsync());
-          //  UploadPhoto = new Command(upload);
+            //  UploadPhoto = new Command(upload);
             SetInformation();
+        }
 
+        void goHome(object obj)
+        {
+            currentShell.GoToAsync($"//{nameof(HomeView)}");
         }
 
         void SetInformation()
         {
             DurationProcess();
 
-            
+
 
             if (!this.Invoice.isPaid)
             {
-               // PayingVisible = false;
+                // PayingVisible = false;
                 DisplayUpload = true;
             }
             else
@@ -76,12 +75,12 @@ namespace GoTour.MVVM.ViewModel
                 DiscountVisible = false;
 
             FormatMoney();
-             
+
         }
 
         void viewDetail(object obj)
         {
-         
+
             navigation.PushAsync(new DetailTourView());
         }
         void cancelTicket(object obj)
@@ -99,7 +98,7 @@ namespace GoTour.MVVM.ViewModel
             get { return _ticket; }
             set
             {
-               _ticket  = value;
+                _ticket = value;
                 OnPropertyChanged("Ticket");
 
             }
@@ -289,7 +288,7 @@ namespace GoTour.MVVM.ViewModel
             if (Invoice.discount != null)
                 StrDiscountMoney = Invoice.discountMoney;
 
-           
+
             var service = DataManager.Ins.InvoicesServices;
 
             StrTotal = service.FormatMoney(StrTotal);
@@ -303,7 +302,7 @@ namespace GoTour.MVVM.ViewModel
                 StrMoMoVND = Invoice.momoVnd;
                 StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
             }
-           
+
         }
 
         public void checkTourStatus(Tour tour)
@@ -325,7 +324,7 @@ namespace GoTour.MVVM.ViewModel
             DateTime currentTime = DateTime.Now.AddDays(0);
             TimeSpan interval = timeStart.Subtract(currentTime);
 
-            string maxDuration = int.Parse(duration[0]) > int.Parse(duration[1]) ? duration[0] : duration[1] ;
+            string maxDuration = int.Parse(duration[0]) > int.Parse(duration[1]) ? duration[0] : duration[1];
 
             maxDuration = (int.Parse(maxDuration) * 24 * 60 * 60).ToString();
 
@@ -335,8 +334,9 @@ namespace GoTour.MVVM.ViewModel
             {
                 Occured = "Not occured";
                 return;
-            }    
-            if (count <= 0 && Math.Abs(count) <=int.Parse( maxDuration)) {
+            }
+            if (count <= 0 && Math.Abs(count) <= int.Parse(maxDuration))
+            {
                 Occured = "Occuring";
                 CancelVisible = false;
                 return;

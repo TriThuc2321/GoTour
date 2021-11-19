@@ -23,6 +23,7 @@ namespace GoTour.Database
         {
             return (await firebase
               .Child("BookedTickets")
+           //   .OrderBy("bookTime")
               .OnceAsync<BookedTicket>()).Select(item => new BookedTicket
               {
                   id = item.Object.id,
