@@ -222,6 +222,7 @@
     <AndroidResource Include="Resources\drawable\scoreicon.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <AndroidResource Include="Resources\drawable\filtericon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +238,8 @@
     <AndroidResource Include="Resources\drawable\notification_background.jpg" />
   </ItemGroup>
   <ItemGroup>
+=======
+>>>>>>> parent of 51e9e9b (Merge remote-tracking branch 'origin/Thien4' into Thuc)
     <AndroidResource Include="Resources\drawable\clocksIcon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +267,7 @@
     <AndroidResource Include="Resources\drawable\ticketIcon.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <AndroidResource Include="Resources\drawable\completeIcon.png" />    
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\tourGuiderbg1.jpg" />
+=======
+    <AndroidResource Include="Resources\drawable\completeIcon.png" />
+>>>>>>> parent of 51e9e9b (Merge remote-tracking branch 'origin/Thien4' into Thuc)
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

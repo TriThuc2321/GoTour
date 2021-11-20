@@ -167,12 +167,11 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("ReviewInfo");
             }
         }
-       
         private void DurationProcess()
         {
             if (DataManager.Ins.currentTour.duration == null) return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
-            string result = _ProcessedDuration[0] + " Days " + _ProcessedDuration[1] + " Nights";
+            string result = _ProcessedDuration[0] + " Ngày " + _ProcessedDuration[1] + " Đêm";
             ProcessedDuration = result;
         }
     }

@@ -21,7 +21,11 @@
 
   <ItemGroup>
     <Reference Include="xNet">
+<<<<<<< HEAD
       <HintPath>C:\Users\admin\Downloads\xNet\xNet.dll</HintPath>
+=======
+      <HintPath>..\..\..\..\xNet\xNet.dll</HintPath>
+>>>>>>> parent of 51e9e9b (Merge remote-tracking branch 'origin/Thien4' into Thuc)
     </Reference>
   </ItemGroup>
 
@@ -39,12 +43,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\ConfirmEmailView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\DetailInvoiceView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\DetailNotification.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\DetailTourView2.xaml">
@@ -92,6 +90,7 @@
     <EmbeddedResource Update="MVVM\View\ResetPassword.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Update="MVVM\View\RevenueManagerView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -99,6 +98,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\SendNotificationView.xaml">
+=======
+    <EmbeddedResource Update="MVVM\View\ShowTourFromSelectedPlace.xaml">
+>>>>>>> parent of 51e9e9b (Merge remote-tracking branch 'origin/Thien4' into Thuc)
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\StaffManagerView.xaml">

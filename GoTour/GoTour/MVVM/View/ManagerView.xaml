@@ -111,21 +111,6 @@
                     </Label>
                 </Frame>
 
-                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10">
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Revenue Manager" TextColor="Gray" FontSize="15">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding RevenueCommand}"/>
-                                    </Span.GestureRecognizers>
-                                </Span>
-
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </Frame>
-
             </StackLayout>
         </Frame>
     </Grid>
