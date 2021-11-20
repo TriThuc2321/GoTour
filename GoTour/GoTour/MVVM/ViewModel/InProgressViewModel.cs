@@ -14,13 +14,19 @@ namespace GoTour.MVVM.ViewModel
     public class InProgressViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
+        public Command MenuCommand { get; }
+
         public InProgressViewModel() { }
 
-        public InProgressViewModel(INavigation navigation)
+        public InProgressViewModel(INavigation navigation, Shell shell)
         {
+            this.currentShell = shell;
             this.navigation = navigation;
             TicketList = new ObservableCollection<BookedTicket>();
             Refresh = new Command(RefreshList);
+            MenuCommand = new Command(openMenu);
+
             SetInformation();
             SortingTicket();
            
@@ -34,7 +40,12 @@ namespace GoTour.MVVM.ViewModel
                     TicketList.Add(ticket);
                 }
             }
-        }    
+        }
+
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
+        }
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             BookedTicket result = obj as BookedTicket;

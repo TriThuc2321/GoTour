@@ -13,52 +13,79 @@
         <RefreshView Command="{Binding Refresh}"
                      IsRefreshing="{Binding IsRefresh}">
             <StackLayout Orientation="Vertical">
-   
-                
-                <CollectionView x:Name="clview"
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <CollectionView x:Name="clview"
+                                    Grid.Row="1"
                             ItemsSource="{Binding TicketList}"
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedTicket}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
                             >
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
 
-                            <Grid Padding="30,10,20,10" VerticalOptions="Start">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup Name="CommonStates">
-                                        <VisualState Name="Selected">
-                                            <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="White" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
+                                <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="White" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <Frame HeightRequest="250" Padding="0" HasShadow="True" CornerRadius="8">
-                                    <Image Source="{Binding tour.imgSource[0]}" Aspect="AspectFill"/>
-                                </Frame>
-                                <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
-                                    <StackLayout>
-                                        <Label Text="{Binding tour.name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
-                                        <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
-                                        <Label Text="{Binding tour.startTime ,StringFormat='{} Depart: {0}'}" TextColor="Black"/>
-                                        <Label Text="{Binding tour.description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
-                                        <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
-                                            <Label Text="{Binding tour.basePrice,StringFormat='{}{0} USD'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
-                                        </pancake:PancakeView>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame HeightRequest="250" Padding="0" HasShadow="True" CornerRadius="8">
+                                        <Image Source="{Binding tour.imgSource[0]}" Aspect="AspectFill"/>
+                                    </Frame>
+                                    <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
+                                        <StackLayout>
+                                            <Label Text="{Binding tour.name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                            <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
+                                            <Label Text="{Binding tour.startTime ,StringFormat='{} Depart: {0}'}" TextColor="Black"/>
+                                            <Label Text="{Binding tour.description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
+                                            <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
+                                                <Label Text="{Binding tour.basePrice,StringFormat='{}{0} USD'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
+                                            </pancake:PancakeView>
 
-                                    </StackLayout>
-                                </pancake:PancakeView>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                        </StackLayout>
+                                    </pancake:PancakeView>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <ImageButton 
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Source="menuIcon.png"
+                        Margin="10, 10, 0, 0"
+                        Grid.Row="0"
+                        BackgroundColor="Transparent"
+                        Command="{Binding MenuCommand}"
+                     />
+
+                    <Label Text="Occuring"
+                       Grid.Row="0"
+                       HorizontalOptions="End"
+                       Margin="0,10,20,0"
+                       VerticalOptions="Center"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       FontSize="25"/>
+                </Grid>
 
             </StackLayout>
 

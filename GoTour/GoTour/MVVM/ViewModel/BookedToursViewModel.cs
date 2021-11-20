@@ -14,16 +14,20 @@ namespace GoTour.MVVM.ViewModel
     class BookedToursViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
+        public Command MenuCommand { get; }
 
         public BookedToursViewModel()
         {
 
         }
 
-        public BookedToursViewModel(INavigation navigation)
+        public BookedToursViewModel(INavigation navigation, Shell current)
         {
             this.navigation = navigation;
+            this.currentShell = current;
             Refresh = new Command(RefreshView);
+            MenuCommand = new Command(openMenu);
 
             BookedTicketsList = new ObservableCollection<BookedTicket>();
 
@@ -91,6 +95,10 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
+        }
         void SortingTicket()
         {
             // Xep giam dan

@@ -11,7 +11,7 @@ namespace GoTour.MVVM.View
         public BookedToursView()
         {
             InitializeComponent();
-            this.BindingContext = new BookedToursViewModel(Navigation);
+            this.BindingContext = new BookedToursViewModel(Navigation, Shell.Current);
         }
     }
 }

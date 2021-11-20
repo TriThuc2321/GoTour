@@ -52,6 +52,7 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
                 <Setter Property="Shell.FlyoutBehavior" Value="Flyout"/>
             </Style>
+            
 
 
         </ResourceDictionary>
@@ -82,14 +83,12 @@
                       ContentTemplate="{DataTemplate views:InProgressView}" 
                       Style="{DynamicResource Base1Style}"
                       Icon="occuringTourIcon.png"
-                      Title="In Progress"
                       />
 
         <ShellContent Route="BookedToursView" 
                       ContentTemplate="{DataTemplate views:BookedToursView}" 
                       Style="{DynamicResource Base1Style}"
-                      Icon="orderedTourIcon.png" 
-                      Title="Booked"/>
+                      Icon="orderedTourIcon.png" />
     </FlyoutItem>
 
     <FlyoutItem Title="My Favorite" Icon="heartOutlineIcon.png">
