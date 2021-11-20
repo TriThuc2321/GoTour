@@ -40,8 +40,10 @@ namespace GoTour.MVVM.ViewModel
             BookedTicket result = obj as BookedTicket;
             if (result != null)
             {
+                DataManager.Ins.CurrentBookedTicket = result;
                 DataManager.Ins.currentTour = result.tour;
-                navigation.PushAsync(new DetailTourView2());
+                DataManager.Ins.CurrentInvoice = result.invoice;
+                navigation.PushAsync(new TourScheduleView());
                 SelectedTicket = null;
             }
         });

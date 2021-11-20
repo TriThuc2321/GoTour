@@ -32,7 +32,7 @@
                             >
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Large" TextColor="White"  Margin="10"></Label>
-                                <Button Text="Đặt ngay" TextColor="MidnightBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                                <Button Text="View Ticket" TextColor="MidnightBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding ViewTicket}"></Button>
 
                             </StackLayout>
 

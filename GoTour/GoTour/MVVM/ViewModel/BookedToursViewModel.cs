@@ -23,6 +23,7 @@ namespace GoTour.MVVM.ViewModel
         public BookedToursViewModel(INavigation navigation)
         {
             this.navigation = navigation;
+            Refresh = new Command(RefreshView);
 
             BookedTicketsList = new ObservableCollection<BookedTicket>();
 
@@ -41,18 +42,17 @@ namespace GoTour.MVVM.ViewModel
             BookedTicket result = obj as BookedTicket;
             if (result != null)
             {
-                if (SelectedTicket.invoice.isPaid)
+                    DataManager.Ins.CurrentBookedTicket = result;
+                    DataManager.Ins.CurrentInvoice = result.invoice;
+                    if (result.invoice.discount != null)
+                        DataManager.Ins.CurrentDiscount = result.invoice.discount;
+                    DataManager.Ins.currentTour = result.tour;
 
-                DataManager.Ins.CurrentBookedTicket = result;
-                DataManager.Ins.CurrentInvoice = result.invoice;
-                if (result.invoice.discount != null)
-                    DataManager.Ins.CurrentDiscount = result.invoice.discount;
-                DataManager.Ins.currentTour = result.tour;
 
-                
-                navigation.PushAsync(new BookedTicketDetailView());
+                    navigation.PushAsync(new BookedTicketDetailView());
 
-                SelectedTicket = null;
+                    SelectedTicket = null;
+               
             }
         });
 
@@ -116,8 +116,43 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        #region Refresh
+        private bool _isRefresh;
+        public bool IsRefresh
+        {
+            get
+            {
+                return _isRefresh;
+            }
 
+            set
+            {
+                _isRefresh = value;
+                OnPropertyChanged("IsRefresh");
+            }
+        }
+
+        public Command Refresh { get; }
+        void RefreshView(object obj)
+        {
+            IsRefresh = true;
+            BookedTicketsList.Clear();
+            BookedTicketsList = new ObservableCollection<BookedTicket>();
+
+            foreach (var tk in DataManager.Ins.ListBookedTickets)
+            {
+                if (tk.email == DataManager.Ins.CurrentUser.email)
+                    BookedTicketsList.Add(tk);
+            }
+
+            SortingTicket();
+            IsRefresh = false;
+        }
+        #endregion
     }
 
 
 }
+
+
+

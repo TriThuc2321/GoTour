@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         public TourScheduleViewModel() { }
         public Command NavigationBack { get; }
+        public Command ViewTicket { get; }
         public TourScheduleViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -26,6 +28,8 @@ namespace GoTour.MVVM.ViewModel
             DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
 
             NavigationBack = new Command(() => navigation.PopAsync());
+            ViewTicket = new Command(viewTicket);
+
             timeLine = new List<SupportUI>();
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
@@ -181,6 +185,11 @@ namespace GoTour.MVVM.ViewModel
                 listTourGuide = value;
                 OnPropertyChanged("listTourGuide");
             }
+        }
+
+        void viewTicket(object obj)
+        {
+            navigation.PushAsync(new BookedTicketDetailView());
         }
 
         private void DurationProcess()

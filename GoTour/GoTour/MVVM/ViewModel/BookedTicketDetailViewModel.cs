@@ -21,14 +21,7 @@ namespace GoTour.MVVM.ViewModel
         public BookedTicketDetailViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-
-            this.Ticket = DataManager.Ins.CurrentBookedTicket;
-            if (DataManager.Ins.CurrentDiscount != null)
-                this.Discount = DataManager.Ins.CurrentDiscount;
-            this.Invoice = DataManager.Ins.CurrentInvoice;
-            this.Tour = DataManager.Ins.currentTour;
-            
-            
+            Refresh = new Command(RefreshView);           
 
             CancelTicket = new Command(cancelTicket);
             ViewDetail = new Command(viewDetail);
@@ -43,11 +36,16 @@ namespace GoTour.MVVM.ViewModel
         {
             DurationProcess();
 
-            
+            this.Ticket = DataManager.Ins.CurrentBookedTicket;
+            if (DataManager.Ins.CurrentDiscount != null)
+                this.Discount = DataManager.Ins.CurrentDiscount;
+            this.Invoice = DataManager.Ins.CurrentInvoice;
+            this.Tour = DataManager.Ins.currentTour;
+
 
             if (!this.Invoice.isPaid)
             {
-               // PayingVisible = false;
+                // PayingVisible = false;
                 DisplayUpload = true;
             }
             else
@@ -56,7 +54,10 @@ namespace GoTour.MVVM.ViewModel
             checkTourStatus(Tour);
 
             if (Ticket != null && Ticket.isCancel)
+            {
                 Occured = Occured + " - This ticket was canceled";
+                CancelVisible = false;
+            } 
 
             if (Invoice.isPaid)
                 Paid = "Yes";
@@ -343,7 +344,35 @@ namespace GoTour.MVVM.ViewModel
             }
 
             Occured = "Occured";
-            CancelVisible = false;
+            if (Occured == "Occured")
+                CancelVisible = false;
         }
+
+        #region Refresh
+        private bool _isRefresh;
+        public bool IsRefresh
+        {
+            get
+            {
+                return _isRefresh;
+            }
+
+            set
+            {
+                _isRefresh = value;
+                OnPropertyChanged("IsRefresh");
+            }
+        }
+
+        public Command Refresh { get; }
+        void RefreshView(object obj)
+        {
+            IsRefresh = true;
+            SetInformation();
+            IsRefresh = false;
+        }
+        #endregion
     }
 }
+
+
