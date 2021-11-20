@@ -70,7 +70,7 @@
                             
                         />
                        
-                        <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Source="nextIcon.png"/>
+                        <ImageButton Command="{Binding OpenDetailTour1}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Source="nextIcon.png"/>
                     </StackLayout>
                   
                     <Line HeightRequest="3" BackgroundColor="SteelBlue" Margin="5,0,5,10"></Line>

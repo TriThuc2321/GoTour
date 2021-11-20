@@ -4,6 +4,7 @@ using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -37,6 +38,19 @@ namespace GoTour.MVVM.ViewModel
             // TourPlaces = temp.FindAll(e => DataManager.Ins.currentTour.placeDurationList.Exists(p => p.placeId == e.id));
             DurationProcess();
             int c = 6;
+            ListTourGuide = new ObservableCollection<User>();
+            for (int i = 0; i < DataManager.Ins.currentTour.tourGuide.Count; i++)
+            {
+                foreach (var ite in DataManager.Ins.tourGuides)
+                {
+                    if (DataManager.Ins.currentTour.tourGuide[i] == ite.email)
+                    {
+                        ListTourGuide.Add(ite);
+                        break;
+                    }
+                }
+
+            }
 
 
         }
@@ -44,6 +58,17 @@ namespace GoTour.MVVM.ViewModel
         void viewTicket(object obj)
         {
             navigation.PushAsync(new BookedTicketDetailView());
+        }
+
+        private ObservableCollection<User> listTourGuide;
+        public ObservableCollection<User> ListTourGuide
+        {
+            get { return listTourGuide; }
+            set
+            {
+                listTourGuide = value;
+                OnPropertyChanged("listTourGuide");
+            }
         }
 
         private Tour selectedTour;
