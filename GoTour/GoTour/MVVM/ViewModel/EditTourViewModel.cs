@@ -55,7 +55,7 @@ namespace GoTour.MVVM.ViewModel
 
             StartTime = temp[1];
 
-            StartDatePicker = new DateTime(int.Parse(dayTemp[2]), int.Parse(dayTemp[1]), int.Parse(dayTemp[0]));
+            StartDatePicker = new DateTime(int.Parse(dayTemp[2]), int.Parse(dayTemp[0]), int.Parse(dayTemp[1]));
             StartTimePicker = new TimeSpan(4, 0, 0);
 
             IsEdit = false;
@@ -113,11 +113,11 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.description = Description;
             DataManager.Ins.currentTour.name = Name;
             DataManager.Ins.currentTour.basePrice = Price;
-            DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
+            DataManager.Ins.currentTour.startTime = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
             DataManager.Ins.currentTour.duration = Day + '/' + Night;
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
 
-            StartDate = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2];
+            StartDate = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2];
             ProcessedDuration = Day + " Day " + Night + " Night";
             StartTime = StartTimePicker.ToString();
 

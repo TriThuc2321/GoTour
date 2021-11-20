@@ -131,6 +131,8 @@
                             SelectedItem="{Binding SelectedUser}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                                    ItemsLayout="HorizontalList"
+                                    HeightRequest="100"
                                     >
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -145,7 +147,7 @@
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
 
-                                    <Frame Margin="15,5,15,5">
+                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
                                         <StackLayout Orientation="Horizontal" >
                                             <VisualStateManager.VisualStateGroups>
                                                 <VisualStateGroup Name="CommonStates">
