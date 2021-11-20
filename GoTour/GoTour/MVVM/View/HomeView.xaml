@@ -76,11 +76,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Entry                    
-                    Placeholder="Search something..."
+                    Placeholder="Search a place..."
                     PlaceholderColor="#C0C0C0"
                     FontSize="15"
                     Margin="15,0,0,0"
-                    TextColor="Black"                    
+                    TextColor="Black"   
+                    Text="{Binding PlaceToSearch}"
                 />
                 <Frame Grid.Column="1"
                        BackgroundColor="#f4707c"
@@ -93,6 +94,7 @@
                         Margin="10"
                         Source="./SourceImage/searchIcon.png"
                         BackgroundColor="Transparent"
+                        Command="{Binding SearchButtonHandleCommand}"
                         />
                 </Frame>
 
@@ -157,30 +159,32 @@
         </Grid>
 
         <StackLayout Grid.Row="4" Margin="0,0,0,5">
-            <StackLayout Orientation="Horizontal" >
-                <Label 
-                       Text="New"
-                       TextColor="Black"
-                       Margin="30,0,0,0"
-                 />
-                <Label Grid.Column="1"
-                       Text="Most viewed"
-                       TextColor="#f4707c"
-                       Margin="30,0,0,0"
-                />
-                <Label Text="Hot tours"
-                       TextColor="Black"
-                       Margin="30,0,0,0"
-                />
-                <Label Text="All"
-                       TextColor="Black"
-                       Margin="30,0,0,0"
-                />
-            </StackLayout>
-            <CarouselView ItemsSource="{Binding Tours}"  PeekAreaInsets="100" >
-                <CarouselView.ItemTemplate>
+           
+            <CollectionView
+                            x:Name="clview"
+                            ItemsSource="{Binding Tours}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedTour}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                            >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
                             <Frame
                             HeightRequest="280" WidthRequest="180"
                             BackgroundColor="White"
@@ -198,37 +202,25 @@
                                                 Aspect="AspectFill"                           
                                         />
                                     </StackLayout>
-                                    <Image Source="bookmark.png" HeightRequest="25" HorizontalOptions="End" VerticalOptions="Start" Margin="0, 0, 5, 0"/>
-                                    <StackLayout>
+                                   
+                                  
                                         <Label
                                     Text="{Binding name}"
                                     TextColor="White"
                                     FontSize="18"
                                     FontAttributes="Bold"
-                                    Margin="13,0,0,0"
-                                    VerticalOptions="EndAndExpand"
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand"
+                                            HorizontalTextAlignment="Center"
                         />
-                                        <StackLayout Orientation="Horizontal" Margin="0,0,5,10">
-                                            <Image 
-                                        Source="https://ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18-300x300.png"
-                                        Aspect="AspectFill"
-                                        HeightRequest="20"
-                                        Margin="10, 0, 0, 0"
-                        />
-                                            <Label
-                                        Text="{Binding description}"
-                                        TextColor="White"
-                                        FontSize="14"                            
-                                        Margin="-5, 0, 0, 0"/>
-                                        </StackLayout>
-                                    </StackLayout>
+                                        
                                 </Grid>
                             </Frame>
                         </StackLayout>
 
                     </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </Grid>
 </ContentPage>

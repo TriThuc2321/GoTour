@@ -63,11 +63,13 @@
                         <Label
                                     Text="{Binding SelectedTour.name}"
                                     TextColor="SteelBlue"        
-                                    FontSize="30"
+                                    FontSize="Large"
                                     FontAttributes="Bold"
-                                    Margin="0,0,0,0"
                                     HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="StartAndExpand"
+                            
                         />
+                       
                         <ImageButton Command="{Binding OpenDetailTour}" HeightRequest="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Source="nextIcon.png"/>
                     </StackLayout>
                   
@@ -77,7 +79,8 @@
 
                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                             <ImageButton HeightRequest="30" WidthRequest="30"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent"></ImageButton>
-                                <Label Text="{Binding SelectedTour.starNumber}" VerticalOptions="CenterAndExpand"
+                            <Label Text="{Binding SelectedTour.starNumber}" VerticalOptions="CenterAndExpand"
+                               WidthRequest="40"
                                TextColor="Wheat"
                                FontAttributes="Bold"
                                FontSize="Medium"></Label>
@@ -86,6 +89,7 @@
                             <ImageButton HeightRequest="30" WidthRequest="30"  Source="starttimeicon.png" CornerRadius="20" ></ImageButton>
                             <Label Text="{Binding SelectedTour.startTime}" 
                                VerticalOptions="CenterAndExpand"
+                                   WidthRequest="150"
                                TextColor="White"
                                FontAttributes="Bold"
                                FontSize="Small"></Label>
@@ -115,9 +119,16 @@
                     </Grid>
 
                     <StackLayout Orientation="Horizontal"  VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding SelectedTour.basePrice,StringFormat='{}{0} VND'}" TextColor="Black" FontAttributes="Bold" FontSize="Large" VerticalOptions="CenterAndExpand" Margin="0,0,30,10"></Label>
+                        <Label Text="{Binding SelectedTour.basePrice,StringFormat='{}{0} $'}" TextColor="Black" FontAttributes="Bold" FontSize="Large" VerticalOptions="CenterAndExpand" Margin="0,0,30,10"></Label>
                         <Button BackgroundColor="SteelBlue" Text="BOOK NOW" FontAttributes="Bold" TextColor="White" CornerRadius="10" HorizontalOptions="FillAndExpand" 
-                                Command="{Binding BookTourCommand}"></Button>
+                                Command="{Binding BookTourCommand}">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding SelectedTour.isOccured}" Value="true">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Text" Value="Tour Is Occured" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
                     </StackLayout>
                 </StackLayout>
             </pancake:PancakeView>

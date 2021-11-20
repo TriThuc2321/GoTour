@@ -33,6 +33,7 @@ namespace GoTour.Database
         public List<User> customers;
         public List<ImagePlaceStream> imagePlaceStreams;
         public bool LoadData = true;
+        
 
         #region TourView
         
@@ -64,6 +65,13 @@ namespace GoTour.Database
         public int idTourDuration;
         private DataManager()
         {
+            //HUYNH
+            SearchServices = new SearchAndFilterServices();
+            NotiServices = new NotificationServices();
+            NotiList = new ObservableCollection<Notification>();
+            
+
+
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
             ReviewService = new ReviewService();
@@ -78,6 +86,7 @@ namespace GoTour.Database
             StayPlacesServices = new StayPlacesServices();
             TourPlaceServices = new TourPlaceServices();
             TourServices = new ToursServices();
+            RuleServices = new RuleServices();
             
             getAllStayPlaceList();
 
@@ -101,17 +110,31 @@ namespace GoTour.Database
             CurrentUser = new User();
             
             getAllList();
+            
+           
         }
         async Task getAllList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
-            users = await UsersServices.GetAllUsers();
+            
 
             admins = new List<User>();
             managements = new List<User>();
             tourGuides = new List<User>();
             customers = new List<User>();
+            
+            //HUYNH
+            notiServices.ListAllNoti = await notiServices.GetAllNotification();
+            foreach (Notification ite in notiServices.ListAllNoti)
+            {
+                NotiList.Add(ite);
+            }
+
+            rule = await RuleServices.GetRule();
+
+
+            users = await UsersServices.GetAllUsers();
             foreach (User u in users)
             {
                 ListUser.Add(u);
@@ -230,6 +253,39 @@ namespace GoTour.Database
 
             return temp;
         }
+
+        public List<string> GetDeductInformation(BookedTicket cancelledTicket)
+        {
+            List<string> result = new List<string>();
+            string deductPercent = "100";
+            string[] TourStartTime = cancelledTicket.tour.startTime.Split('/');
+            DateTime time = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
+            DateTime currrent_time = DateTime.Now.AddDays(0);
+            TimeSpan interval = time.Subtract(currrent_time);
+            double count = interval.Days;
+
+            if (count >= 5 && count < 10)
+                deductPercent = DataManager.Ins.Rule.deduct[1];
+            else if (count >= 3 && count < 5)
+                deductPercent = DataManager.Ins.Rule.deduct[2];
+            else if (count >= 1 && count < 3)
+                deductPercent = DataManager.Ins.Rule.deduct[3];
+            else if (count <= 1) deductPercent = DataManager.Ins.Rule.deduct[3];
+            else deductPercent = DataManager.Ins.Rule.deduct[0];
+
+            string amount = ((int.Parse(cancelledTicket.invoice.total) - ((int.Parse(cancelledTicket.invoice.total) * int.Parse(deductPercent)) / 100))).ToString();
+            deductPercent = (100 - int.Parse(deductPercent)).ToString();
+
+            string notificationBody = "Dear, " + cancelledTicket.name + "\n" +
+                "You have just canceled your tour ticket: '" + cancelledTicket.tour.name + "' departing on " + cancelledTicket.tour.startTime + ". According to our policy, you will receive a refund of "
+                + deductPercent + " % of the bill paid. The amount you will be refunded is: " + amount + "$. Thank you for using the service.\n"
+   + "Transactions will be made when you connect to our transaction office: 0383303061 - Nguyen Khanh Linh." + "\n---------------\n" + "For any questions and feedback, please contact the hotline: 0787960456 - Tran Tri Thuc";
+
+            result.Add(notificationBody);
+            result.Add(amount);
+
+            return result;
+        }
         private MemoryStream GetStreamFromUrl(string url)
         {
             byte[] imageData = null;
@@ -262,6 +318,16 @@ namespace GoTour.Database
             set { tourServices = value; }
         }
 
+        private RuleServices ruleServices;
+        public RuleServices RuleServices
+        {
+            get
+            {
+                return ruleServices;
+            }
+            set { ruleServices = value; }
+        }
+
 
         private StayPlacesServices stayPlacesServices;
         public StayPlacesServices StayPlacesServices
@@ -271,6 +337,42 @@ namespace GoTour.Database
                 return stayPlacesServices;
             }
             set { stayPlacesServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO SEARCH SERVICE
+        private SearchAndFilterServices searchServices;
+        public SearchAndFilterServices SearchServices
+        {
+            get
+            {
+                return searchServices;
+            }
+            set { searchServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO NOTIFICATION SERVICE
+        private NotificationServices notiServices;
+        public NotificationServices NotiServices
+        {
+            get
+            {
+                return notiServices;
+            }
+            set { notiServices = value; }
+        }
+
+
+        //HUYNH - KHAI BAO LIST NOTI
+        private ObservableCollection<Notification> notiList;
+        public ObservableCollection<Notification> NotiList
+        {
+            get { return notiList; }
+            set
+            {
+                notiList = value;
+            }
         }
 
         private PlacesServices placesServices;
@@ -343,6 +445,25 @@ namespace GoTour.Database
             }
         }
 
+        private ObservableCollection<Notification> systemNotification;
+        public ObservableCollection<Notification> SystemNotification
+        {
+            get { return systemNotification; }
+            set
+            {
+                systemNotification = value;
+            }
+        }
+        private ObservableCollection<Notification> guiderNotification;
+        public ObservableCollection<Notification> GuiderNotification
+        {
+            get { return guiderNotification; }
+            set
+            {
+                guiderNotification = value;
+            }
+        }
+
         private User currentUser;
         public User CurrentUser
         {
@@ -379,6 +500,15 @@ namespace GoTour.Database
             set
             {
                 verifyCode = value;
+            }
+        }
+        private Rule rule;
+        public Rule Rule
+        {
+            get { return rule; }
+            set
+            {
+                rule = value;
             }
         }
         private string USDcurrency;
@@ -496,6 +626,7 @@ namespace GoTour.Database
             set
             {
                 currentBookedTicket = value;
+                OnPropertyChanged("CurrentBookedTicket");
             }
         }
         public UsersServices usersServices;
@@ -506,6 +637,16 @@ namespace GoTour.Database
             {
                 usersServices = value;
                 OnPropertyChanged("UsersServices");
+            }
+        }
+        private Notification currentNoti;
+        public Notification CurrentNoti
+        {
+            get { return currentNoti; }
+            set
+            {
+                currentNoti = value;
+                OnPropertyChanged("CurrentNoti");
             }
         }
 
@@ -551,6 +692,9 @@ namespace GoTour.Database
                 OnPropertyChanged("CurrentInvoice");
             }
         }
+
+
+     
 
         private bool isManager;
         public bool IsManager

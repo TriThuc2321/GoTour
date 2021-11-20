@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="GoTour.MVVM.View.DetailNotification">
+
+    <ContentPage.BindingContext>
+        <vm:DetailNotificationViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.RowSpan="3" Source="notification_background.jpg" VerticalOptions="FillAndExpand" Aspect="AspectFill" Opacity="1"></Image>
+            <pancake:PancakeView Grid.Row="1" CornerRadius="20,20,20,20" Padding="5"  VerticalOptions="Fill">
+            <StackLayout Padding="10"  BackgroundColor="White">
+            <Label Text="{Binding SelectedNoti.title}" FontAttributes="Bold" FontSize="Large"></Label>
+                <Line BackgroundColor="Black" HeightRequest="2" ></Line>
+                <Label Text="{Binding SelectedNoti.tourId ,StringFormat='{}About: {0}'}" TextColor="Coral" FontAttributes="Bold"/>
+                    <Label Text="{Binding SelectedNoti.senderEmail ,StringFormat='{}Sender : {0}'}" FontAttributes="Italic"></Label>
+                    <Label Text="{Binding SelectedNoti.when ,StringFormat='{}When: {0}'}"></Label>
+                <Line BackgroundColor="Black" HeightRequest="2" ></Line>
+                <Label Text="Message:" FontAttributes="Bold" FontSize="Medium"></Label>
+                <Label Text="{Binding SelectedNoti.body}" Padding="10,2,10,5" FontSize="Medium" FontAttributes="None"></Label>
+            </StackLayout>
+            </pancake:PancakeView>
+            <StackLayout Grid.Row="0" Orientation="Horizontal"  VerticalOptions="StartAndExpand" HorizontalOptions="Fill" Padding="5">
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="CenterAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 0 , 0, 0">
+                </ImageButton>
+                <Label Text="Notification" FontSize="22" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
