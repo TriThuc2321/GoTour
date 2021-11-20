@@ -15,8 +15,7 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         Shell currentShell;
-
-        private readonly IMessageService _messageService;
+        public Command DeleteCommand;
         public PlaceManagerViewModel() { }
         public PlaceManagerViewModel(INavigation navigation, Shell currentShell)
         {
@@ -24,16 +23,10 @@ namespace GoTour.MVVM.ViewModel
             this.currentShell = currentShell;
 
             ListPlace = DataManager.Ins.ListPlace;
-            _messageService = DependencyService.Get<IMessageService>();
-
-            //Show the dialog with next line
-           
+            DeleteCommand = new Command<object>(deleteHandle);
         }
-        public ICommand NavigationBack => new Command<object>((obj) =>
-        {
-            navigation.PopAsync();
-        });
-        public ICommand DeleteCommand => new Command<object>(async (obj) =>
+
+        private void deleteHandle(object obj)
         {
             var place = obj as Place;
             if (place == null) return;
@@ -94,10 +87,6 @@ namespace GoTour.MVVM.ViewModel
                     message2 += "stay places has been conflicted, please delete before doing this task!";
                 }
 
-                _messageService.ShowAsync("Warning", message1 + message2);
-            }                     
-            
-        });
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             Place result = obj as Place;

@@ -2,8 +2,6 @@
 using GoTour.Database;
 using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
-using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -28,7 +26,7 @@ namespace GoTour.MVVM.ViewModel
             Confirm = new Command(confirmPress);
         }
 
-        async void confirmPress(object obj)
+        void confirmPress(object obj)
         {
             if (!IsCheckRegulation)
                 DependencyService.Get<IToast>().ShortToast("Please check regulation box");
@@ -49,7 +47,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 DataManager.Ins.CurrentBookedTicket.invoice.method = "MoMo";
                 navigation.PushAsync(new MoMoConfirmView());
-            }
             else if (IsCheckRegulation && Cash)
             {
                 DataManager.Ins.CurrentInvoice.method = "Cash";
@@ -118,17 +115,6 @@ namespace GoTour.MVVM.ViewModel
         #endregion
 
         #region regulation
-        private string _regulation;
-        public string Regulation
-        {
-            get { return _regulation; }
-            set
-            {
-                _regulation = value;
-                OnPropertyChanged("Regulation");
-            }
-        }
-
         private bool _isCheckRegulation;
         public bool IsCheckRegulation
         {

@@ -17,10 +17,7 @@ namespace GoTour.Database
         public ObservableCollection<Notification> ListMyNoti_TourGuider { get; set; }
         public ObservableCollection<Notification> ListMyNoti_System { get; set; }
 
-        public NotificationServices() {
-          
-
-        }
+        public NotificationServices() { }
         public async Task<List<Notification>> GetAllNotification()
         {
             ListAllNoti = (await firebase
@@ -36,8 +33,7 @@ namespace GoTour.Database
                   title = item.Object.title,
                   isChecked = item.Object.isChecked,
                   body = item.Object.body,
-                  when = item.Object.when,
-                  
+                  when = item.Object.when,                 
               }).ToList();
             ListAllNoti.Reverse();
 

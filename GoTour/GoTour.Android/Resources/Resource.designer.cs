@@ -14579,13 +14579,13 @@ namespace GoTour.Droid
 			public const int btn_radio_on_to_off_mtrl_animation = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int calendarIcon = 2131165295;
+			public const int changephoto = 2131165295;
 			
 			// aapt resource value: 0x7F070070
 			public const int calenderIcon = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int changephoto = 2131165297;
+			public const int defaultUser = 2131165297;
 			
 			// aapt resource value: 0x7F070072
 			public const int clockIcon = 2131165298;
@@ -14622,6 +14622,7 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F07007D
 			public const int design_snackbar_background = 2131165309;
+			public const int eyeOffIcon = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
 			public const int durationicon = 2131165310;
@@ -14847,6 +14848,64 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F0700C8
 			public const int userOutlineIcon = 2131165384;
+			public const int planeIcon = 2131165360;
+			
+			// aapt resource value: 0x7F0700B1
+			public const int questionableIcon = 2131165361;
+			
+			// aapt resource value: 0x7F0700B2
+			public const int scoreicon = 2131165362;
+			
+			// aapt resource value: 0x7F0700B3
+			public const int searchIcon = 2131165363;
+			
+			// aapt resource value: 0x7F0700B4
+			public const int sendNotiBg = 2131165364;
+			
+			// aapt resource value: 0x7F0700B5
+			public const int shoppingcartIcon = 2131165365;
+			
+			// aapt resource value: 0x7F0700B6
+			public const int sorticon = 2131165366;
+			
+			// aapt resource value: 0x7F0700B7
+			public const int starttimeicon = 2131165367;
+			
+			// aapt resource value: 0x7F0700B8
+			public const int test_custom_background = 2131165368;
+			
+			// aapt resource value: 0x7F0700B9
+			public const int thuc = 2131165369;
+			
+			// aapt resource value: 0x7F0700BA
+			public const int tickIcon = 2131165370;
+			
+			// aapt resource value: 0x7F0700BB
+			public const int tooltip_frame_dark = 2131165371;
+			
+			// aapt resource value: 0x7F0700BC
+			public const int tooltip_frame_light = 2131165372;
+			
+			// aapt resource value: 0x7F0700BD
+			public const int tourGuiderbg1 = 2131165373;
+			
+			// aapt resource value: 0x7F0700BE
+			public const int tourGuiderIcon = 2131165374;
+			
+			// aapt resource value: 0x7F0700BF
+			public const int tourIcon = 2131165375;
+			
+			// aapt resource value: 0x7F0700C0
+			public const int trashIcon = 2131165376;
+			
+			// aapt resource value: 0x7F0700C1
+			public const int userOutlineIcon = 2131165377;
+			
+			// aapt resource value: 0x7F0700C2
+			public const int xIcon = 2131165378;
+			
+			// aapt resource value: 0x7F0700C3
+			public const int XIcony = 2131165379;
 			
 			static Drawable()
 			{

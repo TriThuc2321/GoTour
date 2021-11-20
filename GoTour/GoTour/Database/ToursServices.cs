@@ -37,9 +37,7 @@ namespace GoTour.Database
                   placeDurationList = null,
                   basePrice = item.Object.basePrice,
                   SPforPList = item.Object.SPforPList,
-                  remaining = item.Object.remaining,
-                  reviewList = null,
-                  starNumber = item.Object.starNumber
+                  remaining = item.Object.remaining
               }).ToList();
         }
         public async Task AddTour(Tour tour)
@@ -64,7 +62,6 @@ namespace GoTour.Database
                   reviewList = null,
               });
         }
-
         public async Task UpdateTour(Tour tour)
         {
             var toUpdateTour = (await firebase

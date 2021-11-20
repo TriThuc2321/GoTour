@@ -226,6 +226,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sorticon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\changephoto.png" />
   </ItemGroup>
   <ItemGroup>
@@ -233,13 +235,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\notification_background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\clocksIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\calenderIcon.png" />
+    <AndroidResource Include="Resources\drawable\sendNotiBg.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\nextIcon.png" />
+    <AndroidResource Include="Resources\drawable\xIcon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\XIcony.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tourGuiderIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\imagePickerIcon.png" />
@@ -257,7 +267,10 @@
     <AndroidResource Include="Resources\drawable\completeIcon.png" />    
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\momo.png" />
+    <AndroidResource Include="Resources\drawable\momo.png" />    
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tourGuiderbg1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

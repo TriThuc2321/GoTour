@@ -11,10 +11,9 @@ using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    class NotificationViewModel:ObservableObject
+    class NotificationViewModel : ObservableObject
     {
         INavigation navigation;
-        public Command NavigationBack { get; }
         public NotificationViewModel() { }
         public NotificationViewModel(INavigation navigation)
         {

@@ -6,9 +6,6 @@
              NavigationPage.HasNavigationBar="false"
              >
 
-    <ContentPage.BindingContext>
-        <vm:NotificationViewModel/>
-    </ContentPage.BindingContext>
 
     <ContentPage.Content>
         <Grid  >

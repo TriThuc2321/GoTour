@@ -50,19 +50,6 @@ namespace GoTour.MVVM.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        //public int CompareTo(Tour other)
-        //{
-        //    if (Int32.Parse(this.basePrice).CompareTo(Int32.Parse(other.basePrice)) == 0)
-        //    {
-        //        if (Int32.Parse(basePrice) > Int32.Parse(other.basePrice))
-        //            return 1; //Age lớn hơn 
-        //        if (Int32.Parse(basePrice) < Int32.Parse(other.basePrice))
-        //            return -1;  //Age nhỏ hơn
-        //        if (Int32.Parse(basePrice) == Int32.Parse(other.basePrice))
-        //            return 0; //Hai đối tượng coi như bằng nhau
-        //    }
-        //    return this.basePrice.CompareTo(other.basePrice);
-        //}
 
     }
 }

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="GoTour.MVVM.View.TourGuiderWorkSpaceView">
+    <ContentPage.BindingContext>
+        <vm:TourGuiderWorkSpaceViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <pancake:PancakeView CornerRadius="0,0,0,0">
+                <Image Source="tourGuiderbg1.jpg
+                       " Aspect="AspectFill" />
+            </pancake:PancakeView>
+            <Label Text="YOUR TOUR WORK" 
+                   TextColor="#ddc8c4"
+                   FontAttributes="Bold"
+                   FontSize="Title"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   Opacity="1"
+                   ></Label>
+
+
+            <ImageButton Command="{Binding MenuCommand}" 
+                                 Source="menuIcon.png" 
+                                 HeightRequest="35" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="Transparent" 
+                                 Margin="10, 10 , 0, 0">
+            </ImageButton>
+
+
+            <Button Command="{Binding OpenSendNotiView }"                                
+                                 Text="Send Notification"
+                                 TextColor="White"
+                                 CornerRadius="10"
+                                 FontAttributes="Bold"
+                                 FontSize="11"
+                                 Margin="10,150,255,-25"
+                                 BackgroundColor="#ddc8c4"                              
+                                 />
+            <CollectionView x:Name="clview" 
+                            Grid.Row="1"
+                            Margin="0,25,0,0"
+                            BackgroundColor="White"
+                            ItemsSource="{Binding ListTourYouWorkOn}" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedTour}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame HeightRequest="250" Padding="0" HasShadow="True" CornerRadius="8">
+                                <Image Source="{Binding imgSource[0]}" Aspect="AspectFill"/>
+                            </Frame>
+                            <pancake:PancakeView CornerRadius="0,10,0,10" Padding="10" Grid.Column="1" Margin="0,0,0,0" VerticalOptions="StartAndExpand" BackgroundColor="White">
+                                <StackLayout>
+                                    <Label Text="{Binding name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
+                                    <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
+                                    <Label Text="{Binding startTime ,StringFormat='{} Ngày khởi hành: {0}'}" TextColor="Black"/>
+                                    <Label Text="{Binding description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
+                                </StackLayout>
+                            </pancake:PancakeView>
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

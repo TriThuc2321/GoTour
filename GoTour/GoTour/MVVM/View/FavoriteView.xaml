@@ -71,7 +71,7 @@
                                     FontSize="24"
                                     FontAttributes="Bold"
                                     Margin="13,0,0,0"
-                                    VerticalOptions="CenterAndExpand"
+                                    VerticalOptions="EndAndExpand"
                                     />
 
                                    

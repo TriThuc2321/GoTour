@@ -64,8 +64,8 @@
                                Margin="0, 100, 0, 0"/>
 
                         <!--Số tiền-->
-                        <Label Text="{Binding Total}"
-                               FontSize="38"
+                        <Label Text="5000000"
+                               FontSize="35"
                                 HorizontalOptions="Center"
                                TextColor="ForestGreen"
                                FontAttributes="Bold"
@@ -158,7 +158,7 @@
                                CornerRadius="20">
                             <Label
                             Margin="10"
-                            Text="{Binding Regulation}"
+                            Text="Quy định blabla bla"
                             FontSize="17"
                             FontAttributes="Italic"
                             TextColor="Black"

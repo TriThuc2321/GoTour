@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.DetailTourView" 
-             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" 
-             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="True"
              Title="{Binding SelectedTour.name}">
     <ContentPage.BindingContext>
@@ -37,11 +36,10 @@
                     <ImageButton Source="{Binding LoveBtn}"
                                  BackgroundColor="Transparent"
                                  Command="{Binding LoveCommand}"
-                           HeightRequest="40"
-                           WidthRequest="40"
+                           HeightRequest="50"
+                           WidthRequest="50"
                            HorizontalOptions="EndAndExpand"
                            VerticalOptions="StartAndExpand"
-                                 Margin="0, 10, 20, 0"
                            ></ImageButton>
                     <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
