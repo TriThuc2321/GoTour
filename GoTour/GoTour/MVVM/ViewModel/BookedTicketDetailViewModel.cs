@@ -315,8 +315,8 @@ namespace GoTour.MVVM.ViewModel
             string[] splitYear = tourStartTime[2].Split(' ');
             DateTime timeStart = new DateTime(
                 int.Parse(splitYear[0]),
-                int.Parse(tourStartTime[1]),
-                int.Parse(tourStartTime[0])
+                int.Parse(tourStartTime[0]),
+                int.Parse(tourStartTime[1])
                 );
 
             string[] duration = tour.duration.Split('/');
@@ -330,7 +330,7 @@ namespace GoTour.MVVM.ViewModel
             maxDuration = (int.Parse(maxDuration) * 24 * 60 * 60).ToString();
 
             // Thoi gian bat dau tour den current time
-            double count = interval.Seconds;
+            double count = interval.Days * 60 * 60 * 24;
             if (count > 0)
             {
                 Occured = "Not occured";

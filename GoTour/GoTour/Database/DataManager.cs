@@ -163,11 +163,6 @@ namespace GoTour.Database
             List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
             foreach (Invoice invoice in invoicesList)
             {
-                //foreach (Discount discount in discountsList)
-                //{
-                //    if (invoice.discount.id == discount.id)
-                //        invoice.discount = discount;
-                //}
                 if (invoice.discount != null)
                     invoice.discount = discountsList.Find(e => (e.id == invoice.discount.id));
                 ListInvoice.Add(invoice);

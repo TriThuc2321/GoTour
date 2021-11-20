@@ -114,7 +114,7 @@ namespace GoTour.MVVM.ViewModel
                     if (DataManager.Ins.ListUser[i].password == DataManager.Ins.UsersServices.Encode(Password))
                     {
                         DataManager.Ins.CurrentUser = DataManager.Ins.ListUser[i];
-                        //GetCurrency(); // lay ngoai te
+                        GetCurrency(); // lay ngoai te
                         DependencyService.Get<IToast>().ShortToast("Login successfully");
 
                         if (RememberAccount)
