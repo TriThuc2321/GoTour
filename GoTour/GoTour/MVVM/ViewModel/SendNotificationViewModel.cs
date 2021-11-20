@@ -39,71 +39,19 @@ namespace GoTour.MVVM.ViewModel
         //BACK PRESS
         public ICommand BackPress => new Command(() => navigation.PopAsync());
 
-        //SEND COMMAND
-        public ICommand SendCommand => new Command(() => SendNotification());
-        public void SendNotification()
+
+        //ALERT YES NO AND SEND
+        async void OnAlertYesNoClicked()
         {
-            int type = 0;
-            if(IsCheckToAll)
+            bool answer = await App.Current.MainPage.DisplayAlert("Confirm", "Once you sent, you can not take back !", "Yes", "No");
+            if(answer)
             {
-                if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(TourIdText) || string.IsNullOrWhiteSpace(Message))
+                int type = 0;
+                if (IsCheckToAll)
                 {
-                    DependencyService.Get<IToast>().ShortToast("Please fill out your notification needs");
-                    return;
-                }
-                else
-                {
-                    if(SystemSelected == true)
+                    if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(TourIdText) || string.IsNullOrWhiteSpace(Message))
                     {
-                        if(DataManager.Ins.CurrentUser.rank == 2)
-                        {
-                          App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
-                        }
-                        else
-                        {
-                            type = 1;
-                            foreach (User i in DataManager.Ins.ListUser)
-                            {
-                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
-                            }
-                            Title = "";
-                            TourIdText = "";
-                            StartTimetext = "";
-                            IsCheckToAll = true;
-                            Message = "";
-                            Recievers.Clear();
-                            DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                        }                      
-                    }
-                    else
-                    {
-                        type = 2;
-                        foreach(User i in DataManager.Ins.ListUser)
-                        {
-                            DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
-                        }
-                        Title = "";
-                        TourIdText = "";
-                        StartTimetext = "";
-                        IsCheckToAll = true;
-                        Message = "";
-                        Recievers.Clear();
-                        DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                    }
-                }
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(TourIdText) || string.IsNullOrWhiteSpace(Message))
-                {
-                    DependencyService.Get<IToast>().ShortToast("Please fill out your notification needs");
-                    return;
-                }
-                else
-                {
-                    if (Recievers.Count < 1)
-                    {
-                        DependencyService.Get<IToast>().ShortToast("Who will recieve this notification ?");
+                        DependencyService.Get<IToast>().ShortToast("Please fill out your notification needs");
                         return;
                     }
                     else
@@ -117,7 +65,7 @@ namespace GoTour.MVVM.ViewModel
                             else
                             {
                                 type = 1;
-                                foreach (User i in Recievers)
+                                foreach (User i in DataManager.Ins.ListUser)
                                 {
                                     DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                                 }
@@ -128,12 +76,12 @@ namespace GoTour.MVVM.ViewModel
                                 Message = "";
                                 Recievers.Clear();
                                 DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                            }              
+                            }
                         }
                         else
                         {
                             type = 2;
-                            foreach (User i in Recievers)
+                            foreach (User i in DataManager.Ins.ListUser)
                             {
                                 DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                             }
@@ -146,8 +94,75 @@ namespace GoTour.MVVM.ViewModel
                             DependencyService.Get<IToast>().ShortToast("Sended successfully !");
                         }
                     }
-                }                 
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(TourIdText) || string.IsNullOrWhiteSpace(Message))
+                    {
+                        DependencyService.Get<IToast>().ShortToast("Please fill out your notification needs");
+                        return;
+                    }
+                    else
+                    {
+                        if (Recievers.Count < 1)
+                        {
+                            DependencyService.Get<IToast>().ShortToast("Who will recieve this notification ?");
+                            return;
+                        }
+                        else
+                        {
+                            if (SystemSelected == true)
+                            {
+                                if (DataManager.Ins.CurrentUser.rank == 2)
+                                {
+                                    App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
+                                }
+                                else
+                                {
+                                    type = 1;
+                                    foreach (User i in Recievers)
+                                    {
+                                        DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                                    }
+                                    Title = "";
+                                    TourIdText = "";
+                                    StartTimetext = "";
+                                    IsCheckToAll = true;
+                                    Message = "";
+                                    Recievers.Clear();
+                                    DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                                }
+                            }
+                            else
+                            {
+                                type = 2;
+                                foreach (User i in Recievers)
+                                {
+                                    DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                                }
+                                Title = "";
+                                TourIdText = "";
+                                StartTimetext = "";
+                                IsCheckToAll = true;
+                                Message = "";
+                                Recievers.Clear();
+                                DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                            }
+                        }
+                    }
+                }
             }
+            else
+            {
+                return;
+            }
+        }
+
+        //SEND COMMAND
+        public ICommand SendCommand => new Command(() => SendNotification());
+        public void SendNotification()
+        {
+            OnAlertYesNoClicked();
         }
 
         //LIST REVIEVER

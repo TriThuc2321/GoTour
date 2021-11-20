@@ -123,7 +123,7 @@
         <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Tour Guider" Icon="tourGuiderIcon.png">
+    <FlyoutItem Title="Tour Guider" Icon="tourGuiderIcon.png" >
         <ShellContent Route="TourGuiderWorkSpace" ContentTemplate="{DataTemplate views:TourGuiderWorkSpaceView}" Style="{DynamicResource Base1Style}"/>
     </FlyoutItem>
 

@@ -18,6 +18,7 @@
                              Aspect="AspectFill" HeightRequest="320"
                              Command="{Binding AddImageCommand}" Visual="Material"/>
 
+
                 <Frame Padding="10" HasShadow="False" 
                        CornerRadius="40" Margin="0,-50,0,0" 
                        VerticalOptions="FillAndExpand">
@@ -56,7 +57,7 @@
                                                    Grid.Column="2" Margin="15,-15,0,-15" Keyboard="Text"
                                                    HeightRequest="40" Text="{Binding Name}" 
                                                    BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
-                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Black"  />
                             </Grid>
                         </Frame>
                         
@@ -70,7 +71,7 @@
                                                BackgroundColor="#ded9e2" Margin="0,-15,0,-15" 
                                                HeightRequest="30" IsEnabled="False" 
                                                Text="{Binding Email}" FontSize="17" 
-                                               FontAttributes="Bold"  />
+                                               FontAttributes="Bold" TextColor="Black" />
                         </Frame>
                         
                         
@@ -96,7 +97,7 @@
                                 <local:CustomEntry Grid.Column="2" Margin="25,-15,0,-15" Keyboard="Text"
                                                    HeightRequest="40" Text="{Binding CMND}" 
                                                    BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
-                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Black"  />
                             </Grid>
                         </Frame>
                         
@@ -123,7 +124,7 @@
                                 <local:CustomEntry Grid.Column="2" Margin="25,-15,0,-15" Keyboard="Telephone"
                                                    HeightRequest="40" Text="{Binding Contact}" 
                                                    BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
-                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Black"  />
                             </Grid>
                         </Frame>
                         
@@ -150,7 +151,7 @@
                                 <DatePicker Grid.Column="2" Margin="-15,-15,0,-16"
                                                    HeightRequest="40" Date="{Binding Birthday}" 
                                                    BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
-                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Black"
                                                     HorizontalOptions="Center" Format="d" />
                             </Grid>
                         </Frame>
@@ -177,7 +178,7 @@
                                 <local:CustomEntry Grid.Column="2" Margin="15,-15,0,-15" Keyboard="Text"
                                                    HeightRequest="40" Text="{Binding Address}" 
                                                    BackgroundColor="WhiteSmoke" IsEnabled="{Binding IsEdit}" 
-                                                   FontSize="17" FontAttributes="Bold" TextColor="Gray"  />
+                                                   FontSize="17" FontAttributes="Bold" TextColor="Black"  />
                             </Grid>
                         </Frame>
 
