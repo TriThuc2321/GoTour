@@ -88,7 +88,7 @@ namespace GoTour.MVVM.ViewModel
         async void openSortMenu()
         {
             //DependencyService.Get<IToast>().ShortToast("Here is Open Sort");
-            string action = await Application.Current.MainPage.DisplayActionSheet("Sort wwith: ", "Cancel", null, "Increasing price", "Decreasing price", "Appreciated", "Underestimated","Soon", "Late");
+            string action = await Application.Current.MainPage.DisplayActionSheet("Sort with: ", "Cancel", null, "Increasing price", "Decreasing price","Soon", "Late");
             switch (action)
             {
                 case "Increasing price":
@@ -96,12 +96,6 @@ namespace GoTour.MVVM.ViewModel
                     break;
                 case "Decreasing price":
                     DecreasingPriceSort();
-                    break;
-                case "Appreciated":
-                    GraduallyAppreciatedSort();
-                    break;
-                case "Underestimated":
-                    GraduallyUnderestimatedSort();
                     break;
                 case "Soon":
                     OccurSoonSort();
@@ -158,28 +152,6 @@ namespace GoTour.MVVM.ViewModel
                     }
                 }
                 return;
-            }
-        }
-        private void GraduallyAppreciatedSort()
-        {
-            if(ListTourFromSelectedPlace.Count == 1)
-            {
-                return;
-            }
-            else
-            {
-
-            }
-        }
-        private void GraduallyUnderestimatedSort()
-        {
-            if (ListTourFromSelectedPlace.Count == 1)
-            {
-                return;
-            }
-            else
-            {
-
             }
         }
         private void OccurSoonSort()

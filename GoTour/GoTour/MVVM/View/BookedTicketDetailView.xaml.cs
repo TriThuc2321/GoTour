@@ -14,10 +14,11 @@ namespace GoTour.MVVM.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookedTicketDetailView : ContentPage
     {
+        BookedTicket ticket;
         public BookedTicketDetailView()
         {
             InitializeComponent();
-            this.BindingContext = new BookedTicketDetailViewModel(Navigation);
+            this.BindingContext = new BookedTicketDetailViewModel(Navigation, ticket );
         }
     }
 }

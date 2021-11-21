@@ -1,8 +1,4 @@
-﻿using GoTour.Core;
-using GoTour.Database;
-using GoTour.MVVM.Model;
-using GoTour.MVVM.View;
-using Plugin.Media;
+﻿using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,14 +6,12 @@ using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    public class BookedTicketDetailViewModel: ObservableObject
+    public class BookedTicketDetailViewModel
     {
         INavigation navigation;
+        public BookedTicket ticket { get; }
         public Command NavigationBack { get; }
-        public BookedTicketDetailViewModel() {}
-        public Command UploadPhoto { get; }
-        public Command CancelTicket { get; }
-        public Command ViewDetail { get; }
+        public BookedTicketDetailViewModel(){}
         public BookedTicketDetailViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -197,15 +191,6 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private bool displayUpload;
-        public bool DisplayUpload
-        {
-            get { return displayUpload; }
-            set
-            {
-                displayUpload = value;
-                OnPropertyChanged("DisplayUpload");
-            }
         }
 
         private bool cancelVisible;
@@ -298,12 +283,6 @@ namespace GoTour.MVVM.ViewModel
             if (Invoice.discount != null)
                 StrDiscountMoney = service.FormatMoney(StrDiscountMoney);
 
-            if (Invoice.momoVnd != null)
-            {
-                StrMoMoVND = Invoice.momoVnd;
-                StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
-            }
-           
         }
 
         public void checkTourStatus(Tour tour)

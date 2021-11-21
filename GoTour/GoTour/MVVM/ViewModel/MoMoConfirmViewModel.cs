@@ -1,17 +1,13 @@
 ﻿using GoTour.Core;
-using GoTour.Database;
-using GoTour.MVVM.Model;
 using GoTour.MVVM.View;
-using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
 {
-    public class MoMoConfirmViewModel : ObservableObject
+    public class MoMoConfirmViewModel:ObservableObject
     {
         INavigation navigation;
         Shell currentShell;
@@ -19,7 +15,6 @@ namespace GoTour.MVVM.ViewModel
         public MoMoConfirmViewModel() { }
         public Command NavigationBack { get; }
         public Command UploadPhoto { get; }
-        public Command RemovePhoto { get; }
 
         public Command Confirm { get; }
         public MoMoConfirmViewModel(INavigation navigation, Shell shell)
@@ -29,17 +24,14 @@ namespace GoTour.MVVM.ViewModel
             NavigationBack = new Command(() => navigation.PopAsync());
             UploadPhoto = new Command(uploadPhoto);
             Confirm = new Command(confirm);
-            RemovePhoto = new Command(removePhoto);
 
 
             SetInformation();
             checkDateRegulation();
         }
 
-        Plugin.Media.Abstractions.MediaFile currentPhoto;
-        async void uploadPhoto(object obj)
+        void uploadPhoto(object obj)
         {
-            await CrossMedia.Current.Initialize();
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
             currentPhoto = imgData;
@@ -56,7 +48,7 @@ namespace GoTour.MVVM.ViewModel
             
         }
 
-        void removePhoto(object obj)
+        void confirm(object obj)
         {
             currentPhoto = null;
             RemovePhotoVisible = false;
@@ -162,21 +154,21 @@ namespace GoTour.MVVM.ViewModel
         }
 
         #region money
-        private string _strMoney;
-        public string StrMoney
+        private string _money;
+        public string Money
         {
-            get { return _strMoney; }
+            get { return _money; }
             set
             {
-                _strMoney = value;
-                OnPropertyChanged("StrMoney");
+                _money = value;
+                OnPropertyChanged("Money");
             }
         }
         #endregion
 
         #region image
-        private ImageSource _imageLink;
-        public ImageSource ImageLink
+        private string _imageLink;
+        public string ImageLink
         {
             get { return _imageLink; }
             set
@@ -210,28 +202,6 @@ namespace GoTour.MVVM.ViewModel
             }
         }
         #endregion
-
-        private Tour selectedTour;
-        public Tour SelectedTour
-        {
-            get { return selectedTour; }
-            set
-            {
-                selectedTour = value;
-                OnPropertyChanged("SelectedTour");
-            }
-        }
-
-        private string _uploadImageText;
-        public string UploadImageText
-        {
-            get { return _uploadImageText; }
-            set
-            {
-                _uploadImageText = value;
-                OnPropertyChanged("UploadImageText");
-            }
-        }
 
         #region regulation 
         private string _regulation;

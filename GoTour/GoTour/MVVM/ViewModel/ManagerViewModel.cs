@@ -13,7 +13,6 @@ namespace GoTour.MVVM.ViewModel
 
         public Command PlaceCommand { get; }
         public Command StayPlaceCommand { get; }
-        public Command TourCommand { get; }
         public Command MenuCommand { get; }
         public Command StaffCommand { get; }
         public Command RevenueCommand { get; }

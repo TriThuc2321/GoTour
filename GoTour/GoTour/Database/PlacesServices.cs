@@ -69,45 +69,24 @@ namespace GoTour.Database
             var imgurl = stroageImage;
             return imgurl;
         }
-        
+        async public Task<string> saveImage_StayPlace(Stream imgStream, string placeId, int id)
+        {
+            var stroageImage = await new FirebaseStorage("gotour-98c79.appspot.com")
+                .Child("StayPlace").Child(placeId)
+                .Child(id + ".png")
+                .PutAsync(imgStream);
+            var imgurl = stroageImage;
+            return imgurl;
+        }
         public async Task DeleteFile(string folderPlaceId, int id)
         {
-            try
-            {
-                await new FirebaseStorage("gotour-98c79.appspot.com")
+            await new FirebaseStorage("gotour-98c79.appspot.com")
                  .Child("Places")
                  .Child(folderPlaceId).Child(id + ".png")
                  .DeleteAsync();
-            }
-            catch { }
-
-            try
-            {
-                await new FirebaseStorage("gotour-98c79.appspot.com")
-                 .Child("Places")
-                 .Child(folderPlaceId).Child(id + ".jpg")
-                 .DeleteAsync();
-            }
-            catch { }
-            
         }
 
-        public async Task DeletePlace(Place place)
-        {
-            var toDeleted = (await firebase
-               .Child("Places").OnceAsync<Place>()).FirstOrDefault(p => p.Object.id == place.id);
-
-            await firebase.Child("Places").Child(toDeleted.Key).DeleteAsync();
-
-            for (int i = 0; i < place.imgSource.Count; i++)
-            {
-                await DeleteFile(place.id, i);
-            }
-
-            
-
-            
-        }
+        
 
     }
 }

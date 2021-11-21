@@ -20,7 +20,6 @@ namespace GoTour.MVVM.ViewModel
         public Command PlaceCommand { get; }
         public Command StayPlaceCommand { get; }
         public Command TourCommand { get; }
-        public Command ReviewCommand { get; }
         public MenuViewModel() { }
         public MenuViewModel(INavigation navigation)
         {
@@ -29,23 +28,6 @@ namespace GoTour.MVVM.ViewModel
             PlaceCommand = new Command(placeHandle);
             StayPlaceCommand = new Command(stayPlaceHandle);
             TourCommand = new Command(tourHandle);
-            ReviewCommand = new Command(reviewHandle);
-        }
-
-        private async void reviewHandle(object obj)
-        {
-            Review review = new Review("11", "trithuc23232@gmail.com", "message", DateTime.Now, 5);
-
-            await firebase
-              .Child("Reviews")
-              .PostAsync(new Review()
-              {
-                  tourId = review.tourId,
-                  email = review.email,
-                  message = review.message,
-                  time = review.time,
-                  starNumber = review.starNumber,
-              });
         }
 
         private async void stayPlaceHandle(object obj)

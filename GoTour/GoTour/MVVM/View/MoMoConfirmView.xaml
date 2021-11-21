@@ -16,17 +16,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Image Source="{Binding SelectedTour.imgSource[0]}"
-                          Aspect="AspectFill" 
-                   Grid.Row="0"
-                   Grid.RowSpan="2"
-                           />
-
-            <Frame BackgroundColor="White"
-                   Grid.Row="0"
-                   Opacity="0.5"/>
-
-
+            
             <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                 HeightRequest="30" 
@@ -43,7 +33,6 @@
                    Margin="0,0,20,0"
                    VerticalOptions="Center"
                    FontAttributes="Bold"
-                   TextColor="Black"
                    FontSize="25"/>
             
             <ScrollView Grid.Row="1">
@@ -52,9 +41,6 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-
-                    
-                    
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -161,7 +147,7 @@
                                 <Label Text="Update your proof of payment for us now to verify (optional):"
                                        TextColor="Black"
                                        FontAttributes="Bold"
-                                       Margin="20, 0, 20, 20"
+                                       
                                        FontSize="14"/>
 
                                 <Button Command="{Binding UploadPhoto}"
@@ -170,28 +156,12 @@
                                     Margin="25,20,25,30"
                                     Padding="5"  
                                     BorderWidth="1"
-                                    BorderColor="DarkBlue"
-                                    BackgroundColor="White" 
-                                    TextColor="DarkBlue"
-                                    VerticalOptions="Center"
-                                    HeightRequest="50"
-                                    Text="{Binding UploadImageText}"
-                                    FontAttributes="Bold"
-                                    FontSize="20"/>
-
-                                <Button Command="{Binding RemovePhoto}"
-                                        IsVisible="{Binding RemovePhotoVisible}"
-                                    Grid.Row="5"
-                                    CornerRadius="20" 
-                                    Margin="25,0,25,30"
-                                    Padding="5"  
-                                    BorderWidth="1"
                                     BorderColor="#f4707c"
                                     BackgroundColor="White" 
                                     TextColor="#f4707c"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="Remove"
+                                    Text="update photo"
                                     FontAttributes="Bold"
                                     FontSize="20"/>
 
@@ -214,7 +184,7 @@
                                     TextColor="White"
                                     VerticalOptions="Center"
                                     HeightRequest="50"
-                                    Text="{Binding ConfirmText} "
+                                    Text="confirm "
                                     FontAttributes="Bold"
                                     FontSize="20"
                         />

@@ -62,33 +62,6 @@ namespace GoTour.Database
         //    return temp;
         //}
 
-        public async Task UpdateDiscount(Discount discount)
-        {
-            var toUpdateDiscount = (await firebase
-                 .Child("Discounts")
-                 .OnceAsync<Discount>()).Where(a => a.Object.id == discount.id).FirstOrDefault();
-
-            await firebase
-              .Child("Discounts")
-              .Child(toUpdateDiscount.Key)
-              .PutAsync(new Discount
-              {
-                  id = discount.id,
-                 total = discount.total,
-                 isUsed = discount.isUsed,
-                 percent = discount.percent
-              });
-
-        }
-
-        public async Task<Discount> FindDiscountById(string id)
-        {
-            var all = await GetAllDiscounts();
-            await firebase
-                .Child("Discounts")
-                .OnceAsync<Discount>();
-            return all.Where(a => a.id == id).FirstOrDefault();
-        }
 
     }
 }

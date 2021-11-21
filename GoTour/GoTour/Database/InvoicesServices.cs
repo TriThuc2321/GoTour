@@ -1,10 +1,8 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
-using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +31,7 @@ namespace GoTour.Database
                   payingTime = item.Object.payingTime,
                   amount = item.Object.amount,
                   method = item.Object.method,
-                  total = item.Object.total,
-                  photoMomo = item.Object.photoMomo,
-                  momoVnd = item.Object.momoVnd
+                  total = item.Object.total
               }).ToList();
 
         }
@@ -53,9 +49,7 @@ namespace GoTour.Database
                   payingTime = invoice.payingTime,
                   amount = invoice.amount,
                   method = invoice.method,
-                  total = invoice.total,
-                  photoMomo = invoice.photoMomo,
-                  momoVnd = invoice.momoVnd
+                  total = invoice.total
               });
         }
 

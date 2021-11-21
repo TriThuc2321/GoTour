@@ -76,7 +76,7 @@ namespace GoTour.MVVM.ViewModel
 
             for (int i = 0; i < listStream.Count(); i++)
             {
-                string url = await DataManager.Ins.StayPlacesServices.saveImage(listStream[i], id, i);
+                string url = await DataManager.Ins.PlacesServices.saveImage_StayPlace(listStream[i], id, i);
                 imgSource.Add(url);
             }
             await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address );
