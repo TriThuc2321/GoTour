@@ -125,8 +125,15 @@
                         <Entry HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" FontSize="Large" TextColor="SteelBlue" FontAttributes="Bold" Text="{Binding Price}"/>
                     </StackLayout>
 
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Tour Guide" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" FontSize="20" />
+                        <ImageButton IsVisible="{Binding IsEdit}" Source="addIcon.png" Aspect="AspectFit" BackgroundColor="Transparent" WidthRequest="22" Command="{Binding AddTourGuideCommand}"/>
+                        <Picker IsVisible="{Binding IsEdit}" ItemsSource="{Binding AllTourGuide}" ItemDisplayBinding="{Binding name}" SelectedItem="{Binding SelectedTourGuide}" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" WidthRequest="180"/>
+
+                    </StackLayout>
+
                     <CollectionView x:Name="clview"
-                            ItemsSource="{Binding ListTourGuide}" 
+                            ItemsSource="{Binding TourGuides}" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedUser}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
@@ -138,12 +145,14 @@
                             <DataTemplate>
                                 <SwipeView>
                                     <SwipeView.LeftItems>
-                                        <SwipeItems>
+                                        <SwipeItems >
                                             <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
                                         Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}" 
+                                                       IsVisible="{Binding IsEdit}"
+                                                       />
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
 
