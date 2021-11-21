@@ -10,17 +10,18 @@
     <ContentPage.Content>
         <RefreshView  Command="{Binding Refresh}"
                      IsRefreshing="{Binding IsRefresh}">
-            <Grid BackgroundColor="WhiteSmoke">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="3*"/>
-                </Grid.RowDefinitions>
+            <ScrollView>
+                <Grid BackgroundColor="WhiteSmoke">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
 
-                <pancake:PancakeView CornerRadius="0,0,30,30">
-                    <Image Source="https://i.pinimg.com/564x/ed/eb/59/edeb59cd554c95645fbca777424e3c3c.jpg" Aspect="AspectFill" />
-                </pancake:PancakeView>
+                    <pancake:PancakeView CornerRadius="0,0,30,30">
+                        <Image Source="https://i.pinimg.com/564x/ed/eb/59/edeb59cd554c95645fbca777424e3c3c.jpg" Aspect="AspectFill" />
+                    </pancake:PancakeView>
 
-                <ImageButton Command="{Binding NavigationBack}" 
+                    <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                  HeightRequest="30" 
                                  WidthRequest="50"
@@ -29,90 +30,93 @@
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0">
-                </ImageButton>
-                <StackLayout Grid.Row="1">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Margin="20,0,0,0" Text="Discount List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
-                        <Button Margin="0,0,20,0" Text="New Discount" BackgroundColor="SteelBlue" Command="{Binding NewDiscountCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
-                    <CollectionView x:Name="clview" 
+                    </ImageButton>
+                    <StackLayout Grid.Row="1">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Margin="20,0,0,0" Text="Discount List" TextColor="SteelBlue" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Button Margin="0,0,20,0" Text="New Discount" BackgroundColor="SteelBlue" Command="{Binding NewDiscountCommand}" TextColor="White" HeightRequest="35" FontSize="10" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <CollectionView x:Name="clview" 
                             ItemsSource="{Binding DiscountList}" 
                             SelectionMode="Single" 
                             SelectedItem="{Binding SelectedDiscount}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <SwipeView>
-                                    <SwipeView.LeftItems>
-                                        <SwipeItems>
-                                            <SwipeItem Text="Remove"
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <SwipeView>
+                                        <SwipeView.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
                                         Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
                                         CommandParameter="{Binding}" />
-                                        </SwipeItems>
-                                    </SwipeView.LeftItems>
+                                            </SwipeItems>
+                                        </SwipeView.LeftItems>
 
-                                    <Grid Padding="30,10,20,10" VerticalOptions="Start">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup Name="CommonStates">
-                                                <VisualState Name="Selected">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="BackgroundColor" Value="White" />
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
+                                        <Grid Padding="30,10,20,10" VerticalOptions="Start">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
 
 
-                                        <pancake:PancakeView 
+                                            <pancake:PancakeView 
                                         CornerRadius="0,10,0,10" 
                                         Padding="10"
                                         Margin="0,0,0,0"
                                         VerticalOptions="StartAndExpand"
                                         BackgroundColor="White">
-                                            <StackLayout>
-                                                <Label Text="{Binding id}" 
+                                                
+                                                <StackLayout>
+                                                    <Label Text="{Binding id}" 
                                                    Margin="5,0,0,0" 
                                                    FontSize="Large" 
                                                    FontAttributes="Bold" 
                                                    TextColor="SteelBlue"/>
 
-                                                <Line HeightRequest="2" 
+                                                    <Line HeightRequest="2" 
                                                   BackgroundColor="SteelBlue"/>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding percent ,StringFormat='{} Percent: {0}'}"
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label Text="{Binding percent ,StringFormat='{} Percent: {0}'}"
                                                        Margin="20, 0,0,0"
                                                    TextColor="Black"
                                                        FontAttributes="Bold"/>
-                                                    <Label Text="{Binding total, StringFormat='{} Total: {0}' }" 
+                                                        <Label Text="{Binding total, StringFormat='{} Total: {0}' }" 
                                                        Margin="20,0,0,0"
                                                    FontSize="Small" 
                                                        FontAttributes="Bold"
                                                    TextColor="Black"/>
-                                                    <Label Text="{Binding isUsed, StringFormat='{} Used: {0}' }" 
+                                                        <Label Text="{Binding isUsed, StringFormat='{} Used: {0}' }" 
                                                        Margin="20,0,0,0"
                                                    FontSize="Small" 
                                                    TextColor="DarkRed" 
                                                    FontAttributes="Italic"/>
-                                                </StackLayout>
+                                                    </StackLayout>
 
 
-                                                <!--<pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
+                                                    <!--<pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
                                                 <Label Text="{Binding basePrice,StringFormat='{}{0} VND'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
                                             </pancake:PancakeView>-->
 
-                                            </StackLayout>
-                                        </pancake:PancakeView>
-                                    </Grid>
-                                </SwipeView>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
+                                                </StackLayout>
+                                            </pancake:PancakeView>
+                                        </Grid>
+                                    </SwipeView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
 
-            </Grid>
+                </Grid>
+
+            </ScrollView>
             
         </RefreshView>
         

@@ -102,9 +102,9 @@ namespace GoTour.MVVM.ViewModel
         void SortingTicket()
         {
             // Xep giam dan
-            for (int i = 0; i < BookedTicketsList.Count; i++)
+            for (int i = 0; i < BookedTicketsList.Count -1; i++)
             {
-                for (int j = i + 1; j < BookedTicketsList.Count - 1; j++)
+                for (int j = i + 1; j < BookedTicketsList.Count; j++)
                 {
                     //string[] datetimeI = BookedTicketsList[i].bookTime.Split(' ');
                     //string[] datetimeJ = BookedTicketsList[j].bookTime.Split(' ');

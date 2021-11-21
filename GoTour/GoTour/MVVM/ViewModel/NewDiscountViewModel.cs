@@ -45,6 +45,9 @@ namespace GoTour.MVVM.ViewModel
                 await DataManager.Ins.DiscountsServices.addDiscount(discount);
                 DataManager.Ins.ListDiscount.Add(discount);
 
+                DependencyService.Get<IToast>().ShortToast("Adding discount successfully");
+
+
                 await navigation.PopAsync();
 
             }    

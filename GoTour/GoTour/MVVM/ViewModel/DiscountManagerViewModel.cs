@@ -137,17 +137,19 @@ namespace GoTour.MVVM.ViewModel
         void SortingDiscount()
         {
             // Xep giam dan
-            for (int i = 0; i < DiscountList.Count; i++)
+            for (int i = 0; i < DiscountList.Count-1; i++)
             {
-                for (int j = i + 1; j < DiscountList.Count - 1; j++)
-                {
+                Discount I = DiscountList[i];
 
-                    if (int.Parse(DiscountList[i].isUsed) > int.Parse(DiscountList[j].isUsed))
+                for (int j = i + 1; j < DiscountList.Count; j++)
+                {
+                    Discount J = DiscountList[j];
+                    if (int.Parse(I.isUsed) > int.Parse(J.isUsed))
                     {
                         Discount tmp = new Discount();
-                        tmp = DiscountList[i];
-                        DiscountList[i] = DiscountList[j];
-                        DiscountList[j] = tmp;
+                        DiscountList[j] = I;
+                        DiscountList[i] = J;
+                        J = tmp;
                     }
                 }
             }

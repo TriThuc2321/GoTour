@@ -121,9 +121,9 @@ namespace GoTour.MVVM.ViewModel
         void SortingTicket()
         {
             // Xep giam dan
-            for (int i =0; i<TicketList.Count; i++)
+            for (int i =0; i<TicketList.Count -1; i++)
             {
-                for (int j = i+1; j< TicketList.Count -1; j ++)
+                for (int j = i+1; j< TicketList.Count; j ++)
                 {
                     if (DateTime.Parse(TicketList[i].bookTime) < DateTime.Parse(TicketList[j].bookTime))
                     {

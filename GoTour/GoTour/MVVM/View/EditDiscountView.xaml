@@ -9,10 +9,170 @@
         <vm:EditDiscountViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="1.2*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Image Source="https://i.pinimg.com/564x/27/e8/6d/27e86de3736367dad62dda526f8ae1f5.jpg" 
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                                   Aspect="AspectFill"                           
+                           />
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+                <Frame
+                CornerRadius="10"                                  
+                    HorizontalOptions="End"                                  
+                    VerticalOptions="StartAndExpand"                                 
+                    BackgroundColor="White"                                  
+                    Margin="0, 10 , 10, 0"
+                Padding="5"
+                >
+
+
+                </Frame>
+
+
+                <pancake:PancakeView Grid.Row="1" 
+                                     CornerRadius="40,40,0,0" 
+                                     Margin="0,-60,0,0"
+                                     BackgroundColor="WhiteSmoke" 
+                                     Padding="10">
+                    <StackLayout Grid.Row="1" Padding="20,20,20,10">
+                        <StackLayout Orientation="Horizontal">
+
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   Text="{Binding Id}"
+                                   IsEnabled="False"
+                                   TextColor="SteelBlue"
+                                   FontSize="25" 
+                                   FontAttributes="Bold"
+                                   Placeholder="Discount ID..."/>
+                        </StackLayout>
+
+                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
+                        <ImageButton HeightRequest="25" Aspect="AspectFill" Source="scoreIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
+                        <Label Text="{Binding SelectedTour.starNumber}" 
+                               VerticalOptions="CenterAndExpand"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="Small"/>
+                    </StackLayout> -->
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center" 
+                                     Margin="0,2,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Total: "
+                                       Grid.Column="0"
+                                   Margin="0, 20, 20, 20"
+                                   TextColor="Black" 
+                                       HorizontalOptions="StartAndExpand"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"/>
+
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Column="1">
+                                    <Entry VerticalOptions="Start" 
+                                   Keyboard="Numeric"
+                                   WidthRequest="90" 
+                                   FontSize="30"
+                                   IsEnabled="{Binding TotalEnable}"
+                                   TextColor="DarkBlue"
+                                   FontAttributes="Bold"
+                                   Text="{Binding Total}" 
+                                   />
+
+                                    <Image HeightRequest="25"
+                                         WidthRequest="25"
+                                   Margin="10,0,0,0"
+                                         Aspect="AspectFit"
+                                         Source="passengerIcon.png"
+                                         BackgroundColor="Transparent"/>
+                                </StackLayout>
+
+                            </Grid>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center" 
+                                     Margin="0,2,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Percent: "
+                                       Grid.Column="0"
+                                   Margin="0, 20, 20, 20"
+                                   TextColor="Black" 
+                                       HorizontalOptions="StartAndExpand"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"/>
+
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Column="1">
+                                    <Entry VerticalOptions="Center" 
+                                   Keyboard="Numeric"
+                                   WidthRequest="90" 
+                                   FontSize="30"
+                                   TextColor="DarkBlue"
+                                   FontAttributes="Bold"
+                                   IsEnabled="{Binding PercentEnable}"
+                                   Text="{Binding Percent}" 
+                                   />
+
+                                    <Image HeightRequest="25"
+                                         WidthRequest="25"
+                                   Margin="10,0,0,0"
+                                         Aspect="AspectFit"
+                                         Source="percentIcon.png"
+                                         BackgroundColor="Transparent"/>
+                                </StackLayout>
+
+                            </Grid>
+
+                        </StackLayout>
+
+                        <Label Text="{Binding Notice}"
+                               IsVisible="{Binding NoticeVisible}"
+                               TextColor="DarkRed"
+                               FontAttributes="Italic"
+                               FontSize="15"
+                               Margin="20"/>
+
+                        <Button 
+                                Text="Update Discount" 
+                            IsVisible="{Binding TotalEnable}"
+                                BackgroundColor="SteelBlue"
+                            Command="{Binding EditCommand}" 
+                            TextColor="White"
+                            FontSize="20" 
+                            Margin="30, 30, 30, 0"
+                            HorizontalOptions="CenterAndExpand"/>
+
+                    </StackLayout>
+                </pancake:PancakeView>
+
+
+            </Grid>
+
+
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
