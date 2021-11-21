@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Reference Include="xNet">
-      <HintPath>C:\Users\trith\Downloads\xNet\xNet.dll</HintPath>
+      <HintPath>C:\Users\admin\Downloads\xNet\xNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -107,6 +107,9 @@
     <EmbeddedResource Update="MVVM\View\SearchResultView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\SendNotificationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\ShowTourFromSelectedPlace.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -119,7 +122,7 @@
     <EmbeddedResource Update="MVVM\View\SuccessBookView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MVVM\View\TourGuideView.xaml">
+    <EmbeddedResource Update="MVVM\View\TourGuiderWorkSpaceView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MVVM\View\TourManagerView.xaml">
