@@ -42,8 +42,34 @@ namespace GoTour.MVVM.ViewModel
             StartDatePicker = DateTime.Now;
             StartTimePicker = new TimeSpan(4, 0, 0);
 
+            TourGuides = new ObservableCollection<User>();
+            AllTourGuide = new ObservableCollection<User>();
+            foreach (var ite in DataManager.Ins.tourGuides)
+            {
+                AllTourGuide.Add(ite);
+            }
+           
+            SelectedTourGuide = AllTourGuide[0];
         }
-        
+        public ICommand AddTourGuideCommand => new Command<object>(async (obj) =>
+        {
+            if(SelectedTourGuide!= null)
+            {
+                TourGuides.Add(SelectedTourGuide);
+                AllTourGuide.Remove(SelectedTourGuide);
+            }          
+            
+        });
+        public ICommand DeleteTourGuideCommand => new Command<object>(async (obj) =>
+        {
+            User result = obj as User;
+            if (result != null)
+            {
+                AllTourGuide.Add(result);
+                TourGuides.Remove(result);
+            }
+        });
+
         private async void addHandleAsync(object obj)
         {
             await CrossMedia.Current.Initialize();
@@ -59,7 +85,7 @@ namespace GoTour.MVVM.ViewModel
         private async void updateData(object obj)
         {
             if(Description == null || Name == null || Price == null || Price == null || Day == null || Night == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
-                Description == "" || Name == "" || Img == null )
+                Description == "" || Name == "" || Img == null || TourGuides.Count == 0)
             {
                 DependencyService.Get<IToast>().ShortToast("Please fill out tour information.");
                 return;
@@ -87,6 +113,12 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString();
             DataManager.Ins.currentTour.duration = Day + '/' + Night;
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
+            DataManager.Ins.currentTour.tourGuide = new List<string>();
+
+            for (int i =0; i< TourGuides.Count; i++)
+            {
+                DataManager.Ins.currentTour.tourGuide.Add(TourGuides[i].email);
+            }
 
             StartDate = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2];
             ProcessedDuration = Day + " Day " + Night + " Night";
@@ -124,6 +156,26 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private ObservableCollection<User> tourGuides;
+        public ObservableCollection<User> TourGuides
+        {
+            get { return tourGuides; }
+            set
+            {
+                tourGuides = value;
+                OnPropertyChanged("TourGuides");
+            }
+        }
+        private ObservableCollection<User> allTourGuide;
+        public ObservableCollection<User> AllTourGuide
+        {
+            get { return allTourGuide; }
+            set
+            {
+                allTourGuide = value;
+                OnPropertyChanged("AllTourGuide");
+            }
+        }
         private string processedDuration;
         public string ProcessedDuration
         {
@@ -183,6 +235,18 @@ namespace GoTour.MVVM.ViewModel
             }
             return ms;
         }
+        private User selectedTourGuide;
+        public User SelectedTourGuide
+        {
+            get { return selectedTourGuide; }
+            set
+            {
+                selectedTourGuide = value;
+                OnPropertyChanged("SelectedTourGuide");
+
+            }
+        }
+
         private string sourceIcon;
         public string SourceIcon
         {

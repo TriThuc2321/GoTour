@@ -9,7 +9,7 @@
         <vm:NewTourViewModel/>
     </ContentPage.BindingContext>
 
-    <ScrollView>
+
         <Grid BackgroundColor="WhiteSmoke">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
@@ -48,8 +48,8 @@
 
             </Frame>
 
-
-            <pancake:PancakeView Grid.Row="1" CornerRadius="40,40,0,0" Margin="0,-60,0,0" BackgroundColor="WhiteSmoke" Padding="10">
+        <ScrollView Grid.Row="1"  Margin="0,-60,0,0">
+            <pancake:PancakeView  CornerRadius="40,40,0,0" BackgroundColor="WhiteSmoke" Padding="10">
                 <StackLayout Grid.Row="1" Padding="20,20,20,10">
                     <StackLayout Orientation="Horizontal">
                         
@@ -94,19 +94,73 @@
                         <Entry HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" FontSize="Large" TextColor="SteelBlue" FontAttributes="Bold" Text="{Binding Price}"/>
                     </StackLayout>
 
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Tour Guide" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" FontSize="20" />
+                        <ImageButton Source="addIcon.png" Aspect="AspectFit" BackgroundColor="Transparent" WidthRequest="22" Command="{Binding AddTourGuideCommand}"/>
+                        <Picker ItemsSource="{Binding AllTourGuide}" ItemDisplayBinding="{Binding name}" SelectedItem="{Binding SelectedTourGuide}" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" WidthRequest="180"/>
+                        
+                    </StackLayout>
+                    
+                    <CollectionView x:Name="clview"
+                            ItemsSource="{Binding TourGuides}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedUser}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                                    ItemsLayout="HorizontalList"
+                                    HeightRequest="100"
+                                    >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Remove"
+                                         IconImageSource="deleteIcon.png"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteTourGuideCommand}"
+                                        CommandParameter="{Binding}" />
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+
+                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
+                                        <StackLayout Orientation="Horizontal" >
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+
+                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
+                                            <StackLayout >
+                                                <Label Text="{Binding name}" FontAttributes="Bold"/>
+                                                <Label Text="{Binding email}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    
                     <StackLayout Orientation="Horizontal" Margin="0,25,0,0">
                         <Label Text="Description" FontSize="20" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black"/>
                         <ImageButton Source="tickIcon.png" BackgroundColor="Transparent" HeightRequest="18" Command="{Binding EditTextCommand}"/>
                     </StackLayout>
-
-                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" />
+                             
+                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="200" />
 
                 </StackLayout>
             </pancake:PancakeView>
+        </ScrollView>
+
+    </Grid>
 
 
-        </Grid>
-
-
-    </ScrollView>
+    
 </ContentPage>

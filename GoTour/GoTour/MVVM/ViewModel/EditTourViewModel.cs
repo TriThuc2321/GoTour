@@ -62,19 +62,26 @@ namespace GoTour.MVVM.ViewModel
             SourceIcon = "editIcon.png";
             IsText = true;
 
-            ListTourGuide = new ObservableCollection<User>();
+            TourGuides = new ObservableCollection<User>();
              for (int i = 0; i < DataManager.Ins.currentTour.tourGuide.Count; i++)
              {
                 foreach (var ite in DataManager.Ins.tourGuides)
                 {
                     if (DataManager.Ins.currentTour.tourGuide[i] == ite.email)
                     {
-                        ListTourGuide.Add(ite);
+                        TourGuides.Add(ite);
                         break;
                     }
-                }
-                
+                }              
              }
+
+            AllTourGuide = new ObservableCollection<User>();
+            foreach (var ite in DataManager.Ins.tourGuides)
+            {
+                AllTourGuide.Add(ite);
+            }
+
+            SelectedTourGuide = AllTourGuide[0];
 
         }
 
@@ -187,6 +194,17 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("ReviewInfo");
             }
         }
+        private User selectedTourGuide;
+        public User SelectedTourGuide
+        {
+            get { return selectedTourGuide; }
+            set
+            {
+                selectedTourGuide = value;
+                OnPropertyChanged("SelectedTourGuide");
+
+            }
+        }
         private void DurationProcess()
         {
             if (DataManager.Ins.currentTour.duration == null) return;
@@ -216,14 +234,24 @@ namespace GoTour.MVVM.ViewModel
             }
             return ms;
         }
-        private ObservableCollection<User> listTourGuide;
-        public ObservableCollection<User> ListTourGuide
+        private ObservableCollection<User> tourGuides;
+        public ObservableCollection<User> TourGuides
         {
-            get { return listTourGuide; }
+            get { return tourGuides; }
             set
             {
-                listTourGuide = value;
-                OnPropertyChanged("listTourGuide");
+                tourGuides = value;
+                OnPropertyChanged("TourGuides");
+            }
+        }
+        private ObservableCollection<User> allTourGuide;
+        public ObservableCollection<User> AllTourGuide
+        {
+            get { return allTourGuide; }
+            set
+            {
+                allTourGuide = value;
+                OnPropertyChanged("AllTourGuide");
             }
         }
         private string sourceIcon;
