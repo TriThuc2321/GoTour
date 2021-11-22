@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -15,6 +16,7 @@ namespace GoTour.MVVM.ViewModel
     {
         INavigation navigation;
         Shell curentShell;
+        public Stream imgStream;
 
         private User currUser;
         public User CurrUser
@@ -97,8 +99,8 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Birthday");
             }
         }
-        private string profilePic;
-        public string ProfilePic
+        private ImageSource profilePic;
+        public ImageSource ProfilePic
         {
             get { return profilePic; }
             set
@@ -196,6 +198,7 @@ namespace GoTour.MVVM.ViewModel
         //CHANGE AVT HANDLE
         async void changePhoto(object obj)
         {
+           
             await CrossMedia.Current.Initialize();
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
@@ -205,10 +208,11 @@ namespace GoTour.MVVM.ViewModel
             }
             else
             {
-                string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream(), CurrUser.email, CurrUser.name);
+                imgStream = imgData.GetStream();
+                //string url = await DataManager.Ins.UsersServices.saveImage(imgData.GetStream(), CurrUser.email, CurrUser.name);
 
-                ProfilePic = url;
-                updateUser();
+                ProfilePic = ImageSource.FromStream(imgData.GetStream);
+                //updateUser();
             }
         }
 
@@ -239,10 +243,10 @@ namespace GoTour.MVVM.ViewModel
 
         //UPDATE DATABASE HANDLE
          async void updateUser()
-        {
+        { 
             if ( string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND))
             {
-                DependencyService.Get<IToast>().ShortToast("Please fill out your information");              
+                DependencyService.Get<IToast>().ShortToast("Please fill out your information");           
             } else
             {
                 if(ContactValidation(Contact) == false)
@@ -251,31 +255,62 @@ namespace GoTour.MVVM.ViewModel
                 }
                 else
                 {
-                    User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = ProfilePic, password = CurrUser.password };
-                    var toUpdateUser = (await firebase
-                 .Child("Users")
-                 .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
+                    if(imgStream == null)
+                    {
+                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                        var toUpdateUser = (await firebase
+                     .Child("Users")
+                     .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
 
-                    await firebase
-                      .Child("Users")
-                      .Child(toUpdateUser.Key)
-                      .PutAsync(new User
-                      {
-                          email = user.email,
-                          password = user.password,
-                          name = user.name,
-                          contact = user.contact,
-                          birthday = user.birthday,
-                          cmnd = user.cmnd,
-                          profilePic = user.profilePic,
-                          address = user.address,
-                          score = user.score,
-                          rank = user.rank
-                      });
-                    DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
-                    IsEdit = false;
-                    IconSource = "editIcon.png";
-                }              
+                        await firebase
+                          .Child("Users")
+                          .Child(toUpdateUser.Key)
+                          .PutAsync(new User
+                          {
+                              email = user.email,
+                              password = user.password,
+                              name = user.name,
+                              contact = user.contact,
+                              birthday = user.birthday,
+                              cmnd = user.cmnd,
+                              profilePic = user.profilePic,
+                              address = user.address,
+                              score = user.score,
+                              rank = user.rank
+                          });
+                        DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                        IsEdit = false;
+                        IconSource = "editIcon.png";
+                    }
+                    else
+                    {
+                        CurrUser.profilePic = await DataManager.Ins.UsersServices.saveImage(imgStream, CurrUser.email, CurrUser.name);
+                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                        var toUpdateUser = (await firebase
+                     .Child("Users")
+                     .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
+
+                        await firebase
+                          .Child("Users")
+                          .Child(toUpdateUser.Key)
+                          .PutAsync(new User
+                          {
+                              email = user.email,
+                              password = user.password,
+                              name = user.name,
+                              contact = user.contact,
+                              birthday = user.birthday,
+                              cmnd = user.cmnd,
+                              profilePic = user.profilePic,
+                              address = user.address,
+                              score = user.score,
+                              rank = user.rank
+                          });
+                        DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                        IsEdit = false;
+                        IconSource = "editIcon.png";
+                    }
+                }                    
             }  
         }
 

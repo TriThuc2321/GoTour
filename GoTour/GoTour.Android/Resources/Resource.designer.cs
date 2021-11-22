@@ -14811,6 +14811,7 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F0700BC
 			public const int searchIcon = 2131165372;
+			public const int sendNotiBg = 2131165372;
 			
 			// aapt resource value: 0x7F0700BD
 			public const int shoppingcartIcon = 2131165373;
@@ -14840,16 +14841,22 @@ namespace GoTour.Droid
 			public const int tooltip_frame_light = 2131165381;
 			
 			// aapt resource value: 0x7F0700C6
-			public const int tourIcon = 2131165382;
+			public const int tourGuiderbg1 = 2131165382;
 			
 			// aapt resource value: 0x7F0700C7
-			public const int trashIcon = 2131165383;
+			public const int tourGuiderIcon = 2131165383;
 			
 			// aapt resource value: 0x7F0700C8
-			public const int usdIcon = 2131165384;
+			public const int tourIcon = 2131165384;
 			
 			// aapt resource value: 0x7F0700C9
-			public const int userOutlineIcon = 2131165385;
+			public const int trashIcon = 2131165385;
+			
+			// aapt resource value: 0x7F0700CA
+			public const int usdIcon = 2131165386;
+			
+			// aapt resource value: 0x7F0700CB
+			public const int userOutlineIcon = 2131165387;
 			
 			static Drawable()
 			{
