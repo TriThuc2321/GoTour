@@ -40,7 +40,7 @@
                 <Label Text="Sort by:" FontSize="Small" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="10"></Label>
             <Button Text="Total" Command="{Binding SortByTotalPrice}" HorizontalOptions="Start" CornerRadius="10" BackgroundColor="Coral" TextColor="White" FontAttributes="Bold"></Button>
             <Button Text="Percent" Command="{Binding SortByPercent}" HorizontalOptions="StartAndExpand" CornerRadius="10" BackgroundColor="Teal"  TextColor="White" FontAttributes="Bold"></Button>
-                <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" CornerRadius="10" BackgroundColor="SteelBlue" TextColor="White" FontAttributes="Bold"></Button>
+                <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" CornerRadius="10" BackgroundColor="Black" TextColor="White" FontAttributes="Bold"></Button>
 
             </StackLayout>
             <Label Text="List Renenue" HorizontalOptions="FillAndExpand" FontAttributes="Bold" FontSize="Medium" Padding="10" BackgroundColor="SteelBlue" TextColor="White"></Label>

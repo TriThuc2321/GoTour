@@ -45,6 +45,10 @@ namespace GoTour.MVVM.ViewModel
                 ResetListValue();
                 SortByYear();
             }
+            else if (selectedYear == null && selectedMonth == null)
+            {
+                return;
+            }
             else
             {
                 ResetListValue();
