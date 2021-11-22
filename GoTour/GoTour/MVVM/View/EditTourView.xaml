@@ -143,31 +143,31 @@
                                     >
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <SwipeView>
+                                <SwipeView IsEnabled="{Binding Source={x:Reference clview}, Path = BindingContext.IsEdit}">
                                     <SwipeView.LeftItems>
-                                        <SwipeItems >
+                                        <SwipeItems>
                                             <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
-                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteTourGuideCommand}"
                                         CommandParameter="{Binding}" 
-                                                       IsVisible="{Binding IsEdit}"
                                                        />
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
 
-                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
-                                        <StackLayout Orientation="Horizontal" >
-                                            <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup Name="CommonStates">
-                                                    <VisualState Name="Selected">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="White" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateManager.VisualStateGroups>
-
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    
+                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300" BackgroundColor="White">
+                                        
+                                        <StackLayout Orientation="Horizontal" >                                          
                                             <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
                                             <StackLayout >
                                                 <Label Text="{Binding name}" FontAttributes="Bold"/>

@@ -83,7 +83,7 @@
                                HeightRequest="7" CornerRadius="10"
                                BackgroundColor="WhiteSmoke" >
                             <Grid>
-                                <Picker FontSize="17" FontAttributes="Bold" TextColor="Gray"  Margin="10,-15,0,-15" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" ItemDisplayBinding="{Binding }"/>
+                                <Picker IsEnabled="{Binding IsEdit}" FontSize="17" FontAttributes="Bold" TextColor="Gray"  Margin="10,-15,0,-15" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" ItemDisplayBinding="{Binding }"/>
                             </Grid>
                         </Frame>
                     </StackLayout>

@@ -62,6 +62,13 @@ namespace GoTour.MVVM.ViewModel
             SourceIcon = "editIcon.png";
             IsText = true;
 
+
+
+            AllTourGuide = new ObservableCollection<User>();
+            foreach (var ite in DataManager.Ins.tourGuides)
+            {
+                AllTourGuide.Add(ite);
+            }
             TourGuides = new ObservableCollection<User>();
              for (int i = 0; i < DataManager.Ins.currentTour.tourGuide.Count; i++)
              {
@@ -70,21 +77,32 @@ namespace GoTour.MVVM.ViewModel
                     if (DataManager.Ins.currentTour.tourGuide[i] == ite.email)
                     {
                         TourGuides.Add(ite);
+                        AllTourGuide.Remove(ite);
                         break;
                     }
                 }              
              }
 
-            AllTourGuide = new ObservableCollection<User>();
-            foreach (var ite in DataManager.Ins.tourGuides)
-            {
-                AllTourGuide.Add(ite);
-            }
-
             SelectedTourGuide = AllTourGuide[0];
 
         }
-
+        public ICommand DeleteTourGuideCommand => new Command<object>((obj) =>
+        {
+            User result = obj as User;
+            if (result != null)
+            {
+                AllTourGuide.Add(result);
+                TourGuides.Remove(result);
+            }
+        });
+        public ICommand AddTourGuideCommand => new Command<object>((obj) =>
+        {
+           if(SelectedTourGuide != null)
+            {
+                TourGuides.Add(SelectedTourGuide);
+                AllTourGuide.Remove(SelectedTourGuide);
+            }
+        });
         private async void editTextHandle(object obj)
         {
             IsEdit = !IsEdit;
@@ -123,6 +141,11 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.startTime = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
             DataManager.Ins.currentTour.duration = Day + '/' + Night;
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
+            DataManager.Ins.currentTour.tourGuide = new List<string>();
+            foreach(var tourGuide in TourGuides)
+            {
+                DataManager.Ins.currentTour.tourGuide.Add(tourGuide.email);
+            }
 
             StartDate = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2];
             ProcessedDuration = Day + " Day " + Night + " Night";
