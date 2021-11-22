@@ -14,13 +14,19 @@ namespace GoTour.MVVM.ViewModel
     public class InProgressViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
+        public Command MenuCommand { get; }
+
         public InProgressViewModel() { }
 
-        public InProgressViewModel(INavigation navigation)
+        public InProgressViewModel(INavigation navigation, Shell shell)
         {
+            this.currentShell = shell;
             this.navigation = navigation;
             TicketList = new ObservableCollection<BookedTicket>();
             Refresh = new Command(RefreshList);
+            MenuCommand = new Command(openMenu);
+
             SetInformation();
             SortingTicket();
            
@@ -34,14 +40,21 @@ namespace GoTour.MVVM.ViewModel
                     TicketList.Add(ticket);
                 }
             }
-        }    
+        }
+
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
+        }
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
             BookedTicket result = obj as BookedTicket;
             if (result != null)
             {
+                DataManager.Ins.CurrentBookedTicket = result;
                 DataManager.Ins.currentTour = result.tour;
-                navigation.PushAsync(new DetailTourView2());
+                DataManager.Ins.CurrentInvoice = result.invoice;
+                navigation.PushAsync(new TourScheduleView());
                 SelectedTicket = null;
             }
         });
@@ -108,9 +121,9 @@ namespace GoTour.MVVM.ViewModel
         void SortingTicket()
         {
             // Xep giam dan
-            for (int i =0; i<TicketList.Count; i++)
+            for (int i =0; i<TicketList.Count -1; i++)
             {
-                for (int j = i+1; j< TicketList.Count -1; j ++)
+                for (int j = i+1; j< TicketList.Count; j ++)
                 {
                     if (DateTime.Parse(TicketList[i].bookTime) < DateTime.Parse(TicketList[j].bookTime))
                     {

@@ -29,8 +29,11 @@ namespace GoTour.MVVM.ViewModel
         {
             if (IsCheckRegulation)
             {
-                DataManager.Ins.CurrentBookedTicket.isCancel = true;
-                await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(DataManager.Ins.CurrentBookedTicket);
+                BookedTicket booked = DataManager.Ins.CurrentBookedTicket;
+                booked.isCancel = true;
+                DataManager.Ins.CurrentBookedTicket = booked;
+
+                await DataManager.Ins.BookedTicketsServices.UpdateBookedTicket(booked);
 
                 if (DataManager.Ins.CurrentDiscount != null)
                 {
@@ -59,7 +62,7 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        void updateManager()
+        async void updateManager()
         {
             if (DataManager.Ins.CurrentDiscount != null)
             {
@@ -84,6 +87,18 @@ namespace GoTour.MVVM.ViewModel
                     break;
                 }
             }
+
+             string noti = DataManager.Ins.GetDeductInformation(DataManager.Ins.CurrentBookedTicket)[0];
+
+            await DataManager.Ins.NotiServices.SendNoti(
+                DataManager.Ins.GeneratePlaceId(10),
+                "System",
+                DataManager.Ins.CurrentUser.email,
+                1,
+                noti,
+                "Canceled Ticket: " + DataManager.Ins.currentTour.name,
+                DataManager.Ins.currentTour.id
+                );
 
         }
 

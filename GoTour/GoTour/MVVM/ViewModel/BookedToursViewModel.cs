@@ -14,15 +14,20 @@ namespace GoTour.MVVM.ViewModel
     class BookedToursViewModel: ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
+        public Command MenuCommand { get; }
 
         public BookedToursViewModel()
         {
 
         }
 
-        public BookedToursViewModel(INavigation navigation)
+        public BookedToursViewModel(INavigation navigation, Shell current)
         {
             this.navigation = navigation;
+            this.currentShell = current;
+            Refresh = new Command(RefreshView);
+            MenuCommand = new Command(openMenu);
 
             BookedTicketsList = new ObservableCollection<BookedTicket>();
 
@@ -41,18 +46,17 @@ namespace GoTour.MVVM.ViewModel
             BookedTicket result = obj as BookedTicket;
             if (result != null)
             {
-                if (SelectedTicket.invoice.isPaid)
+                    DataManager.Ins.CurrentBookedTicket = result;
+                    DataManager.Ins.CurrentInvoice = result.invoice;
+                    if (result.invoice.discount != null)
+                        DataManager.Ins.CurrentDiscount = result.invoice.discount;
+                    DataManager.Ins.currentTour = result.tour;
 
-                DataManager.Ins.CurrentBookedTicket = result;
-                DataManager.Ins.CurrentInvoice = result.invoice;
-                if (result.invoice.discount != null)
-                    DataManager.Ins.CurrentDiscount = result.invoice.discount;
-                DataManager.Ins.currentTour = result.tour;
 
-                
-                navigation.PushAsync(new BookedTicketDetailView());
+                    navigation.PushAsync(new BookedTicketDetailView());
 
-                SelectedTicket = null;
+                    SelectedTicket = null;
+               
             }
         });
 
@@ -91,12 +95,16 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
+        }
         void SortingTicket()
         {
             // Xep giam dan
-            for (int i = 0; i < BookedTicketsList.Count; i++)
+            for (int i = 0; i < BookedTicketsList.Count -1; i++)
             {
-                for (int j = i + 1; j < BookedTicketsList.Count - 1; j++)
+                for (int j = i + 1; j < BookedTicketsList.Count; j++)
                 {
                     //string[] datetimeI = BookedTicketsList[i].bookTime.Split(' ');
                     //string[] datetimeJ = BookedTicketsList[j].bookTime.Split(' ');
@@ -116,8 +124,43 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        #region Refresh
+        private bool _isRefresh;
+        public bool IsRefresh
+        {
+            get
+            {
+                return _isRefresh;
+            }
 
+            set
+            {
+                _isRefresh = value;
+                OnPropertyChanged("IsRefresh");
+            }
+        }
+
+        public Command Refresh { get; }
+        void RefreshView(object obj)
+        {
+            IsRefresh = true;
+            BookedTicketsList.Clear();
+            BookedTicketsList = new ObservableCollection<BookedTicket>();
+
+            foreach (var tk in DataManager.Ins.ListBookedTickets)
+            {
+                if (tk.email == DataManager.Ins.CurrentUser.email)
+                    BookedTicketsList.Add(tk);
+            }
+
+            SortingTicket();
+            IsRefresh = false;
+        }
+        #endregion
     }
 
 
 }
+
+
+

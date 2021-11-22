@@ -18,6 +18,7 @@ namespace GoTour.MVVM.ViewModel
         public Command MenuCommand { get; }
         public Command StaffCommand { get; }
         public Command RevenueCommand { get; }
+        public Command DiscountCommand { get; }
 
         public ManagerViewModel() { }
         public ManagerViewModel(INavigation navigation, Shell curentShell)
@@ -38,6 +39,7 @@ namespace GoTour.MVVM.ViewModel
             TourCommand = new Command(tourHandle);
             StaffCommand = new Command(staffHandle);
             RevenueCommand = new Command(revenueHandle);
+            DiscountCommand = new Command(discountHandle);
         }
 
         private void staffHandle(object obj)
@@ -54,6 +56,11 @@ namespace GoTour.MVVM.ViewModel
         private void stayPlaceHandle(object obj)
         {
             navigation.PushAsync(new StayPlaceManagerView());
+        }
+
+        private void discountHandle (object obj)
+        {
+            navigation.PushAsync(new DiscountManagerView());
         }
 
         private void revenueHandle(object obj)

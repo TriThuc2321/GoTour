@@ -14,11 +14,15 @@ namespace GoTour.MVVM.ViewModel
     public class FavoriteViewModel : ObservableObject
     {
         INavigation navigation;
+        Shell currentShell;
+        public Command MenuCommand { get; }
 
         public FavoriteViewModel() { }
-        public FavoriteViewModel(INavigation navigation)
+        public FavoriteViewModel(INavigation navigation, Shell current)
         {
             this.navigation = navigation;
+            this.currentShell = current;
+            MenuCommand = new Command(openMenu);
 
             Favourites = new ObservableCollection<FavouriteTour>();
             foreach (var favourites in DataManager.Ins.ListFavouriteTours)
@@ -87,6 +91,10 @@ namespace GoTour.MVVM.ViewModel
             }
         });
 
+        private void openMenu(object obj)
+        {
+            currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented;
+        }
         #region Refresh
         private bool _isRefresh;
         public bool IsRefresh

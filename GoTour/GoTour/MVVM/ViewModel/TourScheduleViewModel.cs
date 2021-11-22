@@ -1,8 +1,10 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
@@ -15,13 +17,19 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         public TourScheduleViewModel() { }
         public Command NavigationBack { get; }
+        public Command ViewTicket { get; }
         public TourScheduleViewModel(INavigation navigation)
         {
             this.navigation = navigation;
 
-            string[] TourStartTime = DataManager.Ins.currentTour.startTime.Split('/');
+            string[] temp = DataManager.Ins.currentTour.startTime.Split(' ');
+            string[] TourStartTime = temp[0].Split('/');
+
             DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
+
             NavigationBack = new Command(() => navigation.PopAsync());
+            ViewTicket = new Command(viewTicket);
+
             timeLine = new List<SupportUI>();
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
@@ -44,7 +52,7 @@ namespace GoTour.MVVM.ViewModel
                         }
                         for (int i = 0; i < ite2.night; i++)
                         {
-                           
+
                             time = TourStartTime1.AddDays(i);
                             time = time.AddHours(12);
                             DateTime currrent_time = DateTime.Now.AddDays(0);
@@ -60,6 +68,20 @@ namespace GoTour.MVVM.ViewModel
                 }
             }
             SelectedTour = DataManager.Ins.currentTour;
+
+            ListTourGuide = new ObservableCollection<User>();
+            for (int i = 0; i < DataManager.Ins.currentTour.tourGuide.Count; i++)
+            {
+                foreach (var ite in DataManager.Ins.tourGuides)
+                {
+                    if (DataManager.Ins.currentTour.tourGuide[i] == ite.email)
+                    {
+                        ListTourGuide.Add(ite);
+                        break;
+                    }
+                }
+
+            }
             DurationProcess();
             SortTimeline();
             SetCurrentSchedule();
@@ -70,14 +92,14 @@ namespace GoTour.MVVM.ViewModel
             currentSchedule = timeLine[0];
             foreach (var ite in timeLine)
             {
-                if (ite.color == "Black") currentSchedule = ite; 
+                if (ite.color == "Black") currentSchedule = ite;
             }
-           
-            foreach(var ite2 in selectedTour.SPforPList)
+
+            foreach (var ite2 in selectedTour.SPforPList)
             {
                 if (ite2.placeId == currentSchedule.place.id)
                 {
-                    foreach ( var ite3 in DataManager.Ins.ListStayPlace)
+                    foreach (var ite3 in DataManager.Ins.ListStayPlace)
                     {
                         if (ite3.id == ite2.stayPlaceId)
                         {
@@ -153,6 +175,21 @@ namespace GoTour.MVVM.ViewModel
                 processedDuration = value;
                 OnPropertyChanged("ProcessedDuration");
             }
+        }
+        private ObservableCollection<User> listTourGuide;
+        public ObservableCollection<User> ListTourGuide
+        {
+            get { return listTourGuide; }
+            set
+            {
+                listTourGuide = value;
+                OnPropertyChanged("listTourGuide");
+            }
+        }
+
+        void viewTicket(object obj)
+        {
+            navigation.PushAsync(new BookedTicketDetailView());
         }
 
         private void DurationProcess()

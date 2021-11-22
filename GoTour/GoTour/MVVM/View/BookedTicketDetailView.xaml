@@ -9,20 +9,22 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Margin="0,0,0,20">
-                <Grid >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+        <RefreshView Command="{Binding Refresh}"
+                     IsRefreshing="{Binding IsRefresh}">
+            <ScrollView>
+                <StackLayout Margin="0,0,0,20">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                    <Image Source="{Binding Tour.imgSource[0]}"
+                        <Image Source="{Binding Tour.imgSource[0]}"
                            Grid.Column="0"
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
@@ -30,14 +32,14 @@
                            Aspect="AspectFill"
                            HeightRequest="400"/>
 
-                    <Frame Grid.Column="0"
+                        <Frame Grid.Column="0"
                            Grid.Row="2"
                            Grid.ColumnSpan="2"
                            BackgroundColor="Black"
                            VerticalOptions="End"
                            Opacity="0.5"/>
-                    
-                    <Label Grid.Column="0"
+
+                        <Label Grid.Column="0"
                            Grid.Row="2"
                            Grid.ColumnSpan="2"
                            FontSize="20"
@@ -46,8 +48,8 @@
                            VerticalOptions="End"
                            Margin="15, 5, 5, 5"
                            Text="{Binding Tour.name}"/>
-                    
-                    <Button Grid.Column="1"
+
+                        <Button Grid.Column="1"
                             Grid.Row="0"
                             Margin="0, 10, 15, 0"
                             BackgroundColor="DarkRed"
@@ -64,7 +66,7 @@
                             Command="{Binding CancelTicket}"
                         />
 
-                    <Button Grid.Column="1"
+                        <Button Grid.Column="1"
                             Grid.Row="1"
                             CornerRadius="25"
                             Margin="0, 10, 15, 0"
@@ -80,7 +82,7 @@
                             Command="{Binding ViewDetail}"
                         />
 
-                    <ImageButton Command="{Binding NavigationBack}" 
+                        <ImageButton Command="{Binding NavigationBack}" 
                                  Grid.Column="0"
                                  Grid.Row="0"
                                  Source="backbutton.png" 
@@ -92,310 +94,115 @@
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0"/>
 
-                </Grid>
+                    </Grid>
 
-                <!--Thông tin tour-->
-                <Frame Margin="10"
+                    <!--Thông tin tour-->
+                    <Frame Margin="10"
                        BorderColor="Gray"
                        CornerRadius="20"
                        BackgroundColor="WhiteSmoke">
-                    <Grid>
+                        <Grid>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
 
-                        </Grid.RowDefinitions>
+                            </Grid.RowDefinitions>
 
-                        <!--start time-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--start time-->
+                            <StackLayout Orientation="Horizontal"
                              Grid.Row="0"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Start Time: "
+                                    <Label Text="Start Time: "
                                TextColor="Black"
                                FontAttributes="Italic"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Tour.startTime}"
+                                    <Label Text="{Binding Tour.startTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Duration-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Duration-->
+                            <StackLayout Orientation="Horizontal"
                              Grid.Row="1"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Duration: "
+                                    <Label Text="Duration: "
                                TextColor="Black"
                                FontAttributes="Italic"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding ProcessedDuration}"
+                                    <Label Text="{Binding ProcessedDuration}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--isOccured-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--isOccured-->
+                            <StackLayout Orientation="Horizontal"
                              Grid.Row="2"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Occured}"
+                                    <Label Text="{Binding Occured}"
                                        TextColor="DarkRed"
                                        FontAttributes="Bold"
                                        FontSize="15"
                             />
-                            </Grid>
-                        </StackLayout>
-                    </Grid>
-                </Frame>
-                
-                <!--Vé && hoá đơn-->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="70"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                       
-                    </Grid.RowDefinitions>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
 
-                    <!--Line-->
-                    <StackLayout Orientation="Vertical"
+                    <!--Vé && hoá đơn-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="70"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+
+                        <!--Line-->
+                        <StackLayout Orientation="Vertical"
                              Grid.Row="0"
                              Grid.Column="0"
                              Margin="5"
                              >
-                        <Label Text="TICKET INFORMATION"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           TextColor="DarkBlue"/>
-
-                        <Line HeightRequest="1"
-                          BackgroundColor="Blue"
-                          Margin="5"
-                        />
-                    </StackLayout>
-                    
-                    <!--Username-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="1"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Username: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.name} "
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-                    
-                    
-                    <!--Birthday-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="2"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Birthday: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.birthday}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-
-                    <!--Contact-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="3"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Contact: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.contact}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-
-                    <!--Email-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="4"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Email: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.email}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-
-                    <!--CMND-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="5"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Identity card ID: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.cmnd}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-
-                    <!--Address-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="6"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Address: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.address}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-
-                    <!--BookedTime-->
-                    <StackLayout Orientation="Horizontal"
-                             Grid.Row="7"
-                             Margin="25, 5, 15, 5"
-                             >
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Text="Booked Time: "
-                               TextColor="DarkBlue"
-                               FontSize="15"
-                               Grid.Column="0"
-                               />
-                            <Label Text="{Binding Ticket.bookTime}"
-                               TextColor="Black"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               Grid.Column="1"
-                            />
-                        </Grid>
-                    </StackLayout>
-                    
-                    
-                    
-                    <!--Line-->
-                    <StackLayout Orientation="Vertical"
-                                 Grid.Row="8">
-                        <StackLayout Orientation="Vertical"
-                             Margin="5"
-                             >
-                            <Label Text="INVOICE INFORMATION"
+                            <Label Text="TICKET INFORMATION"
                            FontSize="20"
                            FontAttributes="Bold"
                            TextColor="DarkBlue"/>
@@ -406,154 +213,349 @@
                         />
                         </StackLayout>
 
-                       
+                        <!--Username-->
                         <StackLayout Orientation="Horizontal"
+                             Grid.Row="1"
                              Margin="25, 5, 15, 5"
                              >
-                            <!--BasePrice-->
                             <Grid HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="Base Price: "
+                                <Label Text="Username: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding StrBasePrice}"
+                                <Label Text="{Binding Ticket.name} "
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                                <Label Text="USD"
+                            </Grid>
+                        </StackLayout>
+
+
+                        <!--Birthday-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="2"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Birthday: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.birthday}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+                        <!--Contact-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="3"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Contact: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.contact}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+                        <!--Email-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="4"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Email: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.email}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+                        <!--CMND-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="5"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Identity card ID: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.cmnd}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+                        <!--Address-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="6"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Address: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.address}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+                        <!--BookedTime-->
+                        <StackLayout Orientation="Horizontal"
+                             Grid.Row="7"
+                             Margin="25, 5, 15, 5"
+                             >
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="Booked Time: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                <Label Text="{Binding Ticket.bookTime}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                            </Grid>
+                        </StackLayout>
+
+
+
+                        <!--Line-->
+                        <StackLayout Orientation="Vertical"
+                                 Grid.Row="8">
+                            <StackLayout Orientation="Vertical"
+                             Margin="5"
+                             >
+                                <Label Text="INVOICE INFORMATION"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="DarkBlue"/>
+
+                                <Line HeightRequest="1"
+                          BackgroundColor="Blue"
+                          Margin="5"
+                        />
+                            </StackLayout>
+
+
+                            <StackLayout Orientation="Horizontal"
+                             Margin="25, 5, 15, 5"
+                             >
+                                <!--BasePrice-->
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Base Price: "
+                               TextColor="DarkBlue"
+                               FontSize="15"
+                               Grid.Column="0"
+                               />
+                                    <Label Text="{Binding StrBasePrice}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               Grid.Column="1"
+                            />
+                                    <Label Text="USD"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="2"
                                HorizontalOptions="Start"
                                 />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Amount-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Amount-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Amount: "
+                                    <Label Text="Amount: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Invoice.amount}"
+                                    <Label Text="{Binding Invoice.amount}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Discount ID        VISIBLE-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Discount ID        VISIBLE-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              IsVisible="{Binding DiscountVisible}"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
 
-                                <Label Text="Discount ID: "
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Discount ID: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Discount.id}"
+                                    <Label Text="{Binding Discount.id}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
 
-                               
-                               
-                            </Grid>
-                        </StackLayout>
 
-                        <!--Percent         VISIBLE-->
-                        <StackLayout Orientation="Horizontal"
+
+                                </Grid>
+                            </StackLayout>
+
+                            <!--Percent         VISIBLE-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              IsVisible="{Binding DiscountVisible}"
                              >
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Discount Percent: "
+                                    <Label Text="Discount Percent: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Discount.percent}"
+                                    <Label Text="{Binding Discount.percent}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                                HorizontalOptions="End"
                             />
-                                <Label Text="%"
+                                    <Label Text="%"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="2"
                                HorizontalOptions="Start"
                                 />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Discount Money          VISIBLE-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Discount Money          VISIBLE-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                                  IsVisible="{Binding DiscountVisible}"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Discount Money: "
+                                    <Label Text="Discount Money: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding StrDiscountMoney}"
+                                    <Label Text="{Binding StrDiscountMoney}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                                HorizontalOptions="End"
                             />
-                                <Label Text="USD"
+                                    <Label Text="USD"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -561,41 +563,41 @@
                                HorizontalOptions="Start"
                                 />
 
-                                <!--<Label Text="()"
+                                    <!--<Label Text="()"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="3"
                                HorizontalOptions="Start"
                                 />-->
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Total-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Total-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Total: "
+                                    <Label Text="Total: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding StrTotal}"
+                                    <Label Text="{Binding StrTotal}"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                                HorizontalOptions="Start"
                                 />
-                                <Label Text="USD"
+                                    <Label Text="USD"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -603,7 +605,7 @@
                                HorizontalOptions="Start"
                                 />
 
-                                <!--<Label Text="()"
+                                    <!--<Label Text="()"
                                    TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
@@ -611,132 +613,132 @@
                                HorizontalOptions="Start"
                                 />-->
 
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Method-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--Method-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Paying Method: "
+                                    <Label Text="Paying Method: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Invoice.method}"
+                                    <Label Text="{Binding Invoice.method}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--isPaid-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--isPaid-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Paying Status: "
+                                    <Label Text="Paying Status: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Paid}"
+                                    <Label Text="{Binding Paid}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--PayingTime           VISIBLE-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--PayingTime           VISIBLE-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                                  IsVisible="{Binding PayingVisible}"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Paying Time: "
+                                    <Label Text="Paying Time: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding Invoice.payingTime}"
+                                    <Label Text="{Binding Invoice.payingTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--MoMoVND           VISIBLE-->
-                        <StackLayout Orientation="Horizontal"
+                            <!--MoMoVND           VISIBLE-->
+                            <StackLayout Orientation="Horizontal"
                              Margin="25, 5, 15, 5"
                                  IsVisible="{Binding PayingPhotoVisible}"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="MoMo Paid: "
+                                    <Label Text="MoMo Paid: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                                <Label Text="{Binding StrMoMoVND}"
+                                    <Label Text="{Binding StrMoMoVND}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
                                Grid.Column="1"
                             />
-                            </Grid>
-                        </StackLayout>
+                                </Grid>
+                            </StackLayout>
 
-                        <!--Proof            VISIBLE-->
-                        <StackLayout Orientation="Vertical"
+                            <!--Proof            VISIBLE-->
+                            <StackLayout Orientation="Vertical"
                              Margin="25, 5, 15, 5"
                                  IsVisible="{Binding PayingPhotoVisible}"
                              >
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Text="Paying Photo: "
+                                    <Label Text="Paying Photo: "
                                TextColor="DarkBlue"
                                FontSize="15"
                                Grid.Column="0"
                                />
-                            </Grid>
-                            <Image   Source="{Binding Invoice.photoMomo}"
+                                </Grid>
+                                <Image   Source="{Binding Invoice.photoMomo}"
                                       BackgroundColor="Transparent"
                                       WidthRequest="500"
                                        Aspect="AspectFill"   
                                      
                              />
 
-                            <!--<Button Command="{Binding UploadPhoto}"
+                                <!--<Button Command="{Binding UploadPhoto}"
                                        IsVisible="{Binding DisplayUpload}"
                                     Text="Pay by Momo wallet"
                                     Grid.Row="5"
@@ -751,13 +753,15 @@
                                     HeightRequest="50"
                                     FontAttributes="Bold"
                                     FontSize="20"/>-->
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
-                    
 
-                </Grid>
-            </StackLayout>
-        </ScrollView>
+
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+        
         
     </ContentPage.Content>
 </ContentPage>

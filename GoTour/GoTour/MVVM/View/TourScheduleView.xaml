@@ -26,13 +26,13 @@
                              BackgroundColor="SteelBlue"
                             HasShadow="True"
                             CornerRadius="10"
-                           HeightRequest="50"
+                           
                             Padding="10"
                             Margin="5"
                             >
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
-                                <Button Text="Đặt ngay" TextColor="MidnightBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand"></Button>
+                                <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Large" TextColor="White"  Margin="10"></Label>
+                                <Button Text="View Ticket" TextColor="MidnightBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding ViewTicket}"></Button>
 
                             </StackLayout>
 
@@ -46,10 +46,10 @@
                             Padding="10"
                             Margin="25, -10 , 25 , 0">
                             <StackLayout>
-                                <Label Text="{Binding SelectedTour.startTime,StringFormat='{}Thời gian khởi hành: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                                <Label Text="{Binding SelectedTour.basePrice ,StringFormat='{}Giá vé cơ bản: {0} VND/Người' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                                <Label Text="{Binding ProcessedDuration,StringFormat='{}Thời lượng: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
-                                <Label Text="{Binding SelectedTour.passengerNumber ,StringFormat='{}Số lượng: {0} Hành Khách' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding SelectedTour.startTime,StringFormat='{}Start time: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding SelectedTour.basePrice ,StringFormat='{}Price: {0} $' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding ProcessedDuration,StringFormat='{}Duration: {0}' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
+                                <Label Text="{Binding SelectedTour.passengerNumber ,StringFormat='{}Total: {0} Passengers' }" FontSize="Medium" FontAttributes="Bold" Margin="5"></Label>
                             </StackLayout>
 
                         </Frame>
@@ -138,7 +138,7 @@
                                 <Setter Property="Opacity"  Value="0.5" />
                             </DataTrigger>
                         </StackLayout.Triggers>
-                        <Label Text="Lịch trình hôm nay " FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="Current Shedule:  " FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <Label Text="{Binding CurrentSchedule.dateTime}" 
                                        FontSize="Large"
                                        FontAttributes="Bold"
@@ -289,6 +289,58 @@
                         </CollectionView>
 
 
+
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="TOUR GUIDER" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <CollectionView x:Name="clview3"
+                            ItemsSource="{Binding ListTourGuide}"                      
+                                    ItemsLayout="HorizontalList"
+                                    HeightRequest="120"
+                                    >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+
+
+                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300" >
+                                        <StackLayout Orientation="Horizontal" >
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+
+                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="100" WidthRequest="100" Aspect="AspectFit"/>
+                                            <StackLayout  >
+                                                <Label Text="{Binding name}" FontAttributes="Bold" TextColor="Black"/>
+                                                <Label Text="{Binding contact}"/>
+                                                <Label Text="{Binding email}"/>
+                                                <Label Text="{Binding rank}">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
+                                                            <Setter Property="Text" Value="Admin" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
+                                                            <Setter Property="Text" Value="Management" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
+                                                            <Setter Property="Text" Value="Tour Guide" />
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
+                                                            <Setter Property="Text" Value="User" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
                     </StackLayout>
                     
