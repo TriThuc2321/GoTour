@@ -33,7 +33,7 @@ namespace GoTour.Database
             return Rule.ElementAt(0);
         }
 
-        public async Task UpdateInvoice(Rule newRule)
+        public async Task UpdateRule(Rule newRule)
         {
 
             await firebase

@@ -17,6 +17,7 @@ namespace GoTour.MVVM.ViewModel
         public Command MenuCommand { get; }
         public Command StaffCommand { get; }
         public Command RevenueCommand { get; }
+        public Command RuleCommand { get; }
 
         public ManagerViewModel() { }
         public ManagerViewModel(INavigation navigation, Shell curentShell)
@@ -30,6 +31,7 @@ namespace GoTour.MVVM.ViewModel
             TourCommand = new Command(tourHandle);
             StaffCommand = new Command(staffHandle);
             RevenueCommand = new Command(revenueHandle);
+            RuleCommand = new Command(ruleHandle);
         }
 
         private void staffHandle(object obj)
@@ -62,6 +64,10 @@ namespace GoTour.MVVM.ViewModel
         private void placeHandle(object obj)
         {
             navigation.PushAsync(new PlaceManagerView());
+        }
+        private void ruleHandle(object obj)
+        {
+            navigation.PushAsync(new RuleManagerView());
         }
     }
 }

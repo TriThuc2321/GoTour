@@ -31,6 +31,12 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="20,10,20,10" VerticalOptions="Start">
+                            <Grid.Triggers>
+                                <DataTrigger TargetType="Grid" Binding="{Binding invoice.IsPaid}" Value="True">
+                                    <Setter Property="HeightRequest" Value="0" />
+
+                                </DataTrigger>
+                            </Grid.Triggers>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
@@ -48,8 +54,9 @@
                                 <pancake:PancakeView.Triggers>
                                     <DataTrigger TargetType="pancake:PancakeView" Binding="{Binding invoice.IsPaid}" Value="True">
                                         <Setter Property="IsVisible" Value="False" />
+                                      
                                     </DataTrigger>
-                                   
+
                                 </pancake:PancakeView.Triggers>
                                 
                                 <StackLayout>
