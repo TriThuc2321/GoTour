@@ -81,7 +81,7 @@
                     </Label>
                 </Frame>
 
-                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10">
+                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10" IsVisible="{Binding IsAdmin}">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
@@ -111,7 +111,7 @@
                     </Label>
                 </Frame>
 
-                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10">
+                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10" IsVisible="{Binding IsAdmin}">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>

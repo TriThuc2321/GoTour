@@ -124,7 +124,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Tour Guider" Icon="invoiceIcon.png">
-        <ShellContent Route="TourGuider" ContentTemplate="{DataTemplate views:TourGuideView}" Style="{DynamicResource Base1Style}"/>
+        <ShellContent Route="TourGuider" ContentTemplate="{DataTemplate views:TourGuideView}" Style="{DynamicResource Base1Style}" IsVisible="{Binding IsTourGuide}"/>
     </FlyoutItem>
 
     <Shell.FlyoutHeader >
@@ -162,7 +162,11 @@
     </Shell.FlyoutHeader>
 
     <Shell.FlyoutFooter>
-        <StackLayout>
+        <StackLayout >
+            <StackLayout Orientation="Horizontal" Margin="20,0,0,0">
+                <ImageButton x:Name="LogOutBtn" Clicked="LogOutBtn_Clicked" Source="logOut.png" Aspect="AspectFit" HeightRequest="20" BackgroundColor="Transparent" />
+                <Label Text="Log Out"/>
+            </StackLayout>
             <Label Text="Go Tour"
                TextColor="#777777"
                FontAttributes="Bold"

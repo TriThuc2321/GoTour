@@ -1,4 +1,5 @@
-﻿using GoTour.MVVM.View;
+﻿using GoTour.Database;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,13 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             this.currentShell = curentShell;
+
+            IsAdmin = false;
+            if(DataManager.Ins.CurrentUser.rank == 0)
+            {
+                IsAdmin = true;
+            }
+            
 
             PlaceCommand = new Command(placeHandle);
             StayPlaceCommand = new Command(stayPlaceHandle);
@@ -62,6 +70,17 @@ namespace GoTour.MVVM.ViewModel
         private void placeHandle(object obj)
         {
             navigation.PushAsync(new PlaceManagerView());
+        }
+        private bool isAdmin;
+        public bool IsAdmin { 
+            get
+            {
+                return isAdmin;
+            }
+            set
+            {
+                isAdmin = value;
+            }
         }
     }
 }

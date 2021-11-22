@@ -1,10 +1,12 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -23,6 +25,12 @@ namespace GoTour.MVVM.ViewModel
 
             Init();
         }
+        public ICommand NewCommand => new Command<object>((obj) =>
+        {
+            DataManager.Ins.currentUserManager = null;
+            DataManager.Ins.IsNewUser = true;
+            navigation.PushAsync(new EditStaffManagerView());
+        });
         void Init()
         {
             types = new ObservableCollection<string>();
@@ -32,11 +40,52 @@ namespace GoTour.MVVM.ViewModel
             types.Add("Tour Guide");
             types.Add("Customer");
 
-            SelectedType = "All";
-
-            
+            SelectedType = "All";           
         }
 
+        public ICommand NavigationBack => new Command<object>((obj) =>
+        {
+            navigation.PopAsync();
+        });
+        public ICommand SelectedCommand => new Command<object>((obj) =>
+        {
+            User result = obj as User;
+            if (result != null)
+            {
+                DataManager.Ins.currentUserManager = result;
+                DataManager.Ins.IsNewUser = false;
+                navigation.PushAsync(new EditStaffManagerView());
+                SelectedUser = null;
+            }
+        });
+        public ICommand DeleteCommand => new Command<object>(async (obj) =>
+        {
+            User result = obj as User;
+            if (result != null)
+            {
+                if(result.email == DataManager.Ins.CurrentUser.email)
+                {
+                    DependencyService.Get<IToast>().ShortToast("Your account cannot be deleted");
+                    return;
+                }
+                AllList.Remove(result);
+
+                if (result.rank == 0) DataManager.Ins.admins.Remove(result);
+                else if (result.rank == 1) DataManager.Ins.managements.Remove(result);
+                else if (result.rank == 2) DataManager.Ins.tourGuides.Remove(result);
+                else if (result.rank == 3) DataManager.Ins.customers.Remove(result);
+            }
+        });
+        private User selectedUser;
+        public User SelectedUser
+        {
+            get { return selectedUser; }
+            set
+            {
+                selectedUser = value;
+                OnPropertyChanged("SelectedUser");
+            }
+        }
         private ObservableCollection<User> allList;
         public ObservableCollection<User> AllList
         {

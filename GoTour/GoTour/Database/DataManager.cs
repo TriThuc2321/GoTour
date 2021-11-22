@@ -61,8 +61,10 @@ namespace GoTour.Database
 
         public List<string> currentPlace = new List<string>();
         public Tour currentTour = new Tour();
+        public User currentUserManager;
         public PlaceId_Duration currentDuration = new PlaceId_Duration();
         public int idTourDuration;
+        public bool IsNewUser;
         private DataManager()
         {
             //HUYNH
@@ -198,6 +200,21 @@ namespace GoTour.Database
                 booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
                 ListBookedTickets.Add(booked);
              
+            }
+        }
+        public void ClassifyUser()
+        {
+            customers = new List<User>();
+            tourGuides = new List<User>();
+            managements = new List<User>();
+            admins = new List<User>();
+
+            foreach (User u in users)
+            {               
+                if (u.rank == 3) customers.Add(u);
+                else if (u.rank == 2) tourGuides.Add(u);
+                else if (u.rank == 1) managements.Add(u);
+                else admins.Add(u);
             }
         }
         public string GeneratePlaceId(int length = 10)
@@ -473,13 +490,16 @@ namespace GoTour.Database
                 currentUser = value;
                 ProfilePic = value.profilePic;
                 CurrentName = value.name;
-                if(value.rank == 0)
+
+                IsManager = false;
+                IsTourGuide = false;
+                if (value.rank == 0 || value.rank == 1)
                 {
                     IsManager = true;
                 }
-                else
+                else if(value.rank == 2)
                 {
-                    IsManager = false;
+                    IsTourGuide = true;
                 }
             }
         }
@@ -706,6 +726,17 @@ namespace GoTour.Database
                 OnPropertyChanged("IsManager");
             }
         }
+        private bool isTourGuide;
+        public bool IsTourGuide
+        {
+            get { return isTourGuide; }
+            set
+            {
+                isTourGuide = value;
+                OnPropertyChanged("IsTourGuide");
+            }
+        }
+
         private ObservableCollection<ImagePlaceStream> imgPlaceStreams;
         public ObservableCollection<ImagePlaceStream> ImgPlaceStreams
         {
@@ -727,6 +758,7 @@ namespace GoTour.Database
              
             }
         }
+        
     }
 
 

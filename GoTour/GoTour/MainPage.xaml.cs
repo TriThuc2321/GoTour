@@ -25,5 +25,10 @@ namespace GoTour
             Routing.RegisterRoute(nameof(TourGuideView), typeof(TourGuideView));
             this.BindingContext = DataManager.Ins;
         }
+
+        private void LogOutBtn_Clicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync($"//{nameof(LoginView)}");
+        }
     }
 }
