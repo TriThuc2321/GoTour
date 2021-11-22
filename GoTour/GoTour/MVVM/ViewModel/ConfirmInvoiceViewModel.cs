@@ -31,22 +31,11 @@ namespace GoTour.MVVM.ViewModel
         {
             ListTour = new List<Tour>();
             ListInvoice = new List<Invoice>();
-            ListBookedSticket = DataManager.Ins.ListBookedTickets;
-            foreach (Tour ite in DataManager.Ins.ListTour)
+            ListBookedSticket = new ObservableCollection<BookedTicket>();
+            foreach( BookedTicket ite in DataManager.Ins.ListBookedTickets)
             {
-                listTour.Add(ite);
+                if (ite.invoice.IsPaid == false) ListBookedSticket.Add(ite);
             }
-            foreach (Invoice ite1 in DataManager.Ins.ListInvoice)
-            {
-                listInvoice.Add(ite1);
-            }
-            foreach (BookedTicket ite in ListBookedSticket)
-            {
-                ite.tour = listTour.Find(e => e.id == ite.tour.id);
-                ite.invoice = listInvoice.Find(e => e.id == ite.invoice.id);
-                //if (ite.invoice.isPaid == true) ListBookedSticket.Remove(ite);
-            }
-           
         }
         public ICommand AcceptCommand => new Command<object>((obj) =>
         {

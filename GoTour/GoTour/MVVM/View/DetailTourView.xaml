@@ -110,13 +110,16 @@
                         <Button x:Name="reviewBtn" Text="Reviews" FontSize="Small" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding ReviewBtn}"></Button>
                         
                     </StackLayout>
-                    <Grid>
+                    <ScrollView>
+                        <Grid>
+                       
                         <Label Padding="10,0,10,0" Text="{Binding SelectedTour.description}" HorizontalOptions="StartAndExpand" IsVisible="{Binding DescriptionInfo}">
-                            
+                        
                         </Label>
                         <Label Padding="10,0,10,0" Text="Thuc yeu que rat nhieu" HorizontalOptions="StartAndExpand" TextColor="Red" IsVisible="{Binding ReviewInfo}"></Label>
-
+                        
                     </Grid>
+                    </ScrollView>
 
                     <StackLayout Orientation="Horizontal"  VerticalOptions="EndAndExpand">
                         <Label Text="{Binding SelectedTour.basePrice,StringFormat='{}{0} $'}" TextColor="Black" FontAttributes="Bold" FontSize="Large" VerticalOptions="CenterAndExpand" Margin="0,0,30,10"></Label>

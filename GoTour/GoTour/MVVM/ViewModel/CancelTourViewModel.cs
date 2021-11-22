@@ -87,8 +87,10 @@ namespace GoTour.MVVM.ViewModel
                     break;
                 }
             }
-
+            string notiId = DataManager.Ins.GeneratePlaceId(10);
              string noti = DataManager.Ins.GetDeductInformation(DataManager.Ins.CurrentBookedTicket)[0];
+
+            DataManager.Ins.NotiServices.ListMyNoti_System.Add(new Notification(notiId, "System", DataManager.Ins.CurrentUser.email, "False", 1, noti, DateTime.Now, "True", DataManager.Ins.currentTour.id, "Canceled Ticket: " + DataManager.Ins.currentTour.name));
 
             await DataManager.Ins.NotiServices.SendNoti(
                 DataManager.Ins.GeneratePlaceId(10),

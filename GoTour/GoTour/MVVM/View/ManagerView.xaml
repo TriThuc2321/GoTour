@@ -126,6 +126,21 @@
                     </Label>
                 </Frame>
 
+                <Frame HasShadow="False" BorderColor="Gray" Margin="0, 10,0,0" CornerRadius="10">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Rule Manager" TextColor="Gray" FontSize="15">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RuleCommand}"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>
+
             </StackLayout>
         </Frame>
     </Grid>

@@ -19,6 +19,7 @@ namespace GoTour.MVVM.ViewModel
         public Command StaffCommand { get; }
         public Command RevenueCommand { get; }
         public Command DiscountCommand { get; }
+        public Command RuleCommand { get; }
 
         public ManagerViewModel() { }
         public ManagerViewModel(INavigation navigation, Shell curentShell)
@@ -40,6 +41,7 @@ namespace GoTour.MVVM.ViewModel
             StaffCommand = new Command(staffHandle);
             RevenueCommand = new Command(revenueHandle);
             DiscountCommand = new Command(discountHandle);
+            RuleCommand = new Command(ruleHandle);
         }
 
         private void staffHandle(object obj)
@@ -88,6 +90,10 @@ namespace GoTour.MVVM.ViewModel
             {
                 isAdmin = value;
             }
+        }
+        private void ruleHandle(object obj)
+        {
+            navigation.PushAsync(new RuleManagerView());
         }
     }
 }
