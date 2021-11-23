@@ -196,7 +196,7 @@ namespace GoTour.MVVM.ViewModel
         {
             if (selectedTour.duration == null) return;
             string[] _ProcessedDuration = selectedTour.duration.Split('/');
-            string result = _ProcessedDuration[0] + " Ngày " + _ProcessedDuration[1] + " Đêm";
+            string result = _ProcessedDuration[0] + " Days " + _ProcessedDuration[1] + " Nights";
             ProcessedDuration = result;
         }
         private void SortTimeline()

@@ -33,10 +33,10 @@ namespace GoTour.Database
         public List<User> customers;
         public List<ImagePlaceStream> imagePlaceStreams;
         public bool LoadData = true;
-        
+        public Stream currentImgTourStream;
 
         #region TourView
-        
+
         async Task getAllStayPlaceList()
         {
             //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");

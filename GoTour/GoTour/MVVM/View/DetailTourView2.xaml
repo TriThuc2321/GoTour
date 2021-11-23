@@ -51,12 +51,63 @@
                     </Frame>
                     
                 </StackLayout>
+                    <Label Text="TOUR GUIDER" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                    <CollectionView x:Name="clview1"
+                            ItemsSource="{Binding ListTourGuide}" 
+                            SelectionMode="None" 
+                            SelectedItem="{Binding SelectedUser}"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
+                                    ItemsLayout="HorizontalList"
+                                    HeightRequest="100"
+                                    >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
 
-                <StackLayout >
+
+                                <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
+                                    <StackLayout Orientation="Horizontal" >
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="White" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+
+                                        <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
+                                        <StackLayout >
+                                            <Label Text="{Binding name}" FontAttributes="Bold"/>
+                                            <Label Text="{Binding rank}">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
+                                                        <Setter Property="Text" Value="Admin" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
+                                                        <Setter Property="Text" Value="Management" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
+                                                        <Setter Property="Text" Value="Tour Guide" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
+                                                        <Setter Property="Text" Value="User" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <StackLayout >
                     <Label Text="TOUR SCHEDULE" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <CollectionView x:Name="clview" 
                             ItemsSource="{Binding SelectedTour.placeDurationList}" 
-                            SelectionMode="Single"
+                            SelectionMode="None"
                             >
                             <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -110,58 +161,7 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                        <Label Text="TOUR GUIDER" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
-                        <CollectionView x:Name="clview1"
-                            ItemsSource="{Binding ListTourGuide}" 
-                            SelectionMode="Single" 
-                            SelectedItem="{Binding SelectedUser}"
-                            SelectionChangedCommand="{Binding SelectedCommand}"
-                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
-                                    ItemsLayout="HorizontalList"
-                                    HeightRequest="100"
-                                    >
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-
-
-                                    <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
-                                        <StackLayout Orientation="Horizontal" >
-                                            <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup Name="CommonStates">
-                                                    <VisualState Name="Selected">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="White" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateManager.VisualStateGroups>
-
-                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="50" WidthRequest="50" Aspect="AspectFill"/>
-                                            <StackLayout >
-                                                <Label Text="{Binding name}" FontAttributes="Bold"/>
-                                                <Label Text="{Binding rank}">
-                                                    <Label.Triggers>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
-                                                            <Setter Property="Text" Value="Admin" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
-                                                            <Setter Property="Text" Value="Management" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
-                                                            <Setter Property="Text" Value="Tour Guide" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
-                                                            <Setter Property="Text" Value="User" />
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
-                                                </Label>
-                                            </StackLayout>
-                                        </StackLayout>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
+                       
                     </StackLayout>
                 
         </StackLayout>

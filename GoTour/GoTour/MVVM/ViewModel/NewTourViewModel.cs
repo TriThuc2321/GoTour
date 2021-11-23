@@ -19,7 +19,6 @@ namespace GoTour.MVVM.ViewModel
         Shell currentShell;
         public Command OpenDetailTour { get; }
         public Command BookTourCommand { get; }
-        public Command OpenDetailTour1 { get; }
         public Command NavigationBack { get; }
         public Command EditTextCommand { get; }
         public Command AddImageCommand { get; }
@@ -35,8 +34,7 @@ namespace GoTour.MVVM.ViewModel
 
             NavigationBack = new Command(() => navigation.PopAsync());
             OpenDetailTour = new Command(OpenDetailTourHandler);
-            OpenDetailTour1 = new Command(OpenDetailTourHandler1);
-            EditTextCommand = new Command(updateData);
+            //EditTextCommand = new Command(updateData);
             AddImageCommand = new Command(addHandleAsync);
 
             StartDatePicker = DateTime.Now;
@@ -82,9 +80,9 @@ namespace GoTour.MVVM.ViewModel
             }
 
         }
-        private async void updateData(object obj)
+        /*private async void updateTour(object obj)
         {
-            if(Description == null || Name == null || Price == null || Price == null || Day == null || Night == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
+            if (Description == null || Name == null || Price == null || Price == null || Day == null || Night == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
                 Description == "" || Name == "" || Img == null || TourGuides.Count == 0)
             {
                 DependencyService.Get<IToast>().ShortToast("Please fill out tour information.");
@@ -130,21 +128,68 @@ namespace GoTour.MVVM.ViewModel
 
             await DataManager.Ins.TourServices.AddTour(DataManager.Ins.currentTour);
             DependencyService.Get<IToast>().ShortToast("New tour has been inserted");
+        }*/
+        void updateTour()
+        {            
+            string[] temp = StartDatePicker.ToString().Split(' ');
+            string[] dayTemp = temp[0].Split('/');
+
+            while (true)
+            {
+                int i = 0;
+                DataManager.Ins.currentTour.id = DataManager.Ins.GeneratePlaceId();
+                for (i = 0; i < DataManager.Ins.ListTour.Count; i++)
+                {
+                    if (DataManager.Ins.currentTour.id == DataManager.Ins.ListTour[i].id)
+                    {
+                        break;
+                    }
+                }
+                if (i == DataManager.Ins.ListTour.Count) break;
+            }
+
+            DataManager.Ins.currentTour.description = Description;
+            DataManager.Ins.currentTour.name = Name;
+            DataManager.Ins.currentTour.basePrice = Price;
+            DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString();
+            DataManager.Ins.currentTour.duration = Day + '/' + Night;
+            DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
+            DataManager.Ins.currentTour.tourGuide = new List<string>();
+            DataManager.Ins.currentImgTourStream = imgTemp;
+
+            for (int i = 0; i < TourGuides.Count; i++)
+            {
+                DataManager.Ins.currentTour.tourGuide.Add(TourGuides[i].email);
+            }
+
+            /*StartDate = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2];
+            ProcessedDuration = Day + " Day " + Night + " Night";
+            StartTime = StartTimePicker.ToString();*/
+
+
+            /*DataManager.Ins.currentTour.imgSource = new List<string>();
+            string url = await DataManager.Ins.TourServices.saveImage(imgTemp, DataManager.Ins.currentTour.id, 0);
+            DataManager.Ins.currentTour.imgSource.Add(url);
+
+            await DataManager.Ins.TourServices.AddTour(DataManager.Ins.currentTour);
+            DependencyService.Get<IToast>().ShortToast("New tour has been inserted");*/
         }
         public void OpenDetailTourHandler()
         {
-            navigation.PushAsync(new EditDetailTourView());
+            if (Description == null || Name == null || Price == null || Price == null || Day == null || Night == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
+                Description == "" || Name == "" || Img == null || TourGuides.Count == 0)
+            {
+                DependencyService.Get<IToast>().ShortToast("Please fill out tour information.");
+                return;
+            }
+            updateTour();
+            navigation.PushAsync(new NewDetailTourView());
         }
 
         public void OpenBookTourView(object obj)
         {
             navigation.PushAsync(new BookTourView());
-        }
-
-        public void OpenDetailTourHandler1()
-        {
-            navigation.PushAsync(new TourScheduleView());
-        }
+        }        
         private Tour selectedTour;
         public Tour SelectedTour
         {

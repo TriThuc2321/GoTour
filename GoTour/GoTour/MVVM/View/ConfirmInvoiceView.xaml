@@ -98,7 +98,7 @@
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="CenterAndExpand"
-                                 BackgroundColor="White" 
+                                 BackgroundColor="WhiteSmoke" 
                                  Margin="10, 0 , 0, 0">
                 </ImageButton>
                 <Label Text="Confirm Invoice" FontSize="22" TextColor="Black" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
