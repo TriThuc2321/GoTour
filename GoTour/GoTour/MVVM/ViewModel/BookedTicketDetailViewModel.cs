@@ -223,7 +223,7 @@ namespace GoTour.MVVM.ViewModel
         {
             if (DataManager.Ins.currentTour.duration == null) return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
-            string result = _ProcessedDuration[0] + " days - " + _ProcessedDuration[1] + " nights";
+            string result = _ProcessedDuration[0] + " day(s) - " + _ProcessedDuration[1] + " night(s)";
             ProcessedDuration = result;
         }
 

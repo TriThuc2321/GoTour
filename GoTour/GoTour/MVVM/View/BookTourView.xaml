@@ -142,7 +142,7 @@
                                         <RowDefinition Height="auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Entry Grid.Row="0"               
-                                        Placeholder="Contact"
+                                        Placeholder="Contact (10 numbers)"
                                         PlaceholderColor="#C0C0C0"
                                         Keyboard="Telephone"
                                         FontSize="15"

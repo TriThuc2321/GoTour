@@ -92,7 +92,7 @@ namespace GoTour.MVVM.ViewModel
         {
             foreach (var favourite in DataManager.Ins.ListFavouriteTours)
             {
-                if (favourite.tour.id == DataManager.Ins.currentTour.id)
+                if (favourite.tour.id == DataManager.Ins.currentTour.id && favourite.email == DataManager.Ins.CurrentUser.email)
                 {
                     LoveBtn = "love_red.png";
                     return favourite;
