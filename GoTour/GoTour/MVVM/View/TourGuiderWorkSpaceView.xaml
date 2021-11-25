@@ -6,23 +6,21 @@
         <vm:TourGuiderWorkSpaceViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="4*"></RowDefinition>
-            </Grid.RowDefinitions>
+        
+        <StackLayout>
 
             <pancake:PancakeView CornerRadius="0,0,0,0">
                 <Image Source="tourGuiderbg1.jpg
-                       " Aspect="AspectFill" />
+                       " Aspect="AspectFill" HeightRequest="180" />
             </pancake:PancakeView>
             <Label Text="YOUR TOUR WORK" 
-                   TextColor="#ddc8c4"
+                   TextColor="Black"
                    FontAttributes="Bold"
                    FontSize="Title"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand"
                    Opacity="1"
+                   Margin="0,-120,0,0"
                    ></Label>
 
 
@@ -34,21 +32,21 @@
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="Transparent" 
-                                 Margin="10, 10 , 0, 0">
+                                 Margin="5, -100 , 0, 0">
             </ImageButton>
-
 
             <Button Command="{Binding OpenSendNotiView }"                                
                                  Text="Send Notification"
                                  TextColor="White"
                                  CornerRadius="10"
                                  FontAttributes="Bold"
+                                 HeightRequest="40"
                                  FontSize="11"
-                                 Margin="10,150,255,-25"
+                                 Margin="10,110,255,-25"
                                  BackgroundColor="#ddc8c4"                              
                                  />
+
             <CollectionView x:Name="clview" 
-                            Grid.Row="1"
                             Margin="0,25,0,0"
                             BackgroundColor="White"
                             ItemsSource="{Binding ListTourYouWorkOn}" 
@@ -89,6 +87,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
