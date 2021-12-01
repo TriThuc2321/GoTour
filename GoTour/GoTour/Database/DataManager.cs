@@ -107,7 +107,7 @@ namespace GoTour.Database
             InvoicesServices = new InvoicesServices();
 
             CurrentDiscount = new Discount();
-            currentInvoice = new Invoice();
+            CurrentInvoice = new Invoice();
 
             CurrentUser = new User();
             

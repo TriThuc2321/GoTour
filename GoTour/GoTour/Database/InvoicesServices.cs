@@ -16,7 +16,7 @@ namespace GoTour.Database
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseClient storage = new FirebaseClient("gs://gotour-98c79.appspot.com");
 
-        public List<FavouriteTour> favoritePlaces;
+        public List<Invoice> invoices;
 
         public InvoicesServices() { }
         public async Task<List<Invoice>> GetAllInvoice()
