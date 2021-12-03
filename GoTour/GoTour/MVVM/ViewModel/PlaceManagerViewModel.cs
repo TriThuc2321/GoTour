@@ -74,7 +74,6 @@ namespace GoTour.MVVM.ViewModel
             {
                 string message1 = "";
                 string message2 = "";
-                string messageAll = "";
 
                 foreach (Tour ite in tour_Has_electedStayPlace_List)
                     message1 = message1 + ite.name + ", ";
@@ -94,7 +93,7 @@ namespace GoTour.MVVM.ViewModel
                     message2 += "stay places has been conflicted, please delete before doing this task!";
                 }
 
-                _messageService.ShowAsync("Warning", message1 + message2);
+                await _messageService.ShowAsync("Warning", message1 + message2);
             }                     
             
         });

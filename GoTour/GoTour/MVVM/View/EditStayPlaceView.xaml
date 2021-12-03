@@ -46,6 +46,16 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
+        
         <StackLayout Grid.Row="1">
             <StackLayout Orientation="Horizontal">
                 <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" IsVisible="{Binding IsEdit}" Command="{Binding DeleteCommand}"/>

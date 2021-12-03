@@ -102,7 +102,7 @@ namespace GoTour.MVVM.ViewModel
         async void loginHandleAsync(object obj)
         {
             int i = 0;
-            if (Account == null || Account == "" || !DataManager.Ins.UsersServices.checkEmail(Account))
+            if (Account == null || Account == "" || !DataManager.Ins.UsersServices.checkEmail(Account) || Password == null || Password == "")
             {
                 DependencyService.Get<IToast>().ShortToast("Email invalid");
                 return;

@@ -152,7 +152,7 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.name = Name;
             DataManager.Ins.currentTour.basePrice = Price;
             DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString();
-            DataManager.Ins.currentTour.duration = Day + '/' + Night;
+            DataManager.Ins.currentTour.duration = "";
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
             DataManager.Ins.currentTour.tourGuide = new List<string>();
             DataManager.Ins.currentImgTourStream = imgTemp;
@@ -176,7 +176,7 @@ namespace GoTour.MVVM.ViewModel
         }
         public void OpenDetailTourHandler()
         {
-            if (Description == null || Name == null || Price == null || Price == null || Day == null || Night == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
+            if (Description == null || Name == null || Price == null || Price == null || PassengerNumber == null || StartTimePicker == null || StartDatePicker == null ||
                 Description == "" || Name == "" || Img == null || TourGuides.Count == 0)
             {
                 DependencyService.Get<IToast>().ShortToast("Please fill out tour information.");
@@ -251,7 +251,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("ReviewInfo");
             }
         }
-        private void DurationProcess()
+        /*private void DurationProcess()
         {
             if (DataManager.Ins.currentTour.duration == null) return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
@@ -261,7 +261,7 @@ namespace GoTour.MVVM.ViewModel
             Night = _ProcessedDuration[1];
 
             ProcessedDuration = result;
-        }
+        }*/
         private MemoryStream GetStreamFromUrl(string url)
         {
             byte[] imageData = null;
@@ -338,7 +338,7 @@ namespace GoTour.MVVM.ViewModel
 
             }
         }
-        private string day;
+        /*private string day;
         public string Day
         {
             get { return day; }
@@ -358,7 +358,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Night");
 
             }
-        }
+        }*/
         private string startDate;
         public string StartDate
         {

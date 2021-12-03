@@ -51,9 +51,22 @@ namespace GoTour.MVVM.ViewModel
             var duration = obj as PlaceId_Duration;            
             SelectedTour.placeDurationList.Remove(duration);
             PlaceDurationsList.Remove(duration);
+            DataManager.Ins.currentTour.placeDurationList.Remove(duration);
+
+
+            int day = 0;
+            int night = 0;
+            for (int i = 0; i < SelectedTour.placeDurationList.Count; i++)
+            {
+                day += SelectedTour.placeDurationList[i].day;
+                night += SelectedTour.placeDurationList[i].night;
+            }
+            DataManager.Ins.currentTour.duration = day + "/" + night;
+            DurationProcess();
 
             TourPlace tourPlace = new TourPlace(DataManager.Ins.currentTour.id, SelectedTour.placeDurationList);
             await DataManager.Ins.TourPlaceServices.UpdateTourPlace(tourPlace);
+            await DataManager.Ins.TourServices.UpdateTour(SelectedTour);
 
             DependencyService.Get<IToast>().ShortToast("Schedule has been deleted");
         });
@@ -134,7 +147,7 @@ namespace GoTour.MVVM.ViewModel
         {
             if (DataManager.Ins.currentTour.duration == null) return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
-            string result = _ProcessedDuration[0] + " Day " + _ProcessedDuration[1] + " Night";
+            string result = _ProcessedDuration[0] + " Day(s) " + _ProcessedDuration[1] + " Night(s)";
             ProcessedDuration = result;
         }
     }

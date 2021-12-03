@@ -67,12 +67,11 @@ namespace GoTour.Database
         public bool IsNewUser;
         private DataManager()
         {
+
             //HUYNH
             SearchServices = new SearchAndFilterServices();
             NotiServices = new NotificationServices();
-            NotiList = new ObservableCollection<Notification>();
-            
-
+            NotiList = new ObservableCollection<Notification>();         
 
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
@@ -81,7 +80,6 @@ namespace GoTour.Database
             ListUser = new ObservableCollection<User>();
             ListTour = new ObservableCollection<Tour>();
             ListReview = new ObservableCollection<Review>();
-
 
             /// Thiên
             ListStayPlace = new ObservableCollection<StayPlace>();
@@ -117,9 +115,7 @@ namespace GoTour.Database
         }
         async Task getAllList()
         {
-            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
-
-            
+            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");           
 
             admins = new List<User>();
             managements = new List<User>();
@@ -151,8 +147,6 @@ namespace GoTour.Database
             {
                 ListPlace.Add(p);
             }
-
-            
 
             List<Tour> tourList = await TourServices.GetAllTours();
             List<TourPlace> tourPlaceList = await TourPlaceServices.GetAllTourPlaces();
@@ -202,6 +196,7 @@ namespace GoTour.Database
              
             }
         }
+        
         public void ClassifyUser()
         {
             customers = new List<User>();
@@ -325,6 +320,24 @@ namespace GoTour.Database
             }
 
             return ms;
+        }
+        private async Task SetupTourAsync(ObservableCollection<Tour> list)
+        {
+            DateTime current_time = DateTime.Now.AddDays(0);
+            double count;
+            foreach (Tour ite in list)
+            {
+                string[] temp = ite.startTime.Split(' ');
+                string[] TourStartTime = temp[0].Split('/');
+                DateTime TourStartTime1 = new DateTime(int.Parse(TourStartTime[2]), int.Parse(TourStartTime[0]), int.Parse(TourStartTime[1]));
+                TimeSpan interval = current_time.Subtract(TourStartTime1);
+                count = interval.Days * 24 + interval.Hours + ((interval.Minutes * 100) / 60) * 0.01;
+                if (count > 0)
+                {
+                    ite.isOccured = true;
+                    await DataManager.Ins.TourServices.UpdateTour(ite);
+                }
+            }
         }
         private ToursServices tourServices;
         public ToursServices TourServices

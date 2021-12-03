@@ -34,7 +34,7 @@ namespace GoTour.MVVM.ViewModel
         {
             navigation.PushAsync(new NewStayPlaceView());
         });
-        public ICommand DeleteCommand => new Command<object>( (obj) =>
+        public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
             if (selectedStayPlace == null) return;
             List<Tour> listTour = new List<Tour>();
@@ -46,7 +46,7 @@ namespace GoTour.MVVM.ViewModel
 
             if (tour_Has_electedStayPlace_List.Count == 0)
             {
-                DataManager.Ins.StayPlacesServices.DeleteStayPlace(selectedStayPlace);
+                await DataManager.Ins.StayPlacesServices.DeleteStayPlace(selectedStayPlace);
                 ListStayPlace.Remove(SelectedStayPlace);
                 DependencyService.Get<IToast>().ShortToast("Delete Successful!");
             }
@@ -59,7 +59,7 @@ namespace GoTour.MVVM.ViewModel
             }
 
         });
-        public ICommand DeleteCommand1 => new Command<object>((obj) =>
+        public ICommand DeleteCommand1 => new Command<object>(async (obj) =>
         {
             StayPlace selected = (StayPlace)obj;
             if (selected == null) return;
@@ -71,7 +71,7 @@ namespace GoTour.MVVM.ViewModel
 
             if (tour_Has_electedStayPlace_List.Count == 0)
             {
-                DataManager.Ins.StayPlacesServices.DeleteStayPlace(selected);
+                await DataManager.Ins.StayPlacesServices.DeleteStayPlace(selected);
                 ListStayPlace.Remove(selected);
                 DependencyService.Get<IToast>().ShortToast("Delete Successful!");
                 selectedStayPlace = null;
@@ -82,7 +82,7 @@ namespace GoTour.MVVM.ViewModel
                 foreach (Tour ite in tour_Has_electedStayPlace_List)
                     message = message + ite.name + ", ";
 
-                _messageService.ShowAsync("Warning", message + " has selected StayPlace, Please delete before doing this task!");
+                await _messageService.ShowAsync("Warning", message + " has selected StayPlace, Please delete before doing this task!");
                 //DependencyService.Get<IToast>().LongToast(message + " has selected StayPlace, Please delete before doing this task!");
                 selectedStayPlace = null;
             }

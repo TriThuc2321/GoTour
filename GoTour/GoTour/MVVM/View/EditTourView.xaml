@@ -102,7 +102,7 @@
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
-                        <ImageButton HeightRequest="25" Aspect="AspectFit" Source="calenderIcon.png" CornerRadius="20" BackgroundColor="Transparent"/>
+                        <ImageButton HeightRequest="25" Aspect="AspectFit" Source="calenderIcon.png" CornerRadius="20" BackgroundColor="Transparent" IsVisible="{Binding IsText}"/>
                         <Label Text="{Binding ProcessedDuration}" 
                                VerticalOptions="CenterAndExpand"
                                TextColor="Black"
@@ -110,14 +110,13 @@
                                FontSize="Small"
                                IsVisible="{Binding IsText}"
                                />
-                        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal" IsVisible="{Binding IsEdit}">
+                        <!-- <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal" IsVisible="{Binding IsEdit}">
                             <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Day}"/>
                             <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
                             <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Night}"/>
-                            <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
-
+                            <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/> 
                         </StackLayout>
-
+                        -->
                     </StackLayout>
                     <Label Text="{Binding Price,StringFormat='{}${0}'}" TextColor="SteelBlue" FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="0,0,30,10" IsVisible="{Binding IsText}"/>
                     <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEdit}">

@@ -150,7 +150,7 @@ namespace GoTour.MVVM.ViewModel
 
         private void DurationProcess()
         {
-            if (DataManager.Ins.currentTour.duration == null) return;
+            if (DataManager.Ins.currentTour.duration == null || DataManager.Ins.currentTour.duration == "") return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
             string result = _ProcessedDuration[0] + " Day " + _ProcessedDuration[1] + " Night";
             ProcessedDuration = result;

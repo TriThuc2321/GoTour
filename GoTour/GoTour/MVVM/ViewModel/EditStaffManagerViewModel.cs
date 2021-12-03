@@ -119,6 +119,10 @@ namespace GoTour.MVVM.ViewModel
                 {
                     DependencyService.Get<IToast>().ShortToast("Your contact should have ten numerics and start with number 0");
                 }
+                else if (!DataManager.Ins.UsersServices.IsCMND(CMND))
+                {
+                    DependencyService.Get<IToast>().ShortToast("Your Id Card should have 9 or 10 numerics");
+                }
                 else
                 {
                     if (!DataManager.Ins.IsNewUser)

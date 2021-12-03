@@ -58,7 +58,7 @@ namespace GoTour.MVVM.ViewModel
             }
             else if(DataManager.Ins.UsersServices.ExistEmail(Account, DataManager.Ins.users))
             {
-                DependencyService.Get<IToast>().ShortToast("Email is already in use");
+                DependencyService.Get<IToast>().ShortToast("Email is existed");
             }
             else
             {
@@ -80,8 +80,10 @@ namespace GoTour.MVVM.ViewModel
                     rank = 3
                 };
 
-                await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: "+ randomCode, Account);
+                await SendEmail("VERIFY CODE", "Thank you for using GoTour, this is your verify code: " + randomCode, Account);
                 DependencyService.Get<IToast>().ShortToast("Verify code has been sent to your email");
+                DataManager.Ins.users.Add(DataManager.Ins.CurrentUser);
+                DataManager.Ins.ListUser.Add(DataManager.Ins.CurrentUser);
                 //navigation.PushAsync(new ConfirmEmailView());
                 await currentShell.GoToAsync($"{nameof(ConfirmEmailView)}");
             }

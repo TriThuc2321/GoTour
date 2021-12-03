@@ -23,6 +23,8 @@ namespace GoTour.MVVM.ViewModel
         public Command EditTextCommand { get; }
         public Command AddCommand { get; }
         public Command DeleteCommand { get; }
+        public Command NavigationBack { get; }
+
 
         public EditStayPlaceViewModel() { }
         public EditStayPlaceViewModel(INavigation navigation, Shell curentShell)
@@ -35,6 +37,7 @@ namespace GoTour.MVVM.ViewModel
             EditTextCommand = new Command(editTextHandle);
             AddCommand = new Command(addHandleAsync);
             DeleteCommand = new Command(deleteHandle);
+            NavigationBack = new Command(() => navigation.PopAsync());
 
             SelectedStayPlace = DataManager.Ins.CurrentStayPlaceManager;
             listStream = new List<Stream>();

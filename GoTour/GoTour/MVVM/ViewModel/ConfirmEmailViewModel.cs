@@ -28,8 +28,11 @@ namespace GoTour.MVVM.ViewModel
             if(VerifyCode == DataManager.Ins.VerifyCode)
             {
                 await DataManager.Ins.UsersServices.addUser(DataManager.Ins.CurrentUser);
+                DataManager.Ins.ListUser.Add(DataManager.Ins.CurrentUser);
+                DataManager.Ins.users.Add(DataManager.Ins.CurrentUser);
+
                 DependencyService.Get<IToast>().ShortToast("Register successfully");
-                await currentShell.GoToAsync($"//{nameof(HomeView)}");
+                await currentShell.GoToAsync($"//{nameof(LoginView)}");
                 //navigation.PushAsync(new HomeView());
             }
            

@@ -9,7 +9,7 @@
         <vm:HomeViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid BackgroundColor="White">
+    <Grid BackgroundColor="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="0.7*"/>
@@ -33,6 +33,7 @@
                    Margin="0, 0, 0, 0"
                    Padding="0"
                    VerticalOptions="Center"
+                    BackgroundColor="Transparent"
                     >
                     <ImageButton                        
                         Source="{Binding ProfilePic}"
@@ -53,7 +54,7 @@
                 Source="menuIcon.png"
                 Margin="0, -10, 0, 0"
                 Grid.Column="0"
-                BackgroundColor="White"
+                BackgroundColor="Transparent"
                 Command="{Binding MenuCommand}"
             />
         </Grid>
@@ -64,7 +65,7 @@
             TextColor="Black"
             FontSize="30"
             FontAttributes="Bold"
-            Margin="20, 5,0,0"
+            Margin="20, 0,0,0"
             Grid.Row="1"
             />
 
@@ -179,7 +180,7 @@
                                 <VisualStateGroup Name="CommonStates">
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="White" />
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -187,7 +188,7 @@
 
                             <Frame
                             HeightRequest="280" WidthRequest="180"
-                            BackgroundColor="White"
+                            BackgroundColor="Transparent"
                             HasShadow="True"
                             Margin="10"
                             CornerRadius="10"
@@ -195,25 +196,46 @@
                             Padding="0"
                         >
                                 <Grid>
-                                    <StackLayout
-                                        BackgroundColor="Black">
-                                        <Image Source="{Binding imgSource[0]}"
-                                                HeightRequest="350"
-                                                Aspect="AspectFill"                           
-                                        />
-                                    </StackLayout>
-                                   
-                                  
-                                        <Label
-                                    Text="{Binding name}"
-                                    TextColor="White"
-                                    FontSize="18"
-                                    FontAttributes="Bold"
-                                    VerticalOptions="CenterAndExpand"
-                                    HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Center"
-                        />
+                                    <Frame
+                                        Margin="0,100,0,0"
+                                        BackgroundColor="White"
+                                        CornerRadius="15">
                                         
+                                    </Frame>
+                                    <Frame Padding="0" CornerRadius="15" HasShadow="True" BackgroundColor="Transparent">
+                                        <StackLayout>
+                                            <ImageButton Source="{Binding imgSource[0]}"
+                                              Margin="10,0,10,0" 
+                                                Aspect="AspectFill"  
+                                              CornerRadius="10"
+                                                         HeightRequest="180"
+                                        />
+                                            <Label
+                                                Margin="20,10,0,0"
+                                                Text="{Binding name}"
+                                                TextColor="Black"
+                                                FontSize="18"
+                                            />
+                                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                                                <Label                                                
+                                                Text="{Binding basePrice,StringFormat='{}${0}' }"
+                                                TextColor="Black"
+                                                FontSize="18"
+                                                FontAttributes="Bold"
+                                                />
+
+                                                <ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"/>
+                                                <Label Text="{Binding starNumber}" VerticalOptions="CenterAndExpand" HorizontalOptions="End"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Medium"
+                                                       Margin="0,0,20,0"/>
+                                            </StackLayout>
+                                            
+                                        </StackLayout>
+                                        
+                                    </Frame>
+ 
                                 </Grid>
                             </Frame>
                         </StackLayout>

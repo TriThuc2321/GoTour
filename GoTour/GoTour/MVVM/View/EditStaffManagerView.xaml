@@ -15,9 +15,9 @@
         <StackLayout>
             <Grid>
 
-                <ImageButton Source="{Binding ProfilePic}"
+                <Image Source="{Binding ProfilePic}"
                              Aspect="AspectFill" HeightRequest="320"
-                             Command="{Binding AddImageCommand}" Visual="Material"/>
+                              Visual="Material"/>
                 <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
                                  HeightRequest="30" 
@@ -27,6 +27,23 @@
                                  VerticalOptions="StartAndExpand"
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0"/>
+                <Frame
+                CornerRadius="10"                                  
+                    HorizontalOptions="End"                                  
+                    VerticalOptions="StartAndExpand"                                 
+                    BackgroundColor="White"                                  
+                    Margin="0, 10 , 10, 0"
+                Padding="5"
+                IsVisible="{Binding IsEdit}"
+                >
+                    <ImageButton 
+                    Command="{Binding AddImageCommand}"                                  
+                    Source="imagePickerIcon.png"                                  
+                    HeightRequest="30"                                  
+                    WidthRequest="30"         
+                    BackgroundColor="Transparent"                 
+                />
+                </Frame>
             </Grid>
             <!--AVATAR ANF CHANGE AVATAR-->
 
@@ -204,7 +221,9 @@
                                 BackgroundColor="#df928e" 
                                 FontAttributes="Bold" 
                                 TextColor="White" 
-                                Command="{Binding UpdateUserInfo}"/>
+                                Command="{Binding UpdateUserInfo}"
+                        IsVisible="{Binding IsEdit}"
+                        />
                 </StackLayout>
             </Frame>
         </StackLayout>

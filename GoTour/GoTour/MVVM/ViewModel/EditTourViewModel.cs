@@ -139,7 +139,7 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.name = Name;
             DataManager.Ins.currentTour.basePrice = Price;
             DataManager.Ins.currentTour.startTime = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
-            DataManager.Ins.currentTour.duration = Day + '/' + Night;
+            DataManager.Ins.currentTour.duration = "";
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
             DataManager.Ins.currentTour.tourGuide = new List<string>();
             foreach(var tourGuide in TourGuides)

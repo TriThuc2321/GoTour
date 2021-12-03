@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -14,7 +15,6 @@ namespace GoTour.MVVM.ViewModel
         INavigation navigation;
         Shell currentShell;
         public Command SaveCommand { get; }
-        public Command NavigationBack;
         public EditDetailScheduleViewModel() { }
         public int index;
         bool flag = false;
@@ -22,7 +22,6 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
-            NavigationBack = new Command(backHandle);
 
             Places = DataManager.Ins.ListPlace;
             StayPlaces = DataManager.Ins.ListStayPlace;
@@ -59,10 +58,10 @@ namespace GoTour.MVVM.ViewModel
             
         }
 
-        private void backHandle(object obj)
+        public ICommand NavigationBack => new Command<object>((obj) =>
         {
             navigation.PopAsync();
-        }
+        });
 
         private async void savehandle(object obj)
         {

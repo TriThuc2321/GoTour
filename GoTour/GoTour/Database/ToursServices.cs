@@ -67,6 +67,15 @@ namespace GoTour.Database
 
         public async Task UpdateTour(Tour tour)
         {
+            int day = 0;
+            int night = 0;
+            for(int i =0; i< tour.placeDurationList.Count; i++)
+            {
+                day += tour.placeDurationList[i].day;
+                night += tour.placeDurationList[i].night;
+            }
+            tour.duration = day + "/" + night;
+
             var toUpdateTour = (await firebase
                  .Child("Tours")
                  .OnceAsync<Tour>()).Where(a => a.Object.id == tour.id).FirstOrDefault();

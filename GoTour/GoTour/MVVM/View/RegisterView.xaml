@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
 
     <Grid >
-        <Image Source="https://i.pinimg.com/564x/91/5a/2e/915a2e0f61384fe73f858b302d7c95bf.jpg" Aspect="AspectFill"/>
+        <Image Source="backgroundLogin.jpg" Aspect="AspectFill"/>
 
         <BoxView>
             <BoxView.Background>
@@ -127,7 +127,7 @@
             <Label Grid.Row="8" VerticalOptions="End"  HorizontalOptions="Center" Margin="0,0,0,10">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="You don't have account?" TextColor="Black">
+                        <Span Text="Do you already have an account?" TextColor="Black">
                             <Span.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding LoginCommand}"/>
                             </Span.GestureRecognizers>

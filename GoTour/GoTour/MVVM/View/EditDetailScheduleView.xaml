@@ -67,9 +67,9 @@
 
             <StackLayout VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="20,-10,0,0">
                 <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Day}"/>
-                <Label Text="Day" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Label Text="Day(s)" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
                 <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding Night}"/>
-                <Label Text="Night" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Label Text="Night(s)" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
 
             </StackLayout>
             <StackLayout Orientation="Horizontal">
