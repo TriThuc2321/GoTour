@@ -365,7 +365,7 @@ namespace GoTour.MVVM.ViewModel
         //CONTACT VALIDDATION
         private bool ContactValidation(string contact)
         {
-            if(contact.Length == 10 && contact[0].ToString() == "0")
+            if(contact.Length == 10 && contact[0].ToString() == "0" && contact.All(char.IsDigit))
             {
                 return true;
             }
@@ -376,28 +376,36 @@ namespace GoTour.MVVM.ViewModel
         private bool IDCardValidation(string vcmnd)
         {
             bool ex;
-            if(vcmnd.Length < 9 )
+            if(!vcmnd.All(char.IsDigit))
             {
                 ex = false;
             }
-            else if(vcmnd.Length > 9)
+            else
             {
-                if(vcmnd.Length < 12)
+                if (vcmnd.Length < 9)
                 {
                     ex = false;
-                }else if(vcmnd.Length > 12)
+                }
+                else if (vcmnd.Length > 9)
                 {
-                    ex = false;
+                    if (vcmnd.Length < 12)
+                    {
+                        ex = false;
+                    }
+                    else if (vcmnd.Length > 12)
+                    {
+                        ex = false;
+                    }
+                    else
+                    {
+                        ex = true;
+                    }
                 }
                 else
                 {
                     ex = true;
                 }
-            }
-            else
-            {
-                ex = true;
-            }
+            }          
             return ex;
         }
     }
