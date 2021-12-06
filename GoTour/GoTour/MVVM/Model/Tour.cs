@@ -1,31 +1,179 @@
-﻿using System;
+﻿using GoTour.Core;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class Tour : INotifyPropertyChanged
+    public class Tour : ObservableObject
     {
+        private string _id;
+        public string id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("id");
+            }
+        }
 
-        public string id { get; set; }
-        public string name { get; set; }
-        public List<string> imgSource { get; set; }
-        public string startTime { get; set; }
-        public string duration { get; set; }
-        public List<string> tourGuide { get; set; }
-        public string passengerNumber { get; set; }
-        public string description { get; set; }
-        public bool isOccured { get; set; }
-        public string basePrice { get; set; }
-        public string remaining { get; set; }
-        public List<PlaceId_StayPlace> SPforPList { get; set; }
-        public List<PlaceId_Duration> placeDurationList { get; set; }
-        public List<Review> reviewList { get; set; }
-        public string starNumber { get; set; }
+        private string _name;
+        public string name 
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("name");
+            }
+        }
+
+        private ObservableCollection<string> _imgSource;
+        public ObservableCollection<string> imgSource
+        {
+            get { return _imgSource; }
+            set
+            {
+                _imgSource = value;
+                OnPropertyChanged("imgSource");
+            }
+        }
+
+        private string _startTime;
+        public string startTime
+        {
+            get { return _startTime; }
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged("startTime");
+            }
+        }
+
+        private string _duration;
+        public string duration
+        {
+            get { return _duration; }
+            set
+            {
+                _duration = value;
+                OnPropertyChanged("duration");
+            }
+        }
+
+        private ObservableCollection<string> _tourGuide;
+        public ObservableCollection<string> tourGuide
+        {
+            get { return _tourGuide; }
+            set
+            {
+                _tourGuide = value;
+                OnPropertyChanged("tourGuide");
+            }
+        }
+
+        private string _passengerNumber;
+        public string passengerNumber
+        {
+            get { return _passengerNumber; }
+            set
+            {
+                _passengerNumber = value;
+                OnPropertyChanged("passengerNumber");
+            }
+        }
+
+        private string _description;
+        public string description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("description");
+            }
+        }
+
+        private bool _isOccured;
+        public bool isOccured
+        {
+            get { return _isOccured; }
+            set
+            {
+                _isOccured = value;
+                OnPropertyChanged("isOccured");
+            }
+        }
+
+        private string _basePrice;
+        public string basePrice
+        {
+            get { return _basePrice; }
+            set
+            {
+                _basePrice = value;
+                OnPropertyChanged("basePrice");
+            }
+        }
+
+        private string _remaining;
+        public string remaining
+        {
+            get { return _remaining; }
+            set
+            {
+                _remaining = value;
+                OnPropertyChanged("remaining");
+            }
+        }
+
+        private ObservableCollection<PlaceId_StayPlace> _SPforPList;
+        public ObservableCollection<PlaceId_StayPlace> SPforPList
+        {
+            get { return _SPforPList; }
+            set
+            {
+                _SPforPList = value;
+                OnPropertyChanged("SPforPList");
+            }
+        }
+
+        private ObservableCollection<PlaceId_Duration> _placeDurationList;
+        public ObservableCollection<PlaceId_Duration> placeDurationList
+        {
+            get { return _placeDurationList; }
+            set
+            {
+                _placeDurationList = value;
+                OnPropertyChanged("placeDurationList");
+            }
+        }
+        private ObservableCollection<Review> _reviewList;
+        public ObservableCollection<Review> reviewList
+        {
+            get { return _reviewList; }
+            set
+            {
+                _reviewList = value;
+                OnPropertyChanged("reviewList");
+            }
+        }
+        private string _startNumber;
+        public string starNumber
+        {
+            get { return _startNumber; }
+            set
+            {
+                _startNumber = value;
+                OnPropertyChanged("startNumber");
+            }
+        }
         public Tour() { }
 
-        public Tour(string id, string name, List<string> imgSource, string startTime, string duration, List<string> tourGuide, string passengerNumber, string description, bool isOccured, string basePrice, string remaining, List<PlaceId_StayPlace> sPforPList, List<PlaceId_Duration> placeDurationList, List<Review> reviewList, string starNumber)
+        public Tour(string id, string name, ObservableCollection<string> imgSource, string startTime, string duration, ObservableCollection<string> tourGuide, string passengerNumber, string description, bool isOccured, string basePrice, string remaining, ObservableCollection<PlaceId_StayPlace> sPforPList, ObservableCollection<PlaceId_Duration> placeDurationList, ObservableCollection<Review> reviewList, string starNumber)
         {
             this.id = id;
             this.name = name;
@@ -46,23 +194,8 @@ namespace GoTour.MVVM.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        //public int CompareTo(Tour other)
-        //{
-        //    if (Int32.Parse(this.basePrice).CompareTo(Int32.Parse(other.basePrice)) == 0)
-        //    {
-        //        if (Int32.Parse(basePrice) > Int32.Parse(other.basePrice))
-        //            return 1; //Age lớn hơn 
-        //        if (Int32.Parse(basePrice) < Int32.Parse(other.basePrice))
-        //            return -1;  //Age nhỏ hơn
-        //        if (Int32.Parse(basePrice) == Int32.Parse(other.basePrice))
-        //            return 0; //Hai đối tượng coi như bằng nhau
-        //    }
-        //    return this.basePrice.CompareTo(other.basePrice);
-        //}
+        
+        
 
     }
 }

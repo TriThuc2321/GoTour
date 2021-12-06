@@ -112,7 +112,19 @@ namespace GoTour.MVVM.ViewModel
 
 
                 //Loc email
-                temp = temp1.FindAll(e => e.tourGuide.Exists(p => p == yourEmail));
+                //temp = temp1.FindAll(e => e.tourGuide.Exists(p => p == yourEmail));
+                foreach(var e in temp1)
+                {
+                    foreach(var p in e.tourGuide)
+                    {
+                        if (p == yourEmail)
+                        {
+                            temp.Add(e);
+                            break;
+                        }
+                    }
+                }
+
                 foreach (var plc in temp)
                     if (!result.Contains(plc))
                         result.Add(plc);

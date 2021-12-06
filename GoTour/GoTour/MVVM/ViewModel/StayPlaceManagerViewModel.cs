@@ -42,7 +42,18 @@ namespace GoTour.MVVM.ViewModel
                 listTour.Add(ite);
 
             List<Tour> tour_Has_electedStayPlace_List = new List<Tour>();
-            tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == selectedStayPlace.id));
+            //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == selectedStayPlace.id));
+            foreach (var e in listTour)
+            {
+                foreach (var p in e.SPforPList)
+                {
+                    if (p.stayPlaceId == selectedStayPlace.id)
+                    {
+                        tour_Has_electedStayPlace_List.Add(e);
+                        break;
+                    }
+                }
+            }
 
             if (tour_Has_electedStayPlace_List.Count == 0)
             {
@@ -67,7 +78,18 @@ namespace GoTour.MVVM.ViewModel
             foreach (Tour ite in DataManager.Ins.ListTour)
                 listTour.Add(ite);
             List<Tour> tour_Has_electedStayPlace_List = new List<Tour>();
-            tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == selected.id));
+            //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == selected.id));
+            foreach (var e in listTour)
+            {
+                foreach (var p in e.SPforPList)
+                {
+                    if (p.stayPlaceId == selected.id)
+                    {
+                        tour_Has_electedStayPlace_List.Add(e);
+                        break;
+                    }
+                }
+            }
 
             if (tour_Has_electedStayPlace_List.Count == 0)
             {

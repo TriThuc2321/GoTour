@@ -22,9 +22,7 @@ namespace GoTour.Database
                 return _ins;
             }
             set { _ins = value; }
-        }
-
-        
+        }        
        
         public List<User> users;
         public List<User> admins;
@@ -35,19 +33,19 @@ namespace GoTour.Database
         public bool LoadData = true;
         public Stream currentImgTourStream;
 
+        public List<Place> places;
+        public List<StayPlace> stayPlaces;
+        public List<Tour> tours;
+        public List<TourPlace> tourPlaces;
+        public List<Review> reviews;
+        public List<Discount> discounts;
+        public List<Invoice> invoices;
+        public List<FavouriteTour> favouriteTours;
+        public List<BookedTicket> bookedTickets;
+
         #region TourView
 
-        async Task getAllStayPlaceList()
-        {
-            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");
 
-            List<StayPlace> temp = await StayPlacesServices.GetAllStayPlaces();
-            foreach (StayPlace p in temp)
-            {
-                ListStayPlace.Add(p);
-            }
-
-        }
         private ObservableCollection<StayPlace> _stayPlaces;
         public ObservableCollection<StayPlace> ListStayPlace
         {
@@ -67,70 +65,48 @@ namespace GoTour.Database
         public bool IsNewUser;
         private DataManager()
         {
-
-            //HUYNH
             SearchServices = new SearchAndFilterServices();
             NotiServices = new NotificationServices();
-            NotiList = new ObservableCollection<Notification>();         
-
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
-            ReviewService = new ReviewService();
-            ListPlace = new ObservableCollection<Place>();
-            ListUser = new ObservableCollection<User>();
-            ListTour = new ObservableCollection<Tour>();
-            ListReview = new ObservableCollection<Review>();
-
-            /// Thiên
-            ListStayPlace = new ObservableCollection<StayPlace>();
+            ReviewService = new ReviewService();           
             StayPlacesServices = new StayPlacesServices();
             TourPlaceServices = new TourPlaceServices();
             TourServices = new ToursServices();
             RuleServices = new RuleServices();
-            
-            getAllStayPlaceList();
-
-
-            /// Linh
-            ListFavouriteTours = new ObservableCollection<FavouriteTour>();
             FavoritesServices = new FavoriteToursServices();
-
-            ListBookedTickets = new ObservableCollection<BookedTicket>();
             BookedTicketsServices = new BookedTicketServices();
-
-            ListDiscount = new ObservableCollection<Discount>();
             DiscountsServices = new DiscountsServices();
-
-            ListInvoice = new ObservableCollection<Invoice>();
             InvoicesServices = new InvoicesServices();
 
             CurrentDiscount = new Discount();
             currentInvoice = new Invoice();
-
             CurrentUser = new User();
-            
-            getAllList();
-            
+            ListReview = new ObservableCollection<Review>();
+            getAllList();           
            
         }
         async Task getAllList()
         {
-            //await firebaseHelper.AddPlace("3", "VietName", "VN ne", "https://i.pinimg.com/564x/5a/41/04/5a41046452cc2481693ce2df3c93fbc4.jpg");           
+            await getUsers();
+            await getPlaces();
+            await getStayPlaces();
+            await getDiscounts();
+            await getTours();
+            await getInvoices();
+            await getNotifications();
+            await getBookedTickets();
+            await getRules();
+            await getFavorites();
 
+        }
+        async Task getUsers()
+        {
             admins = new List<User>();
             managements = new List<User>();
             tourGuides = new List<User>();
             customers = new List<User>();
-            
-            //HUYNH
-            notiServices.ListAllNoti = await notiServices.GetAllNotification();
-            foreach (Notification ite in notiServices.ListAllNoti)
-            {
-                NotiList.Add(ite);
-            }
-
-            rule = await RuleServices.GetRule();
-
+            ListUser = new ObservableCollection<User>();
 
             users = await UsersServices.GetAllUsers();
             foreach (User u in users)
@@ -141,62 +117,104 @@ namespace GoTour.Database
                 else if (u.rank == 1) managements.Add(u);
                 else admins.Add(u);
             }
-
-            List<Place> temp = await PlacesServices.GetAllPlaces();
-            foreach (Place p in temp)
+        }
+        async Task getStayPlaces()
+        {
+            ListStayPlace = new ObservableCollection<StayPlace>();
+            stayPlaces = await StayPlacesServices.GetAllStayPlaces();
+            foreach (StayPlace p in stayPlaces)
+            {
+                ListStayPlace.Add(p);
+            }
+        }
+        async Task getNotifications()
+        {
+            NotiList = new ObservableCollection<Notification>();
+            notiServices.ListAllNoti = await notiServices.GetAllNotification();
+            foreach (Notification ite in notiServices.ListAllNoti)
+            {
+                NotiList.Add(ite);
+            }
+        }
+        async Task getPlaces()
+        {
+            ListPlace = new ObservableCollection<Place>();
+            places = await PlacesServices.GetAllPlaces();
+            foreach (Place p in places)
             {
                 ListPlace.Add(p);
             }
+        }
 
-            List<Tour> tourList = await TourServices.GetAllTours();
-            List<TourPlace> tourPlaceList = await TourPlaceServices.GetAllTourPlaces();
-            List<Review> reviews = await ReviewService.GetAllReviews();
-            foreach (Tour ite in tourList)
+        async Task getTours()
+        {
+            tours = await TourServices.GetAllTours();
+            tourPlaces = await TourPlaceServices.GetAllTourPlaces();
+            reviews = await ReviewService.GetAllReviews();
+            ListTour = new ObservableCollection<Tour>();
+
+            foreach (Tour ite in tours)
             {
                 ListTour.Add(ite);
-                TourPlace temp2 = tourPlaceList.Find(e => (e.tourId == ite.id));
+                TourPlace temp2 = tourPlaces.Find(e => (e.tourId == ite.id));
                 ite.placeDurationList = temp2.placeDurationList;
-                ite.reviewList = reviews.FindAll(e => e.tourId == ite.id);
+                List<Review> tempReview = reviews.FindAll(e => e.tourId == ite.id);
+                ite.reviewList = new ObservableCollection<Review>();
+                foreach (var re in tempReview)
+                {
+                    ite.reviewList.Add(re);
+                }                
             }
+        }
 
-            /*imagePlaceStreams = GetImageStreamPlaces();
-            foreach (var ite in imagePlaceStreams)
+        async Task getFavorites()
+        {
+            ListFavouriteTours = new ObservableCollection<FavouriteTour>();
+            favouriteTours = await FavoritesServices.GetAllFavourite();
+            foreach (FavouriteTour favourite in favouriteTours)
             {
-                ImgPlaceStreams.Add(ite);
-            }*/
-
-            //Linh
-            List<FavouriteTour> favouriteToursList = await FavoritesServices.GetAllFavourite();
-            foreach (FavouriteTour favourite in favouriteToursList)
-            {
-                favourite.tour = tourList.Find(e => (e.id == favourite.tour.id));
+                favourite.tour = tours.Find(e => (e.id == favourite.tour.id));
                 ListFavouriteTours.Add(favourite);
             }
-
-            List<Discount> discountsList = await DiscountsServices.GetAllDiscounts();
-            foreach (Discount discount in discountsList)
+        }
+        async Task getDiscounts()
+        {
+            ListDiscount = new ObservableCollection<Discount>();
+            discounts = await DiscountsServices.GetAllDiscounts();
+            foreach (Discount discount in discounts)
             {
                 ListDiscount.Add(discount);
             }
-
-            List<Invoice> invoicesList = await InvoicesServices.GetAllInvoice();
-            foreach (Invoice invoice in invoicesList)
+        }
+        async Task getInvoices()
+        {
+            ListInvoice = new ObservableCollection<Invoice>();
+            invoices = await InvoicesServices.GetAllInvoice();
+            foreach (Invoice invoice in invoices)
             {
                 if (invoice.discount != null)
-                    invoice.discount = discountsList.Find(e => (e.id == invoice.discount.id));
+                    invoice.discount = discounts.Find(e => (e.id == invoice.discount.id));
                 ListInvoice.Add(invoice);
             }
-
-            List<BookedTicket> bookedTicketsList = await BookedTicketsServices.GetAllBookedTicket();
-            foreach(BookedTicket booked in bookedTicketsList)
+        }
+        async Task getBookedTickets()
+        {
+            ListBookedTickets = new ObservableCollection<BookedTicket>();
+            bookedTickets = await BookedTicketsServices.GetAllBookedTicket();
+            foreach (BookedTicket booked in bookedTickets)
             {
-                booked.tour = tourList.Find(e => (e.id == booked.tour.id));
-                booked.invoice = invoicesList.Find(e => (e.id == booked.invoice.id));
+                booked.tour = tours.Find(e => (e.id == booked.tour.id));
+                booked.invoice = invoices.Find(e => (e.id == booked.invoice.id));
                 ListBookedTickets.Add(booked);
-             
+
             }
         }
+        async Task getRules()
+        {
+            rule = await RuleServices.GetRule();
+        }
         
+
         public void ClassifyUser()
         {
             customers = new List<User>();
@@ -575,13 +593,13 @@ namespace GoTour.Database
             }
         }
 
-        private ObservableCollection<FavouriteTour> favouriteTours;
+        private ObservableCollection<FavouriteTour> listFavouriteTours;
         public ObservableCollection<FavouriteTour> ListFavouriteTours
         {
-            get { return favouriteTours; }
+            get { return listFavouriteTours; }
             set
             {
-                favouriteTours = value;
+                listFavouriteTours = value;
                 OnPropertyChanged("ListFavouriteTours");
             }
         }

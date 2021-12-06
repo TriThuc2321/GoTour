@@ -154,7 +154,7 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.startTime = dayTemp[1] + '/' + dayTemp[0] + '/' + dayTemp[2] + " " + StartTimePicker.ToString();
             DataManager.Ins.currentTour.duration = "";
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
-            DataManager.Ins.currentTour.tourGuide = new List<string>();
+            DataManager.Ins.currentTour.tourGuide = new ObservableCollection<string>();
             DataManager.Ins.currentImgTourStream = imgTemp;
 
             for (int i = 0; i < TourGuides.Count; i++)

@@ -112,7 +112,7 @@ namespace GoTour.MVVM.ViewModel
             temp3.Add(new PlaceId_StayPlace("DL", "SP001"));
             temp3.Add(new PlaceId_StayPlace("DL", "SP001"));
 
-            await firebase
+            /*await firebase
               .Child("Tours")
               .PostAsync(new Tour()
               {
@@ -128,7 +128,7 @@ namespace GoTour.MVVM.ViewModel
                   basePrice = "10000",
                   SPforPList = temp3,
                   remaining = "10"
-              });
+              });*/
         }
 
        

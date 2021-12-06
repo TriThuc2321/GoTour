@@ -96,8 +96,8 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.currentDuration.placeId = Host.id;
                 DataManager.Ins.currentDuration.description = description;
 
-                if (DataManager.Ins.currentTour.SPforPList == null) DataManager.Ins.currentTour.SPforPList = new List<PlaceId_StayPlace>();
-                if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new List<PlaceId_Duration>();
+                if (DataManager.Ins.currentTour.SPforPList == null) DataManager.Ins.currentTour.SPforPList = new ObservableCollection<PlaceId_StayPlace>();
+                if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new ObservableCollection<PlaceId_Duration>();
 
                 DataManager.Ins.currentTour.SPforPList.Add(new PlaceId_StayPlace(Host.id, StayPlaceSelected.id));
                 DataManager.Ins.currentTour.placeDurationList.Add(DataManager.Ins.currentDuration);

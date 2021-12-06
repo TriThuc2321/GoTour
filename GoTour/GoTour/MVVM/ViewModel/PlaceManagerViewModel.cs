@@ -42,7 +42,19 @@ namespace GoTour.MVVM.ViewModel
                 listTour.Add(ite);
 
             List<Tour> tour_Has_electedStayPlace_List = new List<Tour>();
-            tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == place.id));
+            //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == place.id));
+            foreach (var e in listTour)
+            {
+                foreach (var p in e.SPforPList)
+                {
+                    if (p.stayPlaceId == place.id)
+                    {
+                        tour_Has_electedStayPlace_List.Add(e);
+                        break;
+                    }
+                }
+            }
+
 
             List<StayPlace> stayPlaces = new List<StayPlace>();
             foreach (StayPlace ite in DataManager.Ins.ListStayPlace)

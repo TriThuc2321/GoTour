@@ -141,7 +141,7 @@ namespace GoTour.MVVM.ViewModel
             DataManager.Ins.currentTour.startTime = dayTemp[0] + '/' + dayTemp[1] + '/' + dayTemp[2] + " " + StartTimePicker.ToString(); 
             DataManager.Ins.currentTour.duration = "";
             DataManager.Ins.currentTour.passengerNumber = PassengerNumber;
-            DataManager.Ins.currentTour.tourGuide = new List<string>();
+            DataManager.Ins.currentTour.tourGuide = new ObservableCollection<string>();
             foreach(var tourGuide in TourGuides)
             {
                 DataManager.Ins.currentTour.tourGuide.Add(tourGuide.email);
@@ -153,7 +153,7 @@ namespace GoTour.MVVM.ViewModel
 
             if (imgTemp != null)
             {
-                DataManager.Ins.currentTour.imgSource = new List<string>();
+                DataManager.Ins.currentTour.imgSource = new ObservableCollection<string>();
                 await DataManager.Ins.TourServices.DeleteFile(DataManager.Ins.currentTour.id, 0);
                 string url = await DataManager.Ins.TourServices.saveImage(imgTemp, DataManager.Ins.currentTour.id, 0);
                 DataManager.Ins.currentTour.imgSource.Add(url);

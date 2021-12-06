@@ -22,7 +22,7 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             NavigationBack = new Command(() => navigation.PopAsync());
 
-            if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new List<PlaceId_Duration>();
+            if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new ObservableCollection<PlaceId_Duration>();
 
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
@@ -84,7 +84,7 @@ namespace GoTour.MVVM.ViewModel
             }
             TourPlace tourPlace = new TourPlace(DataManager.Ins.currentTour.id, DataManager.Ins.currentTour.placeDurationList);
 
-            DataManager.Ins.currentTour.imgSource = new List<string>();
+            DataManager.Ins.currentTour.imgSource = new ObservableCollection<string>();
             string url = await DataManager.Ins.TourServices.saveImage(DataManager.Ins.currentImgTourStream, DataManager.Ins.currentTour.id, 0);
             DataManager.Ins.currentTour.imgSource.Add(url);
 

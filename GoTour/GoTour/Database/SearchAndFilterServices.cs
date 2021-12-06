@@ -52,7 +52,20 @@ namespace GoTour.Database
             }
             
             //Loc ID 
-            temp = temp2.FindAll(e => e.placeDurationList.Exists(p => p.placeId == currentPlaceId));
+
+            //temp = temp2.FindAll(e => e.placeDurationList.Exists(p => p.placeId == currentPlaceId));
+            foreach(var e in temp2)
+            {
+                foreach(var p in e.placeDurationList)
+                {
+                    if(p.placeId == currentPlaceId)
+                    {
+                        temp.Add(e);
+                        break;
+                    }
+                }
+            }
+
                 foreach (var plc in temp)
                     if (!result.Contains(plc))
                         result.Add(plc);

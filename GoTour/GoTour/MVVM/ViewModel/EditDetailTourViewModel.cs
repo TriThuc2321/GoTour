@@ -22,7 +22,7 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             NavigationBack = new Command(() => navigation.PopAsync());
 
-            if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new List<PlaceId_Duration>();
+            if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new ObservableCollection<PlaceId_Duration>();
 
             foreach (Place ite in DataManager.Ins.ListPlace)
             {
