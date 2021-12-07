@@ -43,7 +43,7 @@ namespace GoTour.Database
         {
             var toDelete = (await firebase
               .Child("Discounts")
-              .OnceAsync<FavouriteTour>()).Where(a => a.Object.id == id).FirstOrDefault();
+              .OnceAsync<Discount>()).Where(a => a.Object.id == id).FirstOrDefault();
             await firebase.Child("Discounts").Child(toDelete.Key).DeleteAsync();
         }
 

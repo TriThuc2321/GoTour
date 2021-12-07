@@ -42,7 +42,7 @@ namespace GoTour.MVVM.ViewModel
         {
             DurationProcess();
 
-
+            GetDateTime();
 
             if (!this.Invoice.isPaid)
             {
@@ -221,7 +221,7 @@ namespace GoTour.MVVM.ViewModel
         {
             if (DataManager.Ins.currentTour.duration == null) return;
             string[] _ProcessedDuration = DataManager.Ins.currentTour.duration.Split('/');
-            string result = _ProcessedDuration[0] + " days - " + _ProcessedDuration[1] + " nights";
+            string result = _ProcessedDuration[0] + " day(s) - " + _ProcessedDuration[1] + " night(s)";
             ProcessedDuration = result;
         }
 
@@ -281,6 +281,17 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private string _startTime;
+        public string StartTime
+        {
+            get { return _startTime; }
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged("StartTime");
+            }
+        }
+
         void FormatMoney()
         {
             StrTotal = Invoice.total;
@@ -303,6 +314,13 @@ namespace GoTour.MVVM.ViewModel
                 StrMoMoVND = service.FormatMoney(StrMoMoVND) + " VND";
             }
 
+        }
+
+        void GetDateTime()
+        {
+            StartTime = "";
+            string[] date = Tour.startTime.Split(' ');
+            StartTime = date[0];
         }
 
         public void checkTourStatus(Tour tour)

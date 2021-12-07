@@ -52,14 +52,14 @@
                         <Button Grid.Column="1"
                             Grid.Row="0"
                             Margin="0, 10, 15, 0"
-                            BackgroundColor="DarkRed"
+                            BackgroundColor="Maroon"
                             CornerRadius="25"
                             TextColor="white"
                             HeightRequest="60"
                             HorizontalOptions="End"
                             VerticalOptions="Start"
                             WidthRequest="90"
-                            BorderColor="Red"
+                            BorderColor="Maroon"
                             BorderWidth="1"
                             Text="cancel ticket"
                             IsVisible="{Binding CancelVisible}"
@@ -70,11 +70,11 @@
                             Grid.Row="1"
                             CornerRadius="25"
                             Margin="0, 10, 15, 0"
-                            BorderColor="DarkSeaGreen"
+                            BorderColor="Teal"
                             WidthRequest="90"
                             BorderWidth="1"
                             HeightRequest="50"
-                            BackgroundColor="ForestGreen"
+                            BackgroundColor="Teal"
                             TextColor="White"
                             HorizontalOptions="End"
                             VerticalOptions="End"
@@ -101,39 +101,24 @@
                        BorderColor="Gray"
                        CornerRadius="20"
                        BackgroundColor="WhiteSmoke">
-                        <Grid>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-
-                            </Grid.RowDefinitions>
-
+                        <StackLayout Orientation="Vertical">
                             <!--start time-->
                             <StackLayout Orientation="Horizontal"
-                             Grid.Row="0"
-                             Margin="25, 5, 15, 5"
+                                 Margin="25, 5, 15, 5"
                              >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Label Text="Start Time: "
+                                <Label Text="Start Time: "
+                                               WidthRequest="90"
                                TextColor="Black"
                                FontAttributes="Italic"
                                FontSize="15"
-                               Grid.Column="0"
                                />
-                                    <Label Text="{Binding Tour.startTime}"
+                                <Label Text="{Binding Tour.startTime}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
-                               Grid.Column="1"
                             />
-                                </Grid>
                             </StackLayout>
 
                             <!--Duration-->
@@ -141,25 +126,17 @@
                              Grid.Row="1"
                              Margin="25, 5, 15, 5"
                              >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Text="Duration: "
+                                <Label Text="Duration: "
+                                       WidthRequest="90"
                                TextColor="Black"
                                FontAttributes="Italic"
                                FontSize="15"
-                               Grid.Column="0"
                                />
-                                    <Label Text="{Binding ProcessedDuration}"
+                                <Label Text="{Binding ProcessedDuration}"
                                TextColor="Black"
                                FontAttributes="Bold"
                                FontSize="16"
-                               Grid.Column="1"
                             />
-                                </Grid>
                             </StackLayout>
 
                             <!--isOccured-->
@@ -178,44 +155,30 @@
                             />
                                 </Grid>
                             </StackLayout>
-                        </Grid>
+                        </StackLayout>
+
                     </Frame>
 
                     <!--Vé && hoá đơn-->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="70"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
 
-                        </Grid.RowDefinitions>
-
+                    <StackLayout Orientation="Vertical">
                         <!--Line-->
                         <StackLayout Orientation="Vertical"
-                             Grid.Row="0"
-                             Grid.Column="0"
                              Margin="5"
                              >
                             <Label Text="TICKET INFORMATION"
                            FontSize="20"
                            FontAttributes="Bold"
-                           TextColor="DarkBlue"/>
+                           TextColor="SteelBlue"/>
 
                             <Line HeightRequest="1"
-                          BackgroundColor="Blue"
+                          BackgroundColor="SteelBlue"
                           Margin="5"
                         />
                         </StackLayout>
 
                         <!--Username-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="1"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -225,7 +188,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Username: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -241,7 +204,6 @@
 
                         <!--Birthday-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="2"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -251,7 +213,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Birthday: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -266,7 +228,6 @@
 
                         <!--Contact-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="3"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -276,7 +237,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Contact: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -291,7 +252,6 @@
 
                         <!--Email-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="4"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -301,7 +261,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Email: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -316,7 +276,6 @@
 
                         <!--CMND-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="5"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -326,7 +285,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Identity card ID: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -341,7 +300,6 @@
 
                         <!--Address-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="6"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -351,7 +309,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Address: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -366,7 +324,6 @@
 
                         <!--BookedTime-->
                         <StackLayout Orientation="Horizontal"
-                             Grid.Row="7"
                              Margin="25, 5, 15, 5"
                              >
                             <Grid HorizontalOptions="FillAndExpand">
@@ -376,7 +333,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Booked Time: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -400,10 +357,10 @@
                                 <Label Text="INVOICE INFORMATION"
                            FontSize="20"
                            FontAttributes="Bold"
-                           TextColor="DarkBlue"/>
+                           TextColor="SteelBlue"/>
 
                                 <Line HeightRequest="1"
-                          BackgroundColor="Blue"
+                          BackgroundColor="SteelBlue"
                           Margin="5"
                         />
                             </StackLayout>
@@ -422,7 +379,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Base Price: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -453,7 +410,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Amount: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -479,7 +436,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Discount ID: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -509,7 +466,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Discount Percent: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -544,7 +501,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Discount Money: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -586,7 +543,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Total: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -627,7 +584,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Paying Method: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -651,7 +608,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Paying Status: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -676,7 +633,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Paying Time: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -701,7 +658,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="MoMo Paid: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -726,7 +683,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Paying Photo: "
-                               TextColor="DarkBlue"
+                               TextColor="Black"
                                FontSize="15"
                                Grid.Column="0"
                                />
@@ -756,8 +713,7 @@
                             </StackLayout>
                         </StackLayout>
 
-
-                    </Grid>
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
         </RefreshView>
