@@ -23,7 +23,11 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             this.currentShell = currentShell;
 
-            ListPlace = DataManager.Ins.ListPlace;
+            ListPlace = new ObservableCollection<Place>();
+            foreach(Place p in DataManager.Ins.ListPlace)
+            {
+                if (p.isEnable) ListPlace.Add(p);
+            }
             _messageService = DependencyService.Get<IMessageService>();
 
             //Show the dialog with next line
@@ -35,79 +39,73 @@ namespace GoTour.MVVM.ViewModel
         });
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
+            bool answer = await _messageService.ShowOK_Cancel("Question?", "Are you sure you want to delete this place?");
+            if (!answer) return;
             var place = obj as Place;
-            if (place == null) return;
+            if (place == null) return;            
+
+            bool flag = false;
             List<Tour> listTour = new List<Tour>();
             foreach (Tour ite in DataManager.Ins.ListTour)
                 listTour.Add(ite);
 
-            List<Tour> tour_Has_electedStayPlace_List = new List<Tour>();
             //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == place.id));
             foreach (var e in listTour)
             {
                 foreach (var p in e.SPforPList)
                 {
-                    if (p.stayPlaceId == place.id)
+                    if (p.placeId == place.id)
                     {
-                        tour_Has_electedStayPlace_List.Add(e);
+                        flag = true;
                         break;
                     }
                 }
+                if (flag) break;
             }
 
+            if(!flag)
+            {
+                List<StayPlace> stayPlaces = new List<StayPlace>();
+                foreach (StayPlace ite in DataManager.Ins.ListStayPlace)
+                    stayPlaces.Add(ite);
 
-            List<StayPlace> stayPlaces = new List<StayPlace>();
-            foreach (StayPlace ite in DataManager.Ins.ListStayPlace)
-                stayPlaces.Add(ite);
+                for (int i = 0; i < stayPlaces.Count; i++)
+                {
+                    string[] idList = stayPlaces[i].placeId.Split(',');
+                    for (int k = 0; k < idList.Length; k++)
+                    {
+                        if (idList[k] == place.id)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (flag) break;
 
-            List<StayPlace> placeHasStayPlaceList = new List<StayPlace>();           
-            
-             for(int i =0; i<stayPlaces.Count; i++)
-             {
-                 string[] idList = stayPlaces[i].placeId.Split(',');
-                 for(int k = 0; k< idList.Length; k++)
-                 {
-                     if (idList[k] == place.id)
-                     {
-                        placeHasStayPlaceList.Add(stayPlaces[i]);
-                         break;
-                     }
-                 }
-                 
-             }
+                }
+            }
 
-            if (tour_Has_electedStayPlace_List.Count == 0 && placeHasStayPlaceList.Count == 0)
+            if (!flag)
             {
                 await DataManager.Ins.PlacesServices.DeletePlace(place);
-                ListPlace.Remove(place);
-                DependencyService.Get<IToast>().ShortToast("Delete Successful!");
+                ListPlace.Remove(place);                
             }
             else
             {
-                string message1 = "";
-                string message2 = "";
-
-                foreach (Tour ite in tour_Has_electedStayPlace_List)
-                    message1 = message1 + ite.name + ", ";
-                if (message1 != "")
+                foreach (Place p in DataManager.Ins.ListPlace)
                 {
-                    message1 = message1.Remove(message1.Length - 2, 2);
-                    message1 += "tours has been conflicted, please delete before doing this task!/n";
+                    if (p == place)
+                    {
+                        p.isEnable = false;
+                        await DataManager.Ins.PlacesServices.UpdatePlace(p);
+                        break;
+                    }
                 }
-                
-                //DependencyService.Get<IToast>().LongToast(message + " has selected Place, please delete before doing this task!");
+                ListPlace.Remove(place);
 
-                foreach (StayPlace ite in placeHasStayPlaceList)
-                    message2 = message2 + ite.name + ", ";
-                if (message2 != "")
-                {
-                    message2 = message2.Remove(message2.Length - 2, 2);
-                    message2 += "stay places has been conflicted, please delete before doing this task!";
-                }
+            }
+            DependencyService.Get<IToast>().ShortToast("Delete Successful!");
 
-                await _messageService.ShowAsync("Warning", message1 + message2);
-            }                     
-            
         });
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {

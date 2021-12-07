@@ -11,5 +11,10 @@ namespace GoTour
         {
             await App.Current.MainPage.DisplayAlert(title, message, "Ok");
         }
+        public async Task<bool> ShowOK_Cancel(string title, string message)
+        {
+            var re = await App.Current.MainPage.DisplayAlert(title, message, "Ok", "Cancel");
+            return re;
+        }
     }
 }

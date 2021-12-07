@@ -155,22 +155,21 @@ namespace GoTour.MVVM.ViewModel
 
             DataManager.Ins.CurrentPlaceManager.description = Description;
             DataManager.Ins.CurrentPlaceManager.name = Name;
-            DataManager.Ins.CurrentPlaceManager.imgSource = new List<string>();           
+            DataManager.Ins.CurrentPlaceManager.imgSource = new ObservableCollection<string>();
 
-            for(int i = 0; i< count; i++)
+            for (int i = 0; i < count; i++)
             {
                 await DataManager.Ins.PlacesServices.DeleteFile(DataManager.Ins.CurrentPlaceManager.id, i);
             }
 
             Imgs = new ObservableCollection<ImageSource>();
-            for (int i =0; i< listStream.Count(); i++)
+            for (int i = 0; i < listStream.Count(); i++)
             {
-                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i );
+                string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], DataManager.Ins.CurrentPlaceManager.id, i);
                 DataManager.Ins.CurrentPlaceManager.imgSource.Add(url);
                 Imgs.Add(url);
             }
             await DataManager.Ins.PlacesServices.UpdatePlace(DataManager.Ins.CurrentPlaceManager);
-
         }
         private MemoryStream GetStreamFromUrl(string url)
         {

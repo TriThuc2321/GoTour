@@ -72,16 +72,16 @@ namespace GoTour.MVVM.ViewModel
                 if (check == false) break;
             }
 
-            List<string> imgSource = new List<string>();
+            ObservableCollection<string> imgSource = new ObservableCollection<string>();
 
             for (int i = 0; i < listStream.Count(); i++)
             {
                 string url = await DataManager.Ins.StayPlacesServices.saveImage(listStream[i], id, i);
                 imgSource.Add(url);
             }
-            await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address );
-            DataManager.Ins.ListStayPlace.Add(new StayPlace(id, Name, imgSource, address, selectedPlace.id, description ));
-            navigation.PopAsync();
+            await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address, true );
+            DataManager.Ins.ListStayPlace.Add(new StayPlace(id, Name, imgSource, address, description, true, selectedPlace.id ));
+             navigation.PopAsync();
         }
 
         private void deleteHandle(object obj)

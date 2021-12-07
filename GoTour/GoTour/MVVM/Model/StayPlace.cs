@@ -1,39 +1,106 @@
-﻿using System;
+﻿using GoTour.Core;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
 namespace GoTour.MVVM.Model
 {
-    public class StayPlace : INotifyPropertyChanged
+    public class StayPlace : ObservableObject
     {
-        public StayPlace(string id, string name, List<string> imgSource, string address, string description, string placeId)
+        
+        public StayPlace()
+        {
+            
+        }
+
+        public StayPlace(string id, string name, ObservableCollection<string> imgSource, string address, string description, bool isEnable, string placeId)
         {
             this.id = id;
             this.name = name;
             this.imgSource = imgSource;
             this.address = address;
             this.description = description;
+            this.isEnable = isEnable;
             this.placeId = placeId;
         }
-        public StayPlace()
+
+        private string _id;
+        public string id
         {
-            
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("id");
+            }
         }
 
-        public string id { get; set; }
-        public string name { get; set; }
-        public List<string> imgSource { get; set; }
-        public string address { get; set; }
-        public string description { get; set; }
-        public string placeId { get; set; }
-
-      
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        private string _name;
+        public string name
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("name");
+            }
         }
+
+        private ObservableCollection<string> _imgSource;
+        public ObservableCollection<string> imgSource
+        {
+            get { return _imgSource; }
+            set
+            {
+                _imgSource = value;
+                OnPropertyChanged("imgSource");
+            }
+        }
+
+        private string _address;
+        public string address
+        {
+            get { return _address; }
+            set
+            {
+                _address = value;
+                OnPropertyChanged("address");
+            }
+        }
+
+        private string _description;
+        public string description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("description");
+            }
+        }
+        private bool _isEnable;
+        public bool isEnable
+        {
+            get { return _isEnable; }
+            set
+            {
+                _isEnable = value;
+                OnPropertyChanged("isEnable");
+            }
+        }
+        private string _placeid;
+        public string placeId
+        {
+            get { return _placeid; }
+            set
+            {
+                _placeid = value;
+                OnPropertyChanged("placeid");
+            }
+        }
+
+
     }
 }
