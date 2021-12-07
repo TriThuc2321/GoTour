@@ -8,6 +8,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -16,27 +19,23 @@ namespace GoTour.MVVM.ViewModel
     {
         public INavigation navigation;
         public Shell currentShell;
-
+        public bool IsLoaded = false;
         int count;
         List<Stream> listStream;
-
         public Command EditTextCommand { get; }
         public Command AddCommand { get; }
-        public Command DeleteCommand { get; }
         public Command NavigationBack { get; }
-
 
         public EditStayPlaceViewModel() { }
         public EditStayPlaceViewModel(INavigation navigation, Shell curentShell)
         {
             this.navigation = navigation;
             this.currentShell = curentShell;
-
+            IsLoading = false;
             Imgs = new ObservableCollection<ImageSource>();
 
             EditTextCommand = new Command(editTextHandle);
             AddCommand = new Command(addHandleAsync);
-            DeleteCommand = new Command(deleteHandle);
             NavigationBack = new Command(() => navigation.PopAsync());
 
             SelectedStayPlace = DataManager.Ins.CurrentStayPlaceManager;
@@ -47,8 +46,6 @@ namespace GoTour.MVVM.ViewModel
                 foreach (var i in SelectedStayPlace.imgSource)
                 {
                     Imgs.Add(ImageSource.FromUri(new Uri(i)));
-                    listStream.Add(GetStreamFromUrl(i));
-
                 }
             }
 
@@ -62,15 +59,20 @@ namespace GoTour.MVVM.ViewModel
             count = Imgs.Count();
         }
 
-        private void deleteHandle(object obj)
+        public ICommand DeleteImageCommand => new Command<object>((obj) =>
         {
-            if (Imgs.Count() > 0)
+            ImageSource result = obj as ImageSource;
+            if (result != null)
             {
-                Imgs.RemoveAt(0);
-                listStream.RemoveAt(0);
+                int i = 0;
+                for (i = 0; i < Imgs.Count; i++)
+                {
+                    if (Imgs[i] == result) break;
+                }
+                Imgs.RemoveAt(i);
+                listStream.RemoveAt(i);
             }
-
-        }
+        });
 
         private async void addHandleAsync(object obj)
         {
@@ -90,6 +92,7 @@ namespace GoTour.MVVM.ViewModel
         private async void editTextHandle(object obj)
         {
             IsEdit = !IsEdit;
+            IsText = !IsText;
             if (!IsEdit)
             {
                 SourceIcon = "editIcon.png";
@@ -98,8 +101,23 @@ namespace GoTour.MVVM.ViewModel
             else
             {
                 SourceIcon = "tickIcon.png";
+                if (SelectedStayPlace.imgSource != null)
+                {
+
+                    await Task.Run(() => {
+                        IsLoading = true;
+                        Thread.Sleep(500);
+                    });
+
+                    foreach (var i in SelectedStayPlace.imgSource)
+                    {
+                        listStream.Add(GetStreamFromUrl(i));
+                    }
+
+                }
+                IsLoaded = true;
             }
-            IsText = !IsText;
+            IsLoading = false;
         }
         private async void updateData()
         {
@@ -152,6 +170,16 @@ namespace GoTour.MVVM.ViewModel
                 selectedStayPlace = value;
                 OnPropertyChanged("SelectedStayPlace");
 
+            }
+        }
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+                OnPropertyChanged("IsLoading");
             }
         }
         private bool isEdit;

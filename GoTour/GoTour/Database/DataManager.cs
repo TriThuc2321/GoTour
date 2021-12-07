@@ -44,8 +44,6 @@ namespace GoTour.Database
         public List<BookedTicket> bookedTickets;
 
         #region TourView
-
-
         private ObservableCollection<StayPlace> _stayPlaces;
         public ObservableCollection<StayPlace> ListStayPlace
         {
@@ -377,7 +375,6 @@ namespace GoTour.Database
             set { ruleServices = value; }
         }
 
-
         private StayPlacesServices stayPlacesServices;
         public StayPlacesServices StayPlacesServices
         {
@@ -453,7 +450,6 @@ namespace GoTour.Database
             }
             set { favoritesServices = value; }
         }
-
 
         private ObservableCollection<Place> _places;
         public ObservableCollection<Place> ListPlace

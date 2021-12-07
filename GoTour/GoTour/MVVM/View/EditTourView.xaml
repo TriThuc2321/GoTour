@@ -143,16 +143,16 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <SwipeView IsEnabled="{Binding Source={x:Reference clview}, Path = BindingContext.IsEdit}">
-                                    <SwipeView.LeftItems>
+                                    <SwipeView.TopItems>
                                         <SwipeItems>
                                             <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
                                         BackgroundColor="White"
                                         Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteTourGuideCommand}"
                                         CommandParameter="{Binding}" 
-                                                       />
+                                            />
                                         </SwipeItems>
-                                    </SwipeView.LeftItems>
+                                    </SwipeView.TopItems>
 
                                     <VisualStateManager.VisualStateGroups>
                                         <VisualStateGroup Name="CommonStates">
