@@ -24,34 +24,53 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10,0,10,0" VerticalOptions="Start">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="CommonStates">
-                                <VisualState Name="Selected">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="White" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                    <SwipeView IsEnabled="{Binding Source={x:Reference clview}, Path = BindingContext.IsEdit}">
+                        <SwipeView.TopItems>
+                            <SwipeItems>
+                                <SwipeItem 
+                                    Text="Remove"
+                                        BackgroundColor="White"
+                                        Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteImageCommand}"
+                                        CommandParameter="{Binding}" 
+                                />
+                            </SwipeItems>
+                        </SwipeView.TopItems>
+                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
 
-                        <Grid>
-                            <pancake:PancakeView CornerRadius="0,0,30,30">
-                                <Image Source="{Binding}" Aspect="AspectFill" />
-                            </pancake:PancakeView>
+                            <Grid>
+                                <pancake:PancakeView CornerRadius="0,0,30,30">
+                                    <Image Source="{Binding}" Aspect="AspectFill" />
+                                </pancake:PancakeView>
+
+                            </Grid>
 
                         </Grid>
-
-                    </Grid>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
+        <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 Margin="10, 10 , 0, 0"/>
         <StackLayout Grid.Row="1">
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Image -" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="20,10,0,0" Command="{Binding DeleteCommand}"/>
-                <Button Text="Image +" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" Command="{Binding AddCommand}" />
-                <Button Text="Save" BackgroundColor="SteelBlue" HorizontalOptions="Start" CornerRadius="10" Margin="10,10,0,0" Command="{Binding SaveCommand}" />
+            <StackLayout Orientation="Horizontal">                
+                <ImageButton HorizontalOptions="EndAndExpand" HeightRequest="35" Aspect="AspectFit" Source="imagePickericon.png" BackgroundColor="Transparent"  Margin="0,10,10,0" Command="{Binding AddCommand}" />
+                <ImageButton BackgroundColor="Transparent" Source="tickIcon.png" Aspect="AspectFit" HeightRequest="32" HorizontalOptions="Start" CornerRadius="10" Margin="0,10,15,0" Command="{Binding SaveCommand}" />
             </StackLayout>
 
             <StackLayout Margin="20,10,0,0" Orientation="Horizontal">

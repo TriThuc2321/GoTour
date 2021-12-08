@@ -8,5 +8,6 @@ namespace GoTour
     interface IMessageService
     {
         Task ShowAsync(string title, string message);
+        Task<bool> ShowOK_Cancel(string title, string message);
     }
 }

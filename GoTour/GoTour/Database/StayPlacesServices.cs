@@ -4,6 +4,7 @@ using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace GoTour.Database
                   address = item.Object.address,
                   description = item.Object.description,
                   placeId = item.Object.placeId,
+                  isEnable = item.Object.isEnable
               }).ToList();
         }
 
@@ -42,13 +44,13 @@ namespace GoTour.Database
 
             for (int i = 0; i < stayplace.imgSource.Count; i++)
             {
-                DeleteFile(stayplace.id, i);
+                await DeleteFile(stayplace.id, i);
             }
             
     
         } 
 
-        public async Task AddStayPlace(string id, string name, List<string> imgSource, string description, string placeId, string address)
+        public async Task AddStayPlace(string id, string name, ObservableCollection<string> imgSource, string description, string placeId, string address, bool isEnable)
         {
             await firebase
               .Child("StayPlaces")
@@ -60,6 +62,7 @@ namespace GoTour.Database
                   placeId = placeId,
                   imgSource = imgSource,
                   description = description,
+                  isEnable = isEnable
               });
         }
         public async Task DeleteFile(string folderStayPlaceId, int id)
@@ -109,7 +112,8 @@ namespace GoTour.Database
                   imgSource = place.imgSource,
                   description = place.description,
                   address = place.address,
-                  placeId = place.id
+                  placeId = place.placeId,
+                  isEnable = place.isEnable
               });
         }
     }

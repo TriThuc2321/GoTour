@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -22,7 +23,7 @@ namespace GoTour.MVVM.ViewModel
 
         public Command SaveCommand { get; }
         public Command AddCommand { get; }
-        public Command DeleteCommand { get; }
+        public Command NavigationBack { get; }
         public NewPlaceViewModel() { }
         public NewPlaceViewModel(INavigation navigation, Shell curentShell)
         {
@@ -35,13 +36,26 @@ namespace GoTour.MVVM.ViewModel
 
             SaveCommand = new Command(saveHandleAsync);
             AddCommand = new Command(addHandleAsync);
-            DeleteCommand = new Command(deleteHandle);
+            NavigationBack = new Command(() => navigation.PopAsync());
 
             listStream = new List<Stream>();           
 
         }
 
-
+        public ICommand DeleteImageCommand => new Command<object>((obj) =>
+        {
+            ImageSource result = obj as ImageSource;
+            if (result != null)
+            {
+                int i = 0;
+                for (i = 0; i < Imgs.Count; i++)
+                {
+                    if (Imgs[i] == result) break;
+                }
+                Imgs.RemoveAt(i);
+                listStream.RemoveAt(i);
+            }
+        });
 
         private async void saveHandleAsync(object obj)
         {
@@ -50,7 +64,7 @@ namespace GoTour.MVVM.ViewModel
                 DependencyService.Get<IToast>().ShortToast("Please enter place's name");
                 return;
             }
-            else if (Name == null || Description == null || Name == "" || Description == "" || listStream.Count() == 0)
+            else if (Name == null || Description == null || Name == "" || Description == "" )
             {
                 DependencyService.Get<IToast>().ShortToast("Please enter place's description");
                 return;
@@ -63,26 +77,16 @@ namespace GoTour.MVVM.ViewModel
 
             string id = DataManager.Ins.GeneratePlaceId();           
 
-            List<string> imgSource = new List<string>();
+            ObservableCollection<string> imgSource = new ObservableCollection<string>();
 
             for (int i = 0; i < listStream.Count(); i++)
             {
                 string url = await DataManager.Ins.PlacesServices.saveImage(listStream[i], id, i);
                 imgSource.Add(url);
             }
-            await DataManager.Ins.PlacesServices.AddPlace(id, Name, imgSource, Description);
-            DataManager.Ins.ListPlace.Add(new Place(id, Name, imgSource, Description));
-            navigation.PopAsync();
-        }
-
-        private void deleteHandle(object obj)
-        {
-            if (Imgs.Count() > 0)
-            {
-                Imgs.RemoveAt(0);
-                listStream.RemoveAt(0);
-            }
-
+            await DataManager.Ins.PlacesServices.AddPlace(id, Name, imgSource, Description, true);
+            DataManager.Ins.ListPlace.Add(new Place(id, Name, imgSource, Description, true));
+            await navigation.PopAsync();
         }
 
         private async void addHandleAsync(object obj)

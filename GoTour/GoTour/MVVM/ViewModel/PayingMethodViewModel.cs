@@ -31,10 +31,14 @@ namespace GoTour.MVVM.ViewModel
         async void confirmPress(object obj)
         {
             if (!IsCheckRegulation)
+            {
                 DependencyService.Get<IToast>().ShortToast("Please check regulation box");
+            }
 
             if (!MoMo && !Cash)
+            {
                 DependencyService.Get<IToast>().ShortToast("Please choose a paying method");
+            }
 
             if (await checkDiscount() == false) 
             { 
@@ -47,18 +51,18 @@ namespace GoTour.MVVM.ViewModel
 
             if (IsCheckRegulation && MoMo)
             {
+                ConfirmEnable = false;
                 DataManager.Ins.CurrentBookedTicket.invoice.method = "MoMo";
                 navigation.PushAsync(new MoMoConfirmView());
             }
             else if (IsCheckRegulation && Cash)
             {
+                ConfirmEnable = false;
                 DataManager.Ins.CurrentInvoice.method = "Cash";
                 DataManager.Ins.CurrentInvoice.isPaid = false;
                 DataManager.Ins.CurrentInvoice.payingTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
 
                 DataManager.Ins.CurrentBookedTicket.bookTime = DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
-
-
 
                 await DataManager.Ins.InvoicesServices.AddInvoice(DataManager.Ins.CurrentInvoice);
                 await DataManager.Ins.BookedTicketsServices.AddBookedTicket(DataManager.Ins.CurrentBookedTicket);
@@ -178,7 +182,16 @@ namespace GoTour.MVVM.ViewModel
         }
         #endregion
 
- 
+        private bool confirmEnable;
+        public bool ConfirmEnable
+        {
+            get { return confirmEnable; }
+            set
+            {
+                confirmEnable = value;
+                OnPropertyChanged("ConfirmEnable");
+            }
+        }
         async Task<bool> checkRemaining()
         {
             Tour temp = await DataManager.Ins.TourServices.FindTourById(DataManager.Ins.currentTour.id);
@@ -208,6 +221,13 @@ namespace GoTour.MVVM.ViewModel
         
         void updateManager()
         {
+            DataManager.Ins.CurrentBookedTicket.tour = DataManager.Ins.currentTour;
+            DataManager.Ins.CurrentBookedTicket.invoice = DataManager.Ins.CurrentInvoice;
+
+            if (DataManager.Ins.CurrentDiscount != null)
+                DataManager.Ins.CurrentBookedTicket.invoice.discount = DataManager.Ins.CurrentDiscount;
+
+
             DataManager.Ins.ListBookedTickets.Add(DataManager.Ins.CurrentBookedTicket);
             DataManager.Ins.ListInvoice.Add(DataManager.Ins.CurrentInvoice);
 
@@ -277,7 +297,7 @@ namespace GoTour.MVVM.ViewModel
 
           void SetInformation()
         {
-
+            confirmEnable = true;
             Total = DataManager.Ins.CurrentInvoice.total;
 
             var service = DataManager.Ins.InvoicesServices;

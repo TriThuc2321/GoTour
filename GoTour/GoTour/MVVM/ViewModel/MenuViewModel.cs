@@ -50,7 +50,7 @@ namespace GoTour.MVVM.ViewModel
 
         private async void stayPlaceHandle(object obj)
         {
-            temp1.Clear();
+            /*temp1.Clear();
 
             temp1.Add("11");
             temp1.Add("11");
@@ -67,12 +67,12 @@ namespace GoTour.MVVM.ViewModel
                   placeId = "",
                   imgSource = temp1,
                   description = "",
-              });
+              });*/
         }
 
         private async void placeHandle(object obj)
         {
-            temp1.Clear();
+            /*temp1.Clear();
 
             temp1.Add("11");
             temp1.Add("11");
@@ -87,7 +87,7 @@ namespace GoTour.MVVM.ViewModel
                    name = "",
                    imgSource = temp1,
                    description = "",
-               });
+               });*/
         }
 
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");

@@ -4,6 +4,7 @@ using Firebase.Storage;
 using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,10 @@ namespace GoTour.Database
                   name = item.Object.name,
                   imgSource = item.Object.imgSource,
                   description = item.Object.description,
+                  isEnable = item.Object.isEnable
               }).ToList();
         }
-        public async Task AddPlace(string id, string name, List<string> imgSource, string description)
+        public async Task AddPlace(string id, string name, ObservableCollection<string> imgSource, string description, bool isEnable)
         {
             await firebase
               .Child("Places")
@@ -41,6 +43,7 @@ namespace GoTour.Database
                   name = name,
                   imgSource = imgSource,
                   description = description,
+                  isEnable = isEnable
               });
         }
         public async Task UpdatePlace(Place place)
@@ -58,6 +61,7 @@ namespace GoTour.Database
                   name = place.name,
                   imgSource = place.imgSource,
                   description = place.description,
+                  isEnable = place.isEnable
               });
         }
         async public Task<string> saveImage(Stream imgStream, string placeId, int id)

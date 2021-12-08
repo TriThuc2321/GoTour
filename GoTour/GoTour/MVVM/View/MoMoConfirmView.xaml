@@ -207,6 +207,7 @@
                                 <Button Command="{Binding Confirm}"
                                     Grid.Row="5"
                                     IsVisible="{Binding PermitConfirm}"
+                                        IsEnabled="{Binding PermitConfirmEnable}"
                                     CornerRadius="20" 
                                     Margin="25,20,25,20"
                                     Padding="5"  

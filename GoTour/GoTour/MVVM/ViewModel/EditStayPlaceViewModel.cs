@@ -103,7 +103,6 @@ namespace GoTour.MVVM.ViewModel
                 SourceIcon = "tickIcon.png";
                 if (SelectedStayPlace.imgSource != null)
                 {
-
                     await Task.Run(() => {
                         IsLoading = true;
                         Thread.Sleep(500);
@@ -123,7 +122,7 @@ namespace GoTour.MVVM.ViewModel
         {
             DataManager.Ins.CurrentStayPlaceManager.description = Description;
             DataManager.Ins.CurrentStayPlaceManager.name = Name;
-            DataManager.Ins.CurrentStayPlaceManager.imgSource = new List<string>();
+            DataManager.Ins.CurrentStayPlaceManager.imgSource = new ObservableCollection<string>();
 
             for (int i = 0; i < count; i++)
             {
