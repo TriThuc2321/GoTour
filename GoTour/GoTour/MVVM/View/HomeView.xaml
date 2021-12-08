@@ -8,111 +8,24 @@
     <ContentPage.BindingContext>
         <vm:HomeViewModel/>
     </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-    <Grid BackgroundColor="WhiteSmoke">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.9*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Margin="0,5,0,0" Padding="20" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-
-                <Frame      
-                    Grid.Column="1"
-                   HorizontalOptions="End"
-                   HasShadow="False"
-                   CornerRadius="8"
-                   Margin="0, 0, 0, 0"
-                   Padding="0"
-                   VerticalOptions="Center"
-                    BackgroundColor="Transparent"
-                    >
-                    <ImageButton                        
-                        Source="{Binding ProfilePic}"
-                        Aspect="AspectFill"
-                        HeightRequest="40"
-                        WidthRequest="40"    
-                        BackgroundColor="Transparent"
-                    />
-                </Frame>
-               
-
-
-            <ImageButton
-                HeightRequest="40"
-                WidthRequest="40"
-                HorizontalOptions="Start"
-                VerticalOptions="End"
-                Source="menuIcon.png"
-                Margin="0, -10, 0, 0"
-                Grid.Column="0"
-                BackgroundColor="Transparent"
-                Command="{Binding MenuCommand}"
-            />
-        </Grid>
-
-        <Label
-            x:Name="testLb"
-            Text="Discover&#x0a;world with us!"
-            TextColor="Black"
-            FontSize="30"
-            FontAttributes="Bold"
-            Margin="20, 0,0,0"
-            Grid.Row="1"
-            />
-
-        <Frame Grid.Row="2" CornerRadius="20" Margin="20" Padding="5" HasShadow="False" BackgroundColor="#efefef" VerticalOptions="Center" >
-            <Grid>
+            <Grid Margin="0,0,0,0" Padding="20" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Entry                    
-                    Placeholder="Search a place..."
-                    PlaceholderColor="#C0C0C0"
-                    FontSize="15"
-                    Margin="15,0,0,0"
-                    TextColor="Black"   
-                    Text="{Binding PlaceToSearch}"
-                />
-                <Frame Grid.Column="1"
-                       BackgroundColor="#f4707c"
-                        HeightRequest="50"
-                        WidthRequest="50"
-                        VerticalOptions="Center"
-                       Padding="0"
-                       CornerRadius="15">
+                <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
+
                     <ImageButton
-                        Margin="10"
-                        Source="./SourceImage/searchIcon.png"
-                        BackgroundColor="Transparent"
-                        Command="{Binding SearchButtonHandleCommand}"
-                        />
-                </Frame>
-
-            </Grid>
-
-        </Frame>
-
-        <Grid Grid.Row="3" Margin="15,0,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Frame Grid.Column="0" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#f4707c" >
-                <ImageButton
                        Margin="10"
                        HeightRequest="40"
                        WidthRequest="40"
@@ -121,6 +34,93 @@
                        Padding="2"
                     Command="{Binding NotificaitonCommand}"
                        />
+                    <Frame                                          
+                   HasShadow="False"
+                   CornerRadius="8"
+                   Margin="0, 0, 0, 0"
+                   Padding="0"
+                   VerticalOptions="Center"
+                    BackgroundColor="Transparent"
+                    >
+                        <ImageButton                        
+                        Source="{Binding ProfilePic}"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"    
+                        BackgroundColor="Transparent"
+                    />
+                    </Frame>
+                </StackLayout>
+
+                <ImageButton
+                HeightRequest="40"
+                WidthRequest="40"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Source="menuIcon.png"
+                Margin="0, 0, 0, 0"
+                Grid.Column="0"
+                BackgroundColor="Transparent"
+                Command="{Binding MenuCommand}"
+            />
+            </Grid>
+
+            <StackLayout Grid.Row="1" Margin="0,-20,0,0">
+                <Label
+                    Text="Discover&#x0a;world with us!"
+                    TextColor="Black"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    Margin="20, 0,0,0"
+                    Grid.Row="1"
+                />
+                <Frame  CornerRadius="20" Margin="20,0,20,25" Padding="5" HasShadow="False" BackgroundColor="#efefef" VerticalOptions="Center" >
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Entry                    
+                    Placeholder="Search a place..."
+                    PlaceholderColor="#C0C0C0"
+                    FontSize="15"
+                    Margin="15,0,0,0"
+                    TextColor="Black"   
+                    Text="{Binding PlaceToSearch}"
+                />
+                        <Frame Grid.Column="1"
+                       BackgroundColor="#f4707c"
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        VerticalOptions="Center"
+                       Padding="0"
+                       CornerRadius="15">
+                            <ImageButton
+                        Margin="10"
+                        Source="./SourceImage/searchIcon.png"
+                        BackgroundColor="Transparent"
+                        Command="{Binding SearchButtonHandleCommand}"
+                        />
+                        </Frame>
+
+                    </Grid>
+
+                </Frame>
+
+            </StackLayout>
+            
+            <Grid Grid.Row="2" >
+                <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Column="0" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#f4707c" >
+                
             </Frame>
             <Frame Grid.Column="1" Padding="0" Margin="0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#f4707c" >
                 <ImageButton
@@ -154,14 +154,28 @@
                        Padding="2"
                     Command="{Binding MyTourCommand}"
                        />
-            </Frame>
+            </Frame> -->
+                
+            </Grid>
+            <Grid Grid.Row="2">
+                <Frame  Margin="20,0,20,0" CornerRadius="20" Padding="10,0,10,0">
+                    <Grid>
+                        <Image VerticalOptions="Start" HorizontalOptions="Center" Aspect="AspectFit" Margin="0,0,0,30" Source="travelBackground.jpg" />
+                        <Frame  Margin="0,0,0,15" CornerRadius="20" Padding="10" VerticalOptions="End" HeightRequest="50" >
+                            <Grid Margin="10,0,0,5" >
+                                <Label Text="Explore The Beauty" FontSize="18" FontAttributes="Bold" TextColor="#272727"/>
+                                <Label Text="Get special offers and discount" VerticalOptions="End"/>
+                                <ImageButton Command="{Binding ToursCommand}" Source="nextIcon.png" BackgroundColor="Transparent" HorizontalOptions="End" HeightRequest="20" Aspect="AspectFill" WidthRequest="20" VerticalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Frame>
 
 
-        </Grid>
-
-        <StackLayout Grid.Row="4" Margin="0,0,0,5">
-           
-            <CollectionView
+            </Grid>
+            <StackLayout Grid.Row="3" Margin="0,0,0,5"  HeightRequest="330">
+                <Label FontAttributes="Bold" FontSize="25" TextColor="#f4707c" Margin="25,5,0,0" VerticalOptions="End" Text="All tours"/>
+                <CollectionView
                             x:Name="clview"
                             ItemsSource="{Binding Tours}" 
                             SelectionMode="Single" 
@@ -169,25 +183,25 @@
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}"
                             >
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
 
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Selected">
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Transparent" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
 
-                            <Frame
-                            HeightRequest="280" WidthRequest="180"
+                                <Frame
+                            HeightRequest="280" WidthRequest="230"
                             BackgroundColor="Transparent"
                             HasShadow="True"
                             Margin="10"
@@ -195,54 +209,55 @@
                             HorizontalOptions="Center"
                             Padding="0"
                         >
-                                <Grid>
-                                    <Frame
-                                        Margin="0,100,0,0"
-                                        BackgroundColor="White"
-                                        CornerRadius="15">
-                                        
-                                    </Frame>
-                                    <Frame Padding="0" CornerRadius="15" HasShadow="True" BackgroundColor="Transparent">
-                                        <StackLayout>
-                                            <ImageButton Source="{Binding imgSource[0]}"
+                                    <Grid>
+                                        <Frame
+                                            Margin="5,100,5,5"
+                                            BackgroundColor="White"
+                                            CornerRadius="15"
+                                            HeightRequest="130"
+                                            />
+                                        <Frame Padding="0" CornerRadius="15" HasShadow="True" BackgroundColor="Transparent">
+                                            <StackLayout Margin="5,0,5,0">
+                                                <ImageButton Source="{Binding imgSource[0]}"
                                               Margin="10,0,10,0" 
                                                 Aspect="AspectFill"  
                                               CornerRadius="10"
                                                          HeightRequest="180"
                                         />
-                                            <Label
+                                                <Label
                                                 Margin="20,10,0,0"
                                                 Text="{Binding name}"
                                                 TextColor="Black"
                                                 FontSize="18"
                                             />
-                                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                                                <Label                                                
+                                                <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                                                    <Label                                                
                                                 Text="{Binding basePrice,StringFormat='{}${0}' }"
                                                 TextColor="Black"
                                                 FontSize="18"
                                                 FontAttributes="Bold"
                                                 />
 
-                                                <ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"/>
-                                                <Label Text="{Binding starNumber}" VerticalOptions="CenterAndExpand" HorizontalOptions="End"
+                                                    <ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"/>
+                                                    <Label Text="{Binding starNumber}" VerticalOptions="CenterAndExpand" HorizontalOptions="End"
                                                     TextColor="Black"
                                                     FontAttributes="Bold"
                                                     FontSize="Medium"
                                                        Margin="0,0,20,0"/>
-                                            </StackLayout>
-                                            
-                                        </StackLayout>
-                                        
-                                    </Frame>
- 
-                                </Grid>
-                            </Frame>
-                        </StackLayout>
+                                                </StackLayout>
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </Grid>
+                                            </StackLayout>
+
+                                        </Frame>
+
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

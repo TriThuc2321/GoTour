@@ -14861,10 +14861,13 @@ namespace GoTour.Droid
 			public const int trashIcon = 2131165388;
 			
 			// aapt resource value: 0x7F0700CD
-			public const int usdIcon = 2131165389;
+			public const int travelBackground = 2131165389;
 			
 			// aapt resource value: 0x7F0700CE
-			public const int userOutlineIcon = 2131165390;
+			public const int usdIcon = 2131165390;
+			
+			// aapt resource value: 0x7F0700CF
+			public const int userOutlineIcon = 2131165391;
 			
 			static Drawable()
 			{

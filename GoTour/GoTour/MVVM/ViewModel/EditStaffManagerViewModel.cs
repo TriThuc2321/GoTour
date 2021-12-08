@@ -3,6 +3,7 @@ using Firebase.Database.Query;
 using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
@@ -164,6 +165,10 @@ namespace GoTour.MVVM.ViewModel
                         }
                         DataManager.Ins.ClassifyUser();
                         DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+
+                        navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+                        await navigation.PushAsync(new StaffManagerView());
+                        navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
                     }
                     else
                     {
