@@ -269,7 +269,7 @@
     <AndroidResource Include="Resources\drawable\tourGuiderbg1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\sendNotiBg.jpg" />
+    <AndroidResource Include="Resources\drawable\SendNotificationBg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\percentIcon.png" />

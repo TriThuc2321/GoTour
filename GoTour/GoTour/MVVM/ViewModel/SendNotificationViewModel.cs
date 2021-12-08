@@ -21,6 +21,7 @@ namespace GoTour.MVVM.ViewModel
             User selected = obj as User;
             if (selected != null)
             {
+                ListEmailPicker.Add(selected.email);
                 Recievers.Remove(selected);
             }
         });
@@ -217,7 +218,10 @@ namespace GoTour.MVVM.ViewModel
                         Recievers.Clear();
                     }
                     else
+                    {
                         IsVisibleRevieverPicker = true;
+                    }
+                       
                 }
                 OnPropertyChanged("IsCheckToAll");
             }
@@ -302,29 +306,48 @@ namespace GoTour.MVVM.ViewModel
                 if (selectedTourName != value)
                 {
                     selectedTourName = value;
-                    DependencyService.Get<IToast>().ShortToast("About Tour:  " + selectedTourName);
+
                     foreach (Tour i in DataManager.Ins.ListTour)
                     {
                         if (i.name.Equals(selectedTourName, StringComparison.CurrentCultureIgnoreCase))
+                        {
                             TourIdText = i.id;
-                        StartTimetext = "Start: " + i.startTime;
+                            getListEmailPicker(TourIdText);
+                            StartTimetext = "Start: " + i.startTime;
+                            break;
+                        }
+                       
                     }
+                    DependencyService.Get<IToast>().ShortToast("About Tour:  " + selectedTourName);
+
                 }
                 OnPropertyChanged("SelectedTourName");
             }
         }
 
-        //PICKER EMAIL LIST
-        public List<string> ListEmailPicker { get; set; }
-        public List<string> GetListEmail()
+        //LABEL TOURID
+        private string tourIdText { get; set; }
+        public string TourIdText
         {
-            var temp = new List<string>();
-            foreach (User i in DataManager.Ins.ListUser)
+            get { return tourIdText; }
+            set
             {
-                temp.Add(i.email);
+                tourIdText = value;
+                OnPropertyChanged("TourIdText");
             }
-            return temp;
         }
+        //PICKER EMAIL LIST
+        private ObservableCollection<string> listEmailPicker { get; set; }
+        public ObservableCollection<string> ListEmailPicker
+        {
+            get { return listEmailPicker; }
+            set
+            {
+                listEmailPicker = value;
+                OnPropertyChanged("ListEmailPicker");
+            }
+        }
+       
 
         //SELECTED RMAIL
         private string selectedEmail { get; set; }
@@ -342,6 +365,7 @@ namespace GoTour.MVVM.ViewModel
                         if (i.email == selectedEmail)
                         {
                             Recievers.Add(i);
+                            ListEmailPicker.Remove(i.email);
                         }
                     }
                 }
@@ -349,17 +373,7 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        //LABEL TOURID
-        private string tourIdText { get; set; }
-        public string TourIdText
-        {
-            get { return tourIdText; }
-            set
-            {
-                tourIdText = value;
-                OnPropertyChanged("TourIdText");
-            }
-        }
+       
 
         //LABEL STARTING TIME
         private string startTimetext { get; set; }
@@ -391,16 +405,31 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
 
-            //Recievers = DataManager.Ins.ListUser;
+            ListEmailPicker = new ObservableCollection<string>();
             NameTourList = GetListNameTour();
-            ListEmailPicker = GetListEmail();
             Recievers = new ObservableCollection<User>();
             SystemSelected = false;
             IsCheckToAll = true;
-
         }
 
+        void getListEmailPicker(string tourid)
+        {
+            ListEmailPicker = new ObservableCollection<string>();
+            string temp = "";
+            foreach(BookedTicket i in DataManager.Ins.ListBookedTickets)
+            {
+                if(i.tour.id.Equals(tourid))
+                {
+                    temp = i.email;
+                    if(!ListEmailPicker.Contains(temp))
+                    {
+                        ListEmailPicker.Add(temp);
+                    }
+                }
+            }
 
+            OnPropertyChanged("ListEmailPicker");
+        }
 
     }
 }
