@@ -35,6 +35,7 @@ namespace GoTour.MVVM.ViewModel
         public Command UpdateUserInfo { get; }
         public Command RefreshCommand { get; set; }
         public Command EditTextCommand { get; }
+        public Command MenuCommand { get; }
 
         //USER PROPERTIES
         public string CurrRank { get; set; }
@@ -145,11 +146,40 @@ namespace GoTour.MVVM.ViewModel
             set
             {
                 isEdit = value;
+                if(value == false)
+                {
+                    VisibleSaveBtn = false;
+                    EnableImageBtn = false;
+                }
                 OnPropertyChanged("IsEdit");
 
             }
         }
 
+        //VISIBLE SAVE BUTTON
+        private bool visibleSaveBtn;
+        public bool VisibleSaveBtn
+        {
+            get { return visibleSaveBtn; }
+            set
+            {
+                visibleSaveBtn = value;
+                OnPropertyChanged("VisibleSaveBtn");
+            }
+        }
+
+
+        //ENABLE IMAGEBUTTON
+        private bool enableImageBtn;
+        public bool EnableImageBtn
+        {
+            get { return enableImageBtn; }
+            set
+            {
+                enableImageBtn = value;
+                OnPropertyChanged("EnableImageBtn");
+            }
+        }
 
         //CONSTRUCTOR
         public UserInformationViewModel() { }
@@ -161,7 +191,10 @@ namespace GoTour.MVVM.ViewModel
             Name = CurrUser.name;
             PutData();
             IsEdit = false;
+            VisibleSaveBtn = false;
+            EnableImageBtn = false;
             IconSource = "editIcon.png";
+            MenuCommand = new Command(() => curentShell.FlyoutIsPresented = !curentShell.FlyoutIsPresented);
             EditTextCommand = new Command(editTextHandle);
             UpdateUserInfo = new Command(updateUser);
             RefreshCommand = new Command(() => PutData());
@@ -192,6 +225,8 @@ namespace GoTour.MVVM.ViewModel
             {
                 IconSource = "delete.png";
                 IsEdit = !IsEdit;
+                VisibleSaveBtn = !VisibleSaveBtn;
+                EnableImageBtn = !EnableImageBtn;
             }
         }
 
@@ -237,6 +272,8 @@ namespace GoTour.MVVM.ViewModel
                 }
             }
             IsEdit = false;
+            VisibleSaveBtn = false;
+            EnableImageBtn = false;
             IconSource = "editIcon.png";
             IsRefreshing = false;
         }
@@ -255,61 +292,72 @@ namespace GoTour.MVVM.ViewModel
                 }
                 else
                 {
-                    if(imgStream == null)
+                    if(IDCardValidation(CMND) == false)
                     {
-                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
-                        var toUpdateUser = (await firebase
-                     .Child("Users")
-                     .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
-
-                        await firebase
-                          .Child("Users")
-                          .Child(toUpdateUser.Key)
-                          .PutAsync(new User
-                          {
-                              email = user.email,
-                              password = user.password,
-                              name = user.name,
-                              contact = user.contact,
-                              birthday = user.birthday,
-                              cmnd = user.cmnd,
-                              profilePic = user.profilePic,
-                              address = user.address,
-                              score = user.score,
-                              rank = user.rank
-                          });
-                        DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
-                        IsEdit = false;
-                        IconSource = "editIcon.png";
+                        DependencyService.Get<IToast>().ShortToast("Identify card number should have 9 or 12 numerics");
                     }
                     else
                     {
-                        CurrUser.profilePic = await DataManager.Ins.UsersServices.saveImage(imgStream, CurrUser.email, CurrUser.name);
-                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
-                        var toUpdateUser = (await firebase
-                     .Child("Users")
-                     .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
+                        if (imgStream == null)
+                        {
+                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                            var toUpdateUser = (await firebase
+                         .Child("Users")
+                         .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
 
-                        await firebase
-                          .Child("Users")
-                          .Child(toUpdateUser.Key)
-                          .PutAsync(new User
-                          {
-                              email = user.email,
-                              password = user.password,
-                              name = user.name,
-                              contact = user.contact,
-                              birthday = user.birthday,
-                              cmnd = user.cmnd,
-                              profilePic = user.profilePic,
-                              address = user.address,
-                              score = user.score,
-                              rank = user.rank
-                          });
-                        DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
-                        IsEdit = false;
-                        IconSource = "editIcon.png";
-                    }
+                            await firebase
+                              .Child("Users")
+                              .Child(toUpdateUser.Key)
+                              .PutAsync(new User
+                              {
+                                  email = user.email,
+                                  password = user.password,
+                                  name = user.name,
+                                  contact = user.contact,
+                                  birthday = user.birthday,
+                                  cmnd = user.cmnd,
+                                  profilePic = user.profilePic,
+                                  address = user.address,
+                                  score = user.score,
+                                  rank = user.rank
+                              });
+                            DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                            IsEdit = false;
+                            VisibleSaveBtn = false;
+                            EnableImageBtn = false;
+                            IconSource = "editIcon.png";
+                        }
+                        else
+                        {
+                            CurrUser.profilePic = await DataManager.Ins.UsersServices.saveImage(imgStream, CurrUser.email, CurrUser.name);
+                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                            var toUpdateUser = (await firebase
+                         .Child("Users")
+                         .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
+
+                            await firebase
+                              .Child("Users")
+                              .Child(toUpdateUser.Key)
+                              .PutAsync(new User
+                              {
+                                  email = user.email,
+                                  password = user.password,
+                                  name = user.name,
+                                  contact = user.contact,
+                                  birthday = user.birthday,
+                                  cmnd = user.cmnd,
+                                  profilePic = user.profilePic,
+                                  address = user.address,
+                                  score = user.score,
+                                  rank = user.rank
+                              });
+                            DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                            IsEdit = false;
+                            VisibleSaveBtn = false;
+                            EnableImageBtn = false;
+                            IconSource = "editIcon.png";
+                        }
+                    } 
                 }                    
             }  
         }
@@ -317,11 +365,48 @@ namespace GoTour.MVVM.ViewModel
         //CONTACT VALIDDATION
         private bool ContactValidation(string contact)
         {
-            if(contact.Length == 10 && contact[0].ToString() == "0")
+            if(contact.Length == 10 && contact[0].ToString() == "0" && contact.All(char.IsDigit))
             {
                 return true;
             }
             return false;
+        }
+
+        //CMND VALIDATION
+        private bool IDCardValidation(string vcmnd)
+        {
+            bool ex;
+            if(!vcmnd.All(char.IsDigit))
+            {
+                ex = false;
+            }
+            else
+            {
+                if (vcmnd.Length < 9)
+                {
+                    ex = false;
+                }
+                else if (vcmnd.Length > 9)
+                {
+                    if (vcmnd.Length < 12)
+                    {
+                        ex = false;
+                    }
+                    else if (vcmnd.Length > 12)
+                    {
+                        ex = false;
+                    }
+                    else
+                    {
+                        ex = true;
+                    }
+                }
+                else
+                {
+                    ex = true;
+                }
+            }          
+            return ex;
         }
     }
 }

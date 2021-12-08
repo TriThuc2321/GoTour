@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GoTour.MVVM.View.UserInformationView"
-              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:local="clr-namespace:GoTour">
+              xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:local="clr-namespace:GoTour" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
 
     <ContentPage.BindingContext>
         <vm:UserInformationViewModel/>
@@ -14,29 +14,41 @@
         <ScrollView>
             <StackLayout>
                             <!--AVATAR ANF CHANGE AVATAR-->
-                <ImageButton Source="{Binding ProfilePic}"
+                <!--<Image Source="{Binding ProfilePic}"
                              Aspect="AspectFill" HeightRequest="320"
-                             Command="{Binding AddImageCommand}" Visual="Material"/>
-
+                              Visual="Material"/>-->
+                <StackLayout Orientation="Horizontal">
+                    <ImageButton Command="{Binding MenuCommand}" 
+                                 Source="menuIcon.png" 
+                                 HeightRequest="35" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="Transparent" 
+                                 Margin="10, 10 , 0, 0">
+                    </ImageButton>
+                    <Label Text="Your information" 
+                           FontSize="23" 
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           Margin="10,10,100,0"/>
+                </StackLayout>
+                <pancake:PancakeView CornerRadius="55,55,0,0">
+                    <ImageButton Source="{Binding ProfilePic}"
+                                 Aspect="AspectFill" 
+                                 Command="{Binding AddImageCommand}" 
+                                 HeightRequest="350"
+                                 IsEnabled="{Binding EnableImageBtn}"/>
+                </pancake:PancakeView>
+              
                 <Frame Padding="10" HasShadow="False" 
                        CornerRadius="40" Margin="0,-50,0,0" 
                        VerticalOptions="FillAndExpand">
                     <Grid RowDefinitions="Auto ,Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
                            Padding="25" ColumnDefinitions="*, *, *">
-                        <Label  Grid.Row="0" Grid.Column="0" 
-                                HeightRequest="20" WidthRequest="60" 
-                                Text="{Binding CurrRank}" TextColor="Black" 
-                                FontAttributes="Bold"  FontSize="17" 
-                                HorizontalOptions="Center" VerticalOptions="Center"/>
 
-                        <Label Grid.Row="0" Grid.Column="1" 
-                               HeightRequest="20" WidthRequest="80" 
-                               Text="{Binding CurrScore}" TextColor="Gray" 
-                               FontAttributes="Bold" FontSize="17"  
-                               Margin="-80,0,0,0"  HorizontalOptions="Center" 
-                               VerticalOptions="Center"/>
-                            
-                                        <!--NAME-->
+                        <!--NAME-->
                         <Frame Margin="10,-20,10,0" WidthRequest="200" 
                                HeightRequest="7" CornerRadius="10"
                                Grid.Row="1" Grid.Column="0" 
@@ -184,9 +196,10 @@
                                     <!--SAVE BUTTON-->
                         <Button Grid.Row="8" Grid.Column="0" 
                                 Grid.ColumnSpan="3" 
-                                Margin="100,20,100,0" 
+                                Margin="150,0,50,0" 
                                 CornerRadius="10"
-                                WidthRequest="50" HeightRequest="40"
+                                IsVisible="{Binding VisibleSaveBtn}"
+                                WidthRequest="50" HeightRequest="35"
                                 Text="Save" BorderWidth="1" 
                                 BackgroundColor="#df928e" 
                                 FontAttributes="Bold" 
