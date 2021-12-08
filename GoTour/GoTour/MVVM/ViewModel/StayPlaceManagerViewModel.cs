@@ -72,42 +72,53 @@ namespace GoTour.MVVM.ViewModel
         });
         public ICommand DeleteCommand1 => new Command<object>(async (obj) =>
         {
+            bool answer = await _messageService.ShowOK_Cancel("Question?", "Are you sure you want to delete this stay place?");
+            if (!answer) return;
+
             StayPlace selected = (StayPlace)obj;
-            if (selected == null) return;
+            if (selected == null) return;        
+
+            bool flag = false;
             List<Tour> listTour = new List<Tour>();
+
             foreach (Tour ite in DataManager.Ins.ListTour)
                 listTour.Add(ite);
-            List<Tour> tour_Has_electedStayPlace_List = new List<Tour>();
-            //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == selected.id));
+
+            //tour_Has_electedStayPlace_List = listTour.FindAll(e => e.SPforPList.Exists(p => p.stayPlaceId == place.id));
             foreach (var e in listTour)
             {
                 foreach (var p in e.SPforPList)
                 {
                     if (p.stayPlaceId == selected.id)
                     {
-                        tour_Has_electedStayPlace_List.Add(e);
+                        flag = true;
                         break;
                     }
                 }
-            }
+                if (flag) break;
+            }            
 
-            if (tour_Has_electedStayPlace_List.Count == 0)
+            if (!flag)
             {
                 await DataManager.Ins.StayPlacesServices.DeleteStayPlace(selected);
                 ListStayPlace.Remove(selected);
-                DependencyService.Get<IToast>().ShortToast("Delete Successful!");
-                selectedStayPlace = null;
             }
             else
             {
-                string message = "Tours: ";
-                foreach (Tour ite in tour_Has_electedStayPlace_List)
-                    message = message + ite.name + ", ";
+                foreach (StayPlace p in DataManager.Ins.ListStayPlace)
+                {
+                    if (p == selected)
+                    {
+                        p.isEnable = false;
+                        await DataManager.Ins.StayPlacesServices.UpdateStayPlace(p);
+                        break;
+                    }
+                }
+                ListStayPlace.Remove(selected);
 
-                await _messageService.ShowAsync("Warning", message + " has selected StayPlace, Please delete before doing this task!");
-                //DependencyService.Get<IToast>().LongToast(message + " has selected StayPlace, Please delete before doing this task!");
-                selectedStayPlace = null;
             }
+            DependencyService.Get<IToast>().ShortToast("Delete Successful!");
+
         });
 
         public ICommand SelectedCommand => new Command<object>((obj) =>

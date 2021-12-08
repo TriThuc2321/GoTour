@@ -56,7 +56,7 @@ namespace GoTour.Database
         #endregion
 
         public List<string> currentPlace = new List<string>();
-        public Tour currentTour = new Tour();
+        
         public User currentUserManager;
         public PlaceId_Duration currentDuration = new PlaceId_Duration();
         public int idTourDuration;
@@ -80,6 +80,7 @@ namespace GoTour.Database
             CurrentDiscount = new Discount();
             currentInvoice = new Invoice();
             CurrentUser = new User();
+            currentTour = new Tour();
             ListReview = new ObservableCollection<Review>();
             getAllList();           
            
@@ -220,8 +221,11 @@ namespace GoTour.Database
             managements = new List<User>();
             admins = new List<User>();
 
+            ListUser = new ObservableCollection<User>();
+
             foreach (User u in users)
-            {               
+            {
+                ListUser.Add(u);
                 if (u.rank == 3) customers.Add(u);
                 else if (u.rank == 2) tourGuides.Add(u);
                 else if (u.rank == 1) managements.Add(u);
@@ -506,6 +510,17 @@ namespace GoTour.Database
             set
             {
                 guiderNotification = value;
+            }
+        }
+
+        private Tour _currentTour;
+        public Tour currentTour
+        {
+            get { return _currentTour; }
+            set
+            {
+                _currentTour = value;
+                OnPropertyChanged("currentTour");
             }
         }
 

@@ -9,7 +9,18 @@ namespace GoTour.MVVM.Model
     public class TourPlace : ObservableObject
     {
         public string tourId { get; set; }
-        public ObservableCollection<PlaceId_Duration> placeDurationList { get; set; }
+
+
+        private ObservableCollection<PlaceId_Duration> _placeDurationList;
+        public ObservableCollection<PlaceId_Duration> placeDurationList
+        {
+            get { return _placeDurationList; }
+            set
+            {
+                _placeDurationList = value;
+                OnPropertyChanged("placeDurationList");
+            }
+        }
 
         public TourPlace()
         {

@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -109,6 +110,11 @@ namespace GoTour.MVVM.ViewModel
             }
 
             DependencyService.Get<IToast>().ShortToast("New schedule has been updated");
+
+
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+            await navigation.PushAsync(new EditDetailTourView());            
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
         }
 
         private Place host;
