@@ -36,12 +36,8 @@ namespace GoTour.MVVM.ViewModel
                 }
             }
             SelectedTour = DataManager.Ins.currentTour;
-            PlaceDurationsList = new ObservableCollection<PlaceId_Duration>();
-            foreach(var item in SelectedTour.placeDurationList)
-            {
-                PlaceDurationsList.Add(item);
-            }
-                        
+            PlaceDurationsList = SelectedTour.placeDurationList;
+                     
             // TourPlaces = temp.FindAll(e => DataManager.Ins.currentTour.placeDurationList.Exists(p => p.placeId == e.id));
             DurationProcess();
         }

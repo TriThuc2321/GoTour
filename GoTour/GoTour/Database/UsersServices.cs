@@ -134,12 +134,17 @@ namespace GoTour.Database
         }
         public bool IsCMND(string cmnd)
         {
-            if (cmnd.Length != 9 || cmnd.Length != 12) return false;
-            for (int i = 0; i < cmnd.Length; i++)
+            if (cmnd.Length != 9 && cmnd.Length != 12) return false;
+            try
             {
-                if (cmnd[i] < 48 || cmnd[i] > 57) return false;
+                int a = int.Parse(cmnd);
+                return true;
             }
-            return true;
+            catch
+            {
+                return false;
+            }
+           
         }
         public bool checkEmail(string inputEmail)
         {

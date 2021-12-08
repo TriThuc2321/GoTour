@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -21,7 +22,6 @@ namespace GoTour.MVVM.ViewModel
 
         public Command SaveCommand { get; }
         public Command AddCommand { get; }
-        public Command DeleteCommand { get; }
         public NewStayPlaceViewModel() { }
         public NewStayPlaceViewModel(INavigation navigation, Shell curentShell)
         {
@@ -37,7 +37,6 @@ namespace GoTour.MVVM.ViewModel
 
             SaveCommand = new Command(saveHandleAsync);
             AddCommand = new Command(addHandleAsync);
-            DeleteCommand = new Command(deleteHandle);
 
             listStream = new List<Stream>();
 
@@ -81,19 +80,23 @@ namespace GoTour.MVVM.ViewModel
             }
             await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address, true );
             DataManager.Ins.ListStayPlace.Add(new StayPlace(id, Name, imgSource, address, description, true, selectedPlace.id ));
-             navigation.PopAsync();
+            await navigation.PopAsync();
         }
-
-        private void deleteHandle(object obj)
+       
+        public ICommand DeleteImageCommand => new Command<object>((obj) =>
         {
-            if (Imgs.Count() > 0)
+            ImageSource result = obj as ImageSource;
+            if (result != null)
             {
-                Imgs.RemoveAt(0);
-                listStream.RemoveAt(0);
+                int i = 0;
+                for (i = 0; i < Imgs.Count; i++)
+                {
+                    if (Imgs[i] == result) break;
+                }
+                Imgs.RemoveAt(i);
+                listStream.RemoveAt(i);
             }
-
-        }
-      
+        });
         private async void addHandleAsync(object obj)
         {
             await CrossMedia.Current.Initialize();

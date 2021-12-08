@@ -121,7 +121,7 @@ namespace GoTour.MVVM.ViewModel
                 }
                 else if (!DataManager.Ins.UsersServices.IsCMND(CMND))
                 {
-                    DependencyService.Get<IToast>().ShortToast("Your Id Card should have 9 or 10 numerics");
+                    DependencyService.Get<IToast>().ShortToast("Your Id Card should have 9 or 12 numerics");
                 }
                 else
                 {

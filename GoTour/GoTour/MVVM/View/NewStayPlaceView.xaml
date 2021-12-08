@@ -11,7 +11,7 @@
     <Grid>
         <CollectionView x:Name="clview" 
                             ItemsSource="{Binding Imgs}" 
-                            SelectionMode="Single" 
+                            SelectionMode="None" 
                             SelectedItem="{Binding SelectedPlace}"
                             SelectionChangedCommand="{Binding SelectedCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview}}">

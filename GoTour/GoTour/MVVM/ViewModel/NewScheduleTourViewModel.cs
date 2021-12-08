@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,7 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
-            NavigationBack = new Command(backHandle);
+            NavigationBack = new Command(()=> navigation.PopAsync());
 
             Places = DataManager.Ins.ListPlace;
             StayPlaces = DataManager.Ins.ListStayPlace;
@@ -59,11 +60,6 @@ namespace GoTour.MVVM.ViewModel
 
         }
 
-        private void backHandle(object obj)
-        {
-            navigation.PopAsync();
-        }
-
         private async void savehandle(object obj)
         {
             IsVisible = false;
@@ -82,9 +78,7 @@ namespace GoTour.MVVM.ViewModel
 
                 DataManager.Ins.currentTour.SPforPList[index].placeId = Host.id;
                 DataManager.Ins.currentTour.SPforPList[index].stayPlaceId = StayPlaceSelected.id;
-                DataManager.Ins.currentTour.placeDurationList[index] = DataManager.Ins.currentDuration;
-
-                
+                DataManager.Ins.currentTour.placeDurationList[index] = DataManager.Ins.currentDuration;                
             }
             else
             {
@@ -101,7 +95,26 @@ namespace GoTour.MVVM.ViewModel
                 DataManager.Ins.currentTour.placeDurationList.Add(DataManager.Ins.currentDuration);
             }
 
-            DependencyService.Get<IToast>().ShortToast("New schedule has been updated");
+            UpdateDuration();
+
+            DependencyService.Get<IToast>().ShortToast("New schedule has been updated");            
+
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+            await navigation.PushAsync(new EditDetailTourView());
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+
+            //await navigation.PopAsync();
+        }
+        void UpdateDuration()
+        {
+            int day = 0;
+            int night = 0;
+            for (int i = 0; i < DataManager.Ins.currentTour.placeDurationList.Count; i++)
+            {
+                day += DataManager.Ins.currentTour.placeDurationList[i].day;
+                night += DataManager.Ins.currentTour.placeDurationList[i].night;
+            }
+            DataManager.Ins.currentTour.duration = day + "/" + night;
         }
 
         private Place host;
