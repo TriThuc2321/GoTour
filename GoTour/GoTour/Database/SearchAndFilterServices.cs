@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using GoTour.MVVM.Model;
 using Xamarin.Forms;
 
@@ -22,6 +23,13 @@ namespace GoTour.Database
         public void RefreshDataSearch()
         {
             PlaceToSearch = "";
+        }
+        //Ham loc dau tieng viet
+        public static string convertToUnSign(string s)
+        {
+            Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+            string temp = s.Normalize(NormalizationForm.FormD);
+            return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
         public void GetResult()
         {
@@ -45,7 +53,7 @@ namespace GoTour.Database
             string currentPlaceId = "";
             foreach(Place i in temp1)
             {
-                if (PlaceToSearch.Equals(i.name, StringComparison.CurrentCultureIgnoreCase))
+                if (convertToUnSign(PlaceToSearch).Equals(convertToUnSign(i.name), StringComparison.CurrentCultureIgnoreCase))
                 {
                     currentPlaceId = i.id;
                 }
