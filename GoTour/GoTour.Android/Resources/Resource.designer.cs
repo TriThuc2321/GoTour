@@ -14814,7 +14814,6 @@ namespace GoTour.Droid
 			
 			// aapt resource value: 0x7F0700BD
 			public const int searchIcon = 2131165373;
-			public const int SendNotificationBg = 2131165373;
 			
 			// aapt resource value: 0x7F0700BE
 			public const int SendNotificationBg = 2131165374;
