@@ -29,7 +29,7 @@ namespace GoTour.MVVM.ViewModel
             SortByTotalPrice = new Command(SortListByTotal);
             SortByPercent = new Command(SortListByPercent);
             Filter = new Command(FilterList);
-            NavigationBack = new Command(() => currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented);
+            NavigationBack = new Command(() => navigation.PopAsync());
             InitList();
         }
 

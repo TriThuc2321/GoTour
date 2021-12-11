@@ -15,6 +15,12 @@ namespace GoTour.MVVM.View
         public HomeView()
         {
             InitializeComponent();
+            //this.BindingContext = new HomeViewModel(Navigation, Shell.Current);
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new HomeViewModel(Navigation, Shell.Current);
         }
     }

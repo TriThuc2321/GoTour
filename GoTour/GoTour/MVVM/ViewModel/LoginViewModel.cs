@@ -128,9 +128,10 @@ namespace GoTour.MVVM.ViewModel
                         {
                             Preferences.Set("remeber_key", "false");
                         }
+                        await curentShell.GoToAsync($"//{nameof(HomeView)}");
+                        //await navigation.PushAsync(new HomeView());
+                        //await navigation.PushAsync(new MainPage());
 
-                        await curentShell.GoToAsync($"//{nameof(HomeView)}");                        
-                        //navigation.PushAsync(new MainPage());
                         break;
                     }
                     else

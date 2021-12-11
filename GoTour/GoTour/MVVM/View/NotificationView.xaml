@@ -16,9 +16,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>            
             
-            <Image Grid.RowSpan="3" Source="notification_background.jpg" VerticalOptions="FillAndExpand" Aspect="AspectFill" Opacity="1"></Image>
             <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="StartAndExpand" Padding="5">
             <Button HorizontalOptions="FillAndExpand" Text="System" TextColor="White" FontAttributes="Bold" Command="{Binding SystemNoti}" BackgroundColor="SteelBlue"></Button>
                 <Button HorizontalOptions="FillAndExpand" Text="Guider"  TextColor="White" FontAttributes="Bold" Command="{Binding GuiderNoti}" BackgroundColor="LightCoral"></Button>
@@ -36,15 +35,14 @@
                             
                             >
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    <LinearItemsLayout Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
                         <SwipeView.LeftItems>
                                 <SwipeItems>
-                                    <SwipeItem 
-                                        
+                                    <SwipeItem                                         
                                         Text="Delete"                                       
                                          IconImageSource="deleteIcon.png"
                                          Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteCommand}"
@@ -70,9 +68,8 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke"  IsVisible="{Binding IsVisible}">
-                                   
-                                    <StackLayout>
+                                    <Frame Margin="5" Padding="10" CornerRadius="10" BackgroundColor="White"  IsVisible="{Binding IsVisible}">
+                                        <StackLayout>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                                             <Label Text="{Binding title}" FontAttributes="Bold" ></Label>
                                             <Label Text="{Binding senderEmail}" HorizontalOptions="EndAndExpand"></Label>
@@ -93,7 +90,7 @@
                                             </Label.Triggers>
                                         </Label>
                                     </StackLayout>
-                                </pancake:PancakeView>
+                                </Frame>
 
                             </Grid>
 
@@ -109,11 +106,10 @@
                             SelectedItem="{Binding SelectedNoti_2}"
                             SelectionMode="Single" 
                             SelectionChangedCommand="{Binding SelectedCommand_2}"
-                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview1}}"
-                            
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference clview1}}"                            
                             >
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    <LinearItemsLayout Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -147,7 +143,7 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView Padding="10" CornerRadius="10,10,10,10" BackgroundColor="WhiteSmoke" IsVisible="{Binding IsVisible}">
+                                <Frame Margin="5" Padding="10" CornerRadius="10" BackgroundColor="White" IsVisible="{Binding IsVisible}">
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                                             <Label Text="{Binding title}" FontAttributes="Bold" ></Label>
@@ -168,7 +164,7 @@
                                             </Label.Triggers>
                                         </Label>
                                     </StackLayout>
-                                </pancake:PancakeView>
+                                </Frame>
 
                             </Grid>
 
@@ -188,7 +184,7 @@
                                  BackgroundColor="White" 
                                  Margin="10, 0 , 0, 0">
                 </ImageButton>
-                <Label Text="Notification" FontSize="22" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                <Label Text="Notification" FontSize="22" TextColor="#272727" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

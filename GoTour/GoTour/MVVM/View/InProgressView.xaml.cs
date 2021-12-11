@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public InProgressView()
         {
             InitializeComponent();
+            //this.BindingContext = new InProgressViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new InProgressViewModel(Navigation, Shell.Current);
         }
     }

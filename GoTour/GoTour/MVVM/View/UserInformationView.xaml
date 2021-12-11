@@ -49,7 +49,7 @@
                            Padding="25" ColumnDefinitions="*, *, *">
 
                         <!--NAME-->
-                        <Frame Margin="10,-20,10,0" WidthRequest="200" 
+                        <Frame Margin="10,0,10,0" WidthRequest="200" 
                                HeightRequest="7" CornerRadius="10"
                                Grid.Row="1" Grid.Column="0" 
                                BackgroundColor="WhiteSmoke" 
@@ -196,7 +196,7 @@
                                     <!--SAVE BUTTON-->
                         <Button Grid.Row="8" Grid.Column="0" 
                                 Grid.ColumnSpan="3" 
-                                Margin="150,0,50,0" 
+                                Margin="150,10,50,15" 
                                 CornerRadius="10"
                                 IsVisible="{Binding VisibleSaveBtn}"
                                 WidthRequest="50" HeightRequest="35"

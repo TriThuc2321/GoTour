@@ -110,7 +110,6 @@
                 </StackLayout>
             </Frame>
 
-
             <Button 
                 Grid.Row="6"
                 CornerRadius="20" 
@@ -120,6 +119,8 @@
                 VerticalOptions="Center"
                 HeightRequest="40"
                 Text="REGISTER"
+                TextColor="White"
+                FontAttributes="Bold"
                 FontSize="15"
                 Command="{Binding RegisterCommand}"
                 />

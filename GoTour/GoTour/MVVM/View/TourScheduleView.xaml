@@ -57,7 +57,7 @@
                     </Grid>
 
                     <StackLayout Orientation="Vertical">
-                        <Label Text="TOUR GUIDER" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="Tour guide" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <CollectionView x:Name="clview3"
                             ItemsSource="{Binding ListTourGuide}"                      
                                     ItemsLayout="HorizontalList"
@@ -80,27 +80,12 @@
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
 
-                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="100" WidthRequest="100" Aspect="AspectFit"/>
+                                            <ImageButton CornerRadius="5" Source="{Binding profilePic}" BackgroundColor="Transparent" HeightRequest="100" WidthRequest="100" Aspect="AspectFill"/>
                                             <StackLayout  >
                                                 <Label Text="{Binding name}" FontAttributes="Bold" TextColor="Black"/>
                                                 <Label Text="{Binding contact}"/>
                                                 <Label Text="{Binding email}"/>
-                                                <Label Text="{Binding rank}">
-                                                    <Label.Triggers>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="0">
-                                                            <Setter Property="Text" Value="Admin" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="1">
-                                                            <Setter Property="Text" Value="Management" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="2">
-                                                            <Setter Property="Text" Value="Tour Guide" />
-                                                        </DataTrigger>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding rank}" Value="3">
-                                                            <Setter Property="Text" Value="User" />
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
-                                                </Label>
+                                                
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>
@@ -129,7 +114,7 @@
                                                  Opacity="1"                               
                                                  >
                                         <StackLayout.Triggers>
-                                            <DataTrigger TargetType="StackLayout" Binding="{Binding color}" Value="Black">
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding color}" Value="White">
                                                 <Setter Property="Opacity"  Value="1" />
                                             </DataTrigger>
                                             <DataTrigger  TargetType="StackLayout"  Binding="{Binding color}" Value="Gray">
@@ -193,7 +178,7 @@
                                 <Setter Property="Opacity"  Value="0.5" />
                             </DataTrigger>
                         </StackLayout.Triggers>
-                        <Label Text="Current Shedule:  " FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="Current Schedule" FontSize="Large" FontAttributes="Bold" BackgroundColor="SteelBlue" TextColor="White" Padding="5" HorizontalTextAlignment="Center"></Label>
                         <Label Text="{Binding CurrentSchedule.dateTime}" 
                                        FontSize="Large"
                                        FontAttributes="Bold"
@@ -203,7 +188,7 @@
                                        Padding="5"
                                        HorizontalOptions="CenterAndExpand"
                                        FontFamily="Arial"></Label>
-                        <Label Text="Current Place:" 
+                        <Label Text="Current Place" 
                                        FontSize="Medium"
                                        FontAttributes="Bold"
                                        Margin="10,0,10,0"
@@ -285,7 +270,7 @@
                                        HorizontalOptions="CenterAndExpand"
                                        TextColor="White"
                                        FontFamily="Arial"></Label>
-                        <Label Text="Description:" 
+                        <Label Text="Description" 
                                        FontSize="Medium"
                                        FontAttributes="Bold"
                                        Margin="10,0,10,0"
@@ -305,7 +290,7 @@
                                        FontFamily="Arial"></Label>
                         </Frame>
 
-                        <Label Text="Images:" 
+                        <Label Text="Imag:" 
                                        FontSize="Medium"
                                        FontAttributes="Bold"
                                        Margin="10,0,10,0"                                     

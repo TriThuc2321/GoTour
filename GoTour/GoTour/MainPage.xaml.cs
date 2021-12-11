@@ -20,14 +20,10 @@ namespace GoTour
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(ResetPassword), typeof(ResetPassword));
             Routing.RegisterRoute(nameof(ConfirmEmailView), typeof(ConfirmEmailView));
-            Routing.RegisterRoute(nameof(ManagerView), typeof(ManagerView));
-            Routing.RegisterRoute(nameof(ConfirmInvoiceView), typeof(ConfirmInvoiceView));
+            //Routing.RegisterRoute(nameof(ManagerView), typeof(ManagerView));
+            //Routing.RegisterRoute(nameof(ConfirmInvoiceView), typeof(ConfirmInvoiceView));
+            //Routing.RegisterRoute(nameof(HomeView), typeof(HomeView));
             this.BindingContext = DataManager.Ins;
-        }
-
-        private void LogOutBtn_Clicked(object sender, EventArgs e)
-        {
-            Shell.Current.GoToAsync($"//{nameof(LoginView)}");
-        }
+        }        
     }
 }

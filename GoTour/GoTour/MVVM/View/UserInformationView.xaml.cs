@@ -16,8 +16,13 @@ namespace GoTour.MVVM.View
         public UserInformationView()
         {
             InitializeComponent();
+            //this.BindingContext = new UserInformationViewModel(Navigation, Shell.Current);
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new UserInformationViewModel(Navigation, Shell.Current);
         }
-       
     }
 }

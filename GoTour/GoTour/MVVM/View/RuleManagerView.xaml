@@ -7,53 +7,55 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
+        <Grid>
+        <Image Source="backgroundLogin.jpg" Aspect="AspectFill" Opacity="0.8"></Image>
         <StackLayout>
              <StackLayout Orientation="Horizontal"  VerticalOptions="Start" HorizontalOptions="Fill" Padding="5" BackgroundColor="Transparent">
                
                     <ImageButton Command="{Binding NavigationBack}" 
-                                 Source="menuIcon.png" 
+                                 Source="backbutton.png" 
                                  HeightRequest="40" 
                                  WidthRequest="50"
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="CenterAndExpand"
-                                 BackgroundColor="White" 
+                                 BackgroundColor="Transparent" 
                                  Margin="10, 0 , 0, 0">
+                        
                 </ImageButton>
+                <Label Margin="0,6,10,0" Text="Rule Manager" FontSize="Large" TextColor="Black" FontAttributes="Bold"></Label>
             </StackLayout>
-            
-            <Grid>
-                <Image Source="backgroundLogin.jpg" Aspect="AspectFill" Opacity="0.5"></Image>
-                <StackLayout>
-            <Frame HorizontalOptions="CenterAndExpand" Margin="10,10,10,30" CornerRadius="10" BackgroundColor="SteelBlue">
-                <Label Text="Rule Manager" FontSize="Large" TextColor="White" FontAttributes="Bold"></Label>
-            </Frame>
-            <StackLayout Orientation="Horizontal"
-                         Padding="10">
-                <Label Text="Deduct For Over 10 Days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                        <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct10}"  Placeholder="{Binding Deduct10, Mode=OneTime}" ></Entry>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         Padding="10">
-                        <Label Text="Deduct For Over 5 Days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                        <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric"  Text="{Binding Deduct5}"  Placeholder="{Binding Deduct5, Mode=OneTime}"></Entry>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         Padding="10">
-                        <Label Text="Deduct For Over  3 Days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                        <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct3}"   Placeholder="{Binding Deduct3, Mode=OneTime}"></Entry>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         Padding="10">
-                        <Label Text="Deduct For Under 1 Day" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                        <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct1}"  Placeholder="{Binding Deduct1, Mode=OneTime}"></Entry>
-            </StackLayout>
-            <Button Command="{Binding ChangeRuleCommand}" Text="Change The Rule" BackgroundColor="LightGreen" HorizontalOptions="CenterAndExpand" CornerRadius="10" TextColor="White" FontAttributes="Bold"></Button>
-                </StackLayout>
 
-            </Grid>
+                <Frame Margin="15" CornerRadius="20">
+                    <StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                         Padding="10">
+                            <Label Text="Deduct for over 10 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct10}"  Placeholder="{Binding Deduct10, Mode=OneTime}" ></Entry>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                         Padding="10">
+                            <Label Text="Deduct for over 5 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric"  Text="{Binding Deduct5}"  Placeholder="{Binding Deduct5, Mode=OneTime}"></Entry>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                         Padding="10">
+                            <Label Text="Deduct for over 3 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct3}"   Placeholder="{Binding Deduct3, Mode=OneTime}"></Entry>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                         Padding="10">
+                            <Label Text="Deduct for under 1 day" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct1}"  Placeholder="{Binding Deduct1, Mode=OneTime}"></Entry>
+                        </StackLayout>
+                        <Button Command="{Binding ChangeRuleCommand}" Text="Change The Rule" BackgroundColor="#272727" HorizontalOptions="CenterAndExpand" CornerRadius="10" TextColor="White" FontAttributes="Bold"></Button>
+                    </StackLayout>
+                </Frame>
+           
             
 
         </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

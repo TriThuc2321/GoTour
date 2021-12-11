@@ -1,5 +1,6 @@
 ﻿using GoTour.Core;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,8 +23,13 @@ namespace GoTour.Database
                 return _ins;
             }
             set { _ins = value; }
-        }        
+        }
+
+        public Shell currentShell;
+        public INavigation navigation;
+        public Command LogOut { get; }
        
+
         public List<User> users;
         public List<User> admins;
         public List<User> managements;
@@ -67,7 +73,7 @@ namespace GoTour.Database
             NotiServices = new NotificationServices();
             PlacesServices = new PlacesServices();
             UsersServices = new UsersServices();
-            ReviewService = new ReviewService();           
+            ReviewService = new ReviewService();
             StayPlacesServices = new StayPlacesServices();
             TourPlaceServices = new TourPlaceServices();
             TourServices = new ToursServices();
@@ -82,8 +88,27 @@ namespace GoTour.Database
             CurrentUser = new User();
             currentTour = new Tour();
             ListReview = new ObservableCollection<Review>();
-            getAllList();           
-           
+            getAllList();
+
+            LogOut = new Command(() => {
+                currentShell.GoToAsync($"//{nameof(LoginView)}");
+                navigation.PopAsync();
+                if (navigation.NavigationStack.Count > 1)
+                {
+                    Page page = navigation.NavigationStack.First();
+                    /*if (page != null && page != this)
+                    {
+                        Navigation.RemovePage(page);
+                    }*/
+                }
+            }); 
+
+
+            /* while(navigation.NavigationStack.Count!=2)
+                 navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+             */
+
+       
         }
         async Task getAllList()
         {
@@ -544,6 +569,7 @@ namespace GoTour.Database
                 {
                     IsTourGuide = true;
                 }
+                OnPropertyChanged("CurrentUser");
             }
         }
         private string currentName;

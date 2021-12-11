@@ -15,6 +15,11 @@ namespace GoTour.MVVM.View
         public TourGuiderWorkSpaceView()
         {
             InitializeComponent();
+            //this.BindingContext = new TourGuiderWorkSpaceViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new TourGuiderWorkSpaceViewModel(Navigation, Shell.Current);
         }
     }
