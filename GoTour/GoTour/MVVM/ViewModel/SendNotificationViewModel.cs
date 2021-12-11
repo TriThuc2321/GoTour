@@ -70,13 +70,14 @@ namespace GoTour.MVVM.ViewModel
                                 {
                                     DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                                 }
-                                Title = "";
-                                TourIdText = "";
-                                StartTimetext = "";
-                                IsCheckToAll = true;
-                                Message = "";
-                                Recievers.Clear();
+                                //Title = "";
+                                //TourIdText = "";
+                                //StartTimetext = "";
+                                //IsCheckToAll = true;
+                                //Message = "";
+                                //Recievers.Clear();
                                 DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                                navigation.PopAsync();
                             }
                         }
                         else
@@ -86,13 +87,14 @@ namespace GoTour.MVVM.ViewModel
                             {
                                 DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                             }
-                            Title = "";
-                            TourIdText = "";
-                            StartTimetext = "";
-                            IsCheckToAll = true;
-                            Message = "";
-                            Recievers.Clear();
+                            //Title = "";
+                            //TourIdText = "";
+                            //StartTimetext = "";
+                            //IsCheckToAll = true;
+                            //Message = "";
+                            //Recievers.Clear();
                             DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                            navigation.PopAsync();
                         }
                     }
                 }
@@ -125,13 +127,15 @@ namespace GoTour.MVVM.ViewModel
                                     {
                                         DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                                     }
-                                    Title = "";
-                                    TourIdText = "";
-                                    StartTimetext = "";
-                                    IsCheckToAll = true;
-                                    Message = "";
-                                    Recievers.Clear();
+                                    //Title = "";
+                                    //TourIdText = "";
+                                    //StartTimetext = "";
+                                    //IsCheckToAll = true;
+                                    //Message = "";
+                                    //Recievers.Clear();
                                     DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                                    navigation.PopAsync();
+
                                 }
                             }
                             else
@@ -141,13 +145,15 @@ namespace GoTour.MVVM.ViewModel
                                 {
                                     DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
                                 }
-                                Title = "";
-                                TourIdText = "";
-                                StartTimetext = "";
-                                IsCheckToAll = true;
-                                Message = "";
-                                Recievers.Clear();
+                                //Title = "";
+                                //TourIdText = "";
+                                //StartTimetext = "";
+                                //IsCheckToAll = true;
+                                //Message = "";
+                                //Recievers.Clear();
                                 DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                                navigation.PopAsync();
+
                             }
                         }
                     }
@@ -359,7 +365,6 @@ namespace GoTour.MVVM.ViewModel
                 if (selectedEmail != value)
                 {
                     selectedEmail = value;
-                    DependencyService.Get<IToast>().ShortToast("Added " + selectedEmail);
                     foreach (User i in DataManager.Ins.ListUser)
                     {
                         if (i.email == selectedEmail)
