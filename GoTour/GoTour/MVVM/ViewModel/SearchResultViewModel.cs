@@ -88,7 +88,7 @@ namespace GoTour.MVVM.ViewModel
         async void openSortMenu()
         {
             //DependencyService.Get<IToast>().ShortToast("Here is Open Sort");
-            string action = await Application.Current.MainPage.DisplayActionSheet("Sort wwith: ", "Cancel", null, "Increasing price", "Decreasing price","Soon", "Late");
+            string action = await Application.Current.MainPage.DisplayActionSheet("Sort with: ", "Cancel", null, "Increasing price", "Decreasing price","Soon", "Late");
             switch (action)
             {
                 case "Increasing price":
