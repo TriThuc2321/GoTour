@@ -1,12 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="GoTour.MVVM.View.ReviewView">
+    <ContentPage.BindingContext>
+        <vm:ReviewViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout >
+            <StackLayout Padding="10" Orientation="Horizontal">
+            <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 HorizontalOptions="StartAndExpand" 
+                                 VerticalOptions="StartAndExpand"
+                                 BackgroundColor="White" 
+                                 >
+            </ImageButton>
+            <Label Text="Reviews" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End"></Label>
+            </StackLayout>
+            
+                                   
+                                  
+                <ImageButton Command="{Binding OpenAddReview}" 
+                                 Source="plusIcon.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10"
+                                 BackgroundColor="White" 
+                             Margin="0,0,5,0"
+                                 HorizontalOptions="End" 
+                                 >
+                </ImageButton>
+                
+            <CollectionView x:Name="clview" 
+                            ItemsSource="{Binding ReviewList}" 
+                            SelectionMode="None" 
+                            VerticalOptions="Center"
+                           >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                        <Frame CornerRadius="5" Padding="10" Margin="10,10,10,0" BackgroundColor="WhiteSmoke" >
+                            <StackLayout>
+                                        <Label Text="{Binding email}" 
+                                                   Margin="5,0,0,0" 
+                                                   FontSize="Medium" 
+                                                   FontAttributes="Bold" 
+                                                   TextColor="SteelBlue"/>
+
+  
+                                       <Label Text="{Binding message ,StringFormat='{} Message: {0}'}"
+                                                       Margin="0, 0,0,0"
+                                                   TextColor="Black"
+                                              FontSize="Small"
+                                                       FontAttributes="Bold"/>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                        <Label Text="{Binding time, StringFormat='{} Date: {0}' }" 
+                                                       Margin="0,0,0,0"
+                                                   FontSize="Small" 
+                                                    HorizontalOptions="StartAndExpand"
+                                                   TextColor="Gray"/>
+                                            <Label Text="{Binding starNumber, StringFormat='{} Vote: {0}' }" 
+                                                       Margin="0,0,0,0"
+                                                   FontSize="Small" 
+                                                   TextColor="Gold" 
+                                                   HorizontalOptions="End"
+                                                   FontAttributes="Bold"/>
+                                        <Image Source="scoreicon.png" Margin="0,-3,0,0" HeightRequest="20" WidthRequest="20"></Image>
+                                        </StackLayout>
+
+
+                                    </StackLayout>
+                                </Frame>
+                        </Grid>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

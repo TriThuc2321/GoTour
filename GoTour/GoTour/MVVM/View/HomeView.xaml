@@ -33,6 +33,14 @@
                        BackgroundColor="Transparent"
                        Padding="2"
                     Command="{Binding NotificaitonCommand}"
+                       />  <ImageButton
+                       Margin="10"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Source="bellIcon.png"
+                       BackgroundColor="Transparent"
+                       Padding="2"
+                    Command="{Binding ReviewButtonCommand}"
                        />
                     <Frame                                          
                    HasShadow="False"

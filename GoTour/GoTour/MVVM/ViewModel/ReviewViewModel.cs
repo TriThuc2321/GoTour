@@ -1,6 +1,9 @@
 ﻿using GoTour.Core;
+using GoTour.Database;
+using GoTour.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -17,7 +20,18 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             this.currentShell = curentShell;
+            ReviewList = DataManager.Ins.ListReview;
 
+        }
+        private ObservableCollection<Review> reviewList;
+        public ObservableCollection<Review> ReviewList
+        {
+            get { return reviewList; }
+            set
+            {
+                reviewList = value;
+                OnPropertyChanged("ReviewList");
+            }
         }
     }
 }
