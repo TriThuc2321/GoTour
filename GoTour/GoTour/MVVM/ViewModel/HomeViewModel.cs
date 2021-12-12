@@ -25,6 +25,7 @@ namespace GoTour.MVVM.ViewModel
         public Command MyTourCommand { get; }
 
         public Command SearchButtonHandleCommand { get; }
+        public Command ReviewButtonCommand { get; }
 
         public HomeViewModel() { }
         public HomeViewModel(INavigation navigation, Shell currentShell)
@@ -38,6 +39,7 @@ namespace GoTour.MVVM.ViewModel
             FavoriteCommand = new Command(openFavorite);
             MyTourCommand = new Command(openMyTour);
             SearchButtonHandleCommand = new Command(searchButtonHandle);
+            ReviewButtonCommand = new Command(openReview);
 
             Tours = DataManager.Ins.ListTour;
 
@@ -115,8 +117,12 @@ namespace GoTour.MVVM.ViewModel
         {
             navigation.PushAsync(new MyTourView());
         }
+        private void openReview(object obj)
+        {
+            navigation.PushAsync(new ReviewView());
+        }
         #endregion
-        
+
 
 
         private ObservableCollection<Tour> _tours;
