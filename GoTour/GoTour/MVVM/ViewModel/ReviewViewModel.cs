@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace GoTour.MVVM.ViewModel
     {
         public INavigation navigation;
         public Shell currentShell;
+        public Command OpenAddReview { get; }
         public Command NavigationBack { get; }
 
         public ReviewViewModel() { }
@@ -21,7 +23,12 @@ namespace GoTour.MVVM.ViewModel
             this.navigation = navigation;
             this.currentShell = curentShell;
             ReviewList = DataManager.Ins.ListReview;
+            OpenAddReview = new Command(openAddReview);
+        }
 
+        void openAddReview()
+        {
+            navigation.PushAsync(new SendReviewView());
         }
         private ObservableCollection<Review> reviewList;
         public ObservableCollection<Review> ReviewList

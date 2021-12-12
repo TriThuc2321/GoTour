@@ -55,6 +55,9 @@ namespace GoTour.MVVM.ViewModel
                 );
 
            await DataManager.Ins.ReviewService.Add(review);
+           DataManager.Ins.ListReview.Add(review);
+
+            DependencyService.Get<IToast>().LongToast("Send your review successfully!");
         }
 
         void SetInformation()
