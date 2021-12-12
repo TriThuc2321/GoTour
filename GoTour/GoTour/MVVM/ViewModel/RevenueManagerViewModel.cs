@@ -129,7 +129,7 @@ namespace GoTour.MVVM.ViewModel
                 {
                     string[] temp = ite.startTime.Split(' ');
                     string[] TourStartTime = temp[0].Split('/');
-                    SupportRevenue supportRevenue = new SupportRevenue(ite, TourStartTime[0], TourStartTime[2], "0", "0", "0","Yellow" ,"99");
+                    SupportRevenue supportRevenue = new SupportRevenue(ite, TourStartTime[0], TourStartTime[2], "0", "0", "0","Gold" ,"99");
                     ListRevenue.Add(supportRevenue);
                 }
             }
