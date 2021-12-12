@@ -1,6 +1,7 @@
 ﻿using GoTour.Core;
 using GoTour.Database;
 using GoTour.MVVM.Model;
+using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,14 +11,17 @@ namespace GoTour.MVVM.ViewModel
 {
     public class CancelTourViewModel : ObservableObject
     {
+        Shell currentShell;
         INavigation navigation;
         public CancelTourViewModel() { }
         public Command NavigationBack { get; }
         public Command CancelTicket { get; }
 
-        public CancelTourViewModel(INavigation navigation)
+        public CancelTourViewModel(INavigation navigation, Shell currentShell)
         {
             this.navigation = navigation;
+            this.currentShell = currentShell;
+
             CancelTicket = new Command(cancelTicket);
             NavigationBack = new Command(() => navigation.PopAsync());
 
@@ -55,10 +59,8 @@ namespace GoTour.MVVM.ViewModel
                 }
 
                 updateManager();
-                DependencyService.Get<IToast>().ShortToast("Canceled this tour successfully!");
-
-
-                await navigation.PopAsync();
+                DependencyService.Get<IToast>().LongToast("Canceled this tour successfully!");
+                await currentShell.GoToAsync($"//{nameof(HomeView)}");
             }
         }
 
