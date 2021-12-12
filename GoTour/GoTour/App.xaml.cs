@@ -12,7 +12,8 @@ namespace GoTour
             DependencyService.Register<IMessageService, MessageService>();
 
             InitializeComponent();
-            MainPage = new MainPage();
+            MainPage = new SendReviewView();
+          //  MainPage = new MainPage();
           //  MainPage = new SuccessBookView();
         }
 

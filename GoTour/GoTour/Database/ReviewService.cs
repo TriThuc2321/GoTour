@@ -19,7 +19,6 @@ namespace GoTour.Database
               .Child("Reviews")
               .OnceAsync<Review>()).Select(item => new Review
               {
-                  tourId = item.Object.tourId,
                   email = item.Object.email,
                   message = item.Object.message,
                   time = item.Object.time,
@@ -32,7 +31,6 @@ namespace GoTour.Database
               .Child("Reviews")
               .PostAsync(new Review()
               {
-                  tourId = review.tourId,
                   email = review.email,
                   message = review.message,
                   time = review.time,
@@ -40,24 +38,23 @@ namespace GoTour.Database
               });
         }
 
-        public async Task UpdateReview(Review review)
-        {
-            var toUpdateReview = (await firebase
-                 .Child("Reviews")
-                 .OnceAsync<Review>()).Where(a => a.Object.tourId == review.tourId && a.Object.email == review.email).FirstOrDefault();
+        //public async Task UpdateReview(Review review)
+        //{
+        //    var toUpdateReview = (await firebase
+        //         .Child("Reviews")
+        //         .OnceAsync<Review>()).Where(a => a.Object.tourId == review.tourId && a.Object.email == review.email).FirstOrDefault();
 
-            await firebase
-              .Child("Reviews")
-              .Child(toUpdateReview.Key)
-              .PutAsync(new Review
-              {
-                  tourId = review.tourId,
-                  email = review.email,
-                  message = review.message,
-                  time = review.time,
-                  starNumber = review.starNumber,
-              });
+        //    await firebase
+        //      .Child("Reviews")
+        //      .Child(toUpdateReview.Key)
+        //      .PutAsync(new Review
+        //      {
+        //          email = review.email,
+        //          message = review.message,
+        //          time = review.time,
+        //          starNumber = review.starNumber,
+        //      });
 
-        }
+        //}
     }
 }
