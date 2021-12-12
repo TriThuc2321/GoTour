@@ -48,7 +48,7 @@
                           BackgroundColor="WhiteSmoke"
                           Opacity="0.55"
                           CornerRadius="15"
-                          Margin="15, 95, 15, 20"
+                          Margin="15, 5, 15, 20"
                           BorderColor="WhiteSmoke"
                            
                           >
@@ -65,7 +65,7 @@
                               HorizontalOptions="Center"
                                TextColor="Black"
                            FontAttributes="Bold"
-                           Margin="0, 100, 0, 0"/>  
+                           Margin="0, 20, 0, 0"/>  
 
                         <Label
                                 Text="{Binding SelectedTour.name}"
@@ -437,7 +437,8 @@
                                                TextColor="DarkBlue"
                                                FontSize="20"
                                                FontAttributes="Bold"
-                                               HorizontalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,0,10,0"
                                                Padding="5"/>
 
                                     </Grid>
@@ -464,7 +465,8 @@
                                                TextColor="DarkBlue"
                                                FontSize="20"
                                                FontAttributes="Bold"
-                                               HorizontalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,0,10,0"
                                                Padding="5"/>
 
                                     </Grid>
@@ -491,7 +493,8 @@
                                                TextColor="DarkBlue"
                                                FontSize="18"
                                                FontAttributes="Bold"
-                                               HorizontalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,0,10,0"
                                                Padding="5"/>
 
                                     </Grid>
@@ -517,8 +520,9 @@
                                                Text="{Binding StrTotal}"
                                                TextColor="DarkRed"
                                                FontSize="22"
+                                               Margin="0,0,10,0"
                                                FontAttributes="Bold"
-                                               HorizontalOptions="Center"
+                                               HorizontalOptions="End"
                                                Padding="5"/>
 
                                     </Grid>

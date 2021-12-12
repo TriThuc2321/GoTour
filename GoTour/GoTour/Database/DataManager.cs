@@ -122,8 +122,10 @@ namespace GoTour.Database
             await getBookedTickets();
             await getRules();
             await getFavorites();
+            
 
         }
+        
         async Task getUsers()
         {
             admins = new List<User>();
