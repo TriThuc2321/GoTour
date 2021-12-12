@@ -69,6 +69,8 @@
                 HeightRequest="40"
                 Text="CONFIRM"
                 FontSize="15"
+                TextColor="White"
+                FontAttributes="Bold"
                 Command="{Binding ConfirmCommand}"
                 />
 

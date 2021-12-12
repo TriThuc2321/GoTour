@@ -14,7 +14,7 @@
                 <Grid BackgroundColor="WhiteSmoke">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
                     <pancake:PancakeView CornerRadius="0,0,30,30">

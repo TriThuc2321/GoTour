@@ -11,17 +11,16 @@ using Xamarin.Forms.Xaml;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InProgressView : ContentPage
+    public partial class ReviewView : ContentPage
     {
-        public InProgressView()
+        public ReviewView()
         {
             InitializeComponent();
-            //this.BindingContext = new InProgressViewModel(Navigation, Shell.Current);
         }
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            this.BindingContext = new InProgressViewModel(Navigation, Shell.Current);
+            this.BindingContext = new ReviewViewModel(Navigation, Shell.Current);
         }
     }
 }

@@ -16,15 +16,7 @@
 
                 <pancake:PancakeView CornerRadius="0,0,0,0">
                     <Image Source="background_showtour.jfif" Aspect="AspectFill" />
-                </pancake:PancakeView>
-                <Label Text="TOUR-LIST RESULT" 
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   FontSize="Title"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"
-                   Opacity="1"
-                   ></Label>
+                </pancake:PancakeView>               
 
 
             <ImageButton Command="{Binding NavigationBack}" 
@@ -38,19 +30,28 @@
                                  Margin="10, 10 , 0, 0">
             </ImageButton>
 
-
-            <ImageButton Command="{Binding OpenSortTypeListCommand }"
+            <StackLayout Grid.Row="1">
+                <StackLayout Orientation="Horizontal" Padding="20,0,20,0">
+                    <Label Text="Result" 
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="StartAndExpand"
+                   Opacity="1"
+                   ></Label>
+                    <ImageButton Command="{Binding OpenSortTypeListCommand }"
                                  Source="sorticon.png"
                                  WidthRequest="50"
                                  HeightRequest="50"
                                  Aspect="AspectFill"
                                  CornerRadius="10"
-                                 Margin="25,163,325,-37"
+                                 HorizontalOptions="End"
                                  BackgroundColor="Transparent"                              
                                  />
-            <CollectionView x:Name="clview" 
-                            Grid.Row="1"
-                            Margin="0,25,0,0"
+                </StackLayout>
+           
+            <CollectionView x:Name="clview"                             
                             BackgroundColor="White"
                             ItemsSource="{Binding ListTourFromSelectedPlace}" 
                             SelectionMode="Single" 
@@ -81,10 +82,10 @@
                                     <StackLayout>
                                         <Label Text="{Binding name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
                                         <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
-                                        <Label Text="{Binding startTime ,StringFormat='{} Ngày khởi hành: {0}'}" TextColor="Black"/>
+                                        <Label Text="{Binding startTime ,StringFormat='{}Start date: {0}'}" TextColor="Black"/>
                                         <Label Text="{Binding description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
                                         <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
-                                            <Label Text="{Binding basePrice,StringFormat='{}{0} VND'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
+                                            <Label Text="{Binding basePrice,StringFormat='{}{0} USD'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
                                         </pancake:PancakeView>
 
                                     </StackLayout>
@@ -94,6 +95,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </Grid>
+            </StackLayout>
+        </Grid>
         </ContentPage.Content>
 </ContentPage>

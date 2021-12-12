@@ -79,6 +79,11 @@ namespace GoTour.MVVM.ViewModel
             }
         });
 
+        public ICommand SaveCommand => new Command<object>(async (obj) =>
+        {
+            await DataManager.Ins.TourServices.AddTour(DataManager.Ins.currentTour);
+        });
+
         public ICommand NewScheduleCommand => new Command<object>((obj) =>
         {
             DataManager.Ins.currentDuration = null;

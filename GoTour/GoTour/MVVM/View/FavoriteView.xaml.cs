@@ -11,6 +11,11 @@ namespace GoTour.MVVM.View
         public FavoriteView()
         {
             InitializeComponent();
+            //this.BindingContext = new FavoriteViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new FavoriteViewModel(Navigation, Shell.Current);
         }
     }

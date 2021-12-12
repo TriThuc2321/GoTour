@@ -9,9 +9,9 @@
 
     <ContentPage.Content>
         <StackLayout >
-            <StackLayout Grid.Row="0" Orientation="Horizontal"  VerticalOptions="StartAndExpand" HorizontalOptions="Fill" Padding="5">
+            <StackLayout Grid.Row="0" Orientation="Horizontal"  VerticalOptions="StartAndExpand" HorizontalOptions="Fill" Padding="5" BackgroundColor="White">
                 <ImageButton Command="{Binding NavigationBack}" 
-                                 Source="menuIcon.png" 
+                                 Source="backbutton.png" 
                                  HeightRequest="40" 
                                  WidthRequest="50"
                                  CornerRadius="10" 
@@ -20,46 +20,44 @@
                                  BackgroundColor="White" 
                                  Margin="10, 0 , 0, 0">
                 </ImageButton>
-                <Label Text="Renenue" FontSize="22" TextColor="Black" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                <Label Text="Renenue" FontSize="22" TextColor="Black" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0"></Label>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="30,0,30,0" BackgroundColor="LightBlue">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="30,0,30,0" >
                 
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Month: " VerticalOptions="Center" TextColor="White" FontAttributes="Bold"></Label>
-                    <Picker Title="Select month" TextColor="White" WidthRequest="150" VerticalOptions="CenterAndExpand" ItemsSource="{Binding ListMonth}" SelectedItem="{Binding SelectedMonth}">
+                    <Label Text="Month: " VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"></Label>
+                    <Picker Title="Month" TextColor="Black" WidthRequest="150" VerticalOptions="CenterAndExpand" ItemsSource="{Binding ListMonth}" SelectedItem="{Binding SelectedMonth}">
                       
                     </Picker>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" >
-                    <Label Text="Year: " VerticalOptions="Center" TextColor="White" FontAttributes="Bold"></Label>
-                    <Picker  Title="2020 - " WidthRequest="100" TextColor="White" VerticalOptions="CenterAndExpand" ItemsSource="{Binding ListYear}" SelectedItem="{Binding SelectedYear}"></Picker>
+                    <Label Text="Year: " VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"></Label>
+                    <Picker  Title="Year" WidthRequest="100" TextColor="Black" VerticalOptions="CenterAndExpand" ItemsSource="{Binding ListYear}" SelectedItem="{Binding SelectedYear}"></Picker>
                 </StackLayout>
                
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="20,0,20,0" >
                 <Label Text="Sort by:" FontSize="Small" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="10"></Label>
-            <Button Text="Total" Command="{Binding SortByTotalPrice}" HorizontalOptions="Start" CornerRadius="10" BackgroundColor="Coral" TextColor="White" FontAttributes="Bold"></Button>
-            <Button Text="Percent" Command="{Binding SortByPercent}" HorizontalOptions="StartAndExpand" CornerRadius="10" BackgroundColor="Teal"  TextColor="White" FontAttributes="Bold"></Button>
-                <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" CornerRadius="10" BackgroundColor="Black" TextColor="White" FontAttributes="Bold"></Button>
+            <Button Text="Total" Command="{Binding SortByTotalPrice}" HorizontalOptions="Start" CornerRadius="10" BackgroundColor="DimGray" TextColor="White" FontAttributes="Bold"></Button>
+            <Button Text="Percent" Command="{Binding SortByPercent}" HorizontalOptions="StartAndExpand" CornerRadius="10" BackgroundColor="DimGray"  TextColor="White" FontAttributes="Bold"></Button>
+                <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" CornerRadius="10" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold"></Button>
 
             </StackLayout>
-            <Label Text="List Renenue" HorizontalOptions="FillAndExpand" FontAttributes="Bold" FontSize="Medium" Padding="10" BackgroundColor="SteelBlue" TextColor="White"></Label>
+            <Label Text="List Renenue" FontAttributes="Bold" FontSize="Medium" Padding="10" HorizontalOptions="StartAndExpand" TextColor="Black"></Label>
 
-            <CollectionView ItemsSource="{Binding ListRevenue}" Margin="10">
+            <CollectionView ItemsSource="{Binding ListRevenue}" Margin="10,0,10,0">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     
                     <DataTemplate >
-                        <Frame CornerRadius="5" BackgroundColor="SteelBlue" >
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-
-                                <!--<Image Source="{Binding host.imgSource[0]}" Aspect="AspectFill" HeightRequest="30" WidthRequest="60" HorizontalOptions="Start"></Image>-->
-                                <StackLayout HorizontalOptions="FillAndExpand">
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10,5,10,5" BackgroundColor="MidnightBlue">
-                                        <Label Text="{Binding host.name}" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Small" TextColor="White"></Label>
-                                        <Label Text="{Binding Rank,StringFormat='{}Top {0}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" FontAttributes="Bold" FontSize="Small" IsVisible="False" TextColor="Gold">
+                        <Frame CornerRadius="5" BackgroundColor="Black" HasShadow="True" >
+                       
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10,0,10,5" >
+                                    <Label Text="{Binding host.name}" VerticalOptions="CenterAndExpand" FontAttributes="Bold" Margin="-15,0,0,0" FontSize="Medium" TextColor="White"></Label>
+                                        <Label Text="{Binding Rank,StringFormat='{}Top {0}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"  FontAttributes="Bold" FontSize="Small" IsVisible="False" TextColor="White">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label"  Binding="{Binding Rank}" Value="99">
                                                     <Setter Property="IsVisible" Value="False"/>
@@ -79,25 +77,19 @@
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding totalPrice ,StringFormat='{} Total revenue: {0} $'}" FontSize="Small" TextColor="WhiteSmoke"></Label>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                                        <Label Text="{Binding totalticket,StringFormat='{}{0} ('}" FontSize="Small" TextColor="{Binding color}"></Label>
-                                            <Label Text="{Binding percent ,StringFormat='{}{0}%)'}" FontSize="Small" FontAttributes="Bold" TextColor="{Binding color}">
-                                                <Label.Triggers>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding percent}" Value="> 50">
-                                                        <Setter Property="TextColor" Value="LightGreen" />
-                                                    </DataTrigger>
-                                                    
-                                                </Label.Triggers>
-                                            </Label>
+                                        <Label Text="{Binding totalticket,StringFormat='{}{0}('}" FontSize="Small" TextColor="{Binding color}"></Label>
+                                        <Label Text="{Binding percent ,StringFormat='{}{0}%)'}" FontSize="Small" FontAttributes="Bold" TextColor="{Binding color}">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding percent}" Value="> 50">
+                                                    <Setter Property="TextColor" Value="LightGreen" />
+                                                </DataTrigger>
+
+                                            </Label.Triggers>
+                                        </Label>
                                     </StackLayout>
-                                    </StackLayout>
+
                                 </StackLayout>
-                                
-                                   
-                                
-
-
-
-                            </StackLayout>
+                                </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

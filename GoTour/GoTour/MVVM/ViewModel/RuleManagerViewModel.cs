@@ -20,7 +20,7 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             this.currentShell = currentShell;
-            NavigationBack = new Command(() => currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented);
+            NavigationBack = new Command(() => navigation.PopAsync());
             ChangeRuleCommand = new Command(ChangeRule);
             Deduct10 = DataManager.Ins.Rule.deduct[0];
             Deduct5 = DataManager.Ins.Rule.deduct[1];

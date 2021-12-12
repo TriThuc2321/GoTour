@@ -36,8 +36,10 @@ namespace GoTour.MVVM.ViewModel
             });
             ReviewBtn = new Command(() =>
             {
-                DescriptionInfo = "False";
-                ReviewInfo = "True";
+                /*DescriptionInfo = "False";
+                ReviewInfo = "True";*/
+
+                navigation.PushAsync(new ReviewView());
             });
             OpenDetailTour = new Command(OpenDetailTourHandler);
             OpenDetailTour1 = new Command(OpenDetailTourHandler1);

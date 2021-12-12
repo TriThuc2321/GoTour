@@ -11,6 +11,11 @@ namespace GoTour.MVVM.View
         public BookedToursView()
         {
             InitializeComponent();
+            //this.BindingContext = new BookedToursViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new BookedToursViewModel(Navigation, Shell.Current);
         }
     }

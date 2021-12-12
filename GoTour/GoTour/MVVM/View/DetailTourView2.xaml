@@ -114,8 +114,7 @@
                                 <StackLayout Padding="10">
                                     <Label Text="{Binding description }" 
                                        FontSize="Medium"
-                                       FontAttributes="Bold"
-                                       FontFamily="Arial"></Label>
+                                       ></Label>
                                         <Frame
                             HeightRequest="280"
                             BackgroundColor="White"

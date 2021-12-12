@@ -119,7 +119,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Invoice" Icon="invoiceIcon.png">
-        <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}"/>
+        <ShellContent Route="Invoice" ContentTemplate="{DataTemplate views:ConfirmInvoiceView}" Style="{DynamicResource Base1Style}" IsVisible="{Binding IsManager}"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Tour Guider" Icon="tourGuideIcon.png" >
@@ -163,7 +163,7 @@
     <Shell.FlyoutFooter>
         <StackLayout >
             <StackLayout Orientation="Horizontal" Margin="20,0,0,0">
-                <ImageButton x:Name="LogOutBtn" Clicked="LogOutBtn_Clicked" Source="logOut.png" Aspect="AspectFit" HeightRequest="20" BackgroundColor="Transparent" />
+                <ImageButton x:Name="LogOutBtn" Command="{Binding LogOut}" Source="logOut.png" Aspect="AspectFit" HeightRequest="20" BackgroundColor="Transparent" />
                 <Label Text="Log Out" FontAttributes="Bold" FontSize="15"/>
             </StackLayout>
             <Label Text="Go Tour"

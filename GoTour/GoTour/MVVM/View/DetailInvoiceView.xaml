@@ -18,7 +18,7 @@
                 <StackLayout Padding="10"  BackgroundColor="Transparent">
                     <Label Text="{Binding SelectedBookedSticket.invoice.id}" FontAttributes="Bold" FontSize="Large"></Label>
                     <Line BackgroundColor="Black" HeightRequest="2" ></Line>
-                    <Label Text="{Binding SelectedBookedSticket.tour.name ,StringFormat='{}About Tour : {0}'}" TextColor="Coral" FontAttributes="Bold"/>
+                    <Label Text="{Binding SelectedBookedSticket.tour.name ,StringFormat='{}About Tour : {0}'}" TextColor="Maroon" FontAttributes="Bold"/>
                     <Label Text="{Binding SelectedBookedSticket.email ,StringFormat='{}Sender : {0}'}" FontAttributes="Italic"></Label>
                     <Label Text="{Binding SelectedBookedSticket.name ,StringFormat='{}Sender : {0}'}" FontAttributes="Italic"></Label>
                     <Label Text="{Binding SelectedBookedSticket.bookTime ,StringFormat='{}When: {0}'}"></Label>
@@ -26,10 +26,10 @@
                     <ScrollView>
                         <StackLayout>
                     <Label Text="Information:" FontAttributes="Bold" FontSize="Medium"></Label>
-                            <Label Text="{Binding SelectedBookedSticket.invoice.amount  ,StringFormat='{}Amount: {0} $'}" Padding="10,2,10,5" TextColor="Coral" FontSize="Small" FontAttributes="Bold"></Label>
-                            <Label Text="{Binding SelectedBookedSticket.invoice.price  ,StringFormat='{}Price: {0} $'}" Padding="10,2,10,5" FontSize="Small" FontAttributes="Bold"></Label>
-                            <Label Text="{Binding SelectedBookedSticket.invoice.discountMoney  ,StringFormat='{}Discount: {0} $'}" Padding="10,2,10,5" FontSize="Small" FontAttributes="Bold"></Label>
-                            <Label Text="{Binding SelectedBookedSticket.invoice.total  ,StringFormat='{}Total: {0} $'}" Padding="10,2,10,5" TextColor="Coral" FontSize="Small" FontAttributes="Bold"></Label>
+                            <Label Text="{Binding SelectedBookedSticket.invoice.amount  ,StringFormat='{}Amount: {0}'}" Padding="10,2,10,5" TextColor="Maroon" FontSize="Small" ></Label>
+                            <Label Text="{Binding SelectedBookedSticket.invoice.price  ,StringFormat='{}Base price: {0} $'}" Padding="10,2,10,5" FontSize="Small" ></Label>
+                            <Label Text="{Binding SelectedBookedSticket.invoice.discountMoney  ,StringFormat='{}Discount: {0} $'}" Padding="10,2,10,5" FontSize="Small" ></Label>
+                            <Label Text="{Binding SelectedBookedSticket.invoice.total  ,StringFormat='{}Total: {0} $'}" Padding="10,2,10,5" TextColor="Maroon" FontSize="Small" ></Label>
                             <Label Text="Image:" FontAttributes="Bold" FontSize="Medium">
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label" Binding="{Binding SelectedBookedSticket.invoice.method}" Value="Momo">

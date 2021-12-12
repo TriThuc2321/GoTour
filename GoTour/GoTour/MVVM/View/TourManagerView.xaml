@@ -79,10 +79,10 @@
                                     <StackLayout>
                                         <Label Text="{Binding name}" Margin="5,0,0,0" FontSize="Large" FontAttributes="Bold" TextColor="SteelBlue"/>
                                         <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
-                                        <Label Text="{Binding startTime ,StringFormat='{} Ngày khởi hành: {0}'}" TextColor="Black"/>
+                                        <Label Text="{Binding startTime ,StringFormat='{} Start date: {0}'}" TextColor="Black"/>
                                         <Label Text="{Binding description }" FontSize="Small" TextColor="Gray" FontAttributes="Italic"/>
                                         <pancake:PancakeView Padding="2" BackgroundColor="Black" CornerRadius="0,10,0,10">
-                                            <Label Text="{Binding basePrice,StringFormat='{}{0} VND'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
+                                            <Label Text="{Binding basePrice,StringFormat='{}{0} USD'}" FontSize="Large" TextColor="White" Margin="10,0,0,0" FontAttributes="Bold"/>
                                         </pancake:PancakeView>
 
                                     </StackLayout>

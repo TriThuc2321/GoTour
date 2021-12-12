@@ -37,6 +37,7 @@
                             >
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
+                                <Button Text="Save" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}"/>
                                 <Button Text="New Schedule +" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding NewScheduleCommand}"/>
 
                             </StackLayout>
@@ -85,9 +86,7 @@
                                         </SwipeView.LeftItems>
                                         <StackLayout Padding="10">
                                         <Label Text="{Binding description }" 
-                                       FontSize="Medium"
-                                       FontAttributes="Bold"
-                                       FontFamily="Arial"/>
+                                       FontSize="Medium"/>
                                         <Frame
                                     HeightRequest="280"
                                     BackgroundColor="White"

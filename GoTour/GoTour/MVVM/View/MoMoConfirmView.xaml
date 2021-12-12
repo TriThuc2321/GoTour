@@ -22,10 +22,6 @@
                    Grid.RowSpan="2"
                            />
 
-            <Frame BackgroundColor="White"
-                   Grid.Row="0"
-                   Opacity="0.5"/>
-
 
             <ImageButton Command="{Binding NavigationBack}" 
                                  Source="backbutton.png" 
@@ -117,19 +113,20 @@
                             </StackLayout>
 
 
-                            <Label Text="{Binding StrMoney}"
-                                    Margin="0,30,0,0"
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <Label Text="{Binding StrMoney}"
                                    TextColor="ForestGreen"
                                    FontSize="35"
                                    FontAttributes="Bold"
-                                   HorizontalOptions="Center"/>
+                                   VerticalOptions="Center"/>
 
-                            <Label Text="VND"
-                                    Margin="0,10,0,0"
+                                <Label Text="VND"
                                    TextColor="ForestGreen"
                                    FontSize="20"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"/>
+                                       VerticalOptions="Center"
+                                   FontAttributes="Bold"/>
+                            </StackLayout>
+                            
 
                         </StackLayout>
                     </Grid>
@@ -167,7 +164,7 @@
                                 <Button Command="{Binding UploadPhoto}"
                                     Grid.Row="5"
                                     CornerRadius="20" 
-                                    Margin="25,20,25,30"
+                                    Margin="25,20,25,20"
                                     Padding="5"  
                                     BorderWidth="1"
                                     BorderColor="DarkBlue"
@@ -209,7 +206,7 @@
                                     IsVisible="{Binding PermitConfirm}"
                                         IsEnabled="{Binding PermitConfirmEnable}"
                                     CornerRadius="20" 
-                                    Margin="25,20,25,20"
+                                    Margin="25,20,25,-10"
                                     Padding="5"  
                                     BackgroundColor="#f4707c" 
                                     TextColor="White"

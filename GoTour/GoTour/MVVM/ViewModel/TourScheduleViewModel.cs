@@ -92,7 +92,7 @@ namespace GoTour.MVVM.ViewModel
             currentSchedule = timeLine[0];
             foreach (var ite in timeLine)
             {
-                if (ite.color == "Black") currentSchedule = ite;
+                if (ite.color == "White") currentSchedule = ite;
             }
 
             foreach (var ite2 in selectedTour.SPforPList)

@@ -18,6 +18,8 @@ namespace GoTour.MVVM.View
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel(Navigation, Shell.Current);
+            DataManager.Ins.currentShell = Shell.Current;
+            DataManager.Ins.navigation = Navigation;
         }               
     }
 }

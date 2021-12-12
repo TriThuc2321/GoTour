@@ -18,5 +18,11 @@ namespace GoTour.MVVM.View
             InitializeComponent();
             this.BindingContext = new MyTourViewModel(Navigation);
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            this.BindingContext = new MyTourViewModel(Navigation);
+        }
     }
 }
