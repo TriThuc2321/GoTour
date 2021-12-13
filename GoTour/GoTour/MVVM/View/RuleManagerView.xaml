@@ -32,22 +32,29 @@
                         <StackLayout Orientation="Horizontal"
                          Padding="10">
                             <Label Text="Deduct for over 10 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct10}"  Placeholder="{Binding Deduct10, Mode=OneTime}" ></Entry>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" HorizontalTextAlignment="Center" Text="{Binding Deduct10}"  Placeholder="{Binding Deduct10, Mode=OneTime}" ></Entry>
+                            <Label VerticalOptions="Center" FontAttributes="Bold" Text="%"></Label>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal"
                          Padding="10">
                             <Label Text="Deduct for over 5 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric"  Text="{Binding Deduct5}"  Placeholder="{Binding Deduct5, Mode=OneTime}"></Entry>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" HorizontalTextAlignment="Center" Text="{Binding Deduct5}"  Placeholder="{Binding Deduct5, Mode=OneTime}"></Entry>
+                            <Label VerticalOptions="Center" FontAttributes="Bold" Text="%"></Label>
+
                         </StackLayout>
                         <StackLayout Orientation="Horizontal"
                          Padding="10">
                             <Label Text="Deduct for over 3 days" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct3}"   Placeholder="{Binding Deduct3, Mode=OneTime}"></Entry>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" HorizontalTextAlignment="Center" Text="{Binding Deduct3}"   Placeholder="{Binding Deduct3, Mode=OneTime}"></Entry>
+                            <Label VerticalOptions="Center" FontAttributes="Bold" Text="%"></Label>
+
                         </StackLayout>
                         <StackLayout Orientation="Horizontal"
                          Padding="10">
                             <Label Text="Deduct for under 1 day" TextColor="black" FontSize="Medium" VerticalOptions="CenterAndExpand" FontAttributes="Bold"></Label>
-                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" Text="{Binding Deduct1}"  Placeholder="{Binding Deduct1, Mode=OneTime}"></Entry>
+                            <Entry HorizontalOptions="FillAndExpand" TextColor="black" Keyboard="Numeric" HorizontalTextAlignment="Center" Text="{Binding Deduct1}"  Placeholder="{Binding Deduct1, Mode=OneTime}"></Entry>
+                            <Label VerticalOptions="Center" FontAttributes="Bold" Text="%"></Label>
+
                         </StackLayout>
                         <Button Command="{Binding ChangeRuleCommand}" Text="Change The Rule" BackgroundColor="#272727" HorizontalOptions="CenterAndExpand" CornerRadius="10" TextColor="White" FontAttributes="Bold"></Button>
                     </StackLayout>
