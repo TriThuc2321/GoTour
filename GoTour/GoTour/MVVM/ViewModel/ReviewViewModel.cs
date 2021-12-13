@@ -16,6 +16,7 @@ namespace GoTour.MVVM.ViewModel
         public Shell currentShell;
         public Command OpenAddReview { get; }
         public Command NavigationBack { get; }
+        public Command NewReviewCommand { get; }
 
         public ReviewViewModel() { }
         public ReviewViewModel(INavigation navigation, Shell curentShell)
@@ -24,6 +25,7 @@ namespace GoTour.MVVM.ViewModel
             this.currentShell = curentShell;
             ReviewList = DataManager.Ins.ListReview;
             OpenAddReview = new Command(openAddReview);
+            NavigationBack = new Command(() => currentShell.FlyoutIsPresented = !currentShell.FlyoutIsPresented);
         }
 
         void openAddReview()
