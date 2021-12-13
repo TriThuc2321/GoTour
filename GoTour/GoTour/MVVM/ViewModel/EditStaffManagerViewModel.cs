@@ -45,7 +45,12 @@ namespace GoTour.MVVM.ViewModel
             }
             
             CurrUser = DataManager.Ins.currentUserManager;
-            if (CurrUser == null) CurrUser = new User();
+            if (CurrUser == null)
+            {
+                CurrUser = new User();
+                IsNew = true;
+            }
+            else IsNew = false;
             Name = CurrUser.name;
             SelectedRank = CurrUser.rank;
             Email = CurrUser.email;
@@ -55,7 +60,7 @@ namespace GoTour.MVVM.ViewModel
             CMND = CurrUser.cmnd;
             if (CurrUser.profilePic != null)
             {
-                ProfilePic = ImageSource.FromUri(new Uri(CurrUser.profilePic));
+                ProfilePic = CurrUser.profilePic;
             }
             else ProfilePic = null;
 
@@ -110,9 +115,15 @@ namespace GoTour.MVVM.ViewModel
 
         async void updateUser()
         {
-            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND) || ProfilePic== null)
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND) || ProfilePic== null)
             {
                 DependencyService.Get<IToast>().ShortToast("Please fill out your information");
+                return;
+            }
+            else if (!DataManager.Ins.UsersServices.checkEmail(Email))
+            {
+                DependencyService.Get<IToast>().ShortToast("Email invalid");
+                return;
             }
             else
             {
@@ -182,7 +193,7 @@ namespace GoTour.MVVM.ViewModel
                         {
                             CurrUser.profilePic = await DataManager.Ins.UsersServices.saveImage(imgStream, Email, Name);
                         }
-                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                        User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password, isEnable = true };
                         
                         await DataManager.Ins.UsersServices.addUser(user);
                         DataManager.Ins.users.Add(user);
@@ -193,6 +204,7 @@ namespace GoTour.MVVM.ViewModel
                 }
             }
         }
+
 
         //CONTACT VALIDDATION
         private bool ContactValidation(string contact)
@@ -244,6 +256,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("Email");
             }
         }
+        
         private string contact;
         public string Contact
         {
@@ -295,7 +308,17 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
+        private bool isNew;
+        public bool IsNew
+        {
+            get { return isNew; }
+            set
+            {
+                isNew = value;
+                OnPropertyChanged("IsNew");
 
+            }
+        }
         private bool isEdit;
         public bool IsEdit
         {

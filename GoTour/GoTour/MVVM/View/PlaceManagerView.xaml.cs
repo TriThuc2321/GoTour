@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public PlaceManagerView()
         {
             InitializeComponent();
+            //this.BindingContext = new PlaceManagerViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new PlaceManagerViewModel(Navigation, Shell.Current);
         }
     }

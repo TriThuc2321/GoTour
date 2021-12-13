@@ -44,9 +44,17 @@ namespace GoTour.MVVM.ViewModel
         });
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
+            Tour result = obj as Tour;
+
+            if (!result.isOccured || result.remaining != result.passengerNumber)
+            {
+                DependencyService.Get<IToast>().ShortToast("Tour is occured or tour has been booked");
+                return;
+            }
+
             bool answer = await _messageService.ShowOK_Cancel("Question?", "Are you sure you want to delete this tour?");
             if (!answer) return;
-            Tour result = obj as Tour;
+            
             if (result != null)
             {                
                 if(result.isOccured)

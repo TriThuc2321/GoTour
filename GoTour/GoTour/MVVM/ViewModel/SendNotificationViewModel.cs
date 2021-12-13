@@ -21,7 +21,6 @@ namespace GoTour.MVVM.ViewModel
             User selected = obj as User;
             if (selected != null)
             {
-                ListEmailPicker.Add(selected.email);
                 Recievers.Remove(selected);
             }
         });
@@ -47,7 +46,6 @@ namespace GoTour.MVVM.ViewModel
             bool answer = await App.Current.MainPage.DisplayAlert("Confirm", "Once you sent, you can not take back !", "Yes", "No");
             if (answer)
             {
-                int type = 0;
                 if (IsCheckToAll)
                 {
                     if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(TourIdText) || string.IsNullOrWhiteSpace(Message))
@@ -57,35 +55,16 @@ namespace GoTour.MVVM.ViewModel
                     }
                     else
                     {
-                        if (SystemSelected == true)
+                        if (Recievers.Count < 1)
                         {
-                            if (DataManager.Ins.CurrentUser.rank == 2)
-                            {
-                                App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
-                            }
-                            else
-                            {
-                                type = 1;
-                                foreach (User i in DataManager.Ins.ListUser)
-                                {
-                                    DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
-                                }
-                                //Title = "";
-                                //TourIdText = "";
-                                //StartTimetext = "";
-                                //IsCheckToAll = true;
-                                //Message = "";
-                                //Recievers.Clear();
-                                DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                                navigation.PopAsync();
-                            }
+                            DependencyService.Get<IToast>().ShortToast("Who will recieve this notification ?");
+                            return;
                         }
                         else
                         {
-                            type = 2;
-                            foreach (User i in DataManager.Ins.ListUser)
+                            foreach (User i in Recievers)
                             {
-                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
+                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, 2, Message, Title, TourIdText);
                             }
                             //Title = "";
                             //TourIdText = "";
@@ -114,47 +93,18 @@ namespace GoTour.MVVM.ViewModel
                         }
                         else
                         {
-                            if (SystemSelected == true)
+                            foreach (User i in Recievers)
                             {
-                                if (DataManager.Ins.CurrentUser.rank == 2)
-                                {
-                                    App.Current.MainPage.DisplayAlert("Impossible", "Only Manager can send a system notification", "OK");
-                                }
-                                else
-                                {
-                                    type = 1;
-                                    foreach (User i in Recievers)
-                                    {
-                                        DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
-                                    }
-                                    //Title = "";
-                                    //TourIdText = "";
-                                    //StartTimetext = "";
-                                    //IsCheckToAll = true;
-                                    //Message = "";
-                                    //Recievers.Clear();
-                                    DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                                    navigation.PopAsync();
-
-                                }
+                                DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, 2, Message, Title, TourIdText);
                             }
-                            else
-                            {
-                                type = 2;
-                                foreach (User i in Recievers)
-                                {
-                                    DataManager.Ins.NotiServices.SendNoti(DataManager.Ins.GeneratePlaceId(), DataManager.Ins.CurrentUser.email, i.email, type, Message, Title, TourIdText);
-                                }
-                                //Title = "";
-                                //TourIdText = "";
-                                //StartTimetext = "";
-                                //IsCheckToAll = true;
-                                //Message = "";
-                                //Recievers.Clear();
-                                DependencyService.Get<IToast>().ShortToast("Sended successfully !");
-                                navigation.PopAsync();
-
-                            }
+                            //Title = "";
+                            //TourIdText = "";
+                            //StartTimetext = "";
+                            //IsCheckToAll = true;
+                            //Message = "";
+                            //Recievers.Clear();
+                            DependencyService.Get<IToast>().ShortToast("Sended successfully !");
+                            navigation.PopAsync();
                         }
                     }
                 }
@@ -196,18 +146,6 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        //SYSTEM RADIO BUTTON CHECKED
-        private bool systemSelected { get; set; }
-        public bool SystemSelected
-        {
-            get { return systemSelected; }
-            set
-            {
-                systemSelected = value;
-                OnPropertyChanged("SystemSelected");
-            }
-        }
-
         //TO RADIO BUTTON ALL CHECKED
         private bool isCheckToAll { get; set; }
         public bool IsCheckToAll
@@ -222,12 +160,23 @@ namespace GoTour.MVVM.ViewModel
                     {
                         IsVisibleRevieverPicker = false;
                         Recievers.Clear();
+                        foreach (string i in ListEmailPicker)
+                        {
+                            foreach (User x in DataManager.Ins.ListUser)
+                            {
+                                if (x.email == i)
+                                {
+                                    Recievers.Add(x);
+                                }
+                            }
+                        }
                     }
                     else
                     {
+                        Recievers.Clear();
                         IsVisibleRevieverPicker = true;
                     }
-                       
+
                 }
                 OnPropertyChanged("IsCheckToAll");
             }
@@ -319,10 +268,11 @@ namespace GoTour.MVVM.ViewModel
                         {
                             TourIdText = i.id;
                             getListEmailPicker(TourIdText);
+                            IsCheckToAll = false;
                             StartTimetext = "Start: " + i.startTime;
                             break;
                         }
-                       
+
                     }
                     DependencyService.Get<IToast>().ShortToast("About Tour:  " + selectedTourName);
 
@@ -353,7 +303,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("ListEmailPicker");
             }
         }
-       
+
 
         //SELECTED RMAIL
         private string selectedEmail { get; set; }
@@ -369,8 +319,23 @@ namespace GoTour.MVVM.ViewModel
                     {
                         if (i.email == selectedEmail)
                         {
-                            Recievers.Add(i);
-                            ListEmailPicker.Remove(i.email);
+                            if (Recievers == null || Recievers.Count == 0)
+                            {
+                                Recievers.Add(i);
+                            }
+                            else
+                            {
+                                if (!Recievers.Contains(i))
+                                {
+                                    Recievers.Add(i);
+                                }
+                                else
+                                {
+                                    DependencyService.Get<IToast>().ShortToast("This one has been added");
+
+                                }
+                            }
+                            //ListEmailPicker.Remove(i.email);
                         }
                     }
                 }
@@ -378,7 +343,7 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-       
+
 
         //LABEL STARTING TIME
         private string startTimetext { get; set; }
@@ -413,20 +378,19 @@ namespace GoTour.MVVM.ViewModel
             ListEmailPicker = new ObservableCollection<string>();
             NameTourList = GetListNameTour();
             Recievers = new ObservableCollection<User>();
-            SystemSelected = false;
-            IsCheckToAll = true;
+            IsCheckToAll = false;
         }
 
         void getListEmailPicker(string tourid)
         {
             ListEmailPicker = new ObservableCollection<string>();
             string temp = "";
-            foreach(BookedTicket i in DataManager.Ins.ListBookedTickets)
+            foreach (BookedTicket i in DataManager.Ins.ListBookedTickets)
             {
-                if(i.tour.id.Equals(tourid))
+                if (i.tour.id.Equals(tourid))
                 {
                     temp = i.email;
-                    if(!ListEmailPicker.Contains(temp))
+                    if (!ListEmailPicker.Contains(temp))
                     {
                         ListEmailPicker.Add(temp);
                     }

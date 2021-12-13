@@ -105,6 +105,11 @@ namespace GoTour.MVVM.ViewModel
         });
         private async void editTextHandle(object obj)
         {
+            if(!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            {
+                DependencyService.Get<IToast>().ShortToast("Tour is occured or tour has been booked");
+                return;
+            }
             IsEdit = !IsEdit;
             if (!IsEdit)
             {
