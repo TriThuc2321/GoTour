@@ -192,12 +192,12 @@ namespace GoTour.Database
                 ListTour.Add(ite);
                 TourPlace temp2 = tourPlaces.Find(e => (e.tourId == ite.id));
                 ite.placeDurationList = temp2.placeDurationList;
-                List<Review> tempReview = reviews.FindAll(e => e.tourId == ite.id);
-                ite.reviewList = new ObservableCollection<Review>();
-                foreach (var re in tempReview)
-                {
-                    ite.reviewList.Add(re);
-                }
+               // List<Review> tempReview = reviews.FindAll(e => e.tourId == ite.id);
+                //ite.reviewList = new ObservableCollection<Review>();
+                //foreach (var re in tempReview)
+                //{
+                //    ite.reviewList.Add(re);
+                //}                
             }
         }
 

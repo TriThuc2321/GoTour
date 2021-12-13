@@ -6,7 +6,6 @@ namespace GoTour.MVVM.Model
 {
     public class Review
     {
-        public string tourId { get; set; }
         public string email { get; set; }
         public string message { get; set; }
         public DateTime time { get; set; }
@@ -16,9 +15,8 @@ namespace GoTour.MVVM.Model
         {
         }
 
-        public Review(string tourId, string email, string message, DateTime time, int star)
+        public Review( string email, string message, DateTime time, int star)
         {
-            this.tourId = tourId;
             this.email = email;
             this.message = message;
             this.time = time;

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoTour.MVVM.View.SendReviewView"
+             xmlns:vm="clr-namespace:GoTour.MVVM.ViewModel"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+    <ContentPage.BindingContext>
+        <vm:SendReviewViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="9*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Source="backgroundLogin.jpg"
+                   Grid.Row="0"
+                   Grid.RowSpan="2"
+                   Aspect="AspectFill"/> 
+
+            <StackLayout Grid.Row="0"
+                         Orientation="Horizontal"
+                  BackgroundColor="Transparent">
+                <ImageButton Command="{Binding NavigationBack}" 
+                                 Source="backbutton.png" 
+                                 HeightRequest="30" 
+                                 WidthRequest="50"
+                                 CornerRadius="10" 
+                                 BackgroundColor="Transparent" 
+                                 Margin="10, 10 , 0, 0"/>
+                <Label Text="Send Review"
+                   Margin="0,0,20,0"
+                   HorizontalOptions="EndAndExpand"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   FontSize="25"/>
+
+            </StackLayout>
+
+
+            <StackLayout Orientation="Vertical"
+                         Grid.Row="1">
+                <Label Text="Let's send your review about us!"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       TextColor="Black"
+                       Margin="20"
+                       />
+                <pancake:PancakeView CornerRadius="50, 50, 0, 0"
+                                     BackgroundColor="WhiteSmoke"
+                                     
+                                     Grid.ColumnSpan="2"
+                                     VerticalOptions="StartAndExpand">
+                    <StackLayout Orientation="Vertical"
+                                 Margin="20, 50, 20, 0"
+                                 >
+                        <Label Text="Your rating: "
+                               TextColor="DarkBlue"
+                               FontAttributes="Bold"
+                               FontSize="18"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Bad"
+                                   FontAttributes="Italic"
+                                   TextColor="Black"
+                                   Margin="40,0,0,5"
+                                   HorizontalOptions="StartAndExpand"
+                                   />
+
+                            <BoxView HeightRequest="0.2"
+                                     BackgroundColor="Black"
+                                     WidthRequest="200"
+                                     VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="CenterAndExpand"/>
+
+                            <Label Text="Excellent"
+                                   FontAttributes="Italic"
+                                   TextColor="Black"
+                                   Margin="5,0,30,0"
+                                   HorizontalOptions="EndAndExpand"
+                                   />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                            <RadioButton Content="1" 
+                                         IsChecked="{Binding Choose1}"
+                                         TextColor="Black"
+                                         FontSize="20"
+                                         FontAttributes="Bold"
+                                         Margin="15, 0,15,0"/>
+
+                            <RadioButton Content="2" 
+                                         IsChecked="{Binding Choose2}"
+                                         TextColor="Black"
+                                         FontSize="20"
+                                         FontAttributes="Bold"/>
+
+                            <RadioButton Content="3" 
+                                         IsChecked="{Binding Choose3}"
+                                         TextColor="Black"
+                                         FontSize="20"
+                                         Margin="15, 0,15,0"
+                                         FontAttributes="Bold"/>
+
+                            <RadioButton Content="4" 
+                                         IsChecked="{Binding Choose4}"
+                                         TextColor="Black"
+                                         FontSize="20"
+                                         FontAttributes="Bold"/>
+
+                            <RadioButton Content="5" 
+                                         IsChecked="{Binding Choose5}"
+                                         TextColor="Black"
+                                         FontSize="20"
+                                         Margin="15, 0,15,0"
+                                         FontAttributes="Bold"/>
+                        </StackLayout>
+
+
+                        <Label Text="Write your message here!"
+                               TextColor="DarkBlue"
+                               FontAttributes="bold"
+                               FontSize="18"/>
+                        
+                        <Frame CornerRadius="10"
+                               Padding="0"
+                               Margin="5"
+                               HasShadow="True">
+                            <Editor Text="{Binding Message}"
+                               Placeholder="Your message..."
+                                   HeightRequest="200"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                   
+                                />
+
+                        </Frame>
+
+                        <Label Text="{Binding Notice}"
+                               IsVisible="{Binding NoticeVisible}"
+                               TextColor="Maroon"
+                               FontAttributes="Italic"
+                               FontSize="15"
+                               Margin="15"/>
+
+                        <Button Text="Send your review"
+                                        Command="{Binding Send}"
+                                    CornerRadius="20"
+                                    TextColor="White"
+                                    BackgroundColor="#f4707c" 
+                                    VerticalOptions="Center"
+                                Margin="0,30,0,200"
+                                    FontAttributes="Bold"
+                                    FontSize="15"/>
+
+                    </StackLayout>
+                </pancake:PancakeView>
+                
+            </StackLayout>
+            
+            
+            
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

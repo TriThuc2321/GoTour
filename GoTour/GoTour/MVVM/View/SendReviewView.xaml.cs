@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace GoTour.MVVM.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CancelTourView : ContentPage
+    public partial class SendReviewView : ContentPage
     {
-        public CancelTourView()
+        public SendReviewView()
         {
             InitializeComponent();
-            this.BindingContext = new CancelTourViewModel(Navigation, Shell.Current);
+            this.BindingContext = new SendReviewViewModel(Navigation, Shell.Current);
         }
     }
 }

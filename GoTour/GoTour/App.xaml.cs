@@ -13,7 +13,6 @@ namespace GoTour
 
             InitializeComponent();
             MainPage = new MainPage();
-          //  MainPage = new SuccessBookView();
         }
 
         protected override void OnStart()
