@@ -122,6 +122,7 @@ namespace GoTour.Database
             await getBookedTickets();
             await getRules();
             await getFavorites();
+            await getReviews();
 
             await SetupTourAsync(ListTour);
         }
@@ -150,6 +151,15 @@ namespace GoTour.Database
             foreach (StayPlace p in stayPlaces)
             {
                 ListStayPlace.Add(p);
+            }
+        }
+        async Task getReviews()
+        {
+            ListReview = new ObservableCollection<Review>();
+            reviews = await ReviewService.GetAllReviews();
+            foreach (Review p in reviews)
+            {
+                ListReview.Add(p);
             }
         }
         async Task getNotifications()
