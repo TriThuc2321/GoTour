@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public EditDetailScheduleView()
         {
             InitializeComponent();
+            //this.BindingContext = new EditDetailScheduleViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new EditDetailScheduleViewModel(Navigation, Shell.Current);
         }
     }

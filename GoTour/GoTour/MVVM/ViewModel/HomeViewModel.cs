@@ -39,7 +39,13 @@ namespace GoTour.MVVM.ViewModel
             MyTourCommand = new Command(openMyTour);
             SearchButtonHandleCommand = new Command(searchButtonHandle);
 
-            Tours = DataManager.Ins.ListTour;
+            Tours = new ObservableCollection<Tour>();
+
+            foreach(Tour t in DataManager.Ins.ListTour)
+            {
+                if (!t.isOccured) Tours.Add(t);
+            }
+            
 
             ProfilePic = DataManager.Ins.CurrentUser.profilePic;
 

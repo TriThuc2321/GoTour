@@ -99,11 +99,11 @@ namespace GoTour.MVVM.ViewModel
 
             DependencyService.Get<IToast>().ShortToast("New schedule has been updated");            
 
-            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+           /* navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
             await navigation.PushAsync(new EditDetailTourView());
-            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);*/
 
-            //await navigation.PopAsync();
+            await navigation.PopAsync();
         }
         void UpdateDuration()
         {

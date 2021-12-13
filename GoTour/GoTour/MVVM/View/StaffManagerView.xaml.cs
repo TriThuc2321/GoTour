@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public StaffManagerView()
         {
             InitializeComponent();
+            //this.BindingContext = new StaffManagerViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new StaffManagerViewModel(Navigation, Shell.Current);
         }
     }

@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public NewScheduleTourView()
         {
             InitializeComponent();
+           
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new NewScheduleTourViewModel(Navigation, Shell.Current);
         }
     }

@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public EditTourView()
         {
             InitializeComponent();
+            //this.BindingContext = new EditTourViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new EditTourViewModel(Navigation, Shell.Current);
         }
     }

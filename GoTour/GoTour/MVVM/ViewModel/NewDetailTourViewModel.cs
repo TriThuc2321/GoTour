@@ -41,11 +41,22 @@ namespace GoTour.MVVM.ViewModel
             {
                 PlaceDurationsList.Add(item);
             }
-
+            UpdateDuration();
             // TourPlaces = temp.FindAll(e => DataManager.Ins.currentTour.placeDurationList.Exists(p => p.placeId == e.id));
             DurationProcess();
         }
-
+        void UpdateDuration()
+        {
+            int day = 0;
+            int night = 0;
+            if (DataManager.Ins.currentTour.placeDurationList == null) return;
+            for (int i = 0; i < DataManager.Ins.currentTour.placeDurationList.Count; i++)
+            {
+                day += DataManager.Ins.currentTour.placeDurationList[i].day;
+                night += DataManager.Ins.currentTour.placeDurationList[i].night;
+            }
+            DataManager.Ins.currentTour.duration = day + "/" + night;
+        }
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
             var duration = obj as PlaceId_Duration;
@@ -55,6 +66,8 @@ namespace GoTour.MVVM.ViewModel
             TourPlace tourPlace = new TourPlace(DataManager.Ins.currentTour.id, SelectedTour.placeDurationList);
             await DataManager.Ins.TourPlaceServices.UpdateTourPlace(tourPlace);
 
+            UpdateDuration();            
+            DurationProcess();
             DependencyService.Get<IToast>().ShortToast("Schedule has been deleted");
         });
 
@@ -92,6 +105,11 @@ namespace GoTour.MVVM.ViewModel
             await DataManager.Ins.TourPlaceServices.AddTourPlace(tourPlace);
 
             DependencyService.Get<IToast>().ShortToast("New tour has been inserted");
+
+            //await navigation.PushAsync(new TourManagerView());
+            navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+            await navigation.PopAsync();
+
         });
 
         private PlaceId_Duration selectedDuration;

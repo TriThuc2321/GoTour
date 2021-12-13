@@ -122,10 +122,9 @@ namespace GoTour.Database
             await getBookedTickets();
             await getRules();
             await getFavorites();
-            
 
+            await SetupTourAsync(ListTour);
         }
-        
         async Task getUsers()
         {
             admins = new List<User>();
@@ -178,7 +177,6 @@ namespace GoTour.Database
             tourPlaces = await TourPlaceServices.GetAllTourPlaces();
             reviews = await ReviewService.GetAllReviews();
             ListTour = new ObservableCollection<Tour>();
-
             foreach (Tour ite in tours)
             {
                 ListTour.Add(ite);
@@ -189,7 +187,7 @@ namespace GoTour.Database
                 foreach (var re in tempReview)
                 {
                     ite.reviewList.Add(re);
-                }                
+                }
             }
         }
 

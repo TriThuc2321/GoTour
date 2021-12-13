@@ -18,5 +18,10 @@ namespace GoTour.MVVM.View
             InitializeComponent();
             this.BindingContext = new StayPlaceManagerViewModel(Navigation, Shell.Current);
         }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            this.BindingContext = new StayPlaceManagerViewModel(Navigation, Shell.Current);
+        }
     }
 }
