@@ -125,7 +125,10 @@
     <FlyoutItem Title="Tour Guider" Icon="tourGuideIcon.png" >
         <ShellContent Route="TourGuiderWorkSpace" ContentTemplate="{DataTemplate views:TourGuiderWorkSpaceView}" Style="{DynamicResource Base1Style}" IsVisible="{Binding IsTourGuide}"/>
     </FlyoutItem>
-
+    <FlyoutItem Title="Review" Icon="report.png" >
+        <ShellContent Route="Review" ContentTemplate="{DataTemplate views:ReviewView}" Style="{DynamicResource Base1Style}" />
+    </FlyoutItem>
+    
     <Shell.FlyoutHeader >
         <Grid HeightRequest="190">
             <Image 
