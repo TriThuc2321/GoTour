@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using xNet;
 
 namespace GoTour.Database
 {
@@ -88,6 +89,8 @@ namespace GoTour.Database
             CurrentUser = new User();
             currentTour = new Tour();
             ListReview = new ObservableCollection<Review>();
+
+            //GetCurrency();
             getAllList();
 
             LogOut = new Command(() => {
@@ -375,6 +378,21 @@ namespace GoTour.Database
             }
 
             return ms;
+        }
+        void GetCurrency()
+        {
+            HttpRequest http = new HttpRequest();
+            string html = http.Get("https://vi.coinmill.com/USD_VND.html").ToString();
+            string substr = "1.00";
+            int index = html.IndexOf(substr);
+            string filter = html.Substring(index + 5, 30);
+            string result = "";
+            foreach (char ite in filter)
+            {
+                if ((ite >= 48 && ite <= 57) || ite == 44)
+                    result = result + ite;
+            }
+            DataManager.Ins.USDCurrency = result;
         }
         private async Task SetupTourAsync(ObservableCollection<Tour> list)
         {

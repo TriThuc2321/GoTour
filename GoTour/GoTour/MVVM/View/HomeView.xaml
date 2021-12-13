@@ -33,15 +33,7 @@
                        BackgroundColor="Transparent"
                        Padding="2"
                     Command="{Binding NotificaitonCommand}"
-                       />  <ImageButton
-                       Margin="10"
-                       HeightRequest="40"
-                       WidthRequest="40"
-                       Source="bellIcon.png"
-                       BackgroundColor="Transparent"
-                       Padding="2"
-                    Command="{Binding ReviewButtonCommand}"
-                       />
+                       />  
                     <Frame                                          
                    HasShadow="False"
                    CornerRadius="8"
@@ -246,13 +238,13 @@
                                                 FontAttributes="Bold"
                                                 />
 
-                                                    <ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"/>
+                                                    <!--<ImageButton HeightRequest="20" WidthRequest="20"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand"/>
                                                     <Label Text="{Binding starNumber}" VerticalOptions="CenterAndExpand" HorizontalOptions="End"
                                                     TextColor="Black"
                                                     FontAttributes="Bold"
                                                     FontSize="Medium"
-                                                       Margin="0,0,20,0"/>
-                                                </StackLayout>
+                                                       Margin="0,0,20,0"/> -->
+                                                </StackLayout> 
 
                                             </StackLayout>
 

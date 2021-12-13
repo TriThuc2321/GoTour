@@ -77,14 +77,14 @@
                     <Frame BackgroundColor="SteelBlue" CornerRadius="10">
                     <StackLayout Orientation="Horizontal">
 
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                       <!-- <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                             <ImageButton HeightRequest="30" WidthRequest="30"  Source="scoreicon.png" CornerRadius="20" BackgroundColor="Transparent"></ImageButton>
                             <Label Text="{Binding SelectedTour.starNumber}" VerticalOptions="CenterAndExpand"
                                WidthRequest="40"
                                TextColor="Wheat"
                                FontAttributes="Bold"
                                FontSize="Medium"></Label>
-                        </StackLayout>
+                        </StackLayout>-->
                         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                             <ImageButton HeightRequest="30" WidthRequest="30"  Source="starttimeicon.png" CornerRadius="20" ></ImageButton>
                             <Label Text="{Binding SelectedTour.startTime}" 
@@ -107,7 +107,7 @@
                     </Frame>
                     <StackLayout Orientation="Horizontal">
                         <Button x:Name="descriptionBtn" Text="Description" FontSize="Small" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding DescriptionBtn}"></Button>
-                        <Button x:Name="reviewBtn" Text="Reviews" FontSize="Small" FontAttributes="Bold" BackgroundColor="Transparent" Command="{Binding ReviewBtn}"></Button>
+                        
                         
                     </StackLayout>
                     <ScrollView>
@@ -116,7 +116,7 @@
                         <Label Padding="10,0,10,0" Text="{Binding SelectedTour.description}" HorizontalOptions="StartAndExpand" IsVisible="{Binding DescriptionInfo}">
                         
                         </Label>
-                        <Label Padding="10,0,10,0" Text="Thuc yeu que rat nhieu" HorizontalOptions="StartAndExpand" TextColor="Red" IsVisible="{Binding ReviewInfo}"></Label>
+                        
                         
                     </Grid>
                     </ScrollView>

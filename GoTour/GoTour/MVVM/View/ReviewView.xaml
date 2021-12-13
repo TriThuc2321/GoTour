@@ -9,7 +9,7 @@
         <StackLayout >
             <StackLayout Padding="10" Orientation="Horizontal">
             <ImageButton Command="{Binding NavigationBack}" 
-                                 Source="backbutton.png" 
+                                 Source="menuIcon.png" 
                                  HeightRequest="30" 
                                  WidthRequest="50"
                                  CornerRadius="10" 
@@ -20,9 +20,11 @@
             </ImageButton>
             <Label Text="Reviews" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End"></Label>
             </StackLayout>
-            
-                                   
-                                  
+
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding StarAverage}" Margin="15,0,0,0" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Image Source="scoreicon.png" Margin="0,0,0,0" HeightRequest="20" WidthRequest="20"/>
                 <ImageButton Command="{Binding OpenAddReview}" 
                                  Source="plusIcon.png" 
                                  HeightRequest="30" 
@@ -30,9 +32,11 @@
                                  CornerRadius="10"
                                  BackgroundColor="White" 
                              Margin="0,0,5,0"
-                                 HorizontalOptions="End" 
+                                 HorizontalOptions="EndAndExpand" 
                                  >
                 </ImageButton>
+            </StackLayout>              
+                
                 
             <CollectionView x:Name="clview" 
                             ItemsSource="{Binding ReviewList}" 
