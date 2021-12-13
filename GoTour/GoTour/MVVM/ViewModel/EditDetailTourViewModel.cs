@@ -21,6 +21,12 @@ namespace GoTour.MVVM.ViewModel
         {
             this.navigation = navigation;
             NavigationBack = new Command(() => navigation.PopAsync());
+            IsOldTour = true;
+
+            if (!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            {
+                IsOldTour = false;
+            }
 
             if (DataManager.Ins.currentTour.placeDurationList == null) DataManager.Ins.currentTour.placeDurationList = new ObservableCollection<PlaceId_Duration>();
 
@@ -44,6 +50,11 @@ namespace GoTour.MVVM.ViewModel
 
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
+            if (!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            {
+                DependencyService.Get<IToast>().LongToast("Tour is occured or tour has been booked");
+                return;
+            }
             var duration = obj as PlaceId_Duration;            
             SelectedTour.placeDurationList.Remove(duration);
             PlaceDurationsList.Remove(duration);
@@ -69,6 +80,12 @@ namespace GoTour.MVVM.ViewModel
 
         public ICommand SelectedCommand => new Command<object>((obj) =>
         {
+            if (!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            {
+                DependencyService.Get<IToast>().LongToast("Tour is occured or tour has been booked");
+                return;
+            }
+
             PlaceId_Duration result = obj as PlaceId_Duration;
             
             if (result != null)
@@ -77,6 +94,7 @@ namespace GoTour.MVVM.ViewModel
                 navigation.PushAsync(new EditDetailScheduleView());
                 SelectedDuration = null;
             }
+
         });
 
         public ICommand SaveCommand => new Command<object>(async (obj) =>
@@ -109,6 +127,17 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedTour = value;
                 OnPropertyChanged("SelectedTour");
+            }
+        }
+
+        private bool isOldTour;
+        public bool IsOldTour
+        {
+            get { return isOldTour; }
+            set
+            {
+                isOldTour = value;
+                OnPropertyChanged("IsOldTour");
             }
         }
 

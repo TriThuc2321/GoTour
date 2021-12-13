@@ -290,7 +290,7 @@
                                        FontFamily="Arial"></Label>
                         </Frame>
 
-                        <Label Text="Imag:" 
+                        <Label Text="Image" 
                                        FontSize="Medium"
                                        FontAttributes="Bold"
                                        Margin="10,0,10,0"                                     

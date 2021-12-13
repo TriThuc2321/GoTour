@@ -5,6 +5,7 @@ using GoTour.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoTour.MVVM.ViewModel
@@ -58,13 +59,15 @@ namespace GoTour.MVVM.ViewModel
                     await DataManager.Ins.TourServices.UpdateTour(DataManager.Ins.currentTour);
                 }
 
-                updateManager();
+                await updateManager();
                 DependencyService.Get<IToast>().LongToast("Canceled this tour successfully!");
-                await currentShell.GoToAsync($"//{nameof(HomeView)}");
+                navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
+                await navigation.PopAsync();
+                //await currentShell.GoToAsync($"//{nameof(HomeView)}");
             }
         }
 
-        async void updateManager()
+        async Task updateManager()
         {
             if (DataManager.Ins.CurrentDiscount != null)
             {

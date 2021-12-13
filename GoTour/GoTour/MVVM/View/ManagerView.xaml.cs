@@ -16,6 +16,11 @@ namespace GoTour.MVVM.View
         public ManagerView()
         {
             InitializeComponent();
+            //this.BindingContext = new ManagerViewModel(Navigation, Shell.Current);
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
             this.BindingContext = new ManagerViewModel(Navigation, Shell.Current);
         }
     }

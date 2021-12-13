@@ -40,7 +40,9 @@ namespace GoTour.MVVM.ViewModel
             types.Add("Tour Guide");
             types.Add("Customer");
 
-            SelectedType = "All";           
+            SelectedType = "All";         
+            
+            
         }
 
         public ICommand NavigationBack => new Command<object>((obj) =>
@@ -68,12 +70,16 @@ namespace GoTour.MVVM.ViewModel
                     DependencyService.Get<IToast>().ShortToast("Your account cannot be deleted");
                     return;
                 }
+                
                 AllList.Remove(result);
 
                 if (result.rank == 0) DataManager.Ins.admins.Remove(result);
                 else if (result.rank == 1) DataManager.Ins.managements.Remove(result);
                 else if (result.rank == 2) DataManager.Ins.tourGuides.Remove(result);
                 else if (result.rank == 3) DataManager.Ins.customers.Remove(result);
+
+                result.isEnable = false;
+                await DataManager.Ins.UsersServices.UpdateUser(result);
             }
         });
         private User selectedUser;
@@ -115,7 +121,7 @@ namespace GoTour.MVVM.ViewModel
             {
                 selectedType = value;
                 AllList = new ObservableCollection<User>();
-                if(value == "All")
+                if(value == "All" )
                 {
                     foreach (var ite in DataManager.Ins.users)
                     {

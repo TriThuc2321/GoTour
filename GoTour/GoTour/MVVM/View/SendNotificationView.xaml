@@ -87,6 +87,7 @@
                            TextColor="White"  />
 
                     <!--TYPE-->
+                    <!--
                     <RadioButton Grid.Row="1" Margin="45,15,0,0" 
                                  FontAttributes="Bold" TextColor="#df928e" 
                                  Grid.Column="0" Content="System" 
@@ -94,13 +95,13 @@
                     <RadioButton Grid.Row="1" Grid.Column="1"
                                  Margin="0,15,0,0"
                                  FontAttributes="Bold" TextColor="#df928e" 
-                                 Content="Tour"/>
+                                 Content="Tour"/>-->
 
                     <!--PICK TOUR ID-->
                     <Picker Grid.Row="2" Grid.Column="0"
                             Title="--Tour--" 
                             FontSize="17"
-                            TitleColor="White"
+                            TitleColor="Gray"
                             TextColor="White"
                             ItemsSource="{Binding NameTourList}"
                             SelectedItem="{Binding SelectedTourName}"

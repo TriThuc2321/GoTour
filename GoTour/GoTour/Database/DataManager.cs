@@ -110,7 +110,7 @@ namespace GoTour.Database
             /* while(navigation.NavigationStack.Count!=2)
                  navigation.RemovePage(navigation.NavigationStack[navigation.NavigationStack.Count - 2]);
              */
-
+            
        
         }
         async Task getAllList()
@@ -128,6 +128,7 @@ namespace GoTour.Database
             await getReviews();
 
             await SetupTourAsync(ListTour);
+           
         }
         async Task getUsers()
         {
@@ -141,10 +142,14 @@ namespace GoTour.Database
             foreach (User u in users)
             {
                 ListUser.Add(u);
-                if (u.rank == 3) customers.Add(u);
-                else if (u.rank == 2) tourGuides.Add(u);
-                else if (u.rank == 1) managements.Add(u);
-                else admins.Add(u);
+                if (u.isEnable)
+                {
+                    if (u.rank == 3) customers.Add(u);
+                    else if (u.rank == 2) tourGuides.Add(u);
+                    else if (u.rank == 1) managements.Add(u);
+                    else admins.Add(u);
+                }
+                
             }
         }
         async Task getStayPlaces()
@@ -165,10 +170,16 @@ namespace GoTour.Database
                 ListReview.Add(p);
             }
         }
-        async Task getNotifications()
+        public async Task getNotifications()
         {
             NotiList = new ObservableCollection<Notification>();
+
             notiServices.ListAllNoti = await notiServices.GetAllNotification();
+
+            notiServices.ListMyNoti_TourGuider = notiServices.GetMyGuiderNoti(CurrentUser.email);
+            notiServices.ListMyNoti_System = notiServices.GetMySystemNoti(CurrentUser.email);
+
+            
             foreach (Notification ite in notiServices.ListAllNoti)
             {
                 NotiList.Add(ite);
@@ -589,6 +600,7 @@ namespace GoTour.Database
 
                 IsManager = false;
                 IsTourGuide = false;
+                IsAdmin = false;
                 if (value.rank == 0 || value.rank == 1)
                 {
                     IsManager = true;
@@ -596,6 +608,10 @@ namespace GoTour.Database
                 else if(value.rank == 2)
                 {
                     IsTourGuide = true;
+                }
+                if(value.rank == 0)
+                {
+                    IsAdmin = true;
                 }
                 OnPropertyChanged("CurrentUser");
             }
@@ -833,7 +849,16 @@ namespace GoTour.Database
                 OnPropertyChanged("IsTourGuide");
             }
         }
-
+        private bool isAdmin;
+        public bool IsAdmin
+        {
+            get { return isAdmin; }
+            set
+            {
+                isAdmin = value;
+                OnPropertyChanged("IsTourGuide");
+            }
+        }
         private ObservableCollection<ImagePlaceStream> imgPlaceStreams;
         public ObservableCollection<ImagePlaceStream> ImgPlaceStreams
         {

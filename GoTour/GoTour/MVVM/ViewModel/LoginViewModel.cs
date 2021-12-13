@@ -113,8 +113,14 @@ namespace GoTour.MVVM.ViewModel
                 {
                     if (DataManager.Ins.ListUser[i].password == DataManager.Ins.UsersServices.Encode(Password))
                     {
+                        if (!DataManager.Ins.ListUser[i].isEnable)
+                        {
+                            DependencyService.Get<IToast>().ShortToast("Your account has been blocked");
+                            return;
+                        }
                         DataManager.Ins.CurrentUser = DataManager.Ins.ListUser[i];
                         GetCurrency(); // lay ngoai te
+                        await DataManager.Ins.getNotifications();
                         DependencyService.Get<IToast>().ShortToast("Login successfully");
 
                         if (RememberAccount)

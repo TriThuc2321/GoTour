@@ -48,7 +48,8 @@ namespace GoTour.Database
                   profilePic = user.profilePic,
                   address = user.address,
                   score = user.score,
-                  rank = user.rank
+                  rank = user.rank,
+                  isEnable = user.isEnable
               }) ;
         }
         public async Task<List<User>> GetAllUsers()
@@ -66,7 +67,8 @@ namespace GoTour.Database
                   profilePic = item.Object.profilePic,
                   address = item.Object.address,
                   score = item.Object.score,
-                  rank = item.Object.rank
+                  rank = item.Object.rank,
+                  isEnable = item.Object.isEnable
               }).ToList();
         }
         public async Task UpdateUser(User user)
@@ -89,7 +91,8 @@ namespace GoTour.Database
                   profilePic = user.profilePic,
                   address = user.address,
                   score = user.score,
-                  rank = user.rank
+                  rank = user.rank,
+                  isEnable = user.isEnable
               });
         }
 

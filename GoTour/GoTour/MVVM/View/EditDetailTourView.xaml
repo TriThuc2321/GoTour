@@ -37,8 +37,8 @@
                             >
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding SelectedTour.name }" FontAttributes="Bold" FontSize="Title" TextColor="White"  Margin="10"></Label>
-                                <Button Text="Save" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}"/>
-                                <Button Text="New Schedule +" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding NewScheduleCommand}"/>
+                                <Button Text="Save" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}" IsVisible="{Binding IsOldTour}"/>
+                                <Button Text="New Schedule +" TextColor="SteelBlue" BackgroundColor="White" CornerRadius="10" HorizontalOptions="EndAndExpand" Command="{Binding NewScheduleCommand}" IsVisible="{Binding IsOldTour}"/>
 
                             </StackLayout>
 
@@ -74,7 +74,7 @@
                             >
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <SwipeView>
+                                    <SwipeView IsEnabled="{Binding IsOldTour}">
                                         <SwipeView.LeftItems>
                                             <SwipeItems>
                                                 <SwipeItem Text="Remove"

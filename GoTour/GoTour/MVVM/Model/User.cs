@@ -109,9 +109,19 @@ namespace GoTour.MVVM.Model
                 OnPropertyChanged("rank");
             }
         }
+        private bool _isEnable;
+        public bool isEnable
+        {
+            get { return _isEnable; }
+            set
+            {
+                _isEnable = value;
+                OnPropertyChanged("isEnable");
+            }
+        }
         public User() { }
 
-        public User(string email, string password, string name, string contact, string birthday, string cmnd, string profilePic, string address, int score, int rank)
+        public User(string email, string password, string name, string contact, string birthday, string cmnd, string profilePic, string address, int score, int rank, bool isEnable)
         {
             this.email = email;
             this.password = password;
@@ -123,6 +133,7 @@ namespace GoTour.MVVM.Model
             this.address = address;
             this.score = score;
             this.rank = rank;
+            this.isEnable = isEnable;
         }
     }
 }

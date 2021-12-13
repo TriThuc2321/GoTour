@@ -54,17 +54,28 @@
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
 
-
                                             <pancake:PancakeView 
-                                            CornerRadius="0,10,0,10" 
+                                        CornerRadius="10,10,10,10" 
+                                        HorizontalOptions="StartAndExpand"
+                                             
+                                        >
+                                                <Image Source="{Binding tour.imgSource[0]}"
+                                                       WidthRequest="160"
+                                                       HeightRequest="210"
+                                                       Aspect="AspectFill"
+                                                       />
+                                            </pancake:PancakeView>
+                                            <pancake:PancakeView 
+                                            CornerRadius="10,10,10,10" 
                                             Padding="10"
-                                            Margin="0,0,0,0"
+                                            Margin="100,0,0,0"
                                             VerticalOptions="Center"
                                              BackgroundColor="WhiteSmoke"
+                                                HorizontalOptions="Fill"
                                         >
-                                                <StackLayout HorizontalOptions="EndAndExpand">
+                                                <StackLayout HorizontalOptions="Fill" Margin="5,0,0,0">
                                                     <StackLayout Orientation="Horizontal" 
-                                                                 HorizontalOptions="EndAndExpand">
+                                                                 HorizontalOptions="Start">
                                                         <Label Text="{Binding tour.name}" 
                                                                Margin="0,0,0,0" 
                                                                FontSize="Medium" 
@@ -72,24 +83,7 @@
                                                                TextColor="SteelBlue"
                                                                HorizontalOptions="StartAndExpand"/>
                                                         
-                                                        <StackLayout Orientation="Horizontal" 
-                                                                     HorizontalOptions="EndAndExpand">
-                                                            <Label WidthRequest="50"
-                                                                   HorizontalTextAlignment="End" 
-                                                                   Text="{Binding tour.starNumber}"
-                                                                   HorizontalOptions="EndAndExpand" 
-                                                                   VerticalOptions="CenterAndExpand" 
-                                                                   Margin="0,0,0,0"
-                                                                   FontSize="Medium" 
-                                                                   FontAttributes="Bold" 
-                                                                   TextColor="SteelBlue"/>
-                                                            <ImageButton HeightRequest="20" 
-                                                                         WidthRequest="20"  
-                                                                         Source="scoreicon.png" 
-                                                                         CornerRadius="20" 
-                                                                         BackgroundColor="Transparent"
-                                                                         HorizontalOptions="EndAndExpand"/>
-                                                        </StackLayout>
+                                                       
                                                     </StackLayout>
 
                                                     <Line HeightRequest="2" BackgroundColor="SteelBlue"></Line>
@@ -118,17 +112,7 @@
                                                 </StackLayout>
                                             </pancake:PancakeView>
 
-                                            <pancake:PancakeView 
-                                        CornerRadius="10,10,10,10" 
-                                        HorizontalOptions="StartAndExpand"
-                                             
-                                        >
-                                                <Image Source="{Binding tour.imgSource[0]}"
-                                                       WidthRequest="160"
-                                                       HeightRequest="210"
-                                                       Aspect="AspectFill"
-                                                       />
-                                            </pancake:PancakeView>
+                                            
 
                                         </Grid>
                                     </SwipeView>
