@@ -177,7 +177,10 @@ namespace GoTour.MVVM.ViewModel
             ListRevenue = new ObservableCollection<SupportRevenue>();
 
             foreach (SupportRevenue ite2 in ListBackupRevenue)
+            {
+                ite2.Rank = "99";
                 ListRevenue.Add(ite2);
+            }
         }
 
         void SortListByTotal(object obj)
