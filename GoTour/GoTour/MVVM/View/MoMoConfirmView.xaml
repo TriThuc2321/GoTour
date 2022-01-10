@@ -19,6 +19,7 @@
             <Image Source="{Binding SelectedTour.imgSource[0]}"
                           Aspect="AspectFill" 
                    Grid.Row="0"
+                   Opacity="0.7"
                    Grid.RowSpan="2"
                            />
 
@@ -33,7 +34,7 @@
                                  BackgroundColor="White" 
                                  Margin="10, 10 , 0, 0"/>
 
-            <Label Text="MoMo Payment"
+            <Label Text="Payment"
                    Grid.Row="0"
                    HorizontalOptions="End"
                    Margin="0,0,20,0"
@@ -57,10 +58,11 @@
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0"
                                Grid.RowSpan="1"
-                               Margin="30, 30, 30, 30"
+                               Margin="15, 30, 15, 20"
                                BorderColor="Black"
                                HasShadow="True"
                                CornerRadius="10"
+                               BackgroundColor="White"
                    />
 
                         <StackLayout Grid.Row="0"
@@ -75,14 +77,17 @@
                                 />
                                 <StackLayout Orientation="Vertical"
                                              Margin="10,0,0,0">
-                                    <Label Text="NGUYEN KHANH LINH"
+                                    <Label Text="PHAM VO DI THIEN"
                                    FontSize="20"
+                                           TextColor="Black"
+                                           Margin="20,0,0,0"
                                    FontAttributes="Bold"
                                  />
                                     <Label Text="038 3303 061"
-                                           FontSize="20"
+                                           FontSize="15"
+                                           Margin="20,0,0,0"
                                            HorizontalOptions="Center"
-                                            FontAttributes="Bold"
+                                           TextColor="Black"
                                 />
                                 </StackLayout>
 
@@ -90,40 +95,47 @@
                             </StackLayout>
 
                             <StackLayout Orientation="Horizontal"
-                                         Margin="50, 0, 50, 50">
+                                         Margin="50, 0, 50, 30">
                                 <Image Source="https://znews-stc.zdn.vn/static/topic/company/vietcom.jpg"
                                       WidthRequest="55"
                                        Aspect="AspectFill"
                                 />
                                 <StackLayout Orientation="Vertical"
                                              Margin="10,0,0,0">
-                                    <Label Text="TRAN TRI THUC"
+                                    <Label Text="VONG MINH HUYNH"
                                            FontSize="20"
                                            Margin="20,0,0,0"
+                                           TextColor="Black"
                                            FontAttributes="Bold"
                                  />
                                     <Label Text="1015153929"
-                                           FontSize="20"
+                                           FontSize="15"
                                            HorizontalOptions="Center"
-                                            FontAttributes="Bold"
+                                           TextColor="Black"
                                         />
                                 </StackLayout>
 
 
                             </StackLayout>
 
+                            <Label Text="Total amount that you must to pay: "
+                                   Margin="50,0,0,0"
+                                   TextColor="Black"
+                                   FontAttributes="Bold"
+                                   FontSize="15"/>
+
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                 <Label Text="{Binding StrMoney}"
-                                   TextColor="ForestGreen"
+                                   TextColor="Maroon"
                                    FontSize="35"
                                    FontAttributes="Bold"
                                    VerticalOptions="Center"/>
 
                                 <Label Text="VND"
-                                   TextColor="ForestGreen"
+                                   TextColor="Maroon"
                                    FontSize="20"
-                                       VerticalOptions="Center"
+                                       Margin="0,15,0,0"
                                    FontAttributes="Bold"/>
                             </StackLayout>
                             
@@ -137,10 +149,11 @@
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0"
                                Grid.RowSpan="1"
-                               Margin="30, 0, 30, 30"
+                               Margin="15, 0, 15, 30"
                                BorderColor="Black"
                                HasShadow="True"
                                CornerRadius="10"
+                               BackgroundColor="White"
                    />
 
                         <StackLayout Grid.Row="0"
@@ -152,13 +165,13 @@
                                    FontSize="15"
                                 Text="{Binding Regulation}"/>-->
 
-                            <StackLayout Margin="30"
+                            <StackLayout Margin="10"
                                         Orientation="Vertical"
                                  >
                                 <Label Text="Update your proof of payment for us now to verify (optional):"
                                        TextColor="Black"
                                        FontAttributes="Bold"
-                                       Margin="20, 0, 20, 20"
+                                       Margin="20, 10, 20, 20"
                                        FontSize="14"/>
 
                                 <Button Command="{Binding UploadPhoto}"
@@ -198,6 +211,7 @@
                                       WidthRequest="90"
                                       HeightRequest="600"
                                        Aspect="AspectFill"
+                                       Margin="10,0,15,0"
                                       
                                        />
 
