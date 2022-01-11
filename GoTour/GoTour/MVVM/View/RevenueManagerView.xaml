@@ -40,9 +40,10 @@
                 <Label Text="Sort by:" FontSize="Small" FontAttributes="Bold" VerticalOptions="CenterAndExpand" Margin="10"></Label>
             <Button Text="Total" Command="{Binding SortByTotalPrice}" HorizontalOptions="Start" CornerRadius="10" BackgroundColor="DimGray" TextColor="White" FontAttributes="Bold"></Button>
             <Button Text="Percent" Command="{Binding SortByPercent}" HorizontalOptions="StartAndExpand" CornerRadius="10" BackgroundColor="DimGray"  TextColor="White" FontAttributes="Bold"></Button>
-                <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" CornerRadius="10" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold"></Button>
-
+               
             </StackLayout>
+            <Button Text="Filter" Command="{Binding Filter}" HorizontalOptions="FillAndExpand" Margin="10,10,10,10" CornerRadius="0" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold"></Button>
+
             <Label Text="List Renenue" FontAttributes="Bold" FontSize="Medium" Padding="10" HorizontalOptions="StartAndExpand" TextColor="Black"></Label>
 
             <CollectionView ItemsSource="{Binding ListRevenue}" Margin="10,0,10,0">
@@ -52,7 +53,7 @@
                 <CollectionView.ItemTemplate>
                     
                     <DataTemplate >
-                        <Frame CornerRadius="5" BackgroundColor="Black" HasShadow="True" >
+                        <Frame CornerRadius="5" BackgroundColor="#272727" HasShadow="True" >
                        
                                 <StackLayout Orientation="Vertical">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10,0,10,5" >
