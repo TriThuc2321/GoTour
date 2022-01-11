@@ -20,6 +20,7 @@
                   Grid.RowSpan="2">
                 <Image Source="{Binding SelectedTour.imgSource[0]}"
                        HeightRequest="1000"
+                       Opacity="0.7"
                        Aspect="AspectFill"
                        />
             </Grid>
@@ -38,49 +39,78 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     
 
                     <Frame Grid.Row="0"
                           BackgroundColor="WhiteSmoke"
+                           Grid.RowSpan="2"
                           Opacity="0.9"
                           CornerRadius="15"
-                          Margin="15, 0, 15, 20"
+                          Margin="10, 30, 15, 10"
                           BorderColor="WhiteSmoke"
                           >
 
                     </Frame>
 
+                    <Frame Margin="50, 0, 50,0"
+                           CornerRadius="10"
+                           HasShadow="True"
+                           BorderColor="LightGray"
+                           Padding="0">
+                        <StackLayout Orientation="Vertical"
+                                     Margin="10">
+                            <Label Text="Paying Method"
+                               FontSize="15"
+                              HorizontalOptions="Center"
+                                
+                               TextColor="Black"
+                           Margin="0, 10, 0, 0"/>
+
+                            <Label
+                                Text="{Binding SelectedTour.name}"
+                                FontSize="20"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                    />
+                        </StackLayout>
+                    </Frame>
+
                     <StackLayout Orientation="Vertical"
-                                 Grid.Row="0"
-                                 Margin="10, 20, 10,0"
+                                 Grid.Row="1"
+                                 Margin="10, 20, 0,0"
                          >
 
-                        <Label Text="PAYING METHOD"
-                               FontSize="25"
-                                HorizontalOptions="Center"
+                        <Label Text="Total amount that you have to pay: "
+                               Margin="30, 0,0,0"
                                TextColor="Black"
-                               FontAttributes="Bold"
-                               Margin="0, 0, 0, 0"/>
+                               FontSize="15"
+                               />
 
-                        <!--Số tiền-->
-                        <Label Text="{Binding Total}"
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+
+                            <!--Số tiền-->
+                            <Label Text="{Binding Total}"
                                FontSize="38"
                                 HorizontalOptions="Center"
-                               TextColor="ForestGreen"
-                               FontAttributes="Bold"
-                               Margin="0, 50, 0, 0"/>
+                               TextColor="Maroon"
+                               FontAttributes="Bold"/>
 
-                        <Label Text="USD"
+                            <Label Text="USD"
                                FontSize="20"
-                                HorizontalOptions="Center"
-                               TextColor="ForestGreen"
-                               FontAttributes="Bold"
-                               Margin="0, 10, 0, 0"/>
+                                   Margin="0,18,0,0"
+                               TextColor="Maroon"
+                               FontAttributes="Bold"/>
+
+                        </StackLayout>
 
                         <StackLayout 
                                      Orientation="Vertical"
-                                     Margin="50">
+                                     Margin="50, 0,50, 0">
+                           
                             <Label Text="{Binding LaterNotice}"
                                    IsVisible="{Binding LaterNoticeVisible}"
                                    FontSize="14"
@@ -88,34 +118,41 @@
                                    TextColor="Black"
                                    FontAttributes="Italic"
                                    Margin="0, 0, 0, 20"/>
+
+                            <Label Text="Choose method to pay: "
+                               Margin="-20, 0,0,0"
+                               TextColor="Black"
+                               FontSize="15"
+                               />
                             <RadioButton Content="MoMo Wallet/ Banking" 
                                          IsChecked="{Binding MoMo}"
-                                         TextColor="Blue"
-                                         FontSize="Large"
+                                         TextColor="Black"
+                                         FontSize="18"
                                          FontAttributes="Bold"/>
 
                             <RadioButton Content="Cash"
                                          IsChecked="{Binding Cash}"
                                          IsEnabled="{Binding PermitCheckCash}"
-                                         TextColor="Blue"
-                                         FontSize="Large"
+                                         TextColor="Black"
+                                         FontSize="18"
                                          FontAttributes="Bold"/>
                         </StackLayout>
                         
                         <!--Thông tin-->
+                        <Frame Margin="20, 20, 30,0"
+                               CornerRadius="20">
                         <StackLayout Orientation="Vertical">
                             <StackLayout Orientation="Vertical">
                                 <Label  Margin="0, 0, 0,0"
                                     Text="MoMo wallet:"
-                                    FontSize="Medium"
+                                    FontSize="15"
                                     TextColor="Black"
-                                        FontAttributes="Bold"
-                                    HorizontalOptions="Center"/>
+                                    HorizontalOptions="Start"/>
                                 <Label
                                     Margin="0, 0, 0,0"
-                                    Text="0383303061 - NGUYEN KHANH LINH"
+                                    Text="0383303061 - PHAM VO DI THIEN"
                                     FontSize="Medium"
-                                    TextColor="DarkRed"
+                                    TextColor="Black"
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
                             />
@@ -125,15 +162,14 @@
                             <StackLayout Orientation="Vertical">
                                 <Label  Margin="0, 20, 0,0"
                                     Text="Banking account:"
-                                    FontSize="Medium"
+                                    FontSize="15"
                                     TextColor="Black"
-                                        FontAttributes="Bold"
-                                    HorizontalOptions="Center"/>
+                                    HorizontalOptions="Start"/>
                                 <Label
                                     Margin="0, 10, 0,0"
-                                    Text="1015153929 - TRAN TRI THUC"
+                                    Text="1015153929 - VONG MINH HUYNH"
                                     FontSize="Medium"
-                                    TextColor="DarkRed"
+                                    TextColor="Black"
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
                                 />
@@ -141,8 +177,8 @@
                                 <Label
                                     Margin="0, 0, 0,0"
                                     Text="Vietcombank"
-                                    FontSize="Medium"
-                                    TextColor="DarkRed"
+                                    FontSize="13"
+                                    TextColor="Black"
                                     HorizontalOptions="Center"
                                 />
 
@@ -150,24 +186,62 @@
 
                           
                         </StackLayout>
-                       
+                        </Frame>
                         
                         <!--Quy định-->
-                        <Frame Opacity="0.4"
-                               Margin="15"
+                        <Frame BackgroundColor="White"
+                               Margin="20,20,30,0"
                                CornerRadius="20">
-                            <Label
-                            Margin="10"
-                            Text="{Binding Regulation}"
-                            FontSize="17"
+                            <StackLayout>
+
+                                <Label Text="OUR RULES"
+                                       HorizontalOptions="Center"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"/>
+                                <Label
+                            Text="In case of service cancellation from customers: For instance, you can not use your service/tour, you must notify the Company in writing or by email (Do not handle with the case of contact transfer/cancellation by phone). At the same time, please bring the tour/service registration record and payment receipt to GoTour office for cancelling/transfering tour procedures. In case of service / tour cancellation: You must bear the cost of canceling the tour / service in accordance with GoTour's regulations and the entire budget for online payment work. You can pay for the tour right away with momo e-wallet, the aggregate unit will be converted into VND. If you choose to pay in cash, please pay 5 days in advance from the time of tour start. "
+                            FontSize="14"
                             FontAttributes="Italic"
                             TextColor="Black"
-                            Padding="10"
                             />
+
+                                <Label Text="{Binding Regulation}"
+                                       Margin="20,0,0,0"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="DarkBlue"
+                            />
+
+                                <Label
+                                    Text="On departure day, please gather at the designated pick-up point. If you arrive late, the Company does not bear any related responsibility. At the end of the tour, we will drop off guests at a single point, the Hanoi Opera House. Please take a taxi to your hotel or accommodation. In case there are 6 or less passengers on the departure date, the driver can act as a guide. These are experienced drivers, knowledgeable about routes and local culture. As a mountain tour, often ride small cars, so it is recommended that you do not bring bulky, oversized and do not carry a lot of luggage. Should bring backpacks instead of carrying hard suitcases. There are options to sleep at a homestay to increase the experience with the mountain tour. It is recommended that you bring personal items to use when staying at the Homestay (if necessary). In case the guest is traveling alone, we cannot arrange a roommate with other people to travel alone."
+                            FontSize="14"
+                                    Margin="0,5,0,0"
+                            FontAttributes="Italic"
+                            TextColor="Black"
+                            />
+
+                                <Label
+                                    Text="You must bring: legal identification (ID card or Passport). If you are a vegetarian, please bring more vegetarian food with you to ensure your taste. Any services in the tour if you do not use them, will not be refunded. The guide has the right to rearrange the items. own the attractions to suit the conditions of each specific departure date, but still ensure all the attractions in the program. You should bring: insect repellent, common cold medicine or medicine prescribed by a doctor individually. "
+                            FontSize="14"
+                                    Margin="0,5,0,0"
+                            FontAttributes="Italic"
+                            TextColor="Black"
+                            />
+
+                                <Label
+                                    Text="Customer's responsibility: Customers are solely responsible for their health and chronic diseases (cardiovascular, blood pressure, diabetes, bone and joint...), congenital diseases, underlying diseases, HIV AIDS, mental and neurological disorders, pregnant women... are diseases not covered by insurance. When necessary, you must write a commitment about your illness when participating in the tour. The tour organizer is not responsible for cases where you do not declare your illness, declare dishonestly as well as cases outside the travel insurance coverage on the tour. Customers take care of their own property in all cases and in all places during the trip. The tour organizer is not responsible for the loss of money, valuables, airline tickets, and customer's private property during the trip. In objective cases such as: terrorism, natural disaster...or due to an incident, there is a change in the schedule of public transport such as: plane, train, etc., Vietnam Booking will reserve the right to change the schedule. change the route at any time for the convenience and safety of customers and will not be responsible for compensation for damages incurred. *If the number of participants does not meet the minimum number to depart, the Company will support to move to the nearest departure date and notify you in advance or refund the tour fee as deposit for you."
+                            FontSize="14"
+                                    Margin="0,5,0,0"
+                            FontAttributes="Italic"
+                            TextColor="Black"
+                            />
+                            </StackLayout>
+                           
                         </Frame>
                         
 
-                        <StackLayout VerticalOptions="End" Orientation="Horizontal" Margin="25,-5,0,0" >
+                        <StackLayout VerticalOptions="End" Orientation="Horizontal" Margin="25,15,0,0" >
                             <CheckBox VerticalOptions="Center"  
                                       Color="Black" 
                                       IsChecked="{Binding IsCheckRegulation}"/>
