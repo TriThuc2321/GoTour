@@ -69,9 +69,9 @@ namespace GoTour.MVVM.ViewModel
                 }
                
                 DataManager.Ins.CurrentNoti = selected;
-               
+
                 /*OnPropertyChanged("ListNotification");*/
-                navigation.PushAsync(new DetailNotification());
+                await navigation.PushAsync(new DetailNotification());
                 SelectedNoti = null;
             }
         });

@@ -113,7 +113,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <SwipeView>
-                                    <SwipeView.LeftItems>
+                                    <SwipeView.TopItems>
                                         <SwipeItems>
                                             <SwipeItem Text="Remove"
                                          IconImageSource="deleteIcon.png"
@@ -121,7 +121,16 @@
                                         Command="{Binding Source={x:Reference clview}, Path = BindingContext.DeleteTourGuideCommand}"
                                         CommandParameter="{Binding}" />
                                         </SwipeItems>
-                                    </SwipeView.LeftItems>
+                                    </SwipeView.TopItems>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="White" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
 
                                     <Frame Margin="5" HorizontalOptions="CenterAndExpand" WidthRequest="300">
                                         <StackLayout Orientation="Horizontal" >
