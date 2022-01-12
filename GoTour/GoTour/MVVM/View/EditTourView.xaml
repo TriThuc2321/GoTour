@@ -202,7 +202,9 @@
 
                     <Label Padding="0,0,10,0" Text="{Binding Description}" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsText}" />
                     <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" IsVisible="{Binding IsEdit}"/>
-
+                    <Button Text="{Binding SourceIcon}" Margin="20,10,20,10" Command="{Binding EditTextCommand}" BackgroundColor="Black" TextColor="White">
+                      
+                    </Button>
                 </StackLayout>
             </pancake:PancakeView>
         </ScrollView>

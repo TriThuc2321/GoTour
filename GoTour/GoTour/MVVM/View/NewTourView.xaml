@@ -69,6 +69,7 @@
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
                         <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="passengerIcon.png" BackgroundColor="Transparent"/>
                         <Entry VerticalOptions="Center" Keyboard="Numeric" WidthRequest="40" Text="{Binding PassengerNumber}" />
+                        <Label Text="Passengers" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"></Label>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
@@ -90,16 +91,21 @@
 
                     </StackLayout> -->
                     <StackLayout Orientation="Horizontal" >
-                        <Label Text="$" TextColor="SteelBlue" FontAttributes="Bold" FontSize="Large" Margin="0,0,0,10" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <Label Text="Price (USD):" TextColor="SteelBlue" FontAttributes="Bold" FontSize="Medium" Margin="0,0,0,10" VerticalOptions="Center" HorizontalOptions="Start"/>
                         <Entry HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" FontSize="Large" TextColor="SteelBlue" FontAttributes="Bold" Text="{Binding Price}"/>
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Vertical" >
                         <Label Text="Tour Guide" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" FontSize="20" />
-                        <ImageButton Source="addIcon.png" Aspect="AspectFit" BackgroundColor="Transparent" WidthRequest="22" Command="{Binding AddTourGuideCommand}"/>
+                        <Line BackgroundColor="Black" HorizontalOptions="FillAndExpand" HeightRequest="2"></Line>
+                        
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Choose TourGuide:" VerticalOptions="Center" FontAttributes="Bold" FontSize="15" Margin="10,0,0,0" HorizontalOptions="Start"></Label>
                         <Picker ItemsSource="{Binding AllTourGuide}" ItemDisplayBinding="{Binding name}" SelectedItem="{Binding SelectedTourGuide}" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" WidthRequest="180"/>
                         
                     </StackLayout>
+                    <Button Text="Add New Tourguide" BackgroundColor="Teal" Margin="30,10,30,10" TextColor="White" Command="{Binding AddTourGuideCommand}"></Button>
                     
                     <CollectionView x:Name="clview"
                             ItemsSource="{Binding TourGuides}" 
@@ -162,7 +168,7 @@
                         <!-- <ImageButton Source="tickIcon.png" BackgroundColor="Transparent" HeightRequest="18" Command="{Binding EditTextCommand}"/> -->
                     </StackLayout>
                              
-                    <Editor Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="200" />
+                    <Editor Placeholder="Descript you tour here ..." Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="200" />
 
                 </StackLayout>
             </pancake:PancakeView>

@@ -103,6 +103,7 @@ namespace GoTour.MVVM.ViewModel
 
             await DataManager.Ins.TourServices.AddTour(DataManager.Ins.currentTour);
             await DataManager.Ins.TourPlaceServices.AddTourPlace(tourPlace);
+            DataManager.Ins.ListTour.Add(DataManager.Ins.currentTour);
 
             DependencyService.Get<IToast>().ShortToast("New tour has been inserted");
 
