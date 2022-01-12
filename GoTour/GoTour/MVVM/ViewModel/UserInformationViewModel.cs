@@ -28,6 +28,7 @@ namespace GoTour.MVVM.ViewModel
                 OnPropertyChanged("CurrUser");
             }
         }
+
         FirebaseClient firebase = new FirebaseClient("https://gotour-98c79-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         //COMMAND
@@ -121,7 +122,7 @@ namespace GoTour.MVVM.ViewModel
         {
             get { return isRefreshing; }
             set
-            { 
+            {
                 isRefreshing = value;
                 OnPropertyChanged("IsRefreshing");
             }
@@ -146,7 +147,7 @@ namespace GoTour.MVVM.ViewModel
             set
             {
                 isEdit = value;
-                if(value == false)
+                if (value == false)
                 {
                     VisibleSaveBtn = false;
                     EnableImageBtn = false;
@@ -204,10 +205,10 @@ namespace GoTour.MVVM.ViewModel
 
         //EDIT TEXT HANDLE
         private void editTextHandle(object obj)
-        {           
-            if(IconSource.Equals("delete.png"))
+        {
+            if (IconSource.Equals("delete.png"))
             {
-                if(!Name.Equals(DataManager.Ins.CurrentUser.name) || string.IsNullOrWhiteSpace(Name) ||
+                if (!Name.Equals(DataManager.Ins.CurrentUser.name) || string.IsNullOrWhiteSpace(Name) ||
                     !CMND.Equals(CurrUser.cmnd) || string.IsNullOrWhiteSpace(CMND) ||
                     !Contact.Equals(CurrUser.contact) || string.IsNullOrWhiteSpace(Contact) ||
                     !Birthday.Equals(CurrUser.birthday) || !Address.Equals(CurrUser.address) ||
@@ -233,11 +234,11 @@ namespace GoTour.MVVM.ViewModel
         //CHANGE AVT HANDLE
         async void changePhoto(object obj)
         {
-           
+
             await CrossMedia.Current.Initialize();
 
             var imgData = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions());
-            if(imgData == null)
+            if (imgData == null)
             {
                 return;
             }
@@ -255,7 +256,7 @@ namespace GoTour.MVVM.ViewModel
         async Task PutData()
         {
             IsRefreshing = true;
-            listUser =  await DataManager.Ins.UsersServices.GetAllUsers();
+            listUser = await DataManager.Ins.UsersServices.GetAllUsers();
             for (int i = 0; i < listUser.Count(); i++)
             {
                 if (listUser[i].email == CurrUser.email)
@@ -279,22 +280,23 @@ namespace GoTour.MVVM.ViewModel
         }
 
         //UPDATE DATABASE HANDLE
-         async void updateUser()
-        { 
-            if ( string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND))
+        async void updateUser()
+        {
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND))
             {
-                DependencyService.Get<IToast>().ShortToast("Please fill out your information");           
-            } else
+                DependencyService.Get<IToast>().ShortToast("Hãy điền đầy đủ thông tin");
+            }
+            else
             {
-                if(ContactValidation(Contact) == false)
+                if (ContactValidation(Contact) == false)
                 {
-                    DependencyService.Get<IToast>().ShortToast("Your contact should have ten numerics and start with number 0");
+                    DependencyService.Get<IToast>().ShortToast("Số điện thoại cần có 10 chữ số và bắt đầu bằng 0");
                 }
                 else
                 {
-                    if(IDCardValidation(CMND) == false)
+                    if (IDCardValidation(CMND) == false)
                     {
-                        DependencyService.Get<IToast>().ShortToast("Identify card number should have 9 or 12 numerics");
+                        DependencyService.Get<IToast>().ShortToast("CMND hay CCCD cần có 9 chữ số hoặc 12 chữ số");
                     }
                     else
                     {
@@ -321,7 +323,7 @@ namespace GoTour.MVVM.ViewModel
                                   score = user.score,
                                   rank = user.rank
                               });
-                            DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                            DependencyService.Get<IToast>().ShortToast("Lưu hồ sơ thành công");
                             IsEdit = false;
                             VisibleSaveBtn = false;
                             EnableImageBtn = false;
@@ -351,21 +353,21 @@ namespace GoTour.MVVM.ViewModel
                                   score = user.score,
                                   rank = user.rank
                               });
-                            DependencyService.Get<IToast>().ShortToast("Saved your profile successfully");
+                            DependencyService.Get<IToast>().ShortToast("Lưu hồ sơ thành công");
                             IsEdit = false;
                             VisibleSaveBtn = false;
                             EnableImageBtn = false;
                             IconSource = "editIcon.png";
                         }
-                    } 
-                }                    
-            }  
+                    }
+                }
+            }
         }
 
         //CONTACT VALIDDATION
         private bool ContactValidation(string contact)
         {
-            if(contact.Length == 10 && contact[0].ToString() == "0" && contact.All(char.IsDigit))
+            if (contact.Length == 10 && contact[0].ToString() == "0" && contact.All(char.IsDigit))
             {
                 return true;
             }
@@ -376,7 +378,7 @@ namespace GoTour.MVVM.ViewModel
         private bool IDCardValidation(string vcmnd)
         {
             bool ex;
-            if(!vcmnd.All(char.IsDigit))
+            if (!vcmnd.All(char.IsDigit))
             {
                 ex = false;
             }
@@ -405,8 +407,9 @@ namespace GoTour.MVVM.ViewModel
                 {
                     ex = true;
                 }
-            }          
+            }
             return ex;
         }
+
     }
 }
