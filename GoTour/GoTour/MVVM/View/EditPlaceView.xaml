@@ -35,7 +35,7 @@
                                 />
                             </SwipeItems>
                         </SwipeView.TopItems>
-                        <Grid Padding="10,0,10,0" VerticalOptions="Start">
+                        <Grid Padding="0,0,10,0" VerticalOptions="Start">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Selected">
@@ -47,8 +47,8 @@
                         </VisualStateManager.VisualStateGroups>
 
                         <Grid>
-                            <pancake:PancakeView CornerRadius="0,0,30,30">
-                                <Image Source="{Binding}" Aspect="AspectFill" HeightRequest="350" WidthRequest="280"/>
+                            <pancake:PancakeView>
+                                <Image Source="{Binding}" Aspect="AspectFill" HeightRequest="350" WidthRequest="400"/>
                             </pancake:PancakeView>                            
                         </Grid>
                         
@@ -65,22 +65,26 @@
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
-                                 BackgroundColor="White" 
+                                 BackgroundColor="Transparent" 
                                  Margin="10, 10 , 0, 0"/>
+        <ImageButton HeightRequest="35" VerticalOptions="Start" Aspect="AspectFit" Source="imagePickericon.png" BackgroundColor="Transparent" HorizontalOptions="End" Margin="0,10,20,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
+        <pancake:PancakeView  Grid.Row="1" BackgroundColor="White" CornerRadius="35,35,0,0" Margin="0,-40,0,0" Padding="10">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <ActivityIndicator HeightRequest="35" WidthRequest="35" IsRunning="{Binding IsLoading}" Color="SteelBlue" IsVisible="{Binding IsLoading}" HorizontalOptions="Start" Margin="20,10,0,0"/>
+                    
+                </StackLayout>
+
+                <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
+                    <Label Margin="0" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
+                    <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
+                    
+                </StackLayout>
+                <Label Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" IsVisible="{Binding IsText}"/>
+                <Editor Margin="20,5,15,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" IsVisible="{Binding IsEdit}"/>
+                <Button HorizontalOptions="End" WidthRequest="150" Text="{Binding SourceText}" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="15" Command="{Binding EditTextCommand}"/>
+            </StackLayout>
+        </pancake:PancakeView>
         
-        <StackLayout Grid.Row="1">            
-            <StackLayout Orientation="Horizontal">
-                <ActivityIndicator HeightRequest="35" WidthRequest="35" IsRunning="{Binding IsLoading}" Color="SteelBlue" IsVisible="{Binding IsLoading}" HorizontalOptions="Start" Margin="20,10,0,0"/>
-                <ImageButton HeightRequest="35" Aspect="AspectFit" Source="imagePickericon.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Margin="0,10,20,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
-            </StackLayout>
-            
-            <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
-                <ImageButton Source="{Binding SourceIcon}" BackgroundColor="Transparent" HeightRequest="20" Command="{Binding EditTextCommand}"/>
-                <Label Margin="0" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsText}"/>
-                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" IsVisible="{Binding IsEdit}"/>
-            </StackLayout>
-            <Label Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" IsVisible="{Binding IsText}"/>
-            <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" IsVisible="{Binding IsEdit}"/>
-        </StackLayout>
     </Grid>
 </ContentPage>

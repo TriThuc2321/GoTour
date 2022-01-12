@@ -22,6 +22,7 @@ namespace GoTour.MVVM.ViewModel
 
         public Command SaveCommand { get; }
         public Command AddCommand { get; }
+        public Command NavigationBack { get; }
         public NewStayPlaceViewModel() { }
         public NewStayPlaceViewModel(INavigation navigation, Shell curentShell)
         {
@@ -37,6 +38,7 @@ namespace GoTour.MVVM.ViewModel
 
             SaveCommand = new Command(saveHandleAsync);
             AddCommand = new Command(addHandleAsync);
+            NavigationBack = new Command(() => navigation.PopAsync());
 
             listStream = new List<Stream>();
 
