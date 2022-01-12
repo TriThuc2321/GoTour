@@ -53,7 +53,7 @@ namespace GoTour.MVVM.ViewModel
             Name = DataManager.Ins.CurrentStayPlaceManager.name;
             Description = DataManager.Ins.CurrentStayPlaceManager.description;
             IsEdit = false;
-            SourceIcon = "editIcon.png";
+            SourceText = "Edit";
             IsText = true;
 
             count = Imgs.Count();
@@ -95,12 +95,12 @@ namespace GoTour.MVVM.ViewModel
             IsText = !IsText;
             if (!IsEdit)
             {
-                SourceIcon = "editIcon.png";
+                SourceText = "Edit";
                 updateData();
             }
             else
             {
-                SourceIcon = "tickIcon.png";
+                SourceText = "Save";
                 if (SelectedStayPlace.imgSource != null)
                 {
                     await Task.Run(() => {
@@ -214,14 +214,14 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string sourceIcon;
-        public string SourceIcon
+        private string sourceText;
+        public string SourceText
         {
-            get { return sourceIcon; }
+            get { return sourceText; }
             set
             {
-                sourceIcon = value;
-                OnPropertyChanged("SourceIcon");
+                sourceText = value;
+                OnPropertyChanged("SourceText");
 
             }
         }
