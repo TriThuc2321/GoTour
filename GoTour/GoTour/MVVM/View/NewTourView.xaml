@@ -168,7 +168,7 @@
                         <!-- <ImageButton Source="tickIcon.png" BackgroundColor="Transparent" HeightRequest="18" Command="{Binding EditTextCommand}"/> -->
                     </StackLayout>
                              
-                    <Editor Placeholder="Descript you tour here ..." Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="200" />
+                    <Editor Placeholder="Descript your tour here ..." Margin="0,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="200" />
 
                 </StackLayout>
             </pancake:PancakeView>
