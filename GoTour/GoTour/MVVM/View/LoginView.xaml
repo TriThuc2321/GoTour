@@ -33,16 +33,11 @@
                 <RowDefinition />
 
             </Grid.RowDefinitions>
-
-            <Label
-            x:Name="testLb"
-            Text="Welcome to,&#x0a;GoTour"
-            TextColor="Black"
-            FontSize="30"
-            FontAttributes="Bold"
-            Margin="20,35,0,0"
-            Grid.Row="0"
-            />
+            <StackLayout Orientation="Vertical" Grid.Row="0">
+                <Image WidthRequest="200" Source="gotourlogo.png"  Margin="0,0,0,0" VerticalOptions="Start" HorizontalOptions="Center"></Image>
+              
+            </StackLayout>
+         
 
             <Label Text="LOGIN" Grid.Row="1" FontSize="25" Margin="25,0,0,0" TextColor="Black" FontAttributes="Bold"/>
             <Frame Grid.Row="2" CornerRadius="20" Margin="20, 5, 20, 5" Padding="5" HasShadow="False" BackgroundColor="White" VerticalOptions="Center" >
