@@ -58,7 +58,7 @@ namespace GoTour.MVVM.ViewModel
             Name = DataManager.Ins.CurrentPlaceManager.name;
             Description = DataManager.Ins.CurrentPlaceManager.description;
             IsEdit = false;
-            SourceIcon = "editIcon.png";
+            SourceText = "Edit";
             IsText = true;
             
             count = Imgs.Count();                     
@@ -123,11 +123,11 @@ namespace GoTour.MVVM.ViewModel
                     return;
                 }                
                 updateData();
-                SourceIcon = "editIcon.png";
+                SourceText = "Edit";
             }
             else
             {
-                SourceIcon = "tickIcon.png";
+                SourceText = "Save";
                 if (!IsLoaded)
                 {
                     if (SelectedPlace.imgSource != null)
@@ -247,14 +247,14 @@ namespace GoTour.MVVM.ViewModel
             }
         }
 
-        private string sourceIcon;
-        public string SourceIcon
+        private string sourceText;
+        public string SourceText
         {
-            get { return sourceIcon; }
+            get { return sourceText; }
             set
             {
-                sourceIcon = value;
-                OnPropertyChanged("SourceIcon");
+                sourceText = value;
+                OnPropertyChanged("SourceText");
 
             }
         }

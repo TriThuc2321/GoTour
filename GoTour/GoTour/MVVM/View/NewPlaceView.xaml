@@ -47,8 +47,8 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <pancake:PancakeView CornerRadius="0,0,30,30">
-                                    <Image Source="{Binding}" Aspect="AspectFill" />
+                                <pancake:PancakeView CornerRadius="0">
+                                    <Image Source="{Binding}" Aspect="AspectFill" HeightRequest="350" WidthRequest="400"/>
                                 </pancake:PancakeView>
 
                             </Grid>
@@ -65,19 +65,20 @@
                                  CornerRadius="10" 
                                  HorizontalOptions="StartAndExpand" 
                                  VerticalOptions="StartAndExpand"
-                                 BackgroundColor="White" 
+                                 BackgroundColor="Transparent" 
                                  Margin="10, 10 , 0, 0"/>
-        <StackLayout Grid.Row="1">
-            <StackLayout Orientation="Horizontal">                
-                <ImageButton HorizontalOptions="EndAndExpand" HeightRequest="35" Aspect="AspectFit" Source="imagePickericon.png" BackgroundColor="Transparent"  Margin="0,10,10,0" Command="{Binding AddCommand}" />
-                <ImageButton BackgroundColor="Transparent" Source="tickIcon.png" Aspect="AspectFit" HeightRequest="32" HorizontalOptions="Start" CornerRadius="10" Margin="0,10,15,0" Command="{Binding SaveCommand}" />
-            </StackLayout>
+        <ImageButton HeightRequest="35" VerticalOptions="Start" Aspect="AspectFit" Source="imagePickericon.png" BackgroundColor="Transparent" HorizontalOptions="End" Margin="0,10,20,0" IsVisible="{Binding IsEdit}" Command="{Binding AddCommand}" />
 
-            <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
-                <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" Placeholder="Name" PlaceholderColor="Gray"/>
+        <pancake:PancakeView  Grid.Row="1" BackgroundColor="White" CornerRadius="35,35,0,0" Margin="0,-40,0,0" Padding="10">
+            <StackLayout Grid.Row="1">
+                <StackLayout Margin="20,10,0,0" Orientation="Horizontal">
+                    <Entry HorizontalOptions="FillAndExpand" Margin="-4, -8, 0,-8" Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="25" Placeholder="Name" PlaceholderColor="Gray"/>
+                </StackLayout>
+
+                <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
+                <Button HorizontalOptions="End" WidthRequest="150" Text="Save" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="15" Command="{Binding SaveCommand}"/>
             </StackLayout>
-            
-            <Editor Margin="20,5,0,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" MaxLength="180" Placeholder="Description..." PlaceholderColor="Gray"/>
-        </StackLayout>
+        </pancake:PancakeView>
+        
     </Grid>
 </ContentPage>

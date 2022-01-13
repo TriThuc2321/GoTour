@@ -19,8 +19,15 @@ namespace GoTour.MVVM.Model
         }
 
         private string _password;
-        public string password { get; set; }
-
+        public string password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                OnPropertyChanged("password");
+            }
+        }
         private string _name;
         public string name
         {

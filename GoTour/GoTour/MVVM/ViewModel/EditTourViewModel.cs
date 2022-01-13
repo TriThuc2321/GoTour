@@ -59,7 +59,7 @@ namespace GoTour.MVVM.ViewModel
             StartTimePicker = new TimeSpan(4, 0, 0);
 
             IsEdit = false;
-            SourceIcon = "editIcon.png";
+            SourceIcon = "Edit Tour";
             IsText = true;
 
 
@@ -105,7 +105,7 @@ namespace GoTour.MVVM.ViewModel
         });
         private async void editTextHandle(object obj)
         {
-            if(!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            if(DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
             {
                 DependencyService.Get<IToast>().ShortToast("Tour is occured or tour has been booked");
                 return;
@@ -113,12 +113,12 @@ namespace GoTour.MVVM.ViewModel
             IsEdit = !IsEdit;
             if (!IsEdit)
             {
-                SourceIcon = "editIcon.png";
+                SourceIcon = "Edit Tour";
                 updateData();
             }
             else
             {
-                SourceIcon = "tickIcon.png";
+                SourceIcon = "Save Tour";
             }
             IsText = !IsText;
         }

@@ -164,7 +164,7 @@
                         <Frame  Margin="0,0,0,15" CornerRadius="20" Padding="10" VerticalOptions="End" HeightRequest="50" >
                             <Grid Margin="10,0,0,5" >
                                 <Label Text="Explore The Beauty" FontSize="18" FontAttributes="Bold" TextColor="#272727"/>
-                                <Label Text="Get special offers and discount" VerticalOptions="End"/>
+                                <Label Text="Get special offers and discount" VerticalOptions="End" TextColor="#272727"/>
                                 <ImageButton Command="{Binding ToursCommand}" Source="nextIcon.png" BackgroundColor="Transparent" HorizontalOptions="End" HeightRequest="20" Aspect="AspectFill" WidthRequest="20" VerticalOptions="Center"/>
                             </Grid>
                         </Frame>

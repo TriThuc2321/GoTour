@@ -39,6 +39,7 @@
                             <Label Text="{Binding Host.description}" TextColor="Gray"/>
                         </StackLayout>
                     </Grid>
+                    <Label Text="Choose The Place:" FontAttributes="Bold" ></Label>
                     <Picker ItemsSource="{Binding Places}" WidthRequest="250" SelectedItem="{Binding Host}" ItemDisplayBinding= "{Binding name}" HorizontalOptions="Start" Margin="0,0,0,0"/>
                 </StackLayout>
 
@@ -60,7 +61,8 @@
                             <Label Text="{Binding StayPlaceSelected.description}" TextColor="Gray"/>
                         </StackLayout>
                     </Grid>
-                    <Picker ItemsSource="{Binding StayPlaces}" WidthRequest="250" SelectedItem="{Binding StayPlaceSelected}" ItemDisplayBinding= "{Binding name}" HorizontalOptions="Start" Margin="0,0,0,0"/>
+                    <Label Text="Choose The Stayplace:" FontAttributes="Bold" ></Label>
+                    <Picker  ItemsSource="{Binding StayPlaces}" WidthRequest="250" SelectedItem="{Binding StayPlaceSelected}" ItemDisplayBinding= "{Binding name}" HorizontalOptions="Start" Margin="0,0,0,0"/>
                 </StackLayout>
 
             </Frame>
@@ -74,11 +76,15 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Description" FontAttributes="Bold" FontSize="20" Margin="20,0,0,0" TextColor="SteelBlue"/>
-                <ImageButton Source="tickIcon.png" BackgroundColor="Transparent" HeightRequest="25" VerticalOptions="Center" Command="{Binding SaveCommand}" IsVisible="{Binding IsVisible}"/>
+               
             </StackLayout>
 
             <Editor Margin="20,0,10,0" Text="{Binding Description}" TextColor="Gray" AutoSize="TextChanges" />
+            <Button  Text="Save" BackgroundColor="#272727" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="15" Command="{Binding SaveCommand}" IsVisible="{Binding IsVisible}"/>
+
+
         </StackLayout>
+        
 
     </ScrollView>
 </ContentPage>
