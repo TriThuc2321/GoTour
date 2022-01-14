@@ -249,6 +249,7 @@ namespace GoTour.MVVM.ViewModel
 
                 ProfilePic = ImageSource.FromStream(imgData.GetStream);
                 //updateUser();
+                int a = 5;
             }
         }
 
@@ -284,25 +285,25 @@ namespace GoTour.MVVM.ViewModel
         {
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Contact) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(Birthday) || string.IsNullOrWhiteSpace(CMND))
             {
-                DependencyService.Get<IToast>().ShortToast("Hãy điền đầy đủ thông tin");
+                DependencyService.Get<IToast>().ShortToast("Please complete the form");
             }
             else
             {
                 if (ContactValidation(Contact) == false)
                 {
-                    DependencyService.Get<IToast>().ShortToast("Số điện thoại cần có 10 chữ số và bắt đầu bằng 0");
+                    DependencyService.Get<IToast>().ShortToast("Contact must start with 0 and have 10 numerics");
                 }
                 else
                 {
                     if (IDCardValidation(CMND) == false)
                     {
-                        DependencyService.Get<IToast>().ShortToast("CMND hay CCCD cần có 9 chữ số hoặc 12 chữ số");
+                        DependencyService.Get<IToast>().ShortToast("ID must have 9 numerics or 12 numerics");
                     }
                     else
                     {
                         if (imgStream == null)
                         {
-                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password, isEnable = true };
                             var toUpdateUser = (await firebase
                          .Child("Users")
                          .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
@@ -321,9 +322,10 @@ namespace GoTour.MVVM.ViewModel
                                   profilePic = user.profilePic,
                                   address = user.address,
                                   score = user.score,
-                                  rank = user.rank
+                                  rank = user.rank,
+                                  isEnable = true,
                               });
-                            DependencyService.Get<IToast>().ShortToast("Lưu hồ sơ thành công");
+                            DependencyService.Get<IToast>().ShortToast("Saved successfully");
                             IsEdit = false;
                             VisibleSaveBtn = false;
                             EnableImageBtn = false;
@@ -332,7 +334,7 @@ namespace GoTour.MVVM.ViewModel
                         else
                         {
                             CurrUser.profilePic = await DataManager.Ins.UsersServices.saveImage(imgStream, CurrUser.email, CurrUser.name);
-                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password };
+                            User user = new User { name = Name, address = Address, birthday = Birthday, cmnd = CMND, contact = Contact, email = Email, rank = CurrUser.rank, score = CurrUser.score, profilePic = CurrUser.profilePic, password = CurrUser.password, isEnable = true };
                             var toUpdateUser = (await firebase
                          .Child("Users")
                          .OnceAsync<User>()).Where(a => a.Object.email == user.email).FirstOrDefault();
@@ -351,9 +353,10 @@ namespace GoTour.MVVM.ViewModel
                                   profilePic = user.profilePic,
                                   address = user.address,
                                   score = user.score,
-                                  rank = user.rank
+                                  rank = user.rank,
+                                  isEnable = true
                               });
-                            DependencyService.Get<IToast>().ShortToast("Lưu hồ sơ thành công");
+                            DependencyService.Get<IToast>().ShortToast("Saved successfully");
                             IsEdit = false;
                             VisibleSaveBtn = false;
                             EnableImageBtn = false;

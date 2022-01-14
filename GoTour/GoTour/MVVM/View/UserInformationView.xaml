@@ -166,7 +166,7 @@
                            HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
                 <!--Save V button-->
-                <StackLayout Margin="25,15,0,0">
+                <StackLayout Margin="25,25,0,50">
                     <ImageButton
                                 CornerRadius="10"                              
                                 IsVisible="{Binding VisibleSaveBtn}"
