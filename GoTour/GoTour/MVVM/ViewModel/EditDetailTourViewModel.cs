@@ -50,7 +50,7 @@ namespace GoTour.MVVM.ViewModel
 
         public ICommand DeleteCommand => new Command<object>(async (obj) =>
         {
-            if (!DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
+            if (DataManager.Ins.currentTour.isOccured || DataManager.Ins.currentTour.remaining != DataManager.Ins.currentTour.passengerNumber)
             {
                 DependencyService.Get<IToast>().LongToast("Tour is occured or tour has been booked");
                 return;

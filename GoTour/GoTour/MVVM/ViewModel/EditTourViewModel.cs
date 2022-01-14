@@ -54,6 +54,7 @@ namespace GoTour.MVVM.ViewModel
             string[] dayTemp = temp[0].Split('/');
 
             StartTime = temp[1];
+            StartDate = temp[0];
 
             StartDatePicker = new DateTime(int.Parse(dayTemp[2]), int.Parse(dayTemp[0]), int.Parse(dayTemp[1]));
             StartTimePicker = new TimeSpan(4, 0, 0);

@@ -46,7 +46,7 @@ namespace GoTour.MVVM.ViewModel
         {
             Tour result = obj as Tour;
 
-            if (!result.isOccured || result.remaining != result.passengerNumber)
+            if (result.isOccured || result.remaining != result.passengerNumber)
             {
                 DependencyService.Get<IToast>().ShortToast("Tour is occured or tour has been booked");
                 return;

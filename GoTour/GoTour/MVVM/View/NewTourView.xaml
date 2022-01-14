@@ -75,7 +75,7 @@
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,2,0,0">
                         <ImageButton HeightRequest="25" WidthRequest="25" Aspect="AspectFit" Source="clocksIcon.png" BackgroundColor="Transparent"/>
                         <TimePicker Time="{Binding StartTimePicker}"/>
-                        <DatePicker Date="{Binding StartDatePicker}" Format="dd/MM/yyyy"/>
+                        <DatePicker Date="{Binding StartDatePicker}" Format="MM/dd/yyyy"/>
 
                     </StackLayout>
 

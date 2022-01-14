@@ -82,6 +82,7 @@ namespace GoTour.MVVM.ViewModel
             }
             await DataManager.Ins.StayPlacesServices.AddStayPlace(id, Name, imgSource, Description,selectedPlace.id,address, true );
             DataManager.Ins.ListStayPlace.Add(new StayPlace(id, Name, imgSource, address, description, true, selectedPlace.id ));
+            DependencyService.Get<IToast>().ShortToast("New stayplace has been inserted");
             await navigation.PopAsync();
         }
        

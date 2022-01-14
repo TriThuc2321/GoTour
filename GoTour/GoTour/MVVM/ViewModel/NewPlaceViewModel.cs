@@ -86,6 +86,7 @@ namespace GoTour.MVVM.ViewModel
             }
             await DataManager.Ins.PlacesServices.AddPlace(id, Name, imgSource, Description, true);
             DataManager.Ins.ListPlace.Add(new Place(id, Name, imgSource, Description, true));
+            DependencyService.Get<IToast>().ShortToast("New place has been inserted");
             await navigation.PopAsync();
         }
 

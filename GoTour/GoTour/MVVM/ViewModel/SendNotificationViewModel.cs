@@ -387,7 +387,7 @@ namespace GoTour.MVVM.ViewModel
             string temp = "";
             foreach (BookedTicket i in DataManager.Ins.ListBookedTickets)
             {
-                if (i.tour.id.Equals(tourid))
+                if (i.tour != null && i.tour.id.Equals(tourid))
                 {
                     temp = i.email;
                     if (!ListEmailPicker.Contains(temp))
